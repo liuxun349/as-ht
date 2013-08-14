@@ -1,0 +1,58 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+<style name="AppBaseTheme" parent="android:Theme.Light">
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
+    <style name="top">
+        <item name="android:layout_gravity">top</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:background">@color/title_bg</item>
+        <item name="android:layout_height">@dimen/title_height</item>
+    </style>
+    
+    <style name="body">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_gravity">top</item>
+        <item name="android:layout_marginTop">50dp</item>
+    </style>
+    
+    <style name="delete">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">@dimen/title_height</item>
+        <item name="android:layout_gravity">bottom</item>
+    </style>
+
+    <style name="setting_attribute_list">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">#ccc</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="setting_attribute_list_item_imageview_left">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="setting_attribute_list_item_textview">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="setting_attribute_list_item_imageview_right">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+</resources>

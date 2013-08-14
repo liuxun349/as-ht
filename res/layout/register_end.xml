@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffefebe7" >
+
+    <FrameLayout style="@style/top" >
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="@string/text_register"
+            android:textColor="@color/title_text_color"
+            android:textSize="@dimen/title_text_size" />
+
+        <TextView
+            android:id="@+id/tv_title_back"
+            android:layout_width="@dimen/title_height"
+            android:layout_height="@dimen/title_height"
+            android:layout_gravity="center_vertical|left"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="@string/title_back"
+            android:textColor="@color/title_text_color"
+            android:textSize="@dimen/title_text_size" />
+    </FrameLayout>
+
+    <ScrollView
+        android:id="@+id/regist_scroller"
+        style="@style/body"
+        android:background="#ffefebe7"
+        android:padding="10dp" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TableLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_login_passwd"
+                        android:textColor="@color/black" />
+
+                    <EditText
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_text_x"
+                        android:editable="false"
+                        android:singleLine="true" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_once_agin"
+                        android:textColor="@color/black" />
+
+                    <EditText
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_text_x"
+                        android:editable="false"
+                        android:singleLine="true" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" >
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="两次密码不一致"
+                        android:textColor="@color/black" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_consume_passwd"
+                        android:textColor="@color/black" />
+
+                    <EditText
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_text_x"
+                        android:editable="false"
+                        android:singleLine="true" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_once_agin"
+                        android:textColor="@color/black" />
+
+                    <EditText
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_text_x"
+                        android:editable="false"
+                        android:singleLine="true" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" >
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="两次密码不一致"
+                        android:textColor="@color/black" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_Q_one"
+                        android:textColor="@color/black" />
+
+                    <Spinner
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_text_x"
+                        android:editable="false"
+                        android:singleLine="true" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_answer"
+                        android:textColor="@color/black" />
+
+                    <EditText
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_text_x"
+                        android:editable="false"
+                        android:singleLine="true" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_Q_sec"
+                        android:textColor="@color/black" />
+
+                    <Spinner
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_text_x"
+                        android:editable="false"
+                        android:singleLine="true" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_answer"
+                        android:textColor="@color/black" />
+
+                    <EditText
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_text_x"
+                        android:editable="false"
+                        android:singleLine="true" />
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/register_next"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_gravity="bottom"
+        android:layout_margin="20dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/android_big_button_x"
+        android:gravity="center"
+        android:text="注册"
+        android:textColor="#ff000000"
+        android:textSize="20.0sp" />
+
+</FrameLayout>

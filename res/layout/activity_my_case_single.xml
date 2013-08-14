@@ -1,0 +1,157 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <FrameLayout style="@style/top" >
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="病例组一名称" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|left"
+            android:gravity="center_vertical|center_horizontal"
+            android:src="@drawable/setting_ok" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_myCases_selected_title"
+        style="@style/top"
+        android:visibility="gone" >
+
+        <TextView
+            android:id="@+id/txt_myCases_selected_txt"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="已选999个" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center_vertical"
+            android:text="取消" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:text="全选" />
+    </FrameLayout>
+
+    <LinearLayout
+        style="@style/body"
+        android:layout_marginBottom="50dp"
+        android:orientation="vertical" >
+
+        <GridView
+            android:id="@+id/gv_myCases"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:numColumns="4" >
+        </GridView>
+    </LinearLayout>
+
+    <FrameLayout
+        style="@style/top"
+        android:layout_gravity="bottom|center_horizontal" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/setting_update"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="本地导入" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/setting_update"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="相机拍照" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_myCases_delete"
+        style="@style/top"
+        android:layout_gravity="bottom|center_horizontal"
+        android:visibility="gone" >
+
+        <Button
+            android:id="@+id/btn_myCases_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:background="@android:color/transparent"
+            android:clickable="false"
+            android:drawableLeft="@drawable/setting_update"
+            android:focusable="false"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="删除" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_myCases_delete_isOk"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:background="#ddd"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="删除" />
+
+        <TextView
+            android:id="@+id/txt_myCases_delte_txt"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="确定删除9张病例吗？" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/btn_myCases_delete_cancel"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="取消" />
+
+            <Button
+                android:id="@+id/btn_myCases_delete_ok"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="确定" />
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

@@ -1,0 +1,47 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/probject_bg"
+    android:orientation="vertical" >
+
+    <FrameLayout style="@style/top" >
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="意见反馈"
+            android:textColor="@color/title_text_color"
+            android:textSize="@dimen/title_text_size" />
+
+        <TextView
+            android:id="@+id/tv_title_back"
+            android:layout_width="@dimen/title_height"
+            android:layout_height="@dimen/title_height"
+            android:layout_gravity="center_vertical|left"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="@string/title_back"
+            android:textColor="@color/title_text_color"
+            android:textSize="@dimen/title_text_size" />
+    </FrameLayout>
+
+    <LinearLayout
+        style="@style/body"
+        android:padding="10dp"
+        android:orientation="vertical" >
+
+        <EditText 
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="3"
+            />
+        <Button 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="确认"/>
+    </LinearLayout>
+
+</FrameLayout>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <FrameLayout style="@style/top" >
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="@string/text_login_title"
+            android:textColor="@color/title_text_color"
+            android:textSize="@dimen/title_text_size" />
+
+        <TextView
+            android:id="@+id/tv_title_back"
+            android:layout_width="@dimen/title_height"
+            android:layout_height="@dimen/title_height"
+            android:layout_gravity="center_vertical|left"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="@string/title_back"
+            android:textColor="@color/title_text_color"
+            android:textSize="@dimen/title_text_size" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:text="@string/text_register" />
+    </FrameLayout>
+
+    <ScrollView
+        android:id="@+id/regist_scroller"
+        style="@style/body"
+        android:background="#ffefebe7" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp" >
+
+            <TableLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/login_page_input_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_login_user_name"
+                        android:textColor="@color/black" />
+
+                    <EditText
+                        android:id="@+id/login_input_name"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_text_x"
+                        android:hint="@string/text_login_user_name_toast"
+                        android:singleLine="true" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/login_page_input_password"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_login_user_passwd"
+                        android:textColor="@color/black" />
+
+                    <EditText
+                        android:id="@+id/login_input_password"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edit_text_x"
+                        android:hint="@string/text_login_user_passwd_toast"
+                        android:inputType="textPassword"
+                        android:singleLine="true" />
+                </TableRow>
+            </TableLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <CheckBox
+                    android:id="@+id/remember_user"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/login_remember"
+                    android:text="@string/text_login_forget_passwd"
+                    android:textColor="@color/black" />
+
+                <CheckBox
+                    android:id="@+id/display_passwd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/login_remember"
+                    android:text="@string/text_login_display_passwd"
+                    android:textColor="@color/black" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/forget_passwd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center_vertical"
+                    android:text="忘记密码" />
+            </LinearLayout>
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/text_login" />
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>
