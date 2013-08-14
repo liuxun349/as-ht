@@ -6,6 +6,9 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_back">&#060;&#060;</string>
     <string name="at">"@"</string>
+    
+    <string name="text_sure">确定</string>
+    
     <string name="text_login_title">用户登录</string>
     <string name="text_login_user_name">用户名 :</string>
     <string name="text_login_user_name_toast">请输入用户名</string>
@@ -15,6 +18,7 @@
     <string name="text_login">登录</string>
     <string name="text_login_display_passwd">显示密码</string>
     <string name="text_login_remenber_name">记住用户名</string>
+    
     <string name="text_register">注册</string>
     <string name="text_user_register">用户注册</string>
     <string name="text_phone_number">手机号码 ：</string>
