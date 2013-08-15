@@ -88,10 +88,11 @@ public final class R {
         public static final int yishenhe=0x7f020038;
     }
     public static final class id {
-        public static final int MorePageTableLayout_Client=0x7f08002c;
-        public static final int MorePageTableLayout_Favorite=0x7f08002b;
+        public static final int MorePageTableLayout_Client=0x7f08002e;
+        public static final int MorePageTableLayout_Favorite=0x7f08002d;
         public static final int btn_exit_cancel=0x7f080001;
         public static final int btn_exit_ok=0x7f080002;
+        public static final int btn_login=0x7f080028;
         public static final int btn_myCases_delete=0x7f080007;
         public static final int btn_myCases_delete_cancel=0x7f08000a;
         public static final int btn_myCases_delete_ok=0x7f08000b;
@@ -119,19 +120,20 @@ public final class R {
         public static final int login_input_password=0x7f080024;
         public static final int login_page_input_name=0x7f080022;
         public static final int login_page_input_password=0x7f080023;
-        public static final int message_time=0x7f080029;
-        public static final int message_title=0x7f080028;
-        public static final int more_page_row1=0x7f08002e;
-        public static final int more_page_row2=0x7f08002f;
-        public static final int more_page_row4=0x7f08002d;
-        public static final int more_page_row5=0x7f080030;
+        public static final int message_time=0x7f08002a;
+        public static final int message_title=0x7f080029;
+        public static final int more_page_row1=0x7f080030;
+        public static final int more_page_row2=0x7f080031;
+        public static final int more_page_row4=0x7f08002f;
+        public static final int more_page_row5=0x7f080032;
         public static final int regist_scroller=0x7f080021;
         public static final int regist_scroller_relative=0x7f080017;
+        public static final int register_check_number=0x7f08002b;
         public static final int register_next=0x7f080020;
         public static final int register_phone=0x7f08001b;
         public static final int register_txv_phone=0x7f08001a;
         public static final int remember_user=0x7f080025;
-        public static final int top_relative=0x7f08002a;
+        public static final int top_relative=0x7f08002c;
         public static final int tv_myCases_title=0x7f08000f;
         public static final int tv_title_back=0x7f080000;
         public static final int txt_myCases_delte_txt=0x7f080009;

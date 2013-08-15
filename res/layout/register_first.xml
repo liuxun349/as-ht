@@ -58,6 +58,7 @@
             android:layout_alignTop="@+id/register_txv_phone"
             android:layout_toRightOf="@+id/register_txv_phone"
             android:background="@drawable/edit_text_x"
+            android:inputType="phone"
             android:singleLine="true" />
 
         <TextView
@@ -82,7 +83,7 @@
             android:orientation="horizontal" >
 
             <EditText
-                android:id="@+id/login_input_name"
+                android:id="@+id/register_check_number"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
