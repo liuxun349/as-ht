@@ -9,7 +9,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.asht.R;
-import com.asht.database.DateBaseUser;
 
 public class LoginActivity extends Activity {
 	private EditText login_input_name, login_input_password;
@@ -31,7 +30,7 @@ public class LoginActivity extends Activity {
 				String userId = login_input_name.getText().toString().trim();
 				String passwd = login_input_password.getText().toString()
 						.trim();
-				new DateBaseUser().login(userId, passwd);
+//				new DateBaseUser().login(userId, passwd);
 			}
 		});
 	}

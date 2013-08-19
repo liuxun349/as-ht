@@ -3,6 +3,9 @@
  */
 package com.asht.model;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class UserInfo {
 	private String userId;
 	private String loginPwd;
@@ -16,7 +19,7 @@ public class UserInfo {
 	private int sex;
 	private int age;
 	private String address;
-	
+	private JSONObject securityQA;
 	public UserInfo(){
 		
 	}
@@ -37,6 +40,30 @@ public class UserInfo {
 		this.address = address;
 	}
 
+	public JSONObject toJson(){
+		JSONObject jObject = new JSONObject();
+		try {
+			jObject.put("UserPhoneNumber", userId);
+			jObject.put("LoginPassword", loginPwd);
+			jObject.put("PayPassword", payPwd);
+			jObject.put("Name", tureName);
+			jObject.put("UserType", roleId);
+			jObject.put("NickName", nickName);
+			jObject.put("Email", email);
+			jObject.put("CertificateType", certificateType);
+			jObject.put("CertificateNo", certificateNo);
+			
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
+		return jObject;
+	}
+	public JSONObject getSecurityQA(){
+		return securityQA;
+	}
 	public String getUserId() {
 		return userId;
 	}

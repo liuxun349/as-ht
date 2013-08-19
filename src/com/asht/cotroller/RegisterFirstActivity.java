@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.asht.R;
-import com.asht.database.DateBaseUser;
 import com.asht.model.UserInfo;
 import com.asht.utl.ApplictionManager;
 
