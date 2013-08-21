@@ -30,19 +30,17 @@ public class UserRelationship {
 	/**
 	 * 推荐病人或医生处理
 	 */
-	public JSONObject auditRecommendations(String presenterUserID,
-			String userPhoneNumber, String name, String userType,
-			String certificateType, String certificateNo) {
+	public JSONObject auditRecommendations(String id, String ReferenceUserID,
+			String RecommendedUserID, String vcharAuditUserID, String AuditNote) {
 		String mname = "AuditRecommendations";
 		JSONObject param = new JSONObject();
 
 		try {
-			param.put("PresenterUserID", presenterUserID);
-			param.put("UserPhoneNumber", userPhoneNumber);
-			param.put("Name", name);
-			param.put("UserType", userType);
-			param.put("CertificateType", certificateType);
-			param.put("CertificateNo", certificateNo);
+			param.put("id", id);
+			param.put("ReferenceUserID", ReferenceUserID);
+			param.put("RecommendedUserID", RecommendedUserID);
+			param.put("vcharAuditUserID", vcharAuditUserID);
+			param.put("AuditNote", AuditNote);
 		} catch (Exception e) {
 		}
 		JSONObject result = NetworkConnection.connection(mname, param);
@@ -79,4 +77,4 @@ public class UserRelationship {
 		return result;
 	}
 
-	}
+}
