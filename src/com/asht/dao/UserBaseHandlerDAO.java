@@ -30,9 +30,9 @@ public class UserBaseHandlerDAO {
 	 * @param loginFrom
 	 * @return
 	 */
-	public JSONObject login(String userPhoneNumber, String loginPassword,
-			String loginFrom) {
+	public JSONObject login(String userPhoneNumber, String loginPassword) {
 		String name = "Login";
+		String loginFrom = "AS-HT";
 
 		JSONObject param = new JSONObject();
 		try {

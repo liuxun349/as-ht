@@ -3,12 +3,14 @@ package com.asht.utl;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.asht.model.User;
 import com.asht.model.UserInfo;
 
 import android.app.Activity;
 import android.app.Application;
 
 public class ApplictionManager extends Application {
+	private User user = new User();
 	private List<Activity> activityList = new LinkedList<Activity>();
 	public UserInfo userInfo = new UserInfo();
 	private static ApplictionManager instance;
@@ -41,5 +43,8 @@ public class ApplictionManager extends Application {
 		if (id != 0) {
 			android.os.Process.killProcess(id);
 		}
+	}
+	public User getUser(){
+		return user;
 	}
 }
