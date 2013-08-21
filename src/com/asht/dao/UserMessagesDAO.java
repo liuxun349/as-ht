@@ -1,16 +1,16 @@
-package com.asht.data;
+package com.asht.dao;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class UserMessages {
+public class UserMessagesDAO {
 	/**
 	 * 根据条件查找意见反馈
 	 * 
 	 * @return
 	 */
-	public JSONObject searchMessages(String Start, String Count,
-			String Field, String Value, String Junction) {
+	public JSONObject searchMessages(String Start, String Count, String Field,
+			String Value, String Junction) {
 		String name = "SearchMessages";
 
 		JSONObject param = new JSONObject();
@@ -30,7 +30,7 @@ public class UserMessages {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		JSONObject result = NetworkConnection.connection(name, param);
+		JSONObject result = NetworkConnectionDAO.connection(name, param);
 		return result;
 	}
 }

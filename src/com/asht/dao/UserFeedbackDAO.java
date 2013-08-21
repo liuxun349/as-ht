@@ -1,9 +1,9 @@
-package com.asht.data;
+package com.asht.dao;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Feedback {
+public class UserFeedbackDAO {
 
 	/**
 	 * 添加意见反馈
@@ -19,7 +19,7 @@ public class Feedback {
 			param.put("UserID", UserID);
 		} catch (Exception e) {
 		}
-		JSONObject result = NetworkConnection.connection(mname, param);
+		JSONObject result = NetworkConnectionDAO.connection(mname, param);
 		return result;
 	}
 	
@@ -37,7 +37,7 @@ public class Feedback {
 			param.put("ProcessNote", ProcessNote);
 		} catch (Exception e) {
 		}
-		JSONObject result = NetworkConnection.connection(mname, param);
+		JSONObject result = NetworkConnectionDAO.connection(mname, param);
 		return result;
 	}
 	
@@ -54,7 +54,7 @@ public class Feedback {
 			param.put("AdviceId", AdviceID);
 		} catch (Exception e) {
 		}
-		JSONObject result = NetworkConnection.connection(mname, param);
+		JSONObject result = NetworkConnectionDAO.connection(mname, param);
 		return result;
 	}
 	
@@ -84,7 +84,7 @@ public class Feedback {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		JSONObject result = NetworkConnection.connection(name, param);
+		JSONObject result = NetworkConnectionDAO.connection(name, param);
 		return result;
 	}
 }

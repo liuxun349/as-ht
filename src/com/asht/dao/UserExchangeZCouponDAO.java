@@ -1,9 +1,9 @@
-package com.asht.data;
+package com.asht.dao;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ExchangeZCoupon {
+public class UserExchangeZCouponDAO {
 	/**
 	 * 兑换Z券
 	 * 
@@ -23,7 +23,7 @@ public class ExchangeZCoupon {
 			param.put("PayPassword", PayPassword);
 		} catch (Exception e) {
 		}
-		JSONObject result = NetworkConnection.connection(mname, param);
+		JSONObject result = NetworkConnectionDAO.connection(mname, param);
 		return result;
 	}
 
@@ -41,16 +41,17 @@ public class ExchangeZCoupon {
 			param.put("ZCouponID", ZCouponID);
 		} catch (Exception e) {
 		}
-		JSONObject result = NetworkConnection.connection(mname, param);
+		JSONObject result = NetworkConnectionDAO.connection(mname, param);
 		return result;
 	}
+
 	/**
 	 * 搜索Z券
 	 * 
 	 * @return
 	 */
-	public JSONObject searchZCoupons(String Start, String Count,
-			String Field, String Value, String Junction) {
+	public JSONObject searchZCoupons(String Start, String Count, String Field,
+			String Value, String Junction) {
 		String name = "SearchZCoupons";
 
 		JSONObject param = new JSONObject();
@@ -70,7 +71,7 @@ public class ExchangeZCoupon {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		JSONObject result = NetworkConnection.connection(name, param);
+		JSONObject result = NetworkConnectionDAO.connection(name, param);
 		return result;
 	}
 

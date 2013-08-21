@@ -1,9 +1,9 @@
-package com.asht.data;
+package com.asht.dao;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class UserRelationship {
+public class UserRecommendDAO {
 
 	/**
 	 * 推荐病人或医生处理
@@ -23,7 +23,7 @@ public class UserRelationship {
 			param.put("CertificateNo", certificateNo);
 		} catch (Exception e) {
 		}
-		JSONObject result = NetworkConnection.connection(mname, param);
+		JSONObject result = NetworkConnectionDAO.connection(mname, param);
 		return result;
 	}
 
@@ -43,7 +43,7 @@ public class UserRelationship {
 			param.put("AuditNote", AuditNote);
 		} catch (Exception e) {
 		}
-		JSONObject result = NetworkConnection.connection(mname, param);
+		JSONObject result = NetworkConnectionDAO.connection(mname, param);
 		return result;
 	}
 
@@ -73,7 +73,7 @@ public class UserRelationship {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		JSONObject result = NetworkConnection.connection(name, param);
+		JSONObject result = NetworkConnectionDAO.connection(name, param);
 		return result;
 	}
 

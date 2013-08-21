@@ -1,11 +1,11 @@
 /**
  * 病例
  */
-package com.asht.data;
+package com.asht.dao;
 
 import org.json.JSONObject;
 
-public class UserMedicalRecordGroups {
+public class UserMedicalRecordGroupsDAO {
 	/**
 	 * 获取用户的所有病历组
 	 * @param userId
@@ -19,7 +19,7 @@ public class UserMedicalRecordGroups {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		JSONObject result = NetworkConnection.connection(name, param);
+		JSONObject result = NetworkConnectionDAO.connection(name, param);
 		return result;
 	}
 	/**
@@ -35,7 +35,7 @@ public class UserMedicalRecordGroups {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		JSONObject result = NetworkConnection.connection(name, param);
+		JSONObject result = NetworkConnectionDAO.connection(name, param);
 		return result;
 	}
 	/**
@@ -52,7 +52,7 @@ public class UserMedicalRecordGroups {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		JSONObject result = NetworkConnection.connection(name, param);
+		JSONObject result = NetworkConnectionDAO.connection(name, param);
 		return result;
 	}
 	/**
@@ -68,7 +68,7 @@ public class UserMedicalRecordGroups {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		JSONObject result = NetworkConnection.connection(name, param);
+		JSONObject result = NetworkConnectionDAO.connection(name, param);
 		return result;
 	}
 	/**
@@ -84,7 +84,7 @@ public class UserMedicalRecordGroups {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		JSONObject result = NetworkConnection.connection(name, param);
+		JSONObject result = NetworkConnectionDAO.connection(name, param);
 		return result;
 	}
 	

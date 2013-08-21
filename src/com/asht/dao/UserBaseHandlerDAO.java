@@ -1,11 +1,11 @@
-package com.asht.data;
+package com.asht.dao;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.asht.model.UserInfo;
 
-public class UserBaseHandler {
+public class UserBaseHandlerDAO {
 	/**
 	 * 注册
 	 * 
@@ -17,7 +17,7 @@ public class UserBaseHandler {
 		String name = "Regist";
 
 		JSONObject param = user.toJson();
-		JSONObject result = NetworkConnection.connection(name, param);
+		JSONObject result = NetworkConnectionDAO.connection(name, param);
 
 		return result;
 	}
@@ -44,7 +44,7 @@ public class UserBaseHandler {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		JSONObject result = NetworkConnection.connection(name, param);
+		JSONObject result = NetworkConnectionDAO.connection(name, param);
 		return result;
 	}
 
@@ -65,7 +65,7 @@ public class UserBaseHandler {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		JSONObject result = NetworkConnection.connection(name, param);
+		JSONObject result = NetworkConnectionDAO.connection(name, param);
 		return result;
 	}
 
@@ -88,7 +88,7 @@ public class UserBaseHandler {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		JSONObject result = NetworkConnection.connection(name, param);
+		JSONObject result = NetworkConnectionDAO.connection(name, param);
 		return result;
 	}
 
@@ -115,7 +115,7 @@ public class UserBaseHandler {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		JSONObject result = NetworkConnection.connection(name, param);
+		JSONObject result = NetworkConnectionDAO.connection(name, param);
 		return result;
 	}
 
@@ -141,7 +141,7 @@ public class UserBaseHandler {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		JSONObject result = NetworkConnection.connection(name, param);
+		JSONObject result = NetworkConnectionDAO.connection(name, param);
 		return result;
 	}
 
@@ -167,7 +167,7 @@ public class UserBaseHandler {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		JSONObject result = NetworkConnection.connection(name, param);
+		JSONObject result = NetworkConnectionDAO.connection(name, param);
 		return result;
 	}
 
@@ -192,7 +192,7 @@ public class UserBaseHandler {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		JSONObject result = NetworkConnection.connection(name, param);
+		JSONObject result = NetworkConnectionDAO.connection(name, param);
 		return result;
 	}
 	/**
@@ -208,7 +208,7 @@ public class UserBaseHandler {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		JSONObject result = NetworkConnection.connection(name, param);
+		JSONObject result = NetworkConnectionDAO.connection(name, param);
 		return result;
 	}
 	/**
@@ -230,7 +230,7 @@ public class UserBaseHandler {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		JSONObject result = NetworkConnection.connection(name, param);
+		JSONObject result = NetworkConnectionDAO.connection(name, param);
 		return result;
 	}
 	/**
@@ -251,7 +251,7 @@ public class UserBaseHandler {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		JSONObject result = NetworkConnection.connection(name, param);
+		JSONObject result = NetworkConnectionDAO.connection(name, param);
 		return result;
 	}
 	/**
@@ -269,7 +269,7 @@ public class UserBaseHandler {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		JSONObject result = NetworkConnection.connection(name, param);
+		JSONObject result = NetworkConnectionDAO.connection(name, param);
 		return result;
 	}
 	/**
@@ -290,7 +290,7 @@ public class UserBaseHandler {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		JSONObject result = NetworkConnection.connection(name, param);
+		JSONObject result = NetworkConnectionDAO.connection(name, param);
 		return result;
 	}
 	

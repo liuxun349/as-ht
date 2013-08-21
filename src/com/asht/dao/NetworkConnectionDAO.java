@@ -1,4 +1,4 @@
-package com.asht.data;
+package com.asht.dao;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -14,7 +14,7 @@ import org.json.JSONObject;
 
 import com.asht.utl.Settings;
 
-public class NetworkConnection {
+public class NetworkConnectionDAO {
 	/**
 	 * 网络连接部分
 	 * @param name	接口名称
