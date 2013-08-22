@@ -11,7 +11,7 @@ public class UserInfo {
 	private String loginPwd;
 	private String payPwd;
 	private String tureName;
-	private final int roleId = 2;
+	private int roleId ;
 	private int certificateType;
 	private String certificateNo;
 	private String email;

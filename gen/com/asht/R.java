@@ -103,14 +103,15 @@ public final class R {
         public static final int yishenhe=0x7f020040;
     }
     public static final class id {
-        public static final int MorePageTableLayout_Client=0x7f0a003e;
-        public static final int MorePageTableLayout_Favorite=0x7f0a003d;
+        public static final int MorePageTableLayout_Client=0x7f0a0046;
+        public static final int MorePageTableLayout_Favorite=0x7f0a0045;
         public static final int btn_exit_cancel=0x7f0a0001;
         public static final int btn_exit_ok=0x7f0a0002;
         public static final int btn_login=0x7f0a0028;
         public static final int btn_myCases_delete=0x7f0a0007;
         public static final int btn_myCases_delete_cancel=0x7f0a000a;
         public static final int btn_myCases_delete_ok=0x7f0a000b;
+        public static final int btn_next=0x7f0a0043;
         public static final int care_id=0x7f0a0019;
         public static final int cb_isShenHe=0x7f0a000e;
         public static final int cb_isTongGuo=0x7f0a000d;
@@ -119,6 +120,13 @@ public final class R {
         public static final int console_line_bottom=0x7f0a0029;
         public static final int display_passwd=0x7f0a0026;
         public static final int empty_cart_view=0x7f0a0016;
+        public static final int etx_certificateNo=0x7f0a003f;
+        public static final int etx_certificateType=0x7f0a003e;
+        public static final int etx_mailePre=0x7f0a0041;
+        public static final int etx_mailelast=0x7f0a0042;
+        public static final int etx_nickname=0x7f0a003c;
+        public static final int etx_roleId=0x7f0a0040;
+        public static final int etx_turename=0x7f0a003d;
         public static final int fl_myCases_delete=0x7f0a0006;
         public static final int fl_myCases_selected_title=0x7f0a0003;
         public static final int forget_passwd=0x7f0a0027;
@@ -146,10 +154,10 @@ public final class R {
         public static final int main_tab_more=0x7f0a002f;
         public static final int message_time=0x7f0a0031;
         public static final int message_title=0x7f0a0030;
-        public static final int more_page_row1=0x7f0a0040;
-        public static final int more_page_row2=0x7f0a0041;
-        public static final int more_page_row4=0x7f0a003f;
-        public static final int more_page_row5=0x7f0a0042;
+        public static final int more_page_row1=0x7f0a0048;
+        public static final int more_page_row2=0x7f0a0049;
+        public static final int more_page_row4=0x7f0a0047;
+        public static final int more_page_row5=0x7f0a004a;
         public static final int pay_pwd=0x7f0a0034;
         public static final int pay_pwd_agin=0x7f0a0035;
         public static final int regist_scroller=0x7f0a0021;
@@ -164,7 +172,7 @@ public final class R {
         public static final int securityA_2=0x7f0a0039;
         public static final int securityQ_1=0x7f0a0036;
         public static final int securityQ_2=0x7f0a0038;
-        public static final int top_relative=0x7f0a003c;
+        public static final int top_relative=0x7f0a0044;
         public static final int tv_myCases_title=0x7f0a000f;
         public static final int tv_title_back=0x7f0a0000;
         public static final int txt_myCases_delte_txt=0x7f0a0009;

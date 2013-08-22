@@ -234,7 +234,7 @@ public class UserBaseHandlerDAO {
 		return result;
 	}
 	/**
-	 * 验证手机验证码
+	 * 
 	 * @param userId
 	 * @param reasonType
 	 * @param verficationCode
@@ -293,5 +293,22 @@ public class UserBaseHandlerDAO {
 		JSONObject result = NetworkConnectionDAO.connection(name, param);
 		return result;
 	}
+	/**
+	 * 生成并发送手机验证码----服务器端未完成
+	 * @param phoneId
+	 * @return
+	 */
+	public JSONObject requestSendMobileVerficationCode(String phoneId){
+		String name = "RequestSendMobileVerficationCode";
+		JSONObject param = new JSONObject();
+		try {
+			param.put("phoneId", phoneId);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		JSONObject result = NetworkConnectionDAO.connection(name, param);
+		return result;
+	}
+	
 	
 }
