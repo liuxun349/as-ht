@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="securityQ">
+		<item>手机号码后四位</item>
+		<item>我的生日</item>
+	</string-array>
+</resources>
