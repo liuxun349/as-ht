@@ -5,7 +5,7 @@
     android:background="@color/probject_bg"
     android:orientation="vertical" >
 
-    <FrameLayout style="@style/top">
+    <FrameLayout style="@style/top" >
 
         <TextView
             android:layout_width="fill_parent"
@@ -29,8 +29,8 @@
 
     <LinearLayout
         style="@style/body"
-        android:padding="10dp"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:padding="10dp" >
 
         <TableLayout
             android:layout_width="fill_parent"
@@ -49,7 +49,9 @@
                 <EditText
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:lines="1"
+                    android:maxLength="16" />
             </TableRow>
 
             <TableRow
@@ -65,7 +67,9 @@
                 <EditText
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:lines="1"
+       			    android:maxLength="16" />
             </TableRow>
 
             <TableRow
@@ -103,7 +107,8 @@
             <TableRow
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1" >
+                android:layout_weight="1"
+                android:visibility="gone" >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -134,7 +139,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/at" /> 
+                    android:text="@string/at" />
 
                 <EditText
                     android:layout_width="0dp"

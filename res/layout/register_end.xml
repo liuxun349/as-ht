@@ -52,11 +52,14 @@
                         android:textColor="@color/black" />
 
                     <EditText
+                        android:id="@+id/login_pwd"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/edit_text_x"
                         android:editable="false"
+                        android:lines="1"
+                        android:maxLength="16"
                         android:singleLine="true" />
                 </TableRow>
 
@@ -71,11 +74,14 @@
                         android:textColor="@color/black" />
 
                     <EditText
+                        android:id="@+id/login_pwd_agin"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/edit_text_x"
                         android:editable="false"
+                        android:lines="1"
+                        android:maxLength="16"
                         android:singleLine="true" />
                 </TableRow>
 
@@ -105,11 +111,14 @@
                         android:textColor="@color/black" />
 
                     <EditText
+                        android:id="@+id/pay_pwd"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/edit_text_x"
                         android:editable="false"
+                        android:lines="1"
+                        android:maxLength="16"
                         android:singleLine="true" />
                 </TableRow>
 
@@ -124,11 +133,14 @@
                         android:textColor="@color/black" />
 
                     <EditText
+                        android:id="@+id/pay_pwd_agin"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/edit_text_x"
                         android:editable="false"
+                        android:lines="1"
+                        android:maxLength="16"
                         android:singleLine="true" />
                 </TableRow>
 
@@ -157,13 +169,13 @@
                         android:text="@string/text_Q_one"
                         android:textColor="@color/black" />
 
+                   
+
                     <Spinner
+                        android:id="@+id/securityQ_1"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/edit_text_x"
-                        android:editable="false"
-                        android:singleLine="true" />
+                        android:layout_height="wrap_content" />
+
                 </TableRow>
 
                 <TableRow
@@ -177,6 +189,7 @@
                         android:textColor="@color/black" />
 
                     <EditText
+                        android:id="@+id/securityA_1"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -196,10 +209,9 @@
                         android:textColor="@color/black" />
 
                     <Spinner
+                        android:id="@+id/securityQ_2"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/edit_text_x"
                         android:editable="false"
                         android:singleLine="true" />
                 </TableRow>
@@ -209,12 +221,14 @@
                     android:layout_height="wrap_content" >
 
                     <TextView
+                        
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/text_answer"
                         android:textColor="@color/black" />
 
                     <EditText
+                        android:id="@+id/securityA_2"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -227,7 +241,7 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/register_next"
+        android:id="@+id/register_end"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
