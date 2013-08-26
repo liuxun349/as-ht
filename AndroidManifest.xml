@@ -6,7 +6,7 @@
 
     <uses-sdk
         android:minSdkVersion="10"
-        android:targetSdkVersion="17" />
+         />
 
     <application
         android:allowBackup="true"
@@ -14,13 +14,30 @@
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Black.NoTitleBar" >
         <activity
-            android:name="com.asht.cotroller.RegisterEndActivity"
+            android:name="com.asht.controller.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name="com.asht.controller.MainHomePageActivity" />
+        <activity android:name="com.asht.controller.MainMessageActivity" >
+        </activity>
+        <activity android:name="com.asht.controller.MainMoreActivity" >
+        </activity>
+        <activity android:name="com.asht.controller.MainSafetyCenterActivity" >
+        </activity>
+        <activity android:name="com.asht.controller.MyAcountActivity" >
+        </activity>
+        <activity android:name="com.asht.controller.AppStart" >
+        </activity>
+        <activity android:name="com.asht.controller.RegisterFirstActivity" >
+        </activity>
+        <activity android:name="com.asht.controller.RegisterSecendActivity" >
+        </activity>
+        <activity android:name="com.asht.controller.RegisterEndActivity" >
         </activity>
     </application>
 
