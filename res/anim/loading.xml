@@ -1,11 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<animation-list android:oneshot="false"
-	xmlns:android="http://schemas.android.com/apk/res/android">
-	<item android:duration="500" android:drawable="@drawable/loading_01" />
-	<item android:duration="500" android:drawable="@drawable/loading_02" />
-	<item android:duration="500" android:drawable="@drawable/loading_03" />
-	<item android:duration="500" android:drawable="@drawable/loading_04" />
-	<item android:duration="500" android:drawable="@drawable/loading_05" />
-	<item android:duration="500" android:drawable="@drawable/loading_06" />
-	<item android:duration="500" android:drawable="@drawable/loading_07" />
-</animation-list> 
+<?xml version="1.0" encoding="utf-8"?>
+<rotate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="1000"
+    android:fromDegrees="0"
+    android:interpolator="@android:anim/linear_interpolator"
+    android:pivotX="50%"
+    android:pivotY="50%"
+    android:repeatCount="infinite"
+    android:toDegrees="+360" />

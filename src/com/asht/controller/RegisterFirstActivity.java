@@ -74,7 +74,7 @@ public class RegisterFirstActivity extends Activity {
 		phoneNum = (EditText) findViewById(R.id.register_phone);
 		getcheckNum = (Button) findViewById(R.id.get_check_number);
 		checkNum = (EditText) findViewById(R.id.register_check_number);
-		next = (Button) findViewById(R.id.register_frist_next);
+		next = (Button) findViewById(R.id.register_next);
 	}
 
 }

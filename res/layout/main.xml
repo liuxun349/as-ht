@@ -8,11 +8,13 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical" >
-      <FrameLayout
+
+        <FrameLayout
             android:id="@android:id/tabcontent"
             android:layout_width="fill_parent"
             android:layout_height="0.0dip"
             android:layout_weight="1.0" />
+
         <TabWidget
             android:id="@android:id/tabs"
             android:layout_width="fill_parent"
@@ -40,28 +42,43 @@
 
                 <RadioButton
                     android:id="@+id/main_tab_home"
+                    android:layout_weight="1"
+                    android:button="@null"
                     android:checked="true"
                     android:drawableTop="@drawable/main_navigation_home"
+                    android:gravity="center"
                     android:text="@string/main_my_acount" />
 
                 <RadioButton
                     android:id="@+id/main_tab_catagory"
+                    android:layout_weight="1"
+                    android:button="@null"
                     android:drawableTop="@drawable/main_navigation_catagory"
+                    android:gravity="center"
                     android:text="@string/main_message" />
 
                 <RadioButton
                     android:id="@+id/main_tab_car"
+                    android:layout_weight="1"
+                    android:button="@null"
                     android:drawableTop="@drawable/main_navigation_car"
+                    android:gravity="center"
                     android:text="@string/main_home_page" />
 
                 <RadioButton
                     android:id="@+id/main_tab_buy"
+                    android:layout_weight="1"
+                    android:button="@null"
                     android:drawableTop="@drawable/main_navigation_personal"
+                    android:gravity="center"
                     android:text="@string/main_safety_center" />
 
                 <RadioButton
                     android:id="@+id/main_tab_more"
+                    android:layout_weight="1"
+                    android:button="@null"
                     android:drawableTop="@drawable/main_navigation_more"
+                    android:gravity="center"
                     android:text="@string/main_more" />
             </RadioGroup>
         </LinearLayout>
