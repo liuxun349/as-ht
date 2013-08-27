@@ -16,7 +16,7 @@ public class ApplictionManager extends Application {
 	private static ApplictionManager instance;
 
 	private ApplictionManager() {
-
+		user.setIsLogin(false);
 	}
 
 	public static ApplictionManager getInstance() {

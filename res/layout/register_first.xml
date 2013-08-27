@@ -59,6 +59,8 @@
             android:layout_toRightOf="@+id/register_txv_phone"
             android:background="@drawable/edit_text_x"
             android:inputType="phone"
+            android:maxLength="11"
+            android:numeric="integer"
             android:singleLine="true" />
 
         <TextView
@@ -88,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/edit_text_x"
-                android:editable="false"
+                android:maxLength="6"
                 android:singleLine="true" />
 
             <Button
@@ -100,7 +102,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/register_next"
+            android:id="@+id/register_frist_next"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/linear1"

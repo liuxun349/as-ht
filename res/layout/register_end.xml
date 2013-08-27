@@ -138,7 +138,6 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/edit_text_x"
-                        android:editable="false"
                         android:lines="1"
                         android:maxLength="16"
                         android:singleLine="true" />
@@ -194,7 +193,6 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/edit_text_x"
-                        android:editable="false"
                         android:singleLine="true" />
                 </TableRow>
 
@@ -212,7 +210,6 @@
                         android:id="@+id/securityQ_2"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:editable="false"
                         android:singleLine="true" />
                 </TableRow>
 
@@ -233,7 +230,6 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/edit_text_x"
-                        android:editable="false"
                         android:singleLine="true" />
                 </TableRow>
             </TableLayout>

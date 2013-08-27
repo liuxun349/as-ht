@@ -65,6 +65,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/edit_text_x"
                         android:hint="@string/text_login_user_name_toast"
+                        android:numeric="integer"
                         android:singleLine="true" />
                 </TableRow>
 
