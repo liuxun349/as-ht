@@ -1,7 +1,8 @@
 package com.asht.utl;
 
 public class Settings {
-	public static String WEB_SERVER = "http://192.168.1.1"; // webserver 地址
+	public static String WEB_SERVER = "http://192.168.0.109:8063/"; // webserver 地址
+	public static String NAMESPACE = "http://webService.cd.anticancer.cn/";
 	
 	public static String RETURN_CODE = "ReturnCode";
 	public static String RETURN_MESSAGE = "Message";

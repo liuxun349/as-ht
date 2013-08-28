@@ -2,16 +2,17 @@ package com.asht.dao;
 
 import org.json.JSONObject;
 
-public class CompanyDAO {
+import com.asht.utl.ConnCallback;
 
+public class CompanyDAO {
+	private String URL_NAME ="";
 	/**
 	 * 获取公司信息
 	 */
-	public JSONObject getComanyInfo() {
-		String mname = "GetComanyInfo";
+	public void getComanyInfo( ConnCallback callback) {
+		String name = "GetComanyInfo";
 		JSONObject param = new JSONObject();
-		JSONObject result = NetworkConnectionDAO.connection(mname, param);
-		return result;
+		new ConnServer(URL_NAME, name, callback).execute(param.toString());
 	}
 	
 	

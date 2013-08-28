@@ -4,8 +4,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.asht.model.UserInfo;
+import com.asht.utl.ConnCallback;
 
 public class UserBaseHandlerDAO {
+	private String URL_NAME = "";
 	/**
 	 * 注册
 	 * 
@@ -13,13 +15,13 @@ public class UserBaseHandlerDAO {
 	 *            用户注册信息
 	 * @return JSON包含 ReturnCode,Message,Result
 	 */
-	public JSONObject regist(UserInfo user) {
+	public void regist(UserInfo user, ConnCallback callback) {
 		String name = "Regist";
 
 		JSONObject param = user.toJson();
 		JSONObject result = NetworkConnectionDAO.connection(name, param);
 
-		return result;
+		new ConnServer(URL_NAME, name, callback).execute(param.toString());
 	}
 
 	/**
@@ -30,7 +32,8 @@ public class UserBaseHandlerDAO {
 	 * @param loginFrom
 	 * @return
 	 */
-	public JSONObject login(String userPhoneNumber, String loginPassword) {
+	public void login(String userPhoneNumber, String loginPassword,
+			ConnCallback callback) {
 		String name = "Login";
 		String loginFrom = "AS-HT";
 
@@ -45,7 +48,7 @@ public class UserBaseHandlerDAO {
 			e.printStackTrace();
 		}
 		JSONObject result = NetworkConnectionDAO.connection(name, param);
-		return result;
+		new ConnServer(URL_NAME, name, callback).execute(param.toString());
 	}
 
 	/**
@@ -55,7 +58,8 @@ public class UserBaseHandlerDAO {
 	 * @param securityQA
 	 * @return
 	 */
-	public JSONObject requestSendLoginPasswordToEmail(String userId) {
+	public void requestSendLoginPasswordToEmail(String userId,
+			ConnCallback callback) {
 		String name = "RequestSendLoginPasswordToEmail";
 		JSONObject param = new JSONObject();
 		try {
@@ -66,7 +70,7 @@ public class UserBaseHandlerDAO {
 			e.printStackTrace();
 		}
 		JSONObject result = NetworkConnectionDAO.connection(name, param);
-		return result;
+		new ConnServer(URL_NAME, name, callback).execute(param.toString());
 	}
 
 	/**
@@ -76,8 +80,8 @@ public class UserBaseHandlerDAO {
 	 * @param securityQA
 	 * @return
 	 */
-	public JSONObject requestSendPayPasswordToEmail(String userId,
-			JSONObject securityQA) {
+	public void requestSendPayPasswordToEmail(String userId,
+			JSONObject securityQA, ConnCallback callback) {
 		String name = "RequestSendPayPasswordToEmail";
 		JSONObject param = new JSONObject();
 		try {
@@ -88,8 +92,7 @@ public class UserBaseHandlerDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		JSONObject result = NetworkConnectionDAO.connection(name, param);
-		return result;
+		new ConnServer(URL_NAME, name, callback).execute(param.toString());
 	}
 
 	/**
@@ -103,8 +106,8 @@ public class UserBaseHandlerDAO {
 	 *            新密码
 	 * @return
 	 */
-	public JSONObject modifyLoginPassword(String userId, String oldpwd,
-			String newpwd) {
+	public void modifyLoginPassword(String userId, String oldpwd,
+			String newpwd, ConnCallback callback) {
 		String name = "ModifyLoginPassword";
 		JSONObject param = new JSONObject();
 		try {
@@ -115,8 +118,7 @@ public class UserBaseHandlerDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		JSONObject result = NetworkConnectionDAO.connection(name, param);
-		return result;
+		new ConnServer(URL_NAME, name, callback).execute(param.toString());
 	}
 
 	/**
@@ -130,8 +132,8 @@ public class UserBaseHandlerDAO {
 	 *            新密码
 	 * @return
 	 */
-	public JSONObject resetLoginPassword(String userId, String verficationCode,
-			String newLoginPassword) {
+	public void resetLoginPassword(String userId, String verficationCode,
+			String newLoginPassword, ConnCallback callback) {
 		String name = "ResetLoginPassword";
 		JSONObject param = new JSONObject();
 		try {
@@ -141,8 +143,7 @@ public class UserBaseHandlerDAO {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		JSONObject result = NetworkConnectionDAO.connection(name, param);
-		return result;
+		new ConnServer(URL_NAME, name, callback).execute(param.toString());
 	}
 
 	/**
@@ -156,8 +157,8 @@ public class UserBaseHandlerDAO {
 	 *            新支付密码
 	 * @return
 	 */
-	public JSONObject modifyPayPassword(String userId, String oldPaypwd,
-			String newPaypwd) {
+	public void modifyPayPassword(String userId, String oldPaypwd,
+			String newPaypwd, ConnCallback callback) {
 		String name = "ModifyPayPassword";
 		JSONObject param = new JSONObject();
 		try {
@@ -167,8 +168,7 @@ public class UserBaseHandlerDAO {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		JSONObject result = NetworkConnectionDAO.connection(name, param);
-		return result;
+		new ConnServer(URL_NAME, name, callback).execute(param.toString());
 	}
 
 	/**
@@ -181,8 +181,9 @@ public class UserBaseHandlerDAO {
 	 *            答案
 	 * @return
 	 */
-	public JSONObject modifyAnswerOfSecurityQuestion(String userId,
-			String securityQuestionId, String answerOfSecurity) {
+	public void modifyAnswerOfSecurityQuestion(String userId,
+			String securityQuestionId, String answerOfSecurity,
+			ConnCallback callback) {
 		String name = "ModifyAnswerOfSecurityQuestion";
 		JSONObject param = new JSONObject();
 		try {
@@ -192,15 +193,17 @@ public class UserBaseHandlerDAO {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		JSONObject result = NetworkConnectionDAO.connection(name, param);
-		return result;
+		new ConnServer(URL_NAME, name, callback).execute(param.toString());
 	}
+
 	/**
-	 * 判断用户是否有密码保护 
+	 * 判断用户是否有密码保护
+	 * 
 	 * @param userId
 	 * @return
 	 */
-	public JSONObject isUserPasswordProtected(String userId) {
+	public void isUserPasswordProtected(String userId,
+			ConnCallback callback) {
 		String name = "IsUserPasswordProtected";
 		JSONObject param = new JSONObject();
 		try {
@@ -208,31 +211,33 @@ public class UserBaseHandlerDAO {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		JSONObject result = NetworkConnectionDAO.connection(name, param);
-		return result;
+		new ConnServer(URL_NAME, name, callback).execute(param.toString());
 	}
+
 	/**
 	 * 验证密码保护问题答案
+	 * 
 	 * @param userId
 	 * @param securityQuestionId
 	 * @param answerOfSecurityQuestion
 	 * @return
 	 */
-	public JSONObject validateAnswerOfSecurityQuestion(String userId,String securityQuestionId,
-			String answerOfSecurityQuestion){
+	public void validateAnswerOfSecurityQuestion(String userId,
+			String securityQuestionId, String answerOfSecurityQuestion,
+			ConnCallback callback) {
 		String name = "ValidateAnswerOfSecurityQuestion";
 		JSONObject param = new JSONObject();
 		try {
 			param.put("UserId", userId);
 			param.put("SecurityQuestionId", securityQuestionId);
 			param.put("AnswerOfSecurityQuestion", answerOfSecurityQuestion);
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		JSONObject result = NetworkConnectionDAO.connection(name, param);
-		return result;
+		new ConnServer(URL_NAME, name, callback).execute(param.toString());
 	}
+
 	/**
 	 * 
 	 * @param userId
@@ -240,8 +245,8 @@ public class UserBaseHandlerDAO {
 	 * @param verficationCode
 	 * @return
 	 */
-	public JSONObject validateMobileVerficationCode(String userId,String reasonType,
-			String verficationCode){
+	public void validateMobileVerficationCode(String userId,
+			String reasonType, String verficationCode, ConnCallback callback) {
 		String name = "ValidateMobileVerficationCode";
 		JSONObject param = new JSONObject();
 		try {
@@ -251,16 +256,18 @@ public class UserBaseHandlerDAO {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		JSONObject result = NetworkConnectionDAO.connection(name, param);
-		return result;
+		new ConnServer(URL_NAME, name, callback).execute(param.toString());
 	}
+
 	/**
-	 * 修改手机号 
+	 * 修改手机号
+	 * 
 	 * @param userId
 	 * @param newPhoneNumber
 	 * @return
 	 */
-	public JSONObject modifyMobileNumber(String userId,String newPhoneNumber){
+	public void modifyMobileNumber(String userId, String newPhoneNumber,
+			ConnCallback callback) {
 		String name = "ModifyMobileNumber";
 		JSONObject param = new JSONObject();
 		try {
@@ -269,18 +276,21 @@ public class UserBaseHandlerDAO {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		JSONObject result = NetworkConnectionDAO.connection(name, param);
-		return result;
+		new ConnServer(URL_NAME, name, callback).execute(param.toString());
 	}
+
 	/**
 	 * 请求发送手机验证码到特定手机
+	 * 
 	 * @param userId
-	 * @param phoneOfSendingTo 特定手机号
-	 * @param reasonType 请求类型（Settings.REASON_TYPE_REGIST 注册 .....）
+	 * @param phoneOfSendingTo
+	 *            特定手机号
+	 * @param reasonType
+	 *            请求类型（Settings.REASON_TYPE_REGIST 注册 .....）
 	 * @return
 	 */
-	public JSONObject requestSendMobileVerificationCode(String userId,String phoneOfSendingTo,
-			int reasonType){
+	public void requestSendMobileVerificationCode(String userId,
+			String phoneOfSendingTo, int reasonType, ConnCallback callback) {
 		String name = "RequestSendMobileVerificationCode";
 		JSONObject param = new JSONObject();
 		try {
@@ -290,15 +300,17 @@ public class UserBaseHandlerDAO {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		JSONObject result = NetworkConnectionDAO.connection(name, param);
-		return result;
+		new ConnServer(URL_NAME, name, callback).execute(param.toString());
 	}
+
 	/**
 	 * 生成并发送手机验证码----服务器端未完成
+	 * 
 	 * @param phoneId
 	 * @return
 	 */
-	public JSONObject requestSendMobileVerficationCode(String phoneId){
+	public void requestSendMobileVerficationCode(String phoneId,
+			ConnCallback callback) {
 		String name = "RequestSendMobileVerficationCode";
 		JSONObject param = new JSONObject();
 		try {
@@ -306,9 +318,7 @@ public class UserBaseHandlerDAO {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		JSONObject result = NetworkConnectionDAO.connection(name, param);
-		return result;
+		new ConnServer(URL_NAME, name, callback).execute(param.toString());
 	}
-	
-	
+
 }

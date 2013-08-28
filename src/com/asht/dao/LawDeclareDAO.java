@@ -2,16 +2,17 @@ package com.asht.dao;
 
 import org.json.JSONObject;
 
-public class LawDeclareDAO {
+import com.asht.utl.ConnCallback;
 
+public class LawDeclareDAO {
+	private String URL_NAME = "";
 	/**
 	 * 获取法律声明信息
 	 */
-	public JSONObject getLawDeclareInfo() {
-		String mname = "GetLawDeclareInfo";
+	public void getLawDeclareInfo( ConnCallback callback) {
+		String name = "GetLawDeclareInfo";
 		JSONObject param = new JSONObject();
-		JSONObject result = NetworkConnectionDAO.connection(mname, param);
-		return result;
+		new ConnServer(URL_NAME, name, callback).execute(param.toString());
 	}
 	
 	
