@@ -5,13 +5,18 @@ package com.asht.dao;
 
 import org.json.JSONObject;
 
+import com.asht.utl.ConnCallback;
+
 public class UserMedicalRecordGroupsDAO {
+	private String URL_NAME = "";
 	/**
 	 * 获取用户的所有病历组
+	 * 
 	 * @param userId
 	 * @return
 	 */
-	public JSONObject getMedicalRecordGroupsByUserId(String userId){
+	public void getMedicalRecordGroupsByUserId(String userId,
+			ConnCallback callback) {
 		String name = "GetMedicalRecordGroupsByUserId";
 		JSONObject param = new JSONObject();
 		try {
@@ -19,15 +24,17 @@ public class UserMedicalRecordGroupsDAO {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		JSONObject result = NetworkConnectionDAO.connection(name, param);
-		return result;
+		new ConnServer(URL_NAME, name, callback).execute(param.toString());
 	}
+
 	/**
 	 * 删除用户病历组
+	 * 
 	 * @param medicalRecordGroupId
 	 * @return
 	 */
-	public JSONObject deleteMedicalRecordGroups(String medicalRecordGroupId){
+	public void deleteMedicalRecordGroups(String medicalRecordGroupId,
+			ConnCallback callback) {
 		String name = "DeleteMedicalRecordGroups";
 		JSONObject param = new JSONObject();
 		try {
@@ -35,32 +42,36 @@ public class UserMedicalRecordGroupsDAO {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		JSONObject result = NetworkConnectionDAO.connection(name, param);
-		return result;
+		new ConnServer(URL_NAME, name, callback).execute(param.toString());
 	}
+
 	/**
 	 * 上传病历（单个或批量）
+	 * 
 	 * @param MedicalRecordGroupId
 	 * @return
 	 */
-	public JSONObject uploadMedicalRecordItemsToGroup(String MedicalRecordGroupId){
+	public void uploadMedicalRecordItemsToGroup(
+			String MedicalRecordGroupId, ConnCallback callback) {
 		String name = "UploadMedicalRecordItemsToGroup";
 		JSONObject param = new JSONObject();
 		try {
 			param.put("MedicalRecordGroupId", MedicalRecordGroupId);
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		JSONObject result = NetworkConnectionDAO.connection(name, param);
-		return result;
+		new ConnServer(URL_NAME, name, callback).execute(param.toString());
 	}
+
 	/**
 	 * 删除用户病历图片
+	 * 
 	 * @param medicalRecordItemId
 	 * @return
 	 */
-	public JSONObject deleteMedicalRecordItems(String medicalRecordItemId){
+	public void deleteMedicalRecordItems(String medicalRecordItemId,
+			ConnCallback callback) {
 		String name = "DeleteMedicalRecordItems";
 		JSONObject param = new JSONObject();
 		try {
@@ -68,15 +79,17 @@ public class UserMedicalRecordGroupsDAO {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		JSONObject result = NetworkConnectionDAO.connection(name, param);
-		return result;
+		new ConnServer(URL_NAME, name, callback).execute(param.toString());
 	}
+
 	/**
 	 * 获取病历组中的病历
+	 * 
 	 * @param medicalGroupId
 	 * @return
 	 */
-	public JSONObject getMedicalRecordItemsByGroup(String medicalGroupId){
+	public void getMedicalRecordItemsByGroup(String medicalGroupId,
+			ConnCallback callback) {
 		String name = "GetMedicalRecordItemsByGroup";
 		JSONObject param = new JSONObject();
 		try {
@@ -84,8 +97,7 @@ public class UserMedicalRecordGroupsDAO {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		JSONObject result = NetworkConnectionDAO.connection(name, param);
-		return result;
+		new ConnServer(URL_NAME, name, callback).execute(param.toString());
 	}
-	
+
 }

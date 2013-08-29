@@ -3,14 +3,17 @@ package com.asht.dao;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.asht.utl.ConnCallback;
+
 public class UserMessagesDAO {
+	private String URL_NAME = "";
 	/**
 	 * 根据条件查找意见反馈
 	 * 
 	 * @return
 	 */
-	public JSONObject searchMessages(String Start, String Count, String Field,
-			String Value, String Junction) {
+	public void searchMessages(String Start, String Count, String Field,
+			String Value, String Junction, ConnCallback callback) {
 		String name = "SearchMessages";
 
 		JSONObject param = new JSONObject();
@@ -30,7 +33,6 @@ public class UserMessagesDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		JSONObject result = NetworkConnectionDAO.connection(name, param);
-		return result;
+		new ConnServer(URL_NAME, name, callback).execute(param.toString());
 	}
 }

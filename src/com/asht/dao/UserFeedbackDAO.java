@@ -3,15 +3,18 @@ package com.asht.dao;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class UserFeedbackDAO {
+import com.asht.utl.ConnCallback;
 
+public class UserFeedbackDAO {
+	private String URL_NAME = "";
 	/**
 	 * 添加意见反馈
 	 * 
 	 * @return
 	 */
-	public JSONObject getZCouponInfo(String AdviceContent, String UserID) {
-		String mname = "GetZCouponInfo";
+	public void getZCouponInfo(String AdviceContent, String UserID,
+			ConnCallback callback) {
+		String  name = "GetZCouponInfo";
 		JSONObject param = new JSONObject();
 
 		try {
@@ -19,17 +22,17 @@ public class UserFeedbackDAO {
 			param.put("UserID", UserID);
 		} catch (Exception e) {
 		}
-		JSONObject result = NetworkConnectionDAO.connection(mname, param);
-		return result;
+		new ConnServer(URL_NAME, name, callback).execute(param.toString());
 	}
-	
+
 	/**
 	 * 处理反馈意见（单个或批量）
 	 * 
 	 * @return
 	 */
-	public JSONObject processAdvices(String AdviceID, String ProcessNote) {
-		String mname = "ProcessAdvices";
+	public void processAdvices(String AdviceID, String ProcessNote,
+			ConnCallback callback) {
+		String  name = "ProcessAdvices";
 		JSONObject param = new JSONObject();
 
 		try {
@@ -37,34 +40,32 @@ public class UserFeedbackDAO {
 			param.put("ProcessNote", ProcessNote);
 		} catch (Exception e) {
 		}
-		JSONObject result = NetworkConnectionDAO.connection(mname, param);
-		return result;
+		new ConnServer(URL_NAME, name, callback).execute(param.toString());
 	}
-	
+
 	/**
 	 * 删除反馈意见（单个或批量）
 	 * 
 	 * @return
 	 */
-	public JSONObject deleteAdvices(String AdviceID) {
-		String mname = "DeleteAdvices";
+	public void deleteAdvices(String AdviceID, ConnCallback callback) {
+		String   name = "DeleteAdvices";
 		JSONObject param = new JSONObject();
 
 		try {
 			param.put("AdviceId", AdviceID);
 		} catch (Exception e) {
 		}
-		JSONObject result = NetworkConnectionDAO.connection(mname, param);
-		return result;
+		new ConnServer(URL_NAME, name, callback).execute(param.toString());
 	}
-	
+
 	/**
 	 * 根据条件查找意见反馈
 	 * 
 	 * @return
 	 */
-	public JSONObject searchAdvices(String Start, String Count,
-			String Field, String Value, String Junction) {
+	public void searchAdvices(String Start, String Count, String Field,
+			String Value, String Junction, ConnCallback callback) {
 		String name = "SearchAdvices";
 
 		JSONObject param = new JSONObject();
@@ -84,7 +85,6 @@ public class UserFeedbackDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		JSONObject result = NetworkConnectionDAO.connection(name, param);
-		return result;
+		new ConnServer(URL_NAME, name, callback).execute(param.toString());
 	}
 }

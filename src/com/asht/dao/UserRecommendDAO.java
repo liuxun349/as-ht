@@ -3,14 +3,16 @@ package com.asht.dao;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class UserRecommendDAO {
+import com.asht.utl.ConnCallback;
 
+public class UserRecommendDAO {
+	private String URL_NAME = "";
 	/**
 	 * 推荐病人或医生处理
 	 */
-	public JSONObject recommendUser(String presenterUserID,
+	public void recommendUser(String presenterUserID,
 			String userPhoneNumber, String name, String userType,
-			String certificateType, String certificateNo) {
+			String certificateType, String certificateNo, ConnCallback callback) {
 		String mname = "recommendUser";
 		JSONObject param = new JSONObject();
 
@@ -23,16 +25,16 @@ public class UserRecommendDAO {
 			param.put("CertificateNo", certificateNo);
 		} catch (Exception e) {
 		}
-		JSONObject result = NetworkConnectionDAO.connection(mname, param);
-		return result;
+		new ConnServer(URL_NAME, name, callback).execute(param.toString());
 	}
 
 	/**
 	 * 推荐病人或医生处理
 	 */
-	public JSONObject auditRecommendations(String id, String ReferenceUserID,
-			String RecommendedUserID, String vcharAuditUserID, String AuditNote) {
-		String mname = "AuditRecommendations";
+	public void auditRecommendations(String id, String ReferenceUserID,
+			String RecommendedUserID, String vcharAuditUserID,
+			String AuditNote, ConnCallback callback) {
+		String name = "AuditRecommendations";
 		JSONObject param = new JSONObject();
 
 		try {
@@ -43,8 +45,7 @@ public class UserRecommendDAO {
 			param.put("AuditNote", AuditNote);
 		} catch (Exception e) {
 		}
-		JSONObject result = NetworkConnectionDAO.connection(mname, param);
-		return result;
+		new ConnServer(URL_NAME, name, callback).execute(param.toString());
 	}
 
 	/**
@@ -52,8 +53,8 @@ public class UserRecommendDAO {
 	 * 
 	 * @return
 	 */
-	public JSONObject searchRecommendations(String Start, String Count,
-			String Field, String Value, String Junction) {
+	public void searchRecommendations(String Start, String Count,
+			String Field, String Value, String Junction, ConnCallback callback) {
 		String name = "SearchRecommendations";
 
 		JSONObject param = new JSONObject();
@@ -73,8 +74,7 @@ public class UserRecommendDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		JSONObject result = NetworkConnectionDAO.connection(name, param);
-		return result;
+		new ConnServer(URL_NAME, name, callback).execute(param.toString());
 	}
 
 }

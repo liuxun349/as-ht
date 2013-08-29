@@ -3,7 +3,10 @@ package com.asht.dao;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.asht.utl.ConnCallback;
+
 public class UserExchangeZCouponDAO {
+	private String URL_NAME = "";
 	/**
 	 * 兑换Z券
 	 * 
@@ -12,9 +15,9 @@ public class UserExchangeZCouponDAO {
 	 * @param PayPassword
 	 * @return
 	 */
-	public JSONObject exchangeZCoupon(String UserID, String ZMoneyCount,
-			String PayPassword) {
-		String mname = "ExchangeZCoupon";
+	public void exchangeZCoupon(String UserID, String ZMoneyCount,
+			String PayPassword, ConnCallback callback) {
+		String name = "ExchangeZCoupon";
 		JSONObject param = new JSONObject();
 
 		try {
@@ -23,8 +26,7 @@ public class UserExchangeZCouponDAO {
 			param.put("PayPassword", PayPassword);
 		} catch (Exception e) {
 		}
-		JSONObject result = NetworkConnectionDAO.connection(mname, param);
-		return result;
+		new ConnServer(URL_NAME, name, callback).execute(param.toString());
 	}
 
 	/**
@@ -33,16 +35,15 @@ public class UserExchangeZCouponDAO {
 	 * @param ZCouponID
 	 * @return
 	 */
-	public JSONObject getZCouponInfo(String ZCouponID) {
-		String mname = "GetZCouponInfo";
+	public void getZCouponInfo(String ZCouponID, ConnCallback callback) {
+		String name = "GetZCouponInfo";
 		JSONObject param = new JSONObject();
 
 		try {
 			param.put("ZCouponID", ZCouponID);
 		} catch (Exception e) {
 		}
-		JSONObject result = NetworkConnectionDAO.connection(mname, param);
-		return result;
+		new ConnServer(URL_NAME, name, callback).execute(param.toString());
 	}
 
 	/**
@@ -50,8 +51,8 @@ public class UserExchangeZCouponDAO {
 	 * 
 	 * @return
 	 */
-	public JSONObject searchZCoupons(String Start, String Count, String Field,
-			String Value, String Junction) {
+	public void searchZCoupons(String Start, String Count, String Field,
+			String Value, String Junction, ConnCallback callback) {
 		String name = "SearchZCoupons";
 
 		JSONObject param = new JSONObject();
@@ -71,8 +72,7 @@ public class UserExchangeZCouponDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		JSONObject result = NetworkConnectionDAO.connection(name, param);
-		return result;
+		new ConnServer(URL_NAME, name, callback).execute(param.toString());
 	}
 
 }
