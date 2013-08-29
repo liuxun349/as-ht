@@ -1,7 +1,10 @@
 package com.asht.utl;
 
 public class Settings {
-	public static String WEB_SERVER = "http://192.168.0.109:8063/"; // webserver 地址
+	
+//	public static String WEB_SERVER = "http://192.168.0.109:8063/"; // webserver 地址
+	public static String WEB_SERVER = "http://192.168.2.13:8063/";
+	
 	public static String NAMESPACE = "http://webService.cd.anticancer.cn/";
 	
 	public static String RETURN_CODE = "ReturnCode";
@@ -16,4 +19,6 @@ public class Settings {
 	
 	public static int RETURN_CODE_ACCESS = 200;	//成功
 	public static int RETURN_CODE_FAILED = 300;	//失败
+	
+	public static String WRONG_INPUT_FORMAT_TITLE = "输入格式错误";
 }

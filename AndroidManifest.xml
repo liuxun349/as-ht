@@ -34,6 +34,7 @@
         </activity>
         <activity android:name="com.asht.controller.AppStart" >
         </activity>
+        <activity android:name="com.asht.controller.LoginActivity"/>
         <activity android:name="com.asht.controller.RegisterFirstActivity" >
         </activity>
         <activity android:name="com.asht.controller.RegisterSecendActivity" >
@@ -41,5 +42,6 @@
         <activity android:name="com.asht.controller.RegisterEndActivity" >
         </activity>
     </application>
-
+	
+    <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>

@@ -7,7 +7,7 @@ import com.asht.model.UserInfo;
 import com.asht.utl.ConnCallback;
 
 public class UserBaseHandlerDAO {
-	private String URL_NAME = "";
+	private static final String URL_NAME = "TbUserInfo";
 	/**
 	 * 注册
 	 * 
@@ -16,7 +16,7 @@ public class UserBaseHandlerDAO {
 	 * @return JSON包含 ReturnCode,Message,Result
 	 */
 	public void regist(UserInfo user, ConnCallback callback) {
-		String name = "Regist";
+		String name = "regist";
 
 		JSONObject param = user.toJson();
 		JSONObject result = NetworkConnectionDAO.connection(name, param);
@@ -34,20 +34,21 @@ public class UserBaseHandlerDAO {
 	 */
 	public void login(String userPhoneNumber, String loginPassword,
 			ConnCallback callback) {
-		String name = "Login";
+		String name = "login";
 		String loginFrom = "AS-HT";
 
 		JSONObject param = new JSONObject();
+		JSONObject param1 = new JSONObject();
 		try {
-			param.put("UserPhoneNumber", userPhoneNumber);
-			param.put("LoginPassword", loginPassword);
-			param.put("LoginFrom", loginFrom);
+			param1.put("vcharPhoneNumber", userPhoneNumber);
+			param1.put("vcharLoginPwd", loginPassword);
+			param1.put("LoginFrom", loginFrom);
+			param.put("data", param1);
 
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		JSONObject result = NetworkConnectionDAO.connection(name, param);
 		new ConnServer(URL_NAME, name, callback).execute(param.toString());
 	}
 
@@ -60,7 +61,7 @@ public class UserBaseHandlerDAO {
 	 */
 	public void requestSendLoginPasswordToEmail(String userId,
 			ConnCallback callback) {
-		String name = "RequestSendLoginPasswordToEmail";
+		String name = "requestSendLoginPasswordToEmail";
 		JSONObject param = new JSONObject();
 		try {
 			param.put("UserId", userId);
@@ -106,20 +107,23 @@ public class UserBaseHandlerDAO {
 	 *            新密码
 	 * @return
 	 */
-	public void modifyLoginPassword(String userId, String oldpwd,
+	public static void modifyLoginPassword(String userId, String oldpwd,
 			String newpwd, ConnCallback callback) {
-		String name = "ModifyLoginPassword";
+		String name = "modifyLoginPassword";
 		JSONObject param = new JSONObject();
+		JSONObject json = new JSONObject();
 		try {
-			param.put("UserId", userId);
-			param.put("OldLoginPassword", oldpwd);
-			param.put("NewLoginPassword", newpwd);
+			param.put("vcharUserId", userId);
+			param.put("oldLoginPassword", oldpwd);
+			param.put("newLoginPassword", newpwd);
+			json.put("data", param);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		new ConnServer(URL_NAME, name, callback).execute(param.toString());
+		new ConnServer(URL_NAME, name, callback).execute(json.toString());
 	}
+
 
 	/**
 	 * ResetLoginPassword
@@ -134,7 +138,7 @@ public class UserBaseHandlerDAO {
 	 */
 	public void resetLoginPassword(String userId, String verficationCode,
 			String newLoginPassword, ConnCallback callback) {
-		String name = "ResetLoginPassword";
+		String name = "resetLoginPassword";
 		JSONObject param = new JSONObject();
 		try {
 			param.put("UserId", userId);

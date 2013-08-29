@@ -27,104 +27,87 @@
             android:textSize="@dimen/title_text_size" />
     </FrameLayout>
 
-    <RelativeLayout
-        android:id="@+id/regist_scroller_relative"
+    <TableLayout
         style="@style/body"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:padding="10.0dip" >
 
-        <TextView
-            android:id="@+id/txv_care_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10.0dip"
-            android:layout_marginTop="20.0dip"
-            android:paddingTop="10.0dip"
-            android:text="消费密码："
-            android:textColor="@color/black" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
 
-        <EditText
-            android:id="@+id/care_id"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/txv_care_id"
-            android:layout_toRightOf="@+id/txv_care_id"
-            android:background="@drawable/edit_text_x"
-            android:singleLine="true" />
-
-        
-        <TextView
-            android:id="@+id/register_txv_phone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/txv_care_id"
-            android:layout_below="@id/care_id"
-            android:layout_marginTop="25.0dip"
-            android:paddingTop="10.0dip"
-            android:text="新手机号码："
-            android:textColor="@color/black" />
-
-        <EditText
-            android:id="@+id/register_phone"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/care_id"
-            android:layout_alignTop="@+id/register_txv_phone"
-            android:layout_toRightOf="@+id/register_txv_phone"
-            android:background="@drawable/edit_text_x"
-            android:singleLine="true" />
-
-        <TextView
-            android:id="@+id/check_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/register_txv_phone"
-            android:layout_marginLeft="10.0dip"
-            android:layout_marginTop="25.0dip"
-            android:paddingTop="10.0dip"
-            android:text="@string/text_check_number"
-            android:textColor="@color/black" />
-
-        <LinearLayout
-            android:id="@+id/linear1"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/register_phone"
-            android:layout_alignTop="@+id/check_number"
-            android:layout_below="@+id/register_phone"
-            android:layout_toRightOf="@+id/check_number"
-            android:orientation="horizontal" >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="新手机号码:"
+                android:textColor="@color/black" />
 
             <EditText
-                android:id="@+id/login_input_name"
-                android:layout_width="fill_parent"
+                android:id="@+id/et_newPhone"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/edit_text_x"
-                android:editable="false"
-                android:singleLine="true" />
+                android:layout_weight="1" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="验证吗:"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/et_checkNumber"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="消费密码:"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/et_payPwd"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
 
             <Button
-                android:id="@+id/get_check_number"
-                android:layout_width="fill_parent"
+                android:id="@+id/btn_getCheckNumber"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/text_get_check_number" />
-        </LinearLayout>
+                android:text="获取验证码"
+                android:textColor="@color/black" />
+        </TableRow>
 
-        <Button
-            android:id="@+id/register_next"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/linear1"
-            android:layout_marginLeft="10.0dip"
-            android:layout_marginTop="15.0dip"
-            android:background="@drawable/android_big_button_x"
-            android:gravity="center"
-            android:text="确认"
-            android:textColor="#ff000000"
-            android:textSize="20.0sp" />
-    </RelativeLayout>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/btn_submit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="确定" />
+        </TableRow>
+    </TableLayout>
 
 </FrameLayout>

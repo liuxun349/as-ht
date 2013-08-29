@@ -49,6 +49,7 @@
                     android:text="新密码：" />
 
                 <EditText
+                    android:id="@+id/et_newPwd"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
@@ -65,6 +66,7 @@
                     android:text="再次输入：" />
 
                 <EditText
+                    android:id="@+id/et_newPwd2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -73,6 +75,7 @@
         </TableLayout>
 
         <Button
+            android:id="@+id/btn_submit"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"

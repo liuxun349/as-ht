@@ -42,12 +42,13 @@ public class ConnServer extends AsyncTask<String, Void, String> {
 	@Override
 	protected String doInBackground(String... params) {
 		// TODO Auto-generated method stub
+		System.out.println("url"+url);
 		HttpTransportSE hts = new HttpTransportSE(url);
 		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
 				SoapEnvelope.VER10);
 		SoapObject request = new SoapObject(NAMESPACE, method);
 
-		request.addProperty("text", params[0]);
+		request.addProperty("strjson", params[0]);
 		envelope.bodyOut = request;
 		envelope.dotNet = false;
 
