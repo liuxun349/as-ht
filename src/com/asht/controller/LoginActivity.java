@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -40,9 +41,10 @@ public class LoginActivity extends Activity {
 				String userId = login_input_name.getText().toString().trim();
 				String passwd = login_input_password.getText().toString()
 						.trim();
-				if (! AshtUtil.IsHandset(userId)) {
-					login(userId, passwd);
-				}else{
+				login(userId, passwd);
+
+				if (AshtUtil.IsHandset(userId)) {
+									}else{
 					System.out.println("格式错误");
 				}
 
@@ -76,6 +78,9 @@ public class LoginActivity extends Activity {
 					if (json.getInt(Settings.RETURN_CODE) == Settings.RETURN_CODE_ACCESS) {
 						ApplictionManager.getInstance().getUser()
 								.setIsLogin(true);
+						Intent intent = new Intent(LoginActivity.this	, MainActivity.class);
+						startActivity(intent);
+						LoginActivity.this.finish();
 						System.out.println("login yes!");
 					} else {
 						System.out.println("login failed!");

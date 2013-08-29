@@ -20,9 +20,6 @@ public class MyAcountActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
 		
-		if( !ApplictionManager.getInstance().getUser().isLogin()){
-			Intent intent = new Intent(this	, LoginActivity.class);
-			startActivity(intent);
-		}
+		
 	}
 }
