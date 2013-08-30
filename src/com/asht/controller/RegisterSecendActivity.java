@@ -41,7 +41,7 @@ public class RegisterSecendActivity extends Activity {
 					userInfo.setCertificateType(certificateType);
 					userInfo.setEmail(email);
 					
-					System.out.println(" ===> "+userInfo.getUserId()+" "+userInfo.getNickName());
+					System.out.println(" ===> "+userInfo.toJson().toString());
 					Intent intent = new Intent(RegisterSecendActivity.this, RegisterEndActivity.class);
 					startActivity(intent);
 				}
@@ -57,16 +57,19 @@ public class RegisterSecendActivity extends Activity {
 		nickName = etx_nickName.getText().toString().trim();
 		tureName = etx_turename.getText().toString().trim();
 		certificateNo = etx_certificationNo.getText().toString().trim();
-		email = etx_mailePre.getText().toString().trim() + etx_mailelast.getText().toString().trim();
+		email = etx_mailePre.getText().toString().trim() + "@" +etx_mailelast.getText().toString().trim();
 		certificateType = 0;
 		
-		if( AshtUtil.isEmail(email))
+		if( !AshtUtil.isEmail(email)){
+			System.out.println("密码格式不对");
 			return false;
-		if( AshtUtil.IsChinese(tureName))
+		}else if( !AshtUtil.IsChinese(tureName)){
+			System.out.println("真名格式不对");
 			return false;
-		if( AshtUtil.IsIDcard(certificateNo))
+		}else if( !AshtUtil.IsIDcard(certificateNo)){
+			System.out.println("身份证格式不对");
 			return false;
-		
+		}
 		return true;
 	}
 	

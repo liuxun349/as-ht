@@ -25,6 +25,7 @@
             android:textSize="@dimen/title_text_size" />
 
         <Button
+            android:id="@+id/login_to_register"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="right"
@@ -88,6 +89,7 @@
                         android:background="@drawable/edit_text_x"
                         android:hint="@string/text_login_user_passwd_toast"
                         android:inputType="textPassword"
+                        android:password="true"
                         android:singleLine="true" />
                 </TableRow>
             </TableLayout>

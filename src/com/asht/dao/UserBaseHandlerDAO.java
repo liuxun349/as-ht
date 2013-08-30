@@ -7,6 +7,7 @@ import com.asht.model.UserInfo;
 import com.asht.utl.ConnCallback;
 
 public class UserBaseHandlerDAO {
+	
 	private static final String URL_NAME = "TbUserInfo";
 	/**
 	 * 注册
@@ -17,10 +18,16 @@ public class UserBaseHandlerDAO {
 	 */
 	public void regist(UserInfo user, ConnCallback callback) {
 		String name = "regist";
+		JSONObject param = new JSONObject();
+		JSONObject param1 = user.toJson();
+		try {
+			param.put("data", param1);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-		JSONObject param = user.toJson();
-		JSONObject result = NetworkConnectionDAO.connection(name, param);
-
+		System.out.println(param.toString());
 		new ConnServer(URL_NAME, name, callback).execute(param.toString());
 	}
 
@@ -42,7 +49,6 @@ public class UserBaseHandlerDAO {
 		try {
 			param1.put("vcharPhoneNumber", userPhoneNumber);
 			param1.put("vcharLoginPwd", loginPassword);
-			param1.put("LoginFrom", loginFrom);
 			param.put("data", param1);
 
 		} catch (JSONException e) {
@@ -63,9 +69,10 @@ public class UserBaseHandlerDAO {
 			ConnCallback callback) {
 		String name = "requestSendLoginPasswordToEmail";
 		JSONObject param = new JSONObject();
+		JSONObject param1 = new JSONObject();
 		try {
-			param.put("UserId", userId);
-
+			param1.put("UserId", userId);
+			param.put("data", param1);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -85,6 +92,7 @@ public class UserBaseHandlerDAO {
 			JSONObject securityQA, ConnCallback callback) {
 		String name = "RequestSendPayPasswordToEmail";
 		JSONObject param = new JSONObject();
+		JSONObject param1 = new JSONObject();
 		try {
 			param.put("UserId", userId);
 			param.put("SecurityQA", securityQA);
@@ -111,6 +119,7 @@ public class UserBaseHandlerDAO {
 			String newpwd, ConnCallback callback) {
 		String name = "modifyLoginPassword";
 		JSONObject param = new JSONObject();
+		JSONObject param1 = new JSONObject();
 		JSONObject json = new JSONObject();
 		try {
 			param.put("vcharUserId", userId);
@@ -140,6 +149,7 @@ public class UserBaseHandlerDAO {
 			String newLoginPassword, ConnCallback callback) {
 		String name = "resetLoginPassword";
 		JSONObject param = new JSONObject();
+		JSONObject param1 = new JSONObject();
 		try {
 			param.put("UserId", userId);
 			param.put("VerficationCode", verficationCode);
@@ -165,6 +175,7 @@ public class UserBaseHandlerDAO {
 			String newPaypwd, ConnCallback callback) {
 		String name = "ModifyPayPassword";
 		JSONObject param = new JSONObject();
+		JSONObject param1 = new JSONObject();
 		try {
 			param.put("UserId", userId);
 			param.put("OldPayPassword", oldPaypwd);
@@ -190,6 +201,7 @@ public class UserBaseHandlerDAO {
 			ConnCallback callback) {
 		String name = "ModifyAnswerOfSecurityQuestion";
 		JSONObject param = new JSONObject();
+		JSONObject param1 = new JSONObject();
 		try {
 			param.put("UserId", userId);
 			param.put("SecurityQuestionId", securityQuestionId);
@@ -210,6 +222,7 @@ public class UserBaseHandlerDAO {
 			ConnCallback callback) {
 		String name = "IsUserPasswordProtected";
 		JSONObject param = new JSONObject();
+		JSONObject param1 = new JSONObject();
 		try {
 			param.put("UserId", userId);
 		} catch (Exception e) {
@@ -231,6 +244,7 @@ public class UserBaseHandlerDAO {
 			ConnCallback callback) {
 		String name = "ValidateAnswerOfSecurityQuestion";
 		JSONObject param = new JSONObject();
+		JSONObject param1 = new JSONObject();
 		try {
 			param.put("UserId", userId);
 			param.put("SecurityQuestionId", securityQuestionId);
@@ -253,6 +267,7 @@ public class UserBaseHandlerDAO {
 			String reasonType, String verficationCode, ConnCallback callback) {
 		String name = "ValidateMobileVerficationCode";
 		JSONObject param = new JSONObject();
+		JSONObject param1 = new JSONObject();
 		try {
 			param.put("UserId", userId);
 			param.put("ReasonType", reasonType);
@@ -273,6 +288,7 @@ public class UserBaseHandlerDAO {
 	public void modifyMobileNumber(String userId, String newPhoneNumber,
 			ConnCallback callback) {
 		String name = "ModifyMobileNumber";
+		JSONObject param1 = new JSONObject();
 		JSONObject param = new JSONObject();
 		try {
 			param.put("UserId", userId);
@@ -297,6 +313,7 @@ public class UserBaseHandlerDAO {
 			String phoneOfSendingTo, int reasonType, ConnCallback callback) {
 		String name = "RequestSendMobileVerificationCode";
 		JSONObject param = new JSONObject();
+		JSONObject param1 = new JSONObject();
 		try {
 			param.put("UserId", userId);
 			param.put("PhoneOfSendingTo", phoneOfSendingTo);
@@ -317,6 +334,7 @@ public class UserBaseHandlerDAO {
 			ConnCallback callback) {
 		String name = "RequestSendMobileVerficationCode";
 		JSONObject param = new JSONObject();
+		JSONObject param1 = new JSONObject();
 		try {
 			param.put("phoneId", phoneId);
 		} catch (Exception e) {

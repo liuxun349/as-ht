@@ -52,7 +52,6 @@ public class RegisterFirstActivity extends Activity {
 				System.out.println("...................");
 				String phoneId = phoneNum.getText().toString().trim();
 				String cheknumber = checkNum.getText().toString().trim();
-				System.out.println("===?");
 				if (!(phoneId.equals("") && cheknumber.equals(""))) {
 					UserBaseHandlerDAO mBaseHandlerDAO = new UserBaseHandlerDAO();
 					// 验证手机号与手机验证码是否相同，未完成此功能

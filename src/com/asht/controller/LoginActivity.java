@@ -5,12 +5,17 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 
 import com.asht.R;
@@ -22,7 +27,7 @@ import com.asht.utl.Settings;
 
 public class LoginActivity extends Activity {
 	private EditText login_input_name, login_input_password;
-	private Button btn_login;
+	private Button btn_login, register;
 	private CheckBox remember_user, display_passwd;
 	private Dialog dialog;
 
@@ -32,24 +37,7 @@ public class LoginActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
 		getView();
-		// 登录
-		btn_login.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				String userId = login_input_name.getText().toString().trim();
-				String passwd = login_input_password.getText().toString()
-						.trim();
-				login(userId, passwd);
-
-				if (AshtUtil.IsHandset(userId)) {
-									}else{
-					System.out.println("格式错误");
-				}
-
-			}
-		});
+		setLinsener();
 	}
 
 	private void getView() {
@@ -58,6 +46,7 @@ public class LoginActivity extends Activity {
 		btn_login = (Button) findViewById(R.id.btn_login);
 		remember_user = (CheckBox) findViewById(R.id.remember_user);
 		display_passwd = (CheckBox) findViewById(R.id.display_passwd);
+		register = (Button) findViewById(R.id.login_to_register);
 	}
 
 	/**
@@ -78,7 +67,9 @@ public class LoginActivity extends Activity {
 					if (json.getInt(Settings.RETURN_CODE) == Settings.RETURN_CODE_ACCESS) {
 						ApplictionManager.getInstance().getUser()
 								.setIsLogin(true);
-						Intent intent = new Intent(LoginActivity.this	, MainActivity.class);
+						System.out.println("返回："+result);
+						Intent intent = new Intent(LoginActivity.this,
+								MainActivity.class);
 						startActivity(intent);
 						LoginActivity.this.finish();
 						System.out.println("login yes!");
@@ -87,9 +78,99 @@ public class LoginActivity extends Activity {
 					}
 				} catch (Exception e) {
 					// TODO: handle exception
-					System.out.println("异常");
 				}
 			}
 		});
+	}
+
+	private void setLinsener() {
+
+		btn_login.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				String userId = login_input_name.getText().toString().trim();
+				String passwd = login_input_password.getText().toString()
+						.trim();
+				login(userId, passwd);
+
+				if (AshtUtil.IsHandset(userId)) {
+				} else {
+					System.out.println("格式错误");
+				}
+
+			}
+		});
+		remember_user.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				// TODO Auto-generated method stub
+				if (isChecked) {
+					System.out.println("保存。。。");
+				} else {
+					System.out.println("不保存");
+				}
+			}
+		});
+		display_passwd
+				.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+					@Override
+					public void onCheckedChanged(CompoundButton buttonView,
+							boolean isChecked) {
+						// TODO Auto-generated method stub
+						if (isChecked) {    
+						    // 显示密码     
+							login_input_password.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);     
+						    }   
+						else {    
+						    // 隐藏密码     
+							login_input_password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);    
+						}    
+					}
+				});
+		register.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(LoginActivity.this,
+						RegisterFirstActivity.class);
+				startActivity(intent);
+
+			}
+		});
+	}
+
+	public boolean dispatchKeyEvent(KeyEvent event) {
+		int keyCode = event.getKeyCode();
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			if (event.getRepeatCount() == 0) {
+				AlertDialog.Builder alertDialog = new AlertDialog.Builder(
+						LoginActivity.this);
+				alertDialog.setTitle(LoginActivity.this
+						.getString(R.string.app_name));
+				alertDialog.setPositiveButton(
+						LoginActivity.this.getString(R.string.text_sure),
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int which) {
+								ApplictionManager.getInstance().exit();
+							}
+						});
+				alertDialog.setNegativeButton(
+						LoginActivity.this.getString(R.string.cancel),
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int which) {
+							}
+						});
+				alertDialog.show();
+			}
+		}
+		return super.dispatchKeyEvent(event);
 	}
 }
