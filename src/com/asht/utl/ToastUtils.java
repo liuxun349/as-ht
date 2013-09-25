@@ -1,13 +1,11 @@
 package com.asht.utl;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.widget.Toast;
 
 public class ToastUtils {
 	private  Toast toast;
 	private static ToastUtils tu;
-	@SuppressLint("ShowToast")
 	private ToastUtils(Context context){
 		toast = Toast.makeText(context, "", Toast.LENGTH_LONG);
 	}

@@ -1,13 +1,17 @@
 package com.asht.dao;
 
 import java.io.IOException;
+import java.util.List;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 import org.xmlpull.v1.XmlPullParserException;
 
+import com.asht.model.Resume;
 import com.asht.utl.ConnCallback;
 import com.asht.utl.Settings;
 
@@ -39,15 +43,30 @@ public class ConnServer extends AsyncTask<String, Void, String> {
 		}
 	}
 
+	protected String doInBackground(List<Resume> list){
+		return method;
+		
+	}
 	@Override
 	protected String doInBackground(String... params) {
 		// TODO Auto-generated method stub
-		System.out.println("url"+url);
+		System.out.println("url "+url +" \n json : "+params[0]);
+		
 		HttpTransportSE hts = new HttpTransportSE(url);
 		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
 				SoapEnvelope.VER10);
 		SoapObject request = new SoapObject(NAMESPACE, method);
-
+		String image = null;
+		try {
+			JSONObject jsonObject = (JSONObject) new JSONObject(params[0]).get("data");
+			image = (String) jsonObject.get("image");
+			System.out.println(" image yes");
+		} catch (JSONException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		TransFileDAO.saveImage("download3", ".png", image);
+//		
 		request.addProperty("strjson", params[0]);
 		envelope.bodyOut = request;
 		envelope.dotNet = false;

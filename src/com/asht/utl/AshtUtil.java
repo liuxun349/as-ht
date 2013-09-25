@@ -80,7 +80,7 @@ public class AshtUtil {
 	 */
 	private static boolean match(String regex, String str) {
 		Pattern pattern = Pattern.compile(regex);
-		Matcher matcher = pattern.matcher(str);
+		Matcher matcher = pattern.matcher(str); 
 		return matcher.matches();
 	}
 }
