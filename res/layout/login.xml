@@ -54,10 +54,9 @@
 
                     <TextView
                         android:id="@+id/login_page_input_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/userinfo_font"
                         android:text="@string/text_login_user_name"
-                        android:textColor="@color/black" />
+                        android:textColor="#FF000000" />
 
                     <EditText
                         android:id="@+id/login_input_name"
@@ -67,7 +66,8 @@
                         android:background="@drawable/edit_text_x"
                         android:hint="@string/text_login_user_name_toast"
                         android:numeric="integer"
-                        android:singleLine="true" />
+                        android:singleLine="true"
+                        android:textSize="16.0sp" />
                 </TableRow>
 
                 <TableRow
@@ -90,48 +90,60 @@
                         android:hint="@string/text_login_user_passwd_toast"
                         android:inputType="textPassword"
                         android:password="true"
-                        android:singleLine="true" />
+                        android:singleLine="true"
+                        android:textSize="16.0sp" />
                 </TableRow>
             </TableLayout>
 
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" >
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
 
-                <CheckBox
-                    android:id="@+id/remember_user"
+                <LinearLayout
+                    android:id="@+id/checkbox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:button="@drawable/login_remember"
-                    android:text="@string/text_login_forget_passwd"
-                    android:textColor="@color/black" />
+                    android:orientation="vertical" >
 
-                <CheckBox
-                    android:id="@+id/display_passwd"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:button="@drawable/login_remember"
-                    android:text="@string/text_login_display_passwd"
-                    android:textColor="@color/black" />
+                    <CheckBox
+                        android:id="@+id/front_remenberMe"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10.0dip"
+                        android:background="@null"
+                        android:button="@null"
+                        android:drawableLeft="@drawable/btn_comment_sametime"
+                        android:text="记住帐号"
+                        android:textColor="#FF000000" />
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
+                    <CheckBox
+                        android:id="@+id/front_autoSignIn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10.0dip"
+                        android:background="@null"
+                        android:button="@null"
+                        android:drawableLeft="@drawable/btn_comment_sametime"
+                        android:text="自动登录"
+                        android:textColor="#FF000000" />
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/forget_passwd"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/front_login"
+                    android:layout_width="70.0dip"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right|center_vertical"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="right|bottom"
+                    android:layout_marginLeft="15.0dip"
+                    android:layout_toRightOf="@id/checkbox"
                     android:text="忘记密码" />
-            </LinearLayout>
+            </FrameLayout>
 
             <Button
                 android:id="@+id/btn_login"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
                 android:text="@string/text_login" />
         </LinearLayout>
     </ScrollView>

@@ -12,7 +12,7 @@
     <string name="waiting">请等待...</string>
     
     <string name="wrong_info_passwd">密码两次输入不同或格式不对</string>
-    
+    <string name="mycasses">我的病例</string>
     <string name="main_my_acount">我的帐户</string>
     <string name="main_message">消息</string>
     <string name="main_home_page">主页</string>
