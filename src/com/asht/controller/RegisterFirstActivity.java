@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.asht.R;
-import com.asht.dao.UserBaseHandlerDAO;
+import com.asht.http.UserBaseHandlerDAO;
 import com.asht.model.UserInfo;
 import com.asht.utl.ApplictionManager;
 

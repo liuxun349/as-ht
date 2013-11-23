@@ -7,6 +7,7 @@ public class User {
 		this.isLogin = isLogin;
 	}
 	public boolean isLogin(){
+		isLogin = true;
 		return isLogin;
 	}
 }

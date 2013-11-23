@@ -29,9 +29,9 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 
 import com.asht.R;
-import com.asht.dao.CasePictureDAO;
-import com.asht.dao.TransFileDAO;
-import com.asht.dao.UserBaseHandlerDAO;
+import com.asht.http.CasePictureDAO;
+import com.asht.http.TransFileDAO;
+import com.asht.http.UserBaseHandlerDAO;
 import com.asht.model.Resume;
 import com.asht.utl.ApplictionManager;
 import com.asht.utl.AshtUtil;
@@ -59,8 +59,8 @@ public class LoginActivity extends Activity {
 		login_input_name = (EditText) findViewById(R.id.login_input_name);
 		login_input_password = (EditText) findViewById(R.id.login_input_password);
 		btn_login = (Button) findViewById(R.id.btn_login);
-		remember_user = (CheckBox) findViewById(R.id.remember_user);
-		display_passwd = (CheckBox) findViewById(R.id.display_passwd);
+//		remember_user = (CheckBox) findViewById(R.id.remember_user);
+//		display_passwd = (CheckBox) findViewById(R.id.display_passwd);
 		register = (Button) findViewById(R.id.login_to_register);
 	}
 

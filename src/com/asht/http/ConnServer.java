@@ -1,4 +1,4 @@
-package com.asht.dao;
+package com.asht.http;
 
 import java.io.IOException;
 import java.util.List;
@@ -7,13 +7,18 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
+import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
+import org.kxml2.kdom.Element;
+import org.kxml2.kdom.Node;
 import org.xmlpull.v1.XmlPullParserException;
 
 import com.asht.model.Resume;
 import com.asht.utl.ConnCallback;
 import com.asht.utl.Settings;
+import com.wz.open.pay.util.ClientUtil;
+import com.wz.open.pay.util.PayUtil;
 
 import android.os.AsyncTask;
 
@@ -52,9 +57,6 @@ public class ConnServer extends AsyncTask<String, Void, String> {
 		// TODO Auto-generated method stub
 		System.out.println("url "+url +" \n json : "+params[0]);
 		
-		HttpTransportSE hts = new HttpTransportSE(url);
-		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
-				SoapEnvelope.VER10);
 		SoapObject request = new SoapObject(NAMESPACE, method);
 		String image = null;
 		try {
@@ -87,6 +89,9 @@ public class ConnServer extends AsyncTask<String, Void, String> {
 		} catch (XmlPullParserException e) {
 			e.printStackTrace();
 		}
+		
+		
+	
 		return null;
 	}
 
