@@ -17,7 +17,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.asht.R;
-import com.asht.dao.UserBaseHandlerDAO;
+import com.asht.http.UserBaseHandlerDAO;
 import com.asht.model.UserInfo;
 import com.asht.utl.ApplictionManager;
 import com.asht.utl.ConnCallback;

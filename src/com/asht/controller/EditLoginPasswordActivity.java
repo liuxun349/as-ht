@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.asht.R;
-import com.asht.dao.UserBaseHandlerDAO;
+import com.asht.http.UserBaseHandlerDAO;
 import com.asht.utl.ConnCallback;
 import com.asht.utl.Settings;
 import com.asht.utl.ToastUtils;

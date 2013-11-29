@@ -1,4 +1,4 @@
-package com.asht.dao;
+package com.asht.http;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
