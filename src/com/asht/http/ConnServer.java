@@ -67,31 +67,28 @@ public class ConnServer extends AsyncTask<String, Void, String> {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		TransFileDAO.saveImage("download3", ".png", image);
 //		
 		request.addProperty("strjson", params[0]);
-		envelope.bodyOut = request;
-		envelope.dotNet = false;
-
-		try {
-			hts.call(null, envelope);
-
-			// 获取返回的数据
-			SoapObject object = (SoapObject) envelope.bodyIn;
-			// 获取返回的结果
-			if (object != null) {
-				String result = object.getProperty(0).toString();
-
-				return result;
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (XmlPullParserException e) {
-			e.printStackTrace();
-		}
-		
-		
-	
+//		envelope.bodyOut = request;
+//		envelope.dotNet = false;
+//
+//		try {
+//			hts.call(null, envelope);
+//
+//			// 获取返回的数据
+//			SoapObject object = (SoapObject) envelope.bodyIn;
+//			// 获取返回的结果
+//			if (object != null) {
+//				String result = object.getProperty(0).toString();
+//
+//				return result;
+//			}
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		} catch (XmlPullParserException e) {
+//			e.printStackTrace();
+//		}
+//		
 		return null;
 	}
 

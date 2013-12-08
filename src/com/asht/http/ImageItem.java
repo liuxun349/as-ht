@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import android.provider.SyncStateContract.Constants;
 import android.util.Log;
 
 
@@ -109,6 +110,7 @@ public class ImageItem {
         }
         if (isPNG(bytes)) {
             return "image/png";
+            
         }
         if (isBMP(bytes)) {
             return "application/x-bmp";
@@ -116,7 +118,7 @@ public class ImageItem {
         return null;
     }
 
-    private static boolean isJPEG(byte[] b) {
+    private static boolean isJPEG(byte[] b) { 
         if (b.length < 2) {
             return false;
         }

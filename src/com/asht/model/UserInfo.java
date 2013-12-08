@@ -3,16 +3,17 @@
  */
 package com.asht.model;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONException;
+import com.alibaba.fastjson.JSONObject;
+import com.asht.http.AshtResponse;
 
-public class UserInfo {
+public class UserInfo extends AshtResponse {
 	private String userId;
 	private String loginPwd;
 	private String payPwd;
 	private String tureName;
-	private int roleId ;
+	private int roleId;
 	private int certificateType;
 	private String certificateNo;
 	private String email;
@@ -21,9 +22,16 @@ public class UserInfo {
 	private int age;
 	private String address;
 	private JSONArray securityQA;
-	public UserInfo(){
-		
+
+	public UserInfo() {
+
 	}
+
+	public UserInfo(AshtResponse response) {
+		super(response);
+		parseJson();
+	}
+
 	public UserInfo(String userId, String loginPwd, String payPwd,
 			String tureName, int certificateType, String certificateNo,
 			String email, String nickName, int sex, int age, String address) {
@@ -41,7 +49,7 @@ public class UserInfo {
 		this.address = address;
 	}
 
-	public void setSecutrityQA(int Q1_id,String A1,int Q2_id,String A2){
+	public void setSecutrityQA(int Q1_id, String A1, int Q2_id, String A2) {
 		securityQA = new JSONArray();
 		try {
 			JSONObject item1 = new JSONObject();
@@ -50,36 +58,47 @@ public class UserInfo {
 			item1.put("vcharAnswer", A1);
 			item2.put("iquestionId", Q2_id);
 			item2.put("vcharAnswer", A2);
-			securityQA.put(item1).put(item2);
+			securityQA.add(item1);
+			securityQA.add(item2);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 	}
-	public JSONObject toJson(){
-		JSONObject jObject = new JSONObject();
-		try {
-			jObject.put("vcharPhoneNumber", userId);
-			jObject.put("vcharLoginPwd", loginPwd);
-			jObject.put("vcharPayPwd", payPwd);
-			jObject.put("vcharTrueName", tureName);
-			jObject.put("iroleID", roleId);
-			jObject.put("vcharNickname", nickName);
-			jObject.put("vcharEmail", email);
-			jObject.put("icertificateType", certificateType);
-			jObject.put("icertificateNo", certificateNo);
-			jObject.put("tbUserPasswordquestionAnswer", securityQA);
-			
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
-		
+	private void parseJson() {
+		JSONObject rs = (JSONObject) result;
+		userId = rs.getString("vcharPhoneNumber");
+		loginPwd = (String) rs.get("vcharLoginPwd");
+		payPwd = (String) rs.get("vcharPayPwd");
+		tureName = (String) rs.get("vcharTrueName");
+		roleId = (Integer) rs.get("iroleID");
+		nickName = (String) rs.get("vcharNickname");
+		email = (String) rs.get("vcharEmail");
+		certificateType = (Integer) rs.get("icertificateType");
+		certificateNo = (String) rs.get("icertificateNo");
+		securityQA = (JSONArray) rs.get("tbUserPasswordquestionAnswer");
+	}
+
+	public JSONObject toJson() {
+		JSONObject jObject = new JSONObject();
+		jObject.put("vcharPhoneNumber", userId);
+		jObject.put("vcharLoginPwd", loginPwd);
+		jObject.put("vcharPayPwd", payPwd);
+		jObject.put("vcharTrueName", tureName);
+		jObject.put("iroleID", roleId);
+		jObject.put("vcharNickname", nickName);
+		jObject.put("vcharEmail", email);
+		jObject.put("icertificateType", certificateType);
+		jObject.put("icertificateNo", certificateNo);
+		jObject.put("tbUserPasswordquestionAnswer", securityQA);
+
 		return jObject;
 	}
-	public JSONArray getSecurityQA(){
+
+	public JSONArray getSecurityQA() {
 		return securityQA;
 	}
+
 	public String getUserId() {
 		return userId;
 	}
@@ -171,5 +190,5 @@ public class UserInfo {
 	public int getRoleId() {
 		return roleId;
 	}
-	
+
 }

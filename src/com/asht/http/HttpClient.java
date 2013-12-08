@@ -14,6 +14,9 @@ import org.xmlpull.v1.XmlPullParserException;
 import com.asht.utl.Settings;
 
 public class HttpClient {
+	
+	public static final String ERROR = "错误";
+	
 	static String NAMESPACE = null;;
 	static String SERVICEURL = null;;
 	static {
@@ -21,8 +24,7 @@ public class HttpClient {
 		SERVICEURL = Settings.WEB_SERVER;
 	}
 	
-	public AshtResponse httpRequest(String url, PostParameter[] postParams,
-			boolean authenticated, String method) {
+	public AshtResponse get(String method,String json) {
 		AshtResponse res = null;
 		try {
 			// 构造SoapHeader
@@ -42,19 +44,19 @@ public class HttpClient {
 			// ====================================================
 			SoapObject rpc = new SoapObject(NAMESPACE, method);
 
-			rpc.addProperty("dvo", postParams);
+			rpc.addProperty("json", json);
 			SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
 					SoapEnvelope.VER11);
 			envelope.headerOut = new Element[] { header };
 			envelope.bodyOut = rpc;
 
-			HttpTransportSE ht = new HttpTransportSE(url);
+			HttpTransportSE ht = new HttpTransportSE(SERVICEURL+method);
 
 			ht.call(null, envelope);
 			// 此处如果用soapobject会报错
 			SoapPrimitive detail = (SoapPrimitive) envelope.getResponse();
 			System.out.println("rs : " + detail.toString());
-			return new AshtResponse( detail.toString() );
+			return AshtResponse.getResponse( detail.toString() );
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
