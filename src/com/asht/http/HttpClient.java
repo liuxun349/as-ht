@@ -2,6 +2,8 @@ package com.asht.http;
 
 import java.io.IOException;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapPrimitive;
@@ -17,12 +19,12 @@ public class HttpClient {
 	static String NAMESPACE = null;;
 	static String SERVICEURL = null;;
 	static {
-		NAMESPACE = Settings.NAMESPACE;
-		SERVICEURL = Settings.WEB_SERVER;
+//		NAMESPACE = Settings.NAMESPACE;
+		NAMESPACE = "http://CXFWebservice.modules.www.ascs.com/";
+//		SERVICEURL = Settings.WEB_SERVER;
 	}
 	
-	public AshtResponse httpRequest(String url, PostParameter[] postParams,
-			boolean authenticated, String method) {
+	public AshtResponse httpRequest(String url, PostParameter[] postParams, String method) {
 		AshtResponse res = null;
 		try {
 			// 构造SoapHeader
@@ -40,12 +42,21 @@ public class HttpClient {
 			header.addChild(Node.ELEMENT, pass);
 
 			// ====================================================
+			
 			SoapObject rpc = new SoapObject(NAMESPACE, method);
-
-			rpc.addProperty("dvo", postParams);
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("username", "admin");
+			jsonObject.put("pwd", "123456");
+			rpc.addProperty("username","admin");
+			rpc.addProperty("pwd","123456");
+//			rpc.addProperty("json", jsonObject.toString());
+			System.out.println(" fa song "+ rpc.getPropertyCount()+" ");
 			SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
 					SoapEnvelope.VER11);
-			envelope.headerOut = new Element[] { header };
+			envelope.dotNet = false;
+			envelope.encodingStyle = "UTF-8";
+			
+//			envelope.headerOut = new Element[] { header };
 			envelope.bodyOut = rpc;
 
 			HttpTransportSE ht = new HttpTransportSE(url);
@@ -59,6 +70,9 @@ public class HttpClient {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (XmlPullParserException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

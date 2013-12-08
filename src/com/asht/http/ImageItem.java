@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import android.provider.SyncStateContract.Constants;
 import android.util.Log;
 
 
@@ -43,7 +44,7 @@ public class ImageItem {
 	    }
 	}
 	public ImageItem(byte[] content) throws Exception{
-		this(Constants.UPLOAD_MODE,content);
+		this(Constants._COUNT,content);
 	}
 	
 	public byte[] getContent() {

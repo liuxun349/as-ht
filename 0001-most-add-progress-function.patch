@@ -1,0 +1,76 @@
+From 5130e415b2b198f7817a02d99d3948938f76f833 Mon Sep 17 00:00:00 2001
+From: LLH <lzliuxun@gmail.com>
+Date: Mon, 26 Aug 2013 00:25:05 +0800
+Subject: [PATCH] most add progress function
+
+---
+ res/layout/waiting.xml               |   25 +++++++++++++++++++++++++
+ src/com/asht/view/WaitingDialog.java |   23 +++++++++++++++++++++++
+ 2 files changed, 48 insertions(+), 0 deletions(-)
+ create mode 100644 res/layout/waiting.xml
+ create mode 100644 src/com/asht/view/WaitingDialog.java
+
+diff --git a/res/layout/waiting.xml b/res/layout/waiting.xml
+new file mode 100644
+index 0000000..867137a
+--- /dev/null
++++ b/res/layout/waiting.xml
+@@ -0,0 +1,25 @@
++<?xml version="1.0" encoding="utf-8"?>
++<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    android:layout_width="fill_parent"
++    android:layout_height="fill_parent"
++    >
++
++    <LinearLayout
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_gravity="center" 
++        android:orientation="vertical">
++
++        <ImageView
++            android:id="@+id/waitingImage"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:background="@drawable/loading_01" />
++
++        <TextView
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:text="@string/waiting" />
++    </LinearLayout>
++
++</FrameLayout>
+\ No newline at end of file
+diff --git a/src/com/asht/view/WaitingDialog.java b/src/com/asht/view/WaitingDialog.java
+new file mode 100644
+index 0000000..53c8038
+--- /dev/null
++++ b/src/com/asht/view/WaitingDialog.java
+@@ -0,0 +1,23 @@
++package com.asht.view;
++
++import com.asht.R;
++
++import android.app.Dialog;
++import android.content.Context;
++import android.graphics.drawable.AnimationDrawable;
++import android.view.animation.Animation;
++import android.view.animation.AnimationUtils;
++
++public class WaitingDialog extends Dialog {
++	AnimationDrawable rocketAnimation;
++	public WaitingDialog(Context context) {
++		super(context);
++		// TODO Auto-generated constructor stub
++		setContentView(R.layout.waiting);
++		Animation animation = AnimationUtils.loadAnimation(context, R.anim.loading);
++		findViewById(R.id.waitingImage).setAnimation(animation);
++	}
++
++	
++
++}
+-- 
+1.7.5.4
+

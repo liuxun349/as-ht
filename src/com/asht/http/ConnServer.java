@@ -10,15 +10,13 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
-import org.kxml2.kdom.Element;
+import org.kxml2.kdom.Element; 
 import org.kxml2.kdom.Node;
 import org.xmlpull.v1.XmlPullParserException;
 
 import com.asht.model.Resume;
 import com.asht.utl.ConnCallback;
 import com.asht.utl.Settings;
-import com.wz.open.pay.util.ClientUtil;
-import com.wz.open.pay.util.PayUtil;
 
 import android.os.AsyncTask;
 
@@ -70,29 +68,30 @@ public class ConnServer extends AsyncTask<String, Void, String> {
 		TransFileDAO.saveImage("download3", ".png", image);
 //		
 		request.addProperty("strjson", params[0]);
-		envelope.bodyOut = request;
-		envelope.dotNet = false;
+//		envelope.bodyOut = request;
+//		envelope.dotNet = false;
 
-		try {
-			hts.call(null, envelope);
-
-			// 获取返回的数据
-			SoapObject object = (SoapObject) envelope.bodyIn;
-			// 获取返回的结果
-			if (object != null) {
-				String result = object.getProperty(0).toString();
+//		try {
+//			hts.call(null, envelope);
+//
+//			// 获取返回的数据
+//			SoapObject object = (SoapObject) envelope.bodyIn;
+//			// 获取返回的结果
+//			if (object != null) {
+				String result =""; 
+//						object.getProperty(0).toString();
 
 				return result;
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (XmlPullParserException e) {
-			e.printStackTrace();
-		}
+//			}
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		} catch (XmlPullParserException e) {
+//			e.printStackTrace();
+//		}
 		
 		
 	
-		return null;
+//		return null;
 	}
 
 	@Override
