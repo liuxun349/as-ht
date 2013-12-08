@@ -65,12 +65,15 @@ public class ConnServer extends AsyncTask<String, Void, String> {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		TransFileDAO.saveImage("download3", ".png", image);
 //		
 		request.addProperty("strjson", params[0]);
 //		envelope.bodyOut = request;
 //		envelope.dotNet = false;
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> fa508d68bd5b6e3f5c8f1c67d18a9a8d6e64c035
 //		try {
 //			hts.call(null, envelope);
 //
@@ -78,20 +81,31 @@ public class ConnServer extends AsyncTask<String, Void, String> {
 //			SoapObject object = (SoapObject) envelope.bodyIn;
 //			// 获取返回的结果
 //			if (object != null) {
+<<<<<<< HEAD
 				String result =""; 
 //						object.getProperty(0).toString();
 
 				return result;
+=======
+//				String result = object.getProperty(0).toString();
+//
+//				return result;
+>>>>>>> fa508d68bd5b6e3f5c8f1c67d18a9a8d6e64c035
 //			}
 //		} catch (IOException e) {
 //			e.printStackTrace();
 //		} catch (XmlPullParserException e) {
 //			e.printStackTrace();
 //		}
+<<<<<<< HEAD
 		
 		
 	
 //		return null;
+=======
+//		
+		return null;
+>>>>>>> fa508d68bd5b6e3f5c8f1c67d18a9a8d6e64c035
 	}
 
 	@Override

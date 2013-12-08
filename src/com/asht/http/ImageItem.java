@@ -110,6 +110,7 @@ public class ImageItem {
         }
         if (isPNG(bytes)) {
             return "image/png";
+            
         }
         if (isBMP(bytes)) {
             return "application/x-bmp";
@@ -117,7 +118,7 @@ public class ImageItem {
         return null;
     }
 
-    private static boolean isJPEG(byte[] b) {
+    private static boolean isJPEG(byte[] b) { 
         if (b.length < 2) {
             return false;
         }
