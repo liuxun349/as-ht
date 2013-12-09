@@ -22,16 +22,10 @@ public class HttpClient {
 	static String NAMESPACE = null;;
 	static String SERVICEURL = null;;
 	static {
-//		NAMESPACE = Settings.NAMESPACE;
-		NAMESPACE = "http://CXFWebservice.modules.www.ascs.com/";
-//		SERVICEURL = Settings.WEB_SERVER;
+		NAMESPACE = Settings.NAMESPACE;
+		SERVICEURL = Settings.WEB_SERVER;
 	}
-	
-<<<<<<< HEAD
-	public AshtResponse httpRequest(String url, PostParameter[] postParams, String method) {
-=======
 	public AshtResponse get(String method,String json) {
->>>>>>> fa508d68bd5b6e3f5c8f1c67d18a9a8d6e64c035
 		AshtResponse res = null;
 		try {
 			// 构造SoapHeader
@@ -51,24 +45,14 @@ public class HttpClient {
 			// ====================================================
 			
 			SoapObject rpc = new SoapObject(NAMESPACE, method);
-<<<<<<< HEAD
-			JSONObject jsonObject = new JSONObject();
-			jsonObject.put("username", "admin");
-			jsonObject.put("pwd", "123456");
-			rpc.addProperty("username","admin");
-			rpc.addProperty("pwd","123456");
-//			rpc.addProperty("json", jsonObject.toString());
-			System.out.println(" fa song "+ rpc.getPropertyCount()+" ");
-=======
 
 			rpc.addProperty("json", json);
->>>>>>> fa508d68bd5b6e3f5c8f1c67d18a9a8d6e64c035
 			SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
 					SoapEnvelope.VER11);
 			envelope.dotNet = false;
 			envelope.encodingStyle = "UTF-8";
 			
-//			envelope.headerOut = new Element[] { header };
+			envelope.headerOut = new Element[] { header };
 			envelope.bodyOut = rpc;
 
 			HttpTransportSE ht = new HttpTransportSE(SERVICEURL+method);
@@ -82,9 +66,6 @@ public class HttpClient {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (XmlPullParserException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

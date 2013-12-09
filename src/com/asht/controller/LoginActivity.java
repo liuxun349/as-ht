@@ -1,16 +1,7 @@
 package com.asht.controller;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.net.URL;
-
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
 
 import org.json.JSONObject;
-import org.kobjects.base64.Base64;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -29,10 +20,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 
 import com.asht.R;
-import com.asht.http.CasePictureDAO;
-import com.asht.http.TransFileDAO;
 import com.asht.http.UserBaseHandlerDAO;
-import com.asht.model.Resume;
 import com.asht.utl.ApplictionManager;
 import com.asht.utl.AshtUtil;
 import com.asht.utl.ConnCallback;

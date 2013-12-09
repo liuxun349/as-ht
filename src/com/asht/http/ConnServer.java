@@ -10,7 +10,7 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
-import org.kxml2.kdom.Element; 
+import org.kxml2.kdom.Element;
 import org.kxml2.kdom.Node;
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -46,66 +46,53 @@ public class ConnServer extends AsyncTask<String, Void, String> {
 		}
 	}
 
-	protected String doInBackground(List<Resume> list){
+	protected String doInBackground(List<Resume> list) {
 		return method;
-		
+
 	}
+
 	@Override
 	protected String doInBackground(String... params) {
 		// TODO Auto-generated method stub
-		System.out.println("url "+url +" \n json : "+params[0]);
-		
+		System.out.println("url " + url + " \n json : " + params[0]);
+
 		SoapObject request = new SoapObject(NAMESPACE, method);
 		String image = null;
 		try {
-			JSONObject jsonObject = (JSONObject) new JSONObject(params[0]).get("data");
+			JSONObject jsonObject = (JSONObject) new JSONObject(params[0])
+					.get("data");
 			image = (String) jsonObject.get("image");
 			System.out.println(" image yes");
 		} catch (JSONException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-//		
+		//
 		request.addProperty("strjson", params[0]);
-//		envelope.bodyOut = request;
-//		envelope.dotNet = false;
-<<<<<<< HEAD
+		// envelope.bodyOut = request;
+		// envelope.dotNet = false;
+		// try {
+		// hts.call(null, envelope);
+		//
+		// // 获取返回的数据
+		// SoapObject object = (SoapObject) envelope.bodyIn;
+		// // 获取返回的结果
+		// if (object != null) {
+		// object.getProperty(0).toString();
 
-=======
-//
->>>>>>> fa508d68bd5b6e3f5c8f1c67d18a9a8d6e64c035
-//		try {
-//			hts.call(null, envelope);
-//
-//			// 获取返回的数据
-//			SoapObject object = (SoapObject) envelope.bodyIn;
-//			// 获取返回的结果
-//			if (object != null) {
-<<<<<<< HEAD
-				String result =""; 
-//						object.getProperty(0).toString();
+		// String result = object.getProperty(0).toString();
+		//
+		// return result;
+		// }
+		// } catch (IOException e) {
+		// e.printStackTrace();
+		// } catch (XmlPullParserException e) {
+		// e.printStackTrace();
+		// }
 
-				return result;
-=======
-//				String result = object.getProperty(0).toString();
-//
-//				return result;
->>>>>>> fa508d68bd5b6e3f5c8f1c67d18a9a8d6e64c035
-//			}
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		} catch (XmlPullParserException e) {
-//			e.printStackTrace();
-//		}
-<<<<<<< HEAD
-		
-		
-	
-//		return null;
-=======
-//		
+		// return null;
+		//
 		return null;
->>>>>>> fa508d68bd5b6e3f5c8f1c67d18a9a8d6e64c035
 	}
 
 	@Override

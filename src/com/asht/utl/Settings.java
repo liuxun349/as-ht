@@ -2,10 +2,9 @@ package com.asht.utl;
 
 public class Settings {
 	
-//	public static String WEB_SERVER = "http://192.168.0.109:8063/"; // webserver 地址
-	public static String WEB_SERVER = "http://192.168.2.13:8063/";
+	public static String WEB_SERVER = "http://115.28.48.85:8080/ascs/WS/UserService?wsdl";
 	
-	public static String NAMESPACE = "http://webService.cd.anticancer.cn/";
+	public static String NAMESPACE = "http://CXFWebservice.modules.www.ascs.com/";
 	
 	public static String RETURN_CODE = "ReturnCode";
 	public static String RETURN_MESSAGE = "Message";

@@ -19,7 +19,7 @@ public class UserBaseHandlerDAO {
 	public void regist(UserInfo user, ConnCallback callback) {
 		String name = "regist";
 		JSONObject param = new JSONObject();
-		JSONObject param1 = user.toJson();
+		com.alibaba.fastjson.JSONObject param1 = user.toJson();
 		try {
 			param.put("data", param1);
 		} catch (JSONException e) {

@@ -27,7 +27,7 @@ public class AppStart extends Activity {
 					String url = "http://115.28.48.85:8080/ascs/WS/UserService?wsdl";
 					String method = "login";
 					
-					client.httpRequest(url, null , method);
+					client.get(url, method);
 				}
 			}).start();
 			new Handler().postDelayed(new Runnable(){
