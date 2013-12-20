@@ -4,7 +4,7 @@ public class Settings {
 	
 	public static String WEB_SERVER = "http://115.28.48.85:8080/ascs/WS/UserService?wsdl";
 	
-	public static String NAMESPACE = "http://CXFWebservice.modules.www.ascs.com/";
+	public static String NAMESPACE = "http://accountService.CXFWebservice.modules.www.ascs.com/";
 	
 	public static String RETURN_CODE = "ReturnCode";
 	public static String RETURN_MESSAGE = "Message";
