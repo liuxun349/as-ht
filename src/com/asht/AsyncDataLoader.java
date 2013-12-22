@@ -53,7 +53,7 @@ public class AsyncDataLoader extends AsyncTask<Void, Long, Object> {
 	}
 
 	void Log(String msg) {
-		Log.i("weibo", "Asyc---" + msg);
+		Log.i("asht", "Asyc---" + msg);
 	}
 
 }

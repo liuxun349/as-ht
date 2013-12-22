@@ -81,7 +81,6 @@ public class AsHt {
 		method = "ModifyUserInfo";
 		return get(method, json);
 	}
-
 	private AshtResponse get(String method, JSONObject json) {
 		return httpClient.get(method, json.toJSONString());
 	}
