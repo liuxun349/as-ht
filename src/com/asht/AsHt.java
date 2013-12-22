@@ -20,11 +20,7 @@ public class AsHt {
 	 * @return
 	 */
 	public UserInfo login(String name, String passwd) {
-		method = "login";
-		json = new JSONObject();
-		json.put("userPhoneNo", name);
-		json.put("userLoginPwd", passwd);
-		return new UserInfo(get(method, json));
+		return new UserInfo(systemService.login(name, passwd));
 	}
 
 	/**
@@ -54,9 +50,7 @@ public class AsHt {
 	 * @return
 	 */
 	public AshtResponse getPass(UserInfo userInfo) {
-		method = "Regist";
-		json = userInfo.toJson();
-		return get(method, json);
+		return systemService.regist(userInfo);
 	}
 
 	/**
@@ -66,10 +60,7 @@ public class AsHt {
 	 * @return
 	 */
 	public AshtResponse sendPasswdToEmai(String userPhoneNo) {
-		method = "equestSendPayPasswordToEmail";
-		json = new JSONObject();
-		json.put("userPhoneNo", userPhoneNo);
-		return get(method, json);
+			return systemService.sendPasswdToEmai(userPhoneNo);
 	}
 
 	/**

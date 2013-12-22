@@ -8,7 +8,7 @@ public class AshtResponse {
 	
 	public static String TAG = "AshtResponse";
 	public String message;
-	public Object result;
+	public JSON result;
 	public String code;
 	public boolean isRight;
 	

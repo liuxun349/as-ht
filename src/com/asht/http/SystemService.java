@@ -1,4 +1,4 @@
-package com.asht.controller;
+package com.asht.http;
 
 import com.alibaba.fastjson.JSONObject;
 import com.asht.http.AshtResponse;
