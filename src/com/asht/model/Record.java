@@ -29,6 +29,7 @@ public class Record extends AshtResponse {
 	}
 
 	public Record(AshtResponse rs) {
+		super(rs);
 		Record record = JSON.parseObject(result.toJSONString(), Record.class);
 		record(record);
 	}
