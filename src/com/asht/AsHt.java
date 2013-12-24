@@ -1,6 +1,7 @@
 package com.asht;
 
 import java.util.Date;
+import java.util.List;
 
 import android.speech.RecognitionService;
 
@@ -9,6 +10,7 @@ import com.asht.controller.SystemService;
 import com.asht.http.AshtResponse;
 import com.asht.http.HttpClient;
 import com.asht.http.RecordService;
+import com.asht.model.Record;
 import com.asht.model.Resume;
 import com.asht.model.UserInfo;
 
@@ -85,8 +87,8 @@ public class AsHt {
 	 * @param beforeCurrentTime 当前时间之前的10个病例
 	 * @return
 	 */
-	public AshtResponse getRecordGroup(UserInfo user,boolean getRecent,Date beforeCurrentTime){
-		return recordService.getRecordGroup(user, getRecent, beforeCurrentTime);
+	public List<Record> getRecordGroup(UserInfo user,boolean getRecent,Date beforeCurrentTime){
+		return Record.getRecords(recordService.getRecordGroup(user, getRecent, beforeCurrentTime));
 	} 
 	/**
 	 * 创建新的病例组
@@ -142,8 +144,8 @@ public class AsHt {
 	 * @param type	病例图片的类型（0 缩略图，1 原图）
 	 * @return
 	 */
-	public AshtResponse getCaseImageFromGroup(UserInfo user,String groupId,int type){
-		return recordService.getCaseImageFromGroup(user, groupId, type);
+	public Resume getCaseImageFromGroup(UserInfo user,String groupId,int type){
+		return new Resume(recordService.getCaseImageFromGroup(user, groupId, type));
 	}
 	
 	private AshtResponse get(String method, JSONObject json) {
