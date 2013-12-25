@@ -7,6 +7,7 @@ import com.asht.model.User;
 import com.asht.model.UserInfo;
 
 public class SystemService {
+	private static final String WEBSERVICE = "http://systemService.CXFWebservice.modules.www.ascs.com/";
 	HttpClient httpClient = new HttpClient();
 	String method;
 	JSONObject json;
@@ -35,31 +36,37 @@ public class SystemService {
 		method = "GenerateAndSendMobileVerificationCode";
 		return get(method, null);
 	}
+
 	/**
 	 * 获得密保问题
+	 * 
 	 * @param no
 	 * @param question
 	 * @return
 	 */
-	public AshtResponse getQuestion(String no,String question){
+	public AshtResponse getQuestion(String no, String question) {
 		method = "getPasswordProtectionQuestion";
 		json = new JSONObject();
 		json.put("no", no);
 		json.put("question", question);
 		return get(method, json);
 	}
+
 	/**
 	 * 注册
+	 * 
 	 * @param userInfo
 	 * @return
 	 */
-	public AshtResponse regist(UserInfo userInfo){
+	public AshtResponse regist(UserInfo userInfo) {
 		method = "Regist";
 		json = userInfo.toJson();
 		return get(method, json);
 	}
+
 	/**
 	 * 登录
+	 * 
 	 * @param name
 	 * @param passwd
 	 * @return
@@ -71,8 +78,10 @@ public class SystemService {
 		json.put("userLoginPwd", passwd);
 		return get(method, json);
 	}
+
 	/**
 	 * 发送登录密码到邮箱
+	 * 
 	 * @param userPhoneNo
 	 * @return
 	 */
@@ -82,31 +91,38 @@ public class SystemService {
 		json.put("userPhoneNo", userPhoneNo);
 		return get(method, json);
 	}
+
 	/**
 	 * 下载app
+	 * 
 	 * @return
 	 */
-	public AshtResponse DownLoadApp(){
+	public AshtResponse DownLoadApp() {
 		method = "downloadApp";
 		return get(method, null);
 	}
+
 	/**
 	 * 获取公司信息
+	 * 
 	 * @return
 	 */
-	public AshtResponse getCompanyInfo(){
+	public AshtResponse getCompanyInfo() {
 		method = "getCompanyInfo";
 		return get(method, null);
 	}
+
 	/**
 	 * 获取法律声明
+	 * 
 	 * @return
 	 */
-	public AshtResponse getLawDeclareInfo(){
+	public AshtResponse getLawDeclareInfo() {
 		method = "getLawDeclareInfo";
 		return get(method, null);
 	}
+
 	private AshtResponse get(String method, JSONObject json) {
-		return httpClient.get(method, json.toJSONString());
+		return httpClient.get(method, json.toJSONString(), WEBSERVICE);
 	}
 }

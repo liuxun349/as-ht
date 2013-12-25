@@ -10,6 +10,7 @@ import com.asht.controller.SystemService;
 import com.asht.http.AshtResponse;
 import com.asht.http.HttpClient;
 import com.asht.http.RecordService;
+import com.asht.http.UserService;
 import com.asht.model.Record;
 import com.asht.model.Resume;
 import com.asht.model.UserInfo;
@@ -20,6 +21,7 @@ public class AsHt {
 	JSONObject json;
 	private SystemService systemService = new SystemService();
 	private RecordService recordService = new RecordService();
+	private UserService userService = new UserService();
 	/**
 	 * 登录
 	 * 
@@ -146,9 +148,5 @@ public class AsHt {
 	 */
 	public Resume getCaseImageFromGroup(UserInfo user,String groupId,int type){
 		return new Resume(recordService.getCaseImageFromGroup(user, groupId, type));
-	}
-	
-	private AshtResponse get(String method, JSONObject json) {
-		return httpClient.get(method, json.toJSONString());
 	}
 }

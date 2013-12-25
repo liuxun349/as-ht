@@ -7,6 +7,7 @@ import com.asht.model.Resume;
 import com.asht.model.UserInfo;
 
 public class RecordService {
+	private static final String WEBSERVICE = "http://recordService.CXFWebservice.modules.www.ascs.com/";
 	private String method ;
 	private HttpClient httpClient = new HttpClient();
 	private JSONObject json;
@@ -111,6 +112,6 @@ public class RecordService {
 		return get(method, json);
 	}
 	private AshtResponse get(String method, JSONObject json) {
-		return httpClient.get(method, json.toJSONString());
+		return httpClient.get(method, json.toJSONString(),WEBSERVICE);
 	}
 }

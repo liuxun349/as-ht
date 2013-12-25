@@ -21,11 +21,9 @@ public class HttpClient {
 	
 	static String NAMESPACE = null;;
 	static String SERVICEURL = null;;
-	static {
-		NAMESPACE = Settings.NAMESPACE;
-		SERVICEURL = Settings.WEB_SERVER;
-	}
-	public AshtResponse get(String method,String json) {
+
+	public AshtResponse get(String method,String json,String webserivce) {
+		SERVICEURL = webserivce;
 		AshtResponse res = null;
 		try {
 			// 构造SoapHeader
