@@ -1,9 +1,14 @@
+/**
+ * 病例组类 
+ */
 package com.asht.model;
 
 import java.util.List;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.asht.AsHtException;
 import com.asht.http.AshtResponse;
 
 public class Record extends AshtResponse {
@@ -30,7 +35,7 @@ public class Record extends AshtResponse {
 
 	public Record(AshtResponse rs) {
 		super(rs);
-		Record record = JSON.parseObject(result.toJSONString(), Record.class);
+		Record record = JSON.parseObject(((JSON) result).toJSONString(), Record.class);
 		record(record);
 	}
 
@@ -41,9 +46,15 @@ public class Record extends AshtResponse {
 		medicalRecordItemTotal = record.medicalRecordItemTotal;
 	}
 
-	public static List<Record> getRecords(AshtResponse ashtResponse) {
-		List<Record> records;
-		records = JSON.parseArray(ashtResponse.result.toString(), Record.class);
-		return records;
+	public static List<Record> getRecords(AshtResponse ashtResponse)throws AsHtException {
+		System.out.println("rs: "+ashtResponse.result);
+//		return JSON.parseArray(((JSONArray) ashtResponse.result).toJSONString(), Record.class);
+		return null;
+	}
+
+	@Override
+	public JSONObject toJson() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

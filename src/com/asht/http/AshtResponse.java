@@ -3,14 +3,15 @@ package com.asht.http;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 
-public class AshtResponse {
+public abstract class AshtResponse {
 	
 	public static String TAG = "AshtResponse";
 	public String message;
-	public JSON result;
+	public Object result;
 	public String code;
-	public boolean isRight;
+	public boolean success;
 	
 	public AshtResponse(){
 		
@@ -20,9 +21,10 @@ public class AshtResponse {
 		message = ashtResponse.message;
 		result = ashtResponse.result;
 		code = ashtResponse.code;
-		isRight = ashtResponse.isRight;
+		success = ashtResponse.success;
 	}
-
+	public abstract JSONObject toJson();
+	
 	public static AshtResponse getResponse(String res) {
 		// TODO Auto-generated constructor stub
 		try {

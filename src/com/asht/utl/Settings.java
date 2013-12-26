@@ -3,7 +3,6 @@ package com.asht.utl;
 public class Settings {
 	
 	public static String WEB_SERVER = "http://115.28.48.85:8080/ascs/WS/UserService?wsdl";
-	
 	public static String NAMESPACE = "http://accountService.CXFWebservice.modules.www.ascs.com/";
 	
 	public static String RETURN_CODE = "ReturnCode";
@@ -18,6 +17,8 @@ public class Settings {
 	
 	public static int RETURN_CODE_ACCESS = 200;	//成功
 	public static int RETURN_CODE_FAILED = 300;	//失败
+	
+	public static String NET_CONN_ERROR = "网络连接错误！";
 	
 	public static String WRONG_INPUT_FORMAT_TITLE = "输入格式错误";
 }

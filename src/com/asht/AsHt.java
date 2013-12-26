@@ -3,10 +3,12 @@ package com.asht;
 import java.util.Date;
 import java.util.List;
 
+import android.accounts.Account;
 import android.speech.RecognitionService;
 
 import com.alibaba.fastjson.JSONObject;
 import com.asht.controller.SystemService;
+import com.asht.http.AccountService;
 import com.asht.http.AshtResponse;
 import com.asht.http.HttpClient;
 import com.asht.http.RecordService;
@@ -16,20 +18,21 @@ import com.asht.model.Resume;
 import com.asht.model.UserInfo;
 
 public class AsHt {
-	HttpClient httpClient = new HttpClient();
 	String method;
 	JSONObject json;
 	private SystemService systemService = new SystemService();
 	private RecordService recordService = new RecordService();
 	private UserService userService = new UserService();
+	private AccountService accountService = new AccountService();
 	/**
 	 * 登录
 	 * 
 	 * @param name
 	 * @param passwd
 	 * @return
+	 * @throws AsHtException 
 	 */
-	public UserInfo login(String name, String passwd) {
+	public UserInfo login(String name, String passwd) throws AsHtException {
 		return new UserInfo(systemService.login(name, passwd));
 	}
 
@@ -37,8 +40,9 @@ public class AsHt {
 	 * 向手机发送验证码
 	 * 
 	 * @return
+	 * @throws AsHtException 
 	 */
-	public AshtResponse sendVerificationCode() {
+	public AshtResponse sendVerificationCode() throws AsHtException {
 
 		return systemService.sendVerificationCode();
 	}
@@ -49,8 +53,9 @@ public class AsHt {
 	 * @param method
 	 * @param json
 	 * @return
+	 * @throws AsHtException 
 	 */
-	public AshtResponse checkVerificationCode(String phoneNo, String checkNo) {
+	public AshtResponse checkVerificationCode(String phoneNo, String checkNo) throws AsHtException {
 		return systemService.checkVerificationCode(phoneNo, checkNo);
 	}
 
@@ -58,8 +63,9 @@ public class AsHt {
 	 * 注册
 	 * 
 	 * @return
+	 * @throws AsHtException 
 	 */
-	public AshtResponse getPass(UserInfo userInfo) {
+	public AshtResponse getPass(UserInfo userInfo) throws AsHtException {
 		return systemService.regist(userInfo);
 	}
 
@@ -68,28 +74,21 @@ public class AsHt {
 	 * 
 	 * @param userPhoneNo
 	 * @return
+	 * @throws AsHtException 
 	 */
-	public AshtResponse sendPasswdToEmai(String userPhoneNo) {
+	public AshtResponse sendPasswdToEmai(String userPhoneNo) throws AsHtException {
 			return systemService.sendPasswdToEmai(userPhoneNo);
 	}
 
-	/**
-	 * 修改个人资料
-	 * 
-	 * @return
-	 */
-	public AshtResponse modifyUserInfo() {
-		method = "ModifyUserInfo";
-		return get(method, json);
-	}
 	/**
 	 * 获取用户自己的病例组（分页查询，10个病例）
 	 * @param user
 	 * @param getRecent 是否是获取最近的10个病例
 	 * @param beforeCurrentTime 当前时间之前的10个病例
 	 * @return
+	 * @throws AsHtException 
 	 */
-	public List<Record> getRecordGroup(UserInfo user,boolean getRecent,Date beforeCurrentTime){
+	public List<Record> getRecordGroup(UserInfo user,boolean getRecent,Date beforeCurrentTime) throws AsHtException{
 		return Record.getRecords(recordService.getRecordGroup(user, getRecent, beforeCurrentTime));
 	} 
 	/**
@@ -97,8 +96,9 @@ public class AsHt {
 	 * @param user
 	 * @param newGroupName 病例组名称
 	 * @return
+	 * @throws AsHtException 
 	 */
-	public AshtResponse addRecordGroup(UserInfo user,String newGroupName){
+	public AshtResponse addRecordGroup(UserInfo user,String newGroupName) throws AsHtException{
 		return recordService.addRecordGroup(user, newGroupName);
 	}
 	/**
@@ -106,8 +106,9 @@ public class AsHt {
 	 * @param user
  	 * @param groupId 需要被删除的病例组id
 	 * @return
+	 * @throws AsHtException 
 	 */
-	public AshtResponse deleteRecordGroup(UserInfo user,String groupId){
+	public AshtResponse deleteRecordGroup(UserInfo user,String groupId) throws AsHtException{
 		return recordService.deleteRecordGroup(user, groupId);
 	}
 	/**
@@ -116,8 +117,9 @@ public class AsHt {
 	 * @param groupId
 	 * @param resume
 	 * @return
+	 * @throws AsHtException 
 	 */
-	public AshtResponse uploadCaseToGroup(UserInfo user,String groupId,Resume resume){
+	public AshtResponse uploadCaseToGroup(UserInfo user,String groupId,Resume resume) throws AsHtException{
 		return recordService.uploadCaseToGroup(user, groupId, resume);
 	}
 	/**
@@ -126,8 +128,9 @@ public class AsHt {
 	 * @param groupId 病例组id
 	 * @param caseName 病例名称
 	 * @return
+	 * @throws AsHtException 
 	 */
-	public AshtResponse deleteCaseFromGroup(UserInfo user,String groupId,String caseName){
+	public AshtResponse deleteCaseFromGroup(UserInfo user,String groupId,String caseName) throws AsHtException{
 		return recordService.deleteCaseFromGroup(user, groupId, caseName);
 	}
 	/**
@@ -135,8 +138,9 @@ public class AsHt {
 	 * @param user
 	 * @param groupId
 	 * @return
+	 * @throws AsHtException 
 	 */
-	public AshtResponse getAllCaseFromGroup(UserInfo user,String groupId){
+	public AshtResponse getAllCaseFromGroup(UserInfo user,String groupId) throws AsHtException{
 		return recordService.getAllCaseFromGroup(user, groupId);
 	}
 	/**
@@ -145,8 +149,9 @@ public class AsHt {
 	 * @param groupId 病例组id
 	 * @param type	病例图片的类型（0 缩略图，1 原图）
 	 * @return
+	 * @throws AsHtException 
 	 */
-	public Resume getCaseImageFromGroup(UserInfo user,String groupId,int type){
+	public Resume getCaseImageFromGroup(UserInfo user,String groupId,int type) throws AsHtException{
 		return new Resume(recordService.getCaseImageFromGroup(user, groupId, type));
 	}
 }

@@ -3,6 +3,7 @@ package com.asht.utl;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.asht.AsHt;
 import com.asht.model.User;
 import com.asht.model.UserInfo;
 
@@ -14,9 +15,10 @@ public class ApplictionManager extends Application {
 	private List<Activity> activityList = new LinkedList<Activity>();
 	public UserInfo userInfo = new UserInfo();
 	private static ApplictionManager instance;
-
+	private AsHt asht;
 	private ApplictionManager() {
 		user.setIsLogin(false);
+		asht = new AsHt();
 	}
 
 	public static ApplictionManager getInstance() {
@@ -46,5 +48,8 @@ public class ApplictionManager extends Application {
 	}
 	public User getUser(){
 		return user;
+	}
+	public AsHt getAsHt(){
+		return asht;
 	}
 }

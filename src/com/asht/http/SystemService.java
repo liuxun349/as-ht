@@ -1,24 +1,28 @@
 package com.asht.http;
 
 import com.alibaba.fastjson.JSONObject;
+import com.asht.AsHtException;
 import com.asht.http.AshtResponse;
 import com.asht.http.HttpClient;
 import com.asht.model.User;
 import com.asht.model.UserInfo;
 
 public class SystemService {
-	HttpClient httpClient = new HttpClient();
-	String method;
+	private static final String NAMESPACE = "http://systemService.CXFWebservice.modules.www.ascs.com/";
+	private static final String SERVICEURL = "http://115.28.48.85:8080/ascs/WS/SystemService?wsdl";
+	private String method ;
+	private HttpClient httpClient = new HttpClient(NAMESPACE,SERVICEURL);
 	JSONObject json;
-
+	
 	/**
 	 * 验证手机与手机验证码
 	 * 
 	 * @param method
 	 * @param json
 	 * @return
+	 * @throws AsHtException 
 	 */
-	public AshtResponse checkVerificationCode(String phoneNo, String checkNo) {
+	public AshtResponse checkVerificationCode(String phoneNo, String checkNo) throws AsHtException {
 		method = "CheckPhoneAndMobileVerificationCode";
 		json = new JSONObject();
 		json.put("userPhoneNo", phoneNo);
@@ -30,8 +34,9 @@ public class SystemService {
 	 * 向手机发送验证码
 	 * 
 	 * @return
+	 * @throws AsHtException 
 	 */
-	public AshtResponse sendVerificationCode() {
+	public AshtResponse sendVerificationCode() throws AsHtException {
 		method = "GenerateAndSendMobileVerificationCode";
 		return get(method, null);
 	}
@@ -40,8 +45,9 @@ public class SystemService {
 	 * @param no
 	 * @param question
 	 * @return
+	 * @throws AsHtException 
 	 */
-	public AshtResponse getQuestion(String no,String question){
+	public AshtResponse getQuestion(String no,String question) throws AsHtException{
 		method = "getPasswordProtectionQuestion";
 		json = new JSONObject();
 		json.put("no", no);
@@ -52,8 +58,9 @@ public class SystemService {
 	 * 注册
 	 * @param userInfo
 	 * @return
+	 * @throws AsHtException 
 	 */
-	public AshtResponse regist(UserInfo userInfo){
+	public AshtResponse regist(UserInfo userInfo) throws AsHtException{
 		method = "Regist";
 		json = userInfo.toJson();
 		return get(method, json);
@@ -63,8 +70,9 @@ public class SystemService {
 	 * @param name
 	 * @param passwd
 	 * @return
+	 * @throws AsHtException 
 	 */
-	public AshtResponse login(String name, String passwd) {
+	public AshtResponse login(String name, String passwd) throws AsHtException {
 		method = "login";
 		json = new JSONObject();
 		json.put("userPhoneNo", name);
@@ -75,8 +83,9 @@ public class SystemService {
 	 * 发送登录密码到邮箱
 	 * @param userPhoneNo
 	 * @return
+	 * @throws AsHtException 
 	 */
-	public AshtResponse sendPasswdToEmai(String userPhoneNo) {
+	public AshtResponse sendPasswdToEmai(String userPhoneNo) throws AsHtException {
 		method = "equestSendPayPasswordToEmail";
 		json = new JSONObject();
 		json.put("userPhoneNo", userPhoneNo);
@@ -85,28 +94,31 @@ public class SystemService {
 	/**
 	 * 下载app
 	 * @return
+	 * @throws AsHtException 
 	 */
-	public AshtResponse DownLoadApp(){
+	public AshtResponse DownLoadApp() throws AsHtException{
 		method = "downloadApp";
 		return get(method, null);
 	}
 	/**
 	 * 获取公司信息
 	 * @return
+	 * @throws AsHtException 
 	 */
-	public AshtResponse getCompanyInfo(){
+	public AshtResponse getCompanyInfo() throws AsHtException{
 		method = "getCompanyInfo";
 		return get(method, null);
 	}
 	/**
 	 * 获取法律声明
 	 * @return
+	 * @throws AsHtException 
 	 */
-	public AshtResponse getLawDeclareInfo(){
+	public AshtResponse getLawDeclareInfo() throws AsHtException{
 		method = "getLawDeclareInfo";
 		return get(method, null);
 	}
-	private AshtResponse get(String method, JSONObject json) {
+	private AshtResponse get(String method, JSONObject json) throws AsHtException {
 		return httpClient.get(method, json.toJSONString());
 	}
 }

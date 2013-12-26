@@ -13,17 +13,20 @@ import org.kxml2.kdom.Element;
 import org.kxml2.kdom.Node;
 import org.xmlpull.v1.XmlPullParserException;
 
+import com.asht.AsHtException;
 import com.asht.utl.Settings;
 
 public class HttpClient {
 	
 	public static final String ERROR = "错误";
 	
-	static String NAMESPACE = null;;
-	static String SERVICEURL = null;;
-
-	public AshtResponse get(String method,String json,String webserivce) {
-		SERVICEURL = webserivce;
+	private String NAMESPACE = null; 
+	private String SERVICEURL = null; 
+	public HttpClient(String nameSpace,String serviceUrl){
+		this.NAMESPACE = nameSpace;
+		this.SERVICEURL = serviceUrl;
+	}
+	public AshtResponse get(String method,String json) throws AsHtException{
 		AshtResponse res = null;
 		try {
 			// 构造SoapHeader
@@ -43,7 +46,7 @@ public class HttpClient {
 			// ====================================================
 			
 			SoapObject rpc = new SoapObject(NAMESPACE, method);
-
+			System.out.println(" json : "+ json+" "+NAMESPACE+ " "+ NAMESPACE);
 			rpc.addProperty("json", json);
 			SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
 					SoapEnvelope.VER11);
@@ -62,11 +65,10 @@ public class HttpClient {
 			return AshtResponse.getResponse( detail.toString() );
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new AsHtException(Settings.NET_CONN_ERROR, Settings.RETURN_CODE_FAILED);
 		} catch (XmlPullParserException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new AsHtException(Settings.NET_CONN_ERROR, Settings.RETURN_CODE_FAILED);
 		}
-		return res;
 	}
 }

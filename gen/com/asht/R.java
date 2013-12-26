@@ -121,6 +121,7 @@ public final class R {
         public static final int _id=0x7f0a0054;
         public static final int aboutUpdate=0x7f0a004d;
         public static final int age=0x7f0a004a;
+        public static final int btn=0x7f0a007d;
         public static final int btnEdit=0x7f0a005a;
         public static final int btn_exit_cancel=0x7f0a0001;
         public static final int btn_exit_ok=0x7f0a0002;
@@ -220,7 +221,7 @@ public final class R {
         public static final int spinner_answer2=0x7f0a0026;
         public static final int text1=0x7f0a005c;
         public static final int text2=0x7f0a005d;
-        public static final int text3=0x7f0a007d;
+        public static final int text3=0x7f0a007e;
         public static final int text4=0x7f0a0055;
         public static final int text5=0x7f0a0056;
         public static final int text6=0x7f0a0057;
