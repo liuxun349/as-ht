@@ -126,7 +126,7 @@ public class Recommend extends AshtResponse {
 		this.examineDateTime = examineDateTime;
 	}
 
-	@Override
+//	@Override
 	public JSONObject toJson() {
 		// TODO Auto-generated method stub
 		JSONObject json = new JSONObject();

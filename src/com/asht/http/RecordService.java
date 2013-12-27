@@ -26,15 +26,15 @@ public class RecordService {
 	 * @throws AsHtException
 	 */
 	public AshtResponse getRecordGroup(UserInfo user, boolean getRecent,
-			Date beforeCurrentTime) throws AsHtException {
+			String beforeCurrentTime) throws AsHtException {
 		method = "getMedicalRecordGroupsByOwner";
 		json = new JSONObject();
 		json.put("userPhoneNo", user.getUserId());
 		json.put("getRecent", getRecent);
 		if (beforeCurrentTime == null) {
-			json.put("beforeCurrentTiem", "2013-12-11 22:48:47");
+			json.put("beforeCurrentTime", "2013-12-11 22:48:47");
 		} else {
-			json.put("beforeCurrentTiem", beforeCurrentTime);
+			json.put("beforeCurrentTime", beforeCurrentTime);
 		}
 		return get(method, json);
 	}
@@ -89,8 +89,8 @@ public class RecordService {
 		method = "uploadMedicalRecordItemsToGroup";
 		json = new JSONObject();
 		json.put("userPhoneNo", user.getUserId());
-		json.put("MedicalRecordGroupID", groupId);
-		json.put("MedicalRecordItemFile", resume);
+		json.put("imedicalrecordgroupid", groupId);
+		json.put("medicalRecordItemFile", resume.getMedicalRecordImageFileToByte());
 		return get(method, json);
 	}
 
@@ -110,8 +110,8 @@ public class RecordService {
 		method = "deleteMedicalRecordItems";
 		json = new JSONObject();
 		json.put("userPhone", user.getUserId());
-		json.put("MedicalRecordGroupID", groupId);
-		json.put("MedicalRecordItemFileName", caseName);
+		json.put("medicalRecordGroupID", groupId);
+		json.put("medicalRecordItemFileName", caseName);
 		return get(method, json);
 	}
 
@@ -128,7 +128,7 @@ public class RecordService {
 		method = "getMedicalRecordItemsBigCaseByGroup";
 		json = new JSONObject();
 		json.put("userPhoneNo", user.getUserId());
-		json.put("MedicalRecordGroupID", groupId);
+		json.put("medicalRecordGroupID", groupId);
 		return get(method, json);
 	}
 

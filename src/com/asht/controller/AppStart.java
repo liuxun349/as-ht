@@ -9,12 +9,16 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.asht.AsHt;
 import com.asht.AsHtException;
 import com.asht.AsyncDataLoader;
 import com.asht.AsyncDataLoader.Callback;
 import com.asht.R;
+import com.asht.http.AshtResponse;
 import com.asht.model.Record;
+import com.asht.model.Resume;
 import com.asht.model.UserInfo;
 import com.asht.utl.ApplictionManager;
 
@@ -41,19 +45,23 @@ public class AppStart extends Activity {
 			@Override
 			public void onStart() {
 				// TODO Auto-generated method stub
-				System.out.println(" in ...");
 				AsHt asht = ApplictionManager.getInstance().getAsHt();
 				UserInfo user = ApplictionManager.getInstance().getUserInfo();
 				user = new UserInfo();
 				user.setUserId("13000000000");
 				try {
-//					records = asht.getRecordGroup(user, true, null);
-//					asht.getRecordGroup(user, true, null);
-					asht.getAllCaseFromGroup(user, "105");
+//					asht.addRecordGroup(user, "新建病例123");
+					Resume resume = new Resume();
+					resume.setLocalRecordImageUrl("/mnt/sdcard/download/timg.jpeg");
+					asht.uploadCaseToGroup(user, "123", resume);
+//					records = asht.getRecordGroup(user, true, "2013-12-25 20:06:15.0");
+//					System.out.println(" size: "+records.size()); 
+					List<Resume> resumes = asht.getAllCaseFromGroup(user, "123"); 
+					System.out.println(" size2: "+resumes.size());
 				} catch (AsHtException e) { 
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-					Log.w("Record", e.toString());
+					Log.w("Record", e.toString()); 
 				}
 
 			}
@@ -84,5 +92,4 @@ public class AppStart extends Activity {
 		// }
 		// }, 1000);
 	}
-
 }

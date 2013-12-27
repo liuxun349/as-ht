@@ -27,7 +27,6 @@ public class HttpClient {
 		this.SERVICEURL = serviceUrl;
 	}
 	public AshtResponse get(String method,String json) throws AsHtException{
-		AshtResponse res = null;
 		try {
 			// 构造SoapHeader
 			// 用于验证是否有接口调用权限==========================================
