@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.asht.AsHtException;
 
 public abstract class AshtResponse {
 	
@@ -25,16 +26,15 @@ public abstract class AshtResponse {
 	}
 	public abstract JSONObject toJson();
 	
-	public static AshtResponse getResponse(String res) {
+	public static AshtResponse getResponse(String res) throws AsHtException{
 		// TODO Auto-generated constructor stub
 		try {
 			return JSON.parseObject(res, AshtResponse.class);
 		} catch (Exception e) {
+			System.out.println("ddddddddd");
 			e.printStackTrace();
 			Log.d("TAG", e.toString());
-			return JSON
-					.parseObject(HttpClient.ERROR, AshtResponse.class);
-
+			throw new AsHtException("读入错误", 1);
 		}
 	}
 }

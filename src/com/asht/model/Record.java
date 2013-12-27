@@ -47,7 +47,8 @@ public class Record extends AshtResponse {
 	}
 
 	public static List<Record> getRecords(AshtResponse ashtResponse)throws AsHtException {
-		System.out.println("rs: "+ashtResponse.result);
+		
+		System.out.println("rs: "+(ashtResponse == null));
 //		return JSON.parseArray(((JSONArray) ashtResponse.result).toJSONString(), Record.class);
 		return null;
 	}

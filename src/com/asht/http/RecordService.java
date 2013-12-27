@@ -26,7 +26,7 @@ public class RecordService {
 	 * @throws AsHtException
 	 */
 	public AshtResponse getRecordGroup(UserInfo user, boolean getRecent,
-			Date beforeCurrentTime) throws AsHtException {
+			String beforeCurrentTime) throws AsHtException {
 		method = "getMedicalRecordGroupsByOwner";
 		json = new JSONObject();
 		json.put("userPhoneNo", user.getUserId());

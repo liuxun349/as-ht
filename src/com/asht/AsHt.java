@@ -88,7 +88,7 @@ public class AsHt {
 	 * @return
 	 * @throws AsHtException 
 	 */
-	public List<Record> getRecordGroup(UserInfo user,boolean getRecent,Date beforeCurrentTime) throws AsHtException{
+	public List<Record> getRecordGroup(UserInfo user,boolean getRecent,String beforeCurrentTime) throws AsHtException{
 		return Record.getRecords(recordService.getRecordGroup(user, getRecent, beforeCurrentTime));
 	} 
 	/**

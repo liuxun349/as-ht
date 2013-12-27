@@ -47,7 +47,7 @@ public class AppStart extends Activity {
 				user = new UserInfo();
 				user.setUserId("13000000000");
 				try {
-//					records = asht.getRecordGroup(user, true, null);
+					records = asht.getRecordGroup(user, false,"2013-12-25 20:06:15.0" );
 //					asht.getRecordGroup(user, true, null);
 					asht.getAllCaseFromGroup(user, "105");
 				} catch (AsHtException e) { 
