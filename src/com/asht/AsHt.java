@@ -36,7 +36,20 @@ public class AsHt {
 	public UserInfo login(String name, String passwd) throws AsHtException {
 		return new UserInfo(systemService.login(name, passwd));
 	}
-
+	/**
+	 * 注册
+	 * 
+	 * @param userInfo
+	 * @return
+	 * @throws AsHtException 
+	 */
+	public boolean regist(UserInfo userInfo) throws AsHtException {
+		AshtResponse rs = systemService.regist(userInfo);
+		if( rs.success && rs.result != null){
+			return (Boolean) rs.result;
+		}
+		return false;
+	}
 	/**
 	 * 向手机发送验证码
 	 * 

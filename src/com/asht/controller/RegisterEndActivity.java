@@ -71,8 +71,8 @@ public class RegisterEndActivity extends Activity{
 		if( checkLoginPwd() && checkAnswerIsNull() && checkPayPwd()){
 			UserInfo userInfo = ApplictionManager.getInstance().userInfo;
 			userInfo.setSecutrityQA(Q1, securityA1, Q2, securityA2);
-			userInfo.setLoginPwd(loginPwd);
-			userInfo.setPayPwd(payPwd);
+			userInfo.setUserLoginPwd(loginPwd);
+			userInfo.setUserPayPwd(payPwd);
 		}else{
 			System.out.println("输入有误....");
 		}

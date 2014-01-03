@@ -57,7 +57,7 @@ public class RegisterFirstActivity extends Activity {
 					// 验证手机号与手机验证码是否相同，未完成此功能
 					//if( ... )
 						userInfo = new UserInfo();
-						userInfo.setUserId(phoneId);
+						userInfo.setUserPhoneNo(phoneId);
 						ApplictionManager.getInstance().userInfo = userInfo;
 						Intent intent = new Intent(RegisterFirstActivity.this,RegisterSecendActivity.class);
 						startActivity(intent);

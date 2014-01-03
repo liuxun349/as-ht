@@ -47,10 +47,10 @@ public class UserService {
 	public AshtResponse modifyPayPasswd(UserInfo userInfo,String checkNo,String usercertificate,String newPayPasswd) throws AsHtException{
 		method = "modifyPayPassword";
 		json = new JSONObject();
-		json.put("userPhoneNo", userInfo.getUserId());
-		json.put("checkNo", userInfo.getUserId());
-		json.put("userCertificateNo", userInfo.getUserId());
-		json.put("newPayPassword", userInfo.getUserId());
+		json.put("userPhoneNo", userInfo.getUserPhoneNo());
+		json.put("checkNo", userInfo.getUserPhoneNo());
+		json.put("userCertificateNo", userInfo.getUserPhoneNo());
+		json.put("newPayPassword", userInfo.getUserPhoneNo());
 		return get(method, json);
 	}
 	/**
@@ -64,7 +64,7 @@ public class UserService {
 	public AshtResponse modifyAnswerOfSecurityQuestion(UserInfo userInfo,int questionNo,String answer) throws AsHtException{
 		method = "modifyAnswerOfSecrurityQuestion";
 		json = new JSONObject();
-		json.put("userPhoneNo", userInfo.getUserId());
+		json.put("userPhoneNo", userInfo.getUserPhoneNo());
 		json.put("questionNo", questionNo);
 		json.put("answer", answer);
 		return get(method, json);
@@ -78,7 +78,7 @@ public class UserService {
 	public AshtResponse isUserSetPasswdProtected(UserInfo userInfo) throws AsHtException{
 		method = "isUserPasswordProtected";
 		json = new JSONObject();
-		json.put("userPhoneNo", userInfo.getUserId());
+		json.put("userPhoneNo", userInfo.getUserPhoneNo());
 		return get(method, json);
 	}
 	/**
@@ -91,7 +91,7 @@ public class UserService {
 	 */
 	public AshtResponse checkPasswdAnswerIsRight(UserInfo userInfo,int questionNo,String questionContent) throws AsHtException{
 		method = "isPasswordProtectedValid";
-		json.put("userPhoneNo", userInfo.getUserId());
+		json.put("userPhoneNo", userInfo.getUserPhoneNo());
 		json.put("questionNo", questionNo);
 		json.put("questionContent", questionContent);
 		return get(method, json);
@@ -107,7 +107,7 @@ public class UserService {
 	 */
 	public AshtResponse modifyMobileNumber(UserInfo userInfo,String checkNo,String payPasswd,String newUserPhoneNo) throws AsHtException{
 		method = "modifyMobileNumber";
-		json.put("userPhoneNo", userInfo.getUserId());
+		json.put("userPhoneNo", userInfo.getUserPhoneNo());
 		json.put("checkNo", checkNo);
 		json.put("userPayPwd", payPasswd);
 		json.put("newUserPhoneNo", newUserPhoneNo);

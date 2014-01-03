@@ -21,7 +21,7 @@ public class AccountService {
 	public AshtResponse searchContributions(UserInfo userInfo) throws AsHtException{
 		method = "getContributions";
 		json = new JSONObject();
-		json.put("userPhoneNo", userInfo.getUserId());
+		json.put("userPhoneNo", userInfo.getUserPhoneNo());
 		return get(method, json);
 	}
 	
@@ -34,7 +34,7 @@ public class AccountService {
 	public AshtResponse getZGold(UserInfo userInfo) throws AsHtException{
 		method = "getZGold";
 		json = new JSONObject();
-		json.put("userPhoneNo", userInfo.getUserId());
+		json.put("userPhoneNo", userInfo.getUserPhoneNo());
 		return get(method, json);
 	}
 	
@@ -48,7 +48,7 @@ public class AccountService {
 	public AshtResponse exchangeZCoupon(UserInfo userInfo,int exchangeValue) throws AsHtException{
 		method = "exchangeZCoupon";
 		json = new JSONObject();
-		json.put("userPhoneNo", userInfo.getUserId());
+		json.put("userPhoneNo", userInfo.getUserPhoneNo());
 		json.put("willExchangeZValue", exchangeValue);
 		return get(method, json);
 	}
@@ -62,7 +62,7 @@ public class AccountService {
 	public AshtResponse getZCouponsByOwner(UserInfo userInfo) throws AsHtException{
 		method = "getZCouponsByOwner";
 		json = new JSONObject();
-		json.put("userPhoneNo", userInfo.getUserId());
+		json.put("userPhoneNo", userInfo.getUserPhoneNo());
 		return get(method, json);
 	}
 	/**
@@ -75,7 +75,7 @@ public class AccountService {
 	public AshtResponse addAdvice(UserInfo userInfo,String advice) throws AsHtException{
 		method = "addAdvice";
 		json = new JSONObject();
-		json.put("userPhoneNo", userInfo.getUserId());
+		json.put("userPhoneNo", userInfo.getUserPhoneNo());
 		json.put("advice", advice);
 		return get(method, json);
 	}
@@ -88,7 +88,7 @@ public class AccountService {
 	public AshtResponse searchAdvices(UserInfo userInfo) throws AsHtException{
 		method = "searchAdvices";
 		json = new JSONObject();
-		json.put("userPhoneNo", userInfo.getUserId());
+		json.put("userPhoneNo", userInfo.getUserPhoneNo());
 		return get(method, json);
 	}
 	/**
@@ -100,7 +100,7 @@ public class AccountService {
 	public AshtResponse searchMessages(UserInfo userInfo) throws AsHtException{
 		method = "searchMessages";
 		json = new JSONObject();
-		json.put("userPhoneNo", userInfo.getUserId());
+		json.put("userPhoneNo", userInfo.getUserPhoneNo());
 		return get(method, json);
 	}
 	/**
@@ -112,7 +112,7 @@ public class AccountService {
 	public AshtResponse recommendPatient(UserInfo userInfo,Recommend recommend) throws AsHtException{
 		method = "recommendPatient";
 		json = recommend.toJson();
-		json.put("userPhoneNo", userInfo.getUserId());
+		json.put("userPhoneNo", userInfo.getUserPhoneNo());
 		return get(method, json);
 	}
 	/**
@@ -124,7 +124,7 @@ public class AccountService {
 	public AshtResponse getRecommendationsByPresenter(UserInfo userInfo) throws AsHtException{
 		method = "getRecommendationsByPresenter";
 		json = new JSONObject();
-		json.put("userPhoneNo", userInfo.getUserId());
+		json.put("userPhoneNo", userInfo.getUserPhoneNo());
 		return get(method,json);
 	}
 	private AshtResponse get(String method, JSONObject json) throws AsHtException {

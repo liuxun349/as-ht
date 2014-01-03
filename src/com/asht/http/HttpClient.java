@@ -45,7 +45,7 @@ public class HttpClient {
 			// ====================================================
 			
 			SoapObject rpc = new SoapObject(NAMESPACE, method);
-			System.out.println(" json : "+ json+" "+NAMESPACE+ " "+ NAMESPACE);
+			System.out.println(" json : "+ json+" "+NAMESPACE+ " "+ SERVICEURL);
 			rpc.addProperty("json", json);
 			SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
 					SoapEnvelope.VER11);
@@ -64,6 +64,7 @@ public class HttpClient {
 			return AshtResponse.getResponse( detail.toString() );
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
 			throw new AsHtException(Settings.NET_CONN_ERROR, Settings.RETURN_CODE_FAILED);
 		} catch (XmlPullParserException e) {
 			// TODO Auto-generated catch block
