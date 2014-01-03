@@ -32,9 +32,9 @@ public class RecordService {
 		json.put("userPhoneNo", user.getUserId());
 		json.put("getRecent", getRecent);
 		if (beforeCurrentTime == null) {
-			json.put("beforeCurrentTiem", "2013-12-11 22:48:47");
+			json.put("beforeCurrentTime", "2013-12-11 22:48:47");
 		} else {
-			json.put("beforeCurrentTiem", beforeCurrentTime);
+			json.put("beforeCurrentTime", beforeCurrentTime);
 		}
 		return get(method, json);
 	}
@@ -71,7 +71,7 @@ public class RecordService {
 		method = "deleteMedicalRecordGroups";
 		json = new JSONObject();
 		json.put("userPhoneNo", user.getUserId());
-		json.put("MedicalRecordGroupID", groupId);
+		json.put("medicalRecordGroupID", groupId);
 		return get(method, json);
 	}
 
@@ -89,8 +89,8 @@ public class RecordService {
 		method = "uploadMedicalRecordItemsToGroup";
 		json = new JSONObject();
 		json.put("userPhoneNo", user.getUserId());
-		json.put("MedicalRecordGroupID", groupId);
-		json.put("MedicalRecordItemFile", resume);
+		json.put("medicalRecordGroupID", groupId);
+		json.put("medicalRecordItemFile", resume.getMedicalRecordImageFileToByte());
 		return get(method, json);
 	}
 
@@ -104,14 +104,15 @@ public class RecordService {
 	 *            病例名称
 	 * @return
 	 * @throws AsHtException
+	 * 
 	 */
 	public AshtResponse deleteCaseFromGroup(UserInfo user, String groupId,
-			String caseName) throws AsHtException {
+			String caseId) throws AsHtException {
 		method = "deleteMedicalRecordItems";
 		json = new JSONObject();
 		json.put("userPhone", user.getUserId());
-		json.put("MedicalRecordGroupID", groupId);
-		json.put("MedicalRecordItemFileName", caseName);
+		json.put("medicalRecordGroupID", groupId);
+		json.put("medicalRecordItemID", caseId);
 		return get(method, json);
 	}
 
@@ -128,7 +129,7 @@ public class RecordService {
 		method = "getMedicalRecordItemsBigCaseByGroup";
 		json = new JSONObject();
 		json.put("userPhoneNo", user.getUserId());
-		json.put("MedicalRecordGroupID", groupId);
+		json.put("medicalRecordGroupID", groupId);
 		return get(method, json);
 	}
 

@@ -6,7 +6,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.asht.AsHtException;
 
-public abstract class AshtResponse {
+public  class AshtResponse {
 	
 	public static String TAG = "AshtResponse";
 	public String message;
@@ -24,12 +24,14 @@ public abstract class AshtResponse {
 		code = ashtResponse.code;
 		success = ashtResponse.success;
 	}
-	public abstract JSONObject toJson();
+	public JSONObject toJson(){
+		return null;
+	}
 	
 	public static AshtResponse getResponse(String res) throws AsHtException{
 		// TODO Auto-generated constructor stub
 		try {
-			return JSON.parseObject(res, AshtResponse.class);
+			return (AshtResponse)JSON.parseObject(res, AshtResponse.class);
 		} catch (Exception e) {
 			System.out.println("ddddddddd");
 			e.printStackTrace();

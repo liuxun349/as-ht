@@ -28,6 +28,10 @@ public class Record extends AshtResponse {
 	 * 病例组内病例总数
 	 */
 	public int medicalRecordItemTotal;
+	/**
+	 * 更新时间
+	 */
+	public String updateTime;
 
 	public Record() {
 		// TODO Auto-generated constructor stub
@@ -35,7 +39,8 @@ public class Record extends AshtResponse {
 
 	public Record(AshtResponse rs) {
 		super(rs);
-		Record record = JSON.parseObject(((JSON) result).toJSONString(), Record.class);
+		Record record = JSON.parseObject(((JSON) result).toJSONString(),
+				Record.class);
 		record(record);
 	}
 
@@ -46,14 +51,13 @@ public class Record extends AshtResponse {
 		medicalRecordItemTotal = record.medicalRecordItemTotal;
 	}
 
-	public static List<Record> getRecords(AshtResponse ashtResponse)throws AsHtException {
-		
-		System.out.println("rs: "+(ashtResponse == null));
-//		return JSON.parseArray(((JSONArray) ashtResponse.result).toJSONString(), Record.class);
-		return null;
+	public static List<Record> getRecords(AshtResponse ashtResponse)
+			throws AsHtException {
+		return JSON.parseArray(
+				((JSONArray) ashtResponse.result).toJSONString(), Record.class);
 	}
 
-	@Override
+	// @Override
 	public JSONObject toJson() {
 		// TODO Auto-generated method stub
 		return null;
