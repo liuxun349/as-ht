@@ -51,11 +51,11 @@ public class AppStart extends Activity {
 				user.setUserId("13000000000");
 				try {
 //					asht.addRecordGroup(user, "新建病例123");
-					Resume resume = new Resume();
-					resume.setLocalRecordImageUrl("/mnt/sdcard/download/timg.jpeg");
-					asht.uploadCaseToGroup(user, "123", resume);
-//					records = asht.getRecordGroup(user, true, "2013-12-25 20:06:15.0");
-//					System.out.println(" size: "+records.size()); 
+//					Resume resume = new Resume();
+//					resume.setLocalRecordImageUrl("/mnt/sdcard/download/timg.jpeg");
+//					asht.uploadCaseToGroup(user, "123", resume);
+					records = asht.getRecordGroup(user, true, "2012-12-25 20:06:15.0");
+					System.out.println(" size: "+records.size()); 
 					List<Resume> resumes = asht.getAllCaseFromGroup(user, "123"); 
 					System.out.println(" size2: "+resumes.size());
 				} catch (AsHtException e) { 

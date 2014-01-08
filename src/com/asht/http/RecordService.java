@@ -89,6 +89,7 @@ public class RecordService {
 		method = "uploadMedicalRecordItemsToGroup";
 		json = new JSONObject();
 		json.put("userPhoneNo", user.getUserId());
+		
 		json.put("imedicalrecordgroupid", groupId);
 		json.put("medicalRecordItemFile", resume.getMedicalRecordImageFileToByte());
 		return get(method, json);

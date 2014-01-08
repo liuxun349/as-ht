@@ -1,108 +1,182 @@
 package com.asht.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.asht.R;
-
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.BaseAdapter;
-import android.widget.CheckBox;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.ListAdapter;
+import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.asht.R;
+import com.asht.interfaces.UIHanleLintener;
+import com.asht.interfaces.UINotification;
+import com.asht.model.Record;
+import com.asht.ui.PullToRefreshView;
+import com.asht.ui.PullToRefreshView.OnFooterRefreshListener;
+import com.asht.ui.PullToRefreshView.OnHeaderRefreshListener;
+import com.example.controller.CasesController;
+import com.example.testafinal.MyApplication;
 
 public class MyCasesActivity extends Activity implements OnClickListener {
 
 	private GridView gv_myCases = null;
 	private TextView txt_title_back = null;
-	MyCasesAdapter myCasesAdapter;
-	private boolean isDelete = false;
+	private CasesDeleteTitle casesDeleteTitle;
+	private CasesDeleteIsOK casesDeleteIsOK;
+	private View view_myCases_delete;
+	private PopupWindow pop_edit = null;
+	CasesController mCasesController;
+	private PullToRefreshView ptrv_cases;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_cases);
+
 		initView();
 		initListener();
 		initData();
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+
+		mCasesController.update(false, false);
+	}
+
 	private void initView() {
+		ptrv_cases = (PullToRefreshView) findViewById(R.id.ptrv_cases);
+
 		gv_myCases = (GridView) findViewById(R.id.gv_myCases);
 		txt_title_back = (TextView) findViewById(R.id.tv_title_back);
-		findViewById(R.id.fl_myCases_delete).setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				findViewById(R.id.ll_myCases_delete_isOk).setVisibility(View.VISIBLE);
+		initDeleteTitle();
+		initDeleteIsOK();
+		view_myCases_delete = findViewById(R.id.fl_myCases_delete);
+		view_myCases_delete.setOnClickListener(this);
+	}
+
+	private void initDeleteIsOK() {
+		casesDeleteIsOK = new CasesDeleteIsOK();
+		casesDeleteIsOK.main = View.inflate(MyCasesActivity.this,
+				R.layout.casesdelete, null);
+		casesDeleteIsOK.tv_selectDeleteTitle = (TextView) casesDeleteIsOK.main
+				.findViewById(R.id.tv_myCases_delte_txt);
+		casesDeleteIsOK.btn_clearDelete = casesDeleteIsOK.main
+				.findViewById(R.id.btn_myCases_delete_cancel);
+		casesDeleteIsOK.btn_okDelete = casesDeleteIsOK.main
+				.findViewById(R.id.btn_myCases_delete_ok);
+		casesDeleteIsOK.btn_clearDelete
+				.setOnClickListener(casesDeleteIsOKOnClick);
+		casesDeleteIsOK.btn_okDelete.setOnClickListener(casesDeleteIsOKOnClick);
+
+	}
+
+	private void initDeleteTitle() {
+		casesDeleteTitle = new CasesDeleteTitle();
+		casesDeleteTitle.main = findViewById(R.id.fl_myCases_selected_title);
+		casesDeleteTitle.tv_selectTitle = (TextView) findViewById(R.id.tv_myCases_selected_txt);
+		casesDeleteTitle.btn_allSelect = (Button) findViewById(R.id.btn_myCases_selected_allSelect);
+		casesDeleteTitle.btn_clean = (Button) findViewById(R.id.btn_myCases_selected_cleanSelect);
+		casesDeleteTitle.btn_allSelect.setOnClickListener(casesDeleteOnClick);
+		casesDeleteTitle.btn_clean.setOnClickListener(casesDeleteOnClick);
+	}
+
+	OnClickListener casesDeleteIsOKOnClick = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			if (v.getId() == casesDeleteIsOK.btn_clearDelete.getId()) {
+				if (pop_edit != null && pop_edit.isShowing()) {
+					pop_edit.dismiss();
+				} else {
+
+				}
+			} else {
+				mCasesController.deleteSelectCasesGroup();
 			}
-		});
+		}
 	};
+
+	OnClickListener casesDeleteOnClick = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			switch (v.getId()) {
+			case R.id.btn_myCases_selected_allSelect:
+				mCasesController.selectAll();
+				break;
+			case R.id.btn_myCases_selected_cleanSelect:
+				mCasesController.selectClear();
+				break;
+			default:
+				break;
+			}
+		}
+	};
+
+	private void setDeleteTitle(int selectCount) {
+		casesDeleteTitle.tv_selectTitle.setText("已选" + selectCount + "个");
+	}
 
 	private void initListener() {
 		txt_title_back.setOnClickListener(this);
 	}
 
 	private void initData() {
-		List<MyCasesInfo> list = new ArrayList<MyCasesActivity.MyCasesInfo>();
-		for (int i = 0; i < 50; i++) {
-			MyCasesInfo info = new MyCasesInfo();
-			if (i % 2 == 0) {
-				info.shenhe = true;
-			} else {
-				info.shenhe = false;
-			}
-			info.tongguo = false;
-			list.add(info);
-		}
-		myCasesAdapter = new MyCasesAdapter(list, getApplicationContext());
-		gv_myCases.setAdapter(myCasesAdapter);
-		gv_myCases.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				if (isDelete) {
-					((MyCasesInfo) myCasesAdapter.getItem(arg2)).tongguo = !((MyCasesInfo) myCasesAdapter
-							.getItem(arg2)).tongguo;
-					myCasesAdapter.notifyDataSetChanged();showDeleteTitle();
-				}
-			}
-
-		});
-		gv_myCases.setOnItemLongClickListener(new OnItemLongClickListener() {
+		mCasesController = new CasesController(this, gv_myCases);
+		ptrv_cases.setOnHeaderRefreshListener(new OnHeaderRefreshListener() {
 
 			@Override
-			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
-					int arg2, long arg3) {
-				isDelete = true;
-				return false;
+			public void onHeaderRefresh(PullToRefreshView view) {
+				// TODO Auto-generated method stub
+				mCasesController.update(true, true);
 			}
 		});
+		ptrv_cases.setOnFooterRefreshListener(new OnFooterRefreshListener() {
+
+			@Override
+			public void onFooterRefresh(PullToRefreshView view) {
+				// TODO Auto-generated method stub
+
+				mCasesController.gengduo(true, true);
+			}
+		});
+
+		mCasesController.setUIHandleLinstener(mHanleLintener);
+		mCasesController.setUINotification(uiNotification);
+		mCasesController.update(false, false);
 	}
-	
-	
-	void showDeleteTitle(){
-		findViewById(R.id.fl_myCases_selected_title).setVisibility(View.VISIBLE);
-		findViewById(R.id.fl_myCases_delete).setVisibility(View.VISIBLE);
-		
+
+	private void showDeleteTitle() {
+		casesDeleteTitle.main.setVisibility(View.VISIBLE);
+		view_myCases_delete.setVisibility(View.VISIBLE);
+	}
+
+	private void HideDeleteTitle() {
+		casesDeleteTitle.main.setVisibility(View.GONE);
+		view_myCases_delete.setVisibility(View.GONE);
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.tv_title_back:
+			finish();
+			break;
+		case R.id.fl_myCases_delete:
 
+			delete(mCasesController.getSelectCasesGroupCount(),
+					mCasesController.getSelectCasesCount());
 			break;
 
 		default:
@@ -111,104 +185,154 @@ public class MyCasesActivity extends Activity implements OnClickListener {
 
 	}
 
-	class MyCasesInfo {
-		boolean shenhe = false;
-
-		boolean tongguo = false;
-
-		public boolean isShenhe() {
-			return shenhe;
-		}
-
-		public void setShenhe(boolean shenhe) {
-			this.shenhe = shenhe;
-		}
-
-		public boolean isTongguo() {
-			return tongguo;
-		}
-
-		public void setTongguo(boolean tongguo) {
-			this.tongguo = tongguo;
-		}
-
+	class CasesDeleteTitle {
+		public View main;
+		public TextView tv_selectTitle;
+		public Button btn_clean;
+		public Button btn_allSelect;
 	}
 
-	class MyCasesAdapter extends BaseAdapter implements ListAdapter {
+	public class CasesDeleteIsOK {
+		public View main;
+		public TextView tv_selectDeleteTitle;
+		public View btn_clearDelete;
+		public View btn_okDelete;
+	}
 
-		private List<MyCasesInfo> myCasesInfos;
-		private Context mContext;
+	private void delete(int groupCount, int casesCount) {
+		// 创建PopupWindow对象
 
-		public MyCasesAdapter(List<MyCasesInfo> lists, Context context) {
-			myCasesInfos = lists;
-			mContext = context;
+		casesDeleteIsOK.tv_selectDeleteTitle.setText("确定删除" + groupCount
+				+ "个病例组（包含" + casesCount + "张病例）吗");
+
+		if (pop_edit == null) {
+			pop_edit = new PopupWindow(casesDeleteIsOK.main,
+					WindowManager.LayoutParams.MATCH_PARENT,
+					WindowManager.LayoutParams.WRAP_CONTENT, false);
+			// 需要设置一下此参数，点击外边可消失
+			pop_edit.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+			// 设置点击窗口外边窗口消失
+			pop_edit.setOutsideTouchable(true);
+			// 设置此参数获得焦点，否则无法点击
+			pop_edit.setFocusable(true);
 		}
 
+		if (!pop_edit.isShowing()) {
+			pop_edit.showAtLocation(casesDeleteIsOK.main, Gravity.BOTTOM, 0, 0);
+		}
+	}
+
+	/***
+	 * 选择发生改变了
+	 */
+	UINotification uiNotification = new UINotification() {
+
+		/**
+		 * 选中了多少
+		 */
 		@Override
-		public int getCount() {
-			// TODO Auto-generated method stub
-			return myCasesInfos.size();
+		public void notificationSelected(int size) {
+			setDeleteTitle(size);
 		}
 
+		/**
+		 * 取消选择了/
+		 */
 		@Override
-		public Object getItem(int position) {
-			// TODO Auto-generated method stub
-			return myCasesInfos.get(position);
+		public void notificationLast() {
+			setDeleteTitle(0);
+			HideDeleteTitle();
+
 		}
 
+		/**
+		 * 开始选择
+		 */
 		@Override
-		public long getItemId(int position) {
-			// TODO Auto-generated method stub
-			return position;
+		public void notificationStart(int size) {
+			showDeleteTitle();
+			setDeleteTitle(size);
 		}
 
+		/**
+		 * 删除完成
+		 */
 		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			MyCasesItemView myCasesItemView;
-			if (convertView == null) {
-
-				myCasesItemView = new MyCasesItemView();
-				View item_view = View.inflate(mContext,
-						R.layout.activity_my_cases_item, null);
-				myCasesItemView.iv1 = (ImageView) item_view
-						.findViewById(R.id.iv_myCases_pic1);
-				myCasesItemView.iv2 = (ImageView) item_view
-						.findViewById(R.id.iv_pic2);
-				myCasesItemView.iv3 = (ImageView) item_view
-						.findViewById(R.id.iv_myCases_pic3);
-				myCasesItemView.iv4 = (ImageView) item_view
-						.findViewById(R.id.iv_myCases_pic4);
-				myCasesItemView.iv_delete = (ImageView) item_view
-						.findViewById(R.id.iv_myCases_delete);
-				myCasesItemView.cbIsShenHe = (CheckBox) item_view
-						.findViewById(R.id.cb_myCases_isTongGuo);
-				myCasesItemView.tv_title = (TextView) item_view
-						.findViewById(R.id.tv_myCases_title);
-				convertView = item_view;
-				convertView.setTag(myCasesItemView);
+		public void delete() {
+			notificationLast();
+			if (pop_edit != null && pop_edit.isShowing()) {
+				pop_edit.dismiss();
 			}
-			myCasesItemView = (MyCasesItemView) convertView.getTag();
-
-			MyCasesInfo myCasesInfo = myCasesInfos.get(position);
-			System.out.println(position + "  " + myCasesInfo.shenhe + "  "
-					+ myCasesInfo.shenhe);
-			myCasesItemView.tv_title.setText("��" + position);
-			myCasesItemView.cbIsShenHe.setChecked(myCasesInfo.shenhe);
-			if (myCasesInfo.tongguo) {
-				myCasesItemView.iv_delete.setVisibility(View.VISIBLE);
-			} else {
-				myCasesItemView.iv_delete.setVisibility(View.GONE);
-
-			}
-			return convertView;
 		}
+
+		@Override
+		public void onClick(Object info) {
+			Intent intent = new Intent(MyCasesActivity.this,
+					MyCasesSingleActivity.class);
+			saveTmp(MyCasesActivity.this, (Record) info);
+			startActivity(intent);
+		}
+
+	};
+
+	public void saveTmp(Context context, Record info) {
+		MyApplication.setmRecord(info);
 	}
 
-	class MyCasesItemView {
-		public TextView tv_title;
-		public ImageView iv1, iv2, iv3, iv4, iv_delete;
-		public CheckBox cbIsShenHe;
+	UIHanleLintener mHanleLintener = new UIHanleLintener() {
 
-	}
+		@Override
+		public void update(boolean isServer, boolean fag, boolean isTouch) {
+			// TODO Auto-generated method stub
+
+			if (!isTouch) {
+				Toast.makeText(getApplicationContext(), "加载更新完成",
+						Toast.LENGTH_LONG).show();
+				return;
+			}
+			ptrv_cases.postDelayed(new Runnable() {
+
+				@Override
+				public void run() {
+					ptrv_cases.onHeaderRefreshComplete();
+					Toast.makeText(getApplicationContext(), "上拉更新完成",
+							Toast.LENGTH_LONG).show();
+				}
+			}, 2000);
+		}
+
+		@Override
+		public void deletefinish(boolean fag) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void addfinish(boolean fag) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void gengduo(boolean fag, boolean isTouch) {
+
+			if (!isTouch) {
+				Toast.makeText(getApplicationContext(), "加载更多更新完成",
+						Toast.LENGTH_LONG).show();
+				return;
+			}
+			ptrv_cases.postDelayed(new Runnable() {
+
+				@Override
+				public void run() {
+					ptrv_cases.onFooterRefreshComplete();
+
+					Toast.makeText(getApplicationContext(), "下拉更新完成",
+							Toast.LENGTH_LONG).show();
+
+				}
+			}, 2000);
+		}
+	};
 
 }

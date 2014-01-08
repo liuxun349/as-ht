@@ -96,8 +96,9 @@ public class AsHt {
 	 */
 	public List<Record> getRecordGroup(UserInfo user, boolean getRecent,
 			String beforeCurrentTime) throws AsHtException {
-		return Record.getRecords(recordService.getRecordGroup(user, getRecent,
-				beforeCurrentTime));
+		AshtResponse asht = recordService.getRecordGroup(user, getRecent,
+				beforeCurrentTime);
+		return Record.getRecords(asht);
 	}
 
 	/**
@@ -113,7 +114,8 @@ public class AsHt {
 			throws AsHtException {
 		Record record = new Record();
 		record.medicalRecordGroupName = newGroupName;
-		record.medicalRecordGroupID = (String) recordService.addRecordGroup(user, newGroupName).result; 
+		String str  =  recordService.addRecordGroup(user, newGroupName).result+""; 
+		record.medicalRecordGroupID = str;
 		return record;
 	}
 
