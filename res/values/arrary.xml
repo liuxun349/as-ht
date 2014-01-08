@@ -1,7 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string-array name="securityQ">
-		<item>手机号码后四位</item>
-		<item>我的生日</item>
-	</string-array>
+
+    <string-array name="securityQ">
+        <item>手机号码后四位</item>
+        <item>我的生日</item>
+    </string-array>
+
+    <!-- 证件类型 -->
+    <string-array name="documentType">
+        <item>身份证</item>
+        <item>军官证</item>
+        <item>护照</item>
+    </string-array>
+
+    <!-- 您的身份 -->
+    <string-array name="yourIdentity">
+        <item>患者</item>
+        <item>医生</item>
+    </string-array>
+
+    <!-- Email -->
+    <string-array name="email">
+        <item>qq.com</item>
+        <item>163.com</item>
+        <item>msn.cn</item>
+    </string-array>
+
 </resources>

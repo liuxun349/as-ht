@@ -42,12 +42,14 @@
                 android:text="病例组名称：" />
 
             <EditText
+                android:id="@+id/et_addMyCases"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
         </LinearLayout>
 
         <Button
+            android:id="@+id/btn_sendCases"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical|center_horizontal"
