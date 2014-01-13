@@ -17,7 +17,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.asht.R;
-import com.asht.http.UserBaseHandlerDAO;
 import com.asht.model.UserInfo;
 import com.asht.utl.ApplictionManager;
 import com.asht.utl.ConnCallback;
@@ -44,24 +43,24 @@ public class RegisterEndActivity extends Activity{
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				getDataFromWidgt();
-				new UserBaseHandlerDAO().regist(ApplictionManager.getInstance().userInfo, new ConnCallback() {
-					
-					@Override
-					public void connCode(int code, String result) {
-						// TODO Auto-generated method stub
-						System.out.println( code+" == ");
-						try {
-							JSONObject rs = new JSONObject(result);
-							if(rs.getInt(Settings.RETURN_CODE) == Settings.RETURN_CODE_ACCESS){
-								System.out.println("注册成功");
-							}else{
-								System.out.println("失败");
-							}
-						} catch (Exception e) {
-							// TODO: handle exception
-						}
-					}
-				}) ;
+//				new UserBaseHandlerDAO().regist(ApplictionManager.getInstance().userInfo, new ConnCallback() {
+//					
+//					@Override
+//					public void connCode(int code, String result) {
+//						// TODO Auto-generated method stub
+//						System.out.println( code+" == ");
+//						try {
+//							JSONObject rs = new JSONObject(result);
+//							if(rs.getInt(Settings.RETURN_CODE) == Settings.RETURN_CODE_ACCESS){
+//								System.out.println("注册成功");
+//							}else{
+//								System.out.println("失败");
+//							}
+//						} catch (Exception e) {
+//							// TODO: handle exception
+//						}
+//					}
+//				}) ;
 			}
 		});
 	}
@@ -71,8 +70,8 @@ public class RegisterEndActivity extends Activity{
 		if( checkLoginPwd() && checkAnswerIsNull() && checkPayPwd()){
 			UserInfo userInfo = ApplictionManager.getInstance().userInfo;
 			userInfo.setSecutrityQA(Q1, securityA1, Q2, securityA2);
-			userInfo.setLoginPwd(loginPwd);
-			userInfo.setPayPwd(payPwd);
+			userInfo.setUserLoginPwd(loginPwd);
+			userInfo.setUserPayPwd(payPwd);
 		}else{
 			System.out.println("输入有误....");
 		}

@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.asht.R;
-import com.asht.http.UserBaseHandlerDAO;
 import com.asht.model.UserInfo;
 import com.asht.utl.ApplictionManager;
 
@@ -30,18 +29,18 @@ public class RegisterFirstActivity extends Activity {
 		init();
 
 		//获得手机号，并发送验证码
-		getcheckNum.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				String phoneId = phoneNum.getText().toString().trim();
-
-				UserBaseHandlerDAO mBaseHandlerDAO = new UserBaseHandlerDAO();
-//				mBaseHandlerDAO.requestSendMobileVerficationCode(phoneId);
-
-			}
-		});
+//		getcheckNum.setOnClickListener(new OnClickListener() {
+//
+//			@Override
+//			public void onClick(View v) {
+//				// TODO Auto-generated method stub
+//				String phoneId = phoneNum.getText().toString().trim();
+//
+//				UserBaseHandlerDAO mBaseHandlerDAO = new UserBaseHandlerDAO();
+////				mBaseHandlerDAO.requestSendMobileVerficationCode(phoneId);
+//
+//			}
+//		});
 
 		//验证手机号与手机验证码
 		next.setOnClickListener(new OnClickListener() {
@@ -53,11 +52,11 @@ public class RegisterFirstActivity extends Activity {
 				String phoneId = phoneNum.getText().toString().trim();
 				String cheknumber = checkNum.getText().toString().trim();
 				if (!(phoneId.equals("") && cheknumber.equals(""))) {
-					UserBaseHandlerDAO mBaseHandlerDAO = new UserBaseHandlerDAO();
+//					UserBaseHandlerDAO mBaseHandlerDAO = new UserBaseHandlerDAO();
 					// 验证手机号与手机验证码是否相同，未完成此功能
 					//if( ... )
 						userInfo = new UserInfo();
-						userInfo.setUserId(phoneId);
+						userInfo.setUserPhoneNo(phoneId);
 						ApplictionManager.getInstance().userInfo = userInfo;
 						Intent intent = new Intent(RegisterFirstActivity.this,RegisterSecendActivity.class);
 						startActivity(intent);

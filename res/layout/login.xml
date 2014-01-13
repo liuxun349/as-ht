@@ -113,7 +113,7 @@
                         android:background="@null"
                         android:button="@null"
                         android:drawableLeft="@drawable/btn_comment_sametime"
-                        android:text="记住帐号"
+                        android:text="显示密码"
                         android:textColor="#FF000000" />
 
                     <CheckBox

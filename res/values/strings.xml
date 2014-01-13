@@ -4,13 +4,11 @@
     <string name="app_name">互助抗癌</string>
     <string name="app_close">关闭程序</string>
     <string name="cancel">取 消</string>
-    
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_back">&#060;&#060;</string>
     <string name="at">"@"</string>
     <string name="waiting">请等待...</string>
-    
     <string name="wrong_info_passwd">密码两次输入不同或格式不对</string>
     <string name="mycasses">我的病例</string>
     <string name="main_my_acount">我的帐户</string>
@@ -18,9 +16,14 @@
     <string name="main_home_page">主页</string>
     <string name="main_safety_center">安全中心</string>
     <string name="main_more">更多</string>
-    
+    <string name="setting">设置</string>
+    <string name="accountManage">帐号管理</string>
+    <string name="official">官方微博</string>
+    <string name="feedback">意见反馈</string>
+    <string name="version">检测新版本</string>
+    <string name="readMode">浏览模式</string>
+    <string name="about">关于</string>
     <string name="text_sure">确定</string>
-    
     <string name="text_login_title">用户登录</string>
     <string name="text_login_user_name">用户名 :</string>
     <string name="text_login_user_name_toast">请输入用户名</string>
@@ -30,7 +33,6 @@
     <string name="text_login">登录</string>
     <string name="text_login_display_passwd">显示密码</string>
     <string name="text_login_remenber_name">记住用户名</string>
-    
     <string name="text_register">注册</string>
     <string name="text_user_register">用户注册</string>
     <string name="text_phone_number">手机号码 ：</string>
@@ -49,7 +51,6 @@
     <string name="text_Q_one">密保问题一 ：</string>
     <string name="text_Q_sec">密保问题二 ：</string>
     <string name="text_answer">答案 ：</string>
-    
     <string name="text_message">消息</string>
     <string name="text_my_account">我的帐号</string>
 

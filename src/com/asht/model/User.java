@@ -1,7 +1,34 @@
 package com.asht.model;
 
+import java.util.List;
+
 public class User {
 	private boolean isLogin = false;
+	/**
+	 * 贡献值
+	 */
+	private long contributions;
+	/**
+	 * 金币
+	 */
+	private long zGold;
+	/**
+	 * 推荐信息列表
+	 */
+	private List<Recommend> recommends;
+	/**
+	 * 消息列表
+	 */
+	private List<Message> messages;
+	/**
+	 * 意见列表
+	 */
+	private List<Advice> advices;
+	/**
+	 * 个人信息
+	 */
+	private UserInfo userInfo;
+	
 	public void setIsLogin( boolean isLogin) {
 		// TODO Auto-generated method stub
 		this.isLogin = isLogin;
@@ -10,4 +37,45 @@ public class User {
 		isLogin = true;
 		return isLogin;
 	}
+	public long getContributions() {
+		return contributions;
+	}
+	public void setContributions(long contributions) {
+		this.contributions = contributions;
+	}
+	public long getzGold() {
+		return zGold;
+	}
+	public void setzGold(long zGold) {
+		this.zGold = zGold;
+	}
+	public List<Recommend> getRecommends() {
+		return recommends;
+	}
+	public void setRecommends(List<Recommend> recommends) {
+		this.recommends = recommends;
+	}
+	public List<Message> getMessages() {
+		return messages;
+	}
+	public void setMessages(List<Message> messages) {
+		this.messages = messages;
+	}
+	public List<Advice> getAdvices() {
+		return advices;
+	}
+	public void setAdvices(List<Advice> advices) {
+		this.advices = advices;
+	}
+	public UserInfo getUserInfo() {
+		return userInfo;
+	}
+	public void setUserInfo(UserInfo userInfo) {
+		this.userInfo = userInfo;
+	}
+	public void setLogin(boolean isLogin) {
+		this.isLogin = isLogin;
+	}
+	
+	
 }

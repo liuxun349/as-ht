@@ -46,10 +46,8 @@
                     android:layout_height="wrap_content" >
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/text_login_passwd"
-                        android:textColor="@color/black" />
+                        style="@style/register_font"
+                        android:text="@string/text_login_passwd" />
 
                     <EditText
                         android:id="@+id/login_pwd"
@@ -68,10 +66,8 @@
                     android:layout_height="wrap_content" >
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/text_once_agin"
-                        android:textColor="@color/black" />
+                        style="@style/register_font"
+                        android:text="@string/text_once_agin" />
 
                     <EditText
                         android:id="@+id/login_pwd_agin"
@@ -107,10 +103,8 @@
                     android:layout_height="wrap_content" >
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/text_consume_passwd"
-                        android:textColor="@color/black" />
+                        style="@style/register_font"
+                        android:text="@string/text_consume_passwd" />
 
                     <EditText
                         android:id="@+id/pay_pwd"
@@ -129,10 +123,8 @@
                     android:layout_height="wrap_content" >
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/text_once_agin"
-                        android:textColor="@color/black" />
+                        style="@style/register_font"
+                        android:text="@string/text_once_agin" />
 
                     <EditText
                         android:id="@+id/pay_pwd_agin"
@@ -168,10 +160,8 @@
                     android:layout_height="wrap_content" >
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/text_Q_one"
-                        android:textColor="@color/black" />
+                        style="@style/register_font"
+                        android:text="@string/text_Q_one" />
 
                     <Spinner
                         android:id="@+id/securityQ_1"
@@ -184,10 +174,8 @@
                     android:layout_height="wrap_content" >
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/text_answer"
-                        android:textColor="@color/black" />
+                        style="@style/register_font"
+                        android:text="@string/text_answer" />
 
                     <EditText
                         android:id="@+id/securityA_1"
@@ -203,10 +191,8 @@
                     android:layout_height="wrap_content" >
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/text_Q_sec"
-                        android:textColor="@color/black" />
+                        style="@style/register_font"
+                        android:text="@string/text_Q_sec" />
 
                     <Spinner
                         android:id="@+id/securityQ_2"
@@ -220,10 +206,8 @@
                     android:layout_height="wrap_content" >
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/text_answer"
-                        android:textColor="@color/black" />
+                        style="@style/register_font"
+                        android:text="@string/text_answer" />
 
                     <EditText
                         android:id="@+id/securityA_2"

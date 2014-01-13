@@ -3,26 +3,29 @@
  */
 package com.asht.model;
 
+import java.util.List;
+
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import com.asht.http.AshtResponse;
 
 public class UserInfo extends AshtResponse {
-	private String userId;
-	private String loginPwd;
-	private String payPwd;
-	private String tureName;
-	private int roleId;
-	private int certificateType;
-	private String certificateNo;
-	private String email;
-	private String nickName;
-	private int sex;
-	private int age;
+	private String userPhoneNo;
+	private String userLoginPwd;
+	private String userPayPwd;
+	private String userTrueName;
+	private long roleid = 1001;
+	private int userCertificateType;
+	private String userCertificateNo;
+	private String userEmail;
+	private String userNickName;
+	private int userSex;
+	private int userAge;
 	private String address;
 	private JSONArray securityQA;
-
+	
 	public UserInfo() {
 
 	}
@@ -32,20 +35,20 @@ public class UserInfo extends AshtResponse {
 		parseJson();
 	}
 
-	public UserInfo(String userId, String loginPwd, String payPwd,
+	public UserInfo(String userId, String userLoginPwd, String userPayPwd,
 			String tureName, int certificateType, String certificateNo,
 			String email, String nickName, int sex, int age, String address) {
 		super();
-		this.userId = userId;
-		this.loginPwd = loginPwd;
-		this.payPwd = payPwd;
-		this.tureName = tureName;
-		this.certificateType = certificateType;
-		this.certificateNo = certificateNo;
-		this.email = email;
-		this.nickName = nickName;
-		this.sex = sex;
-		this.age = age;
+		this.userPhoneNo = userId;
+		this.userLoginPwd = userLoginPwd;
+		this.userPayPwd = userPayPwd;
+		this.userTrueName = tureName;
+		this.userCertificateType = certificateType;
+		this.userCertificateNo = certificateNo;
+		this.userEmail = email;
+		this.userNickName = nickName;
+		this.userSex = sex;
+		this.userAge = age;
 		this.address = address;
 	}
 
@@ -65,32 +68,34 @@ public class UserInfo extends AshtResponse {
 		}
 	}
 
-	private void parseJson() {
-		JSONObject rs = (JSONObject) result;
-		userId = rs.getString("vcharPhoneNumber");
-		loginPwd = (String) rs.get("vcharLoginPwd");
-		payPwd = (String) rs.get("vcharPayPwd");
-		tureName = (String) rs.get("vcharTrueName");
-		roleId = (Integer) rs.get("iroleID");
-		nickName = (String) rs.get("vcharNickname");
-		email = (String) rs.get("vcharEmail");
-		certificateType = (Integer) rs.get("icertificateType");
-		certificateNo = (String) rs.get("icertificateNo");
-		securityQA = (JSONArray) rs.get("tbUserPasswordquestionAnswer");
+	private void parseJson() { 
+		if( result == null ) return;
+		UserInfo rs = JSON.parseObject(result.toString(),UserInfo.class);
+		userPhoneNo = rs.userPhoneNo;
+		userTrueName = rs.userTrueName;
+		roleid = rs.roleid;
+		userNickName = rs.userNickName;
+		userEmail = rs.userEmail;
+		userCertificateType = rs.userCertificateType;
+		userCertificateNo = rs.userCertificateNo;
+		userAge = rs.userAge;
+		userSex = rs.userSex;
 	}
 
 	public JSONObject toJson() {
 		JSONObject jObject = new JSONObject();
-		jObject.put("vcharPhoneNumber", userId);
-		jObject.put("vcharLoginPwd", loginPwd);
-		jObject.put("vcharPayPwd", payPwd);
-		jObject.put("vcharTrueName", tureName);
-		jObject.put("iroleID", roleId);
-		jObject.put("vcharNickname", nickName);
-		jObject.put("vcharEmail", email);
-		jObject.put("icertificateType", certificateType);
-		jObject.put("icertificateNo", certificateNo);
-		jObject.put("tbUserPasswordquestionAnswer", securityQA);
+		jObject.put("userPhoneNo", userPhoneNo);
+		jObject.put("userLoginPwd", userLoginPwd);
+		jObject.put("userPayPwd", userPayPwd);
+		jObject.put("userTrueName", userTrueName);
+		jObject.put("userNickName", userNickName);
+		jObject.put("userEmail", userEmail);
+		jObject.put("userSex", userSex);
+		jObject.put("userAge", userAge);
+		jObject.put("roleid", roleid);
+		jObject.put("userCertificateType", userCertificateType);
+		jObject.put("userCertificateNo", userCertificateNo);
+//		jObject.put("tbUserPasswordquestionAnswer", securityQA);
 
 		return jObject;
 	}
@@ -99,84 +104,92 @@ public class UserInfo extends AshtResponse {
 		return securityQA;
 	}
 
-	public String getUserId() {
-		return userId;
+	public String getUserPhoneNo() {
+		return userPhoneNo;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setUserPhoneNo(String userPhoneNo) {
+		this.userPhoneNo = userPhoneNo;
 	}
 
-	public String getLoginPwd() {
-		return loginPwd;
+	public String getUserLoginPwd() {
+		return userLoginPwd;
 	}
 
-	public void setLoginPwd(String loginPwd) {
-		this.loginPwd = loginPwd;
+	public void setUserLoginPwd(String userLoginPwd) {
+		this.userLoginPwd = userLoginPwd;
 	}
 
-	public String getPayPwd() {
-		return payPwd;
+	public String getUserPayPwd() {
+		return userPayPwd;
 	}
 
-	public void setPayPwd(String payPwd) {
-		this.payPwd = payPwd;
+	public void setUserPayPwd(String userPayPwd) {
+		this.userPayPwd = userPayPwd;
 	}
 
-	public String getTureName() {
-		return tureName;
+	public String getUserTrueName() {
+		return userTrueName;
 	}
 
-	public void setTureName(String tureName) {
-		this.tureName = tureName;
+	public void setUserTrueName(String userTrueName) {
+		this.userTrueName = userTrueName;
 	}
 
-	public int getCertificateType() {
-		return certificateType;
+	public long getRoleid() {
+		return roleid; 
 	}
 
-	public void setCertificateType(int certificateType) {
-		this.certificateType = certificateType;
+	public void setRoleid(int roleid) {
+		this.roleid = roleid;
 	}
 
-	public String getCertificateNo() {
-		return certificateNo;
+	public int getUserCertificateType() {
+		return userCertificateType;
 	}
 
-	public void setCertificateNo(String certificateNo) {
-		this.certificateNo = certificateNo;
+	public void setUserCertificateType(int userCertificateType) {
+		this.userCertificateType = userCertificateType;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getUserCertificateNo() {
+		return userCertificateNo;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUserCertificateNo(String userCertificateNo) {
+		this.userCertificateNo = userCertificateNo;
 	}
 
-	public String getNickName() {
-		return nickName;
+	public String getUserEmail() {
+		return userEmail;
 	}
 
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
 
-	public int getSex() {
-		return sex;
+	public String getUserNickName() {
+		return userNickName;
 	}
 
-	public void setSex(int sex) {
-		this.sex = sex;
+	public void setUserNickName(String userNickName) {
+		this.userNickName = userNickName;
 	}
 
-	public int getAge() {
-		return age;
+	public int getUserSex() {
+		return userSex;
 	}
 
-	public void setAge(int age) {
-		this.age = age;
+	public void setUserSex(int userSex) {
+		this.userSex = userSex;
+	}
+
+	public int getUserAge() {
+		return userAge;
+	}
+
+	public void setUserAge(int userAge) {
+		this.userAge = userAge;
 	}
 
 	public String getAddress() {
@@ -187,8 +200,8 @@ public class UserInfo extends AshtResponse {
 		this.address = address;
 	}
 
-	public int getRoleId() {
-		return roleId;
+	public void setSecurityQA(JSONArray securityQA) {
+		this.securityQA = securityQA;
 	}
-
+	
 }

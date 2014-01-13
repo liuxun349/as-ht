@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.asht.AsHtException;
 import com.asht.http.AshtResponse;
 
 import android.graphics.Bitmap;
@@ -49,6 +50,9 @@ public class Resume extends AshtResponse{
 	 * 缩略图地址
 	 */
 	private String minFileName;
+	
+	Record record;
+	
 	public Resume(){
 		
 	}
@@ -70,17 +74,21 @@ public class Resume extends AshtResponse{
              ByteArrayOutputStream baos = new ByteArrayOutputStream();
              bm.compress(Bitmap.CompressFormat.JPEG, 40, baos);
              byte[] b = baos.toByteArray();
-             System.out.println(" size ... "+b.length);
              return Base64.encodeToString(b, Base64.DEFAULT);
 		}
 	}
 	
-	public static List<Resume> getResumes(AshtResponse rs){
+	public static List<Resume> getResumes(AshtResponse rs) throws AsHtException{
+		if(!rs.success){
+			throw new AsHtException(rs.message);
+		}else if( rs.result == null){
+			return null;
+		}
 		return JSON.parseArray(((JSON) rs.result).toJSONString(),Resume.class);
 	}
 	 
 	public Bitmap getMedicalRecordItemFile() {
-		return medicalRecordItemFile;
+		return medicalRecordItemFile; 
 	}
 	
 	public String getLocalRecordImageUrl() {

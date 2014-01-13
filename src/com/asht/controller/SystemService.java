@@ -65,7 +65,7 @@ public class SystemService {
 	 * @throws AsHtException 
 	 */
 	public AshtResponse regist(UserInfo userInfo) throws AsHtException {
-		method = "Regist";
+		method = "regist";
 		json = userInfo.toJson();
 		return get(method, json);
 	}

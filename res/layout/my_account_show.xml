@@ -5,7 +5,7 @@
     android:orientation="vertical" >
 
     <FrameLayout style="@style/top" >
-
+ 
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="match_parent"

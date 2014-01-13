@@ -33,6 +33,8 @@ public class Record extends AshtResponse {
 	 */
 	public String updateTime;
 
+	List<Resume> list ;
+	
 	public Record() {
 		// TODO Auto-generated constructor stub
 	}
@@ -53,6 +55,11 @@ public class Record extends AshtResponse {
 
 	public static List<Record> getRecords(AshtResponse ashtResponse)
 			throws AsHtException {
+		if( !ashtResponse.success){
+			throw new AsHtException(ashtResponse.message);
+		}else if( ashtResponse.result == null){
+			return null;
+		}
 		return JSON.parseArray(
 				((JSONArray) ashtResponse.result).toJSONString(), Record.class);
 	}
