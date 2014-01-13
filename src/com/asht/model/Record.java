@@ -72,7 +72,11 @@ public class Record extends AshtResponse {
 
 	public static List<Record> getRecords(AshtResponse ashtResponse)
 			throws AsHtException {
-	String str = ashtResponse.result+"";
+		if( !ashtResponse.success){
+			throw new AsHtException(ashtResponse.message);
+		}else if( ashtResponse.result == null){
+			return null;
+		}
 		return JSON.parseArray(
 				((JSONArray) ashtResponse.result).toJSONString(), Record.class);
 	}

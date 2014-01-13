@@ -193,7 +193,7 @@ public class CasesSingleController implements OnItemClickListener,
 			public void onStartAsync() {
 
 				System.out.println("do it ? ..");
-				AsHt asht = ApplictionManager.getInstance().getAsHt();
+				AsHt asht = AsHt.getInstance();
 				UserInfo user = ApplictionManager.getInstance().getUserInfo();
 				user = new UserInfo();
 				user.setUserPhoneNo("13000001011");
@@ -239,7 +239,7 @@ public class CasesSingleController implements OnItemClickListener,
 			public void onStartAsync() {
 
 				System.out.println("do it ? ..");
-				AsHt asht = ApplictionManager.getInstance().getAsHt();
+				AsHt asht = AsHt.getInstance();
 				UserInfo user = ApplictionManager.getInstance().getUserInfo();
 				user = new UserInfo();
 				user.setUserPhoneNo("13000001011");

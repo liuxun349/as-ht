@@ -3,6 +3,9 @@
  */
 package com.asht.model;
 
+import java.util.List;
+
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
@@ -13,7 +16,7 @@ public class UserInfo extends AshtResponse {
 	private String userLoginPwd;
 	private String userPayPwd;
 	private String userTrueName;
-	private int userRole = 1;
+	private int userRole = 1001;
 	private int userCertificateType;
 	private String userCertificateNo;
 	private String userEmail;
@@ -22,7 +25,7 @@ public class UserInfo extends AshtResponse {
 	private int userAge;
 	private String address;
 	private JSONArray securityQA;
-
+	
 	public UserInfo() {
 
 	}

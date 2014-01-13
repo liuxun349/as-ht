@@ -32,53 +32,45 @@
 
             <RadioGroup
                 android:id="@+id/main_tab_group"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:background="@drawable/main_navigation_background"
                 android:gravity="bottom"
                 android:orientation="horizontal"
-                android:paddingTop="2.0dip" >
+                android:paddingBottom="3dip"
+                android:paddingLeft="1dip"
+                android:paddingRight="1dip"
+                android:paddingTop="1.0dip" >
 
                 <RadioButton
                     android:id="@+id/main_tab_home"
-                    android:layout_weight="1"
-                    android:button="@null"
-                    android:checked="true"
+                    style="@style/mainTabs_radio"
                     android:drawableTop="@drawable/main_navigation_home"
-                    android:gravity="center"
                     android:text="@string/main_my_acount" />
 
                 <RadioButton
                     android:id="@+id/main_tab_catagory"
-                    android:layout_weight="1"
-                    android:button="@null"
+                    style="@style/mainTabs_radio"
                     android:drawableTop="@drawable/main_navigation_catagory"
-                    android:gravity="center"
                     android:text="@string/main_message" />
 
                 <RadioButton
                     android:id="@+id/main_tab_car"
-                    android:layout_weight="1"
-                    android:button="@null"
+                    style="@style/mainTabs_radio"
                     android:drawableTop="@drawable/main_navigation_car"
-                    android:gravity="center"
                     android:text="@string/main_home_page" />
 
                 <RadioButton
                     android:id="@+id/main_tab_buy"
-                    android:layout_weight="1"
-                    android:button="@null"
+                    style="@style/mainTabs_radio"
                     android:drawableTop="@drawable/main_navigation_personal"
-                    android:gravity="center"
                     android:text="@string/main_safety_center" />
 
                 <RadioButton
                     android:id="@+id/main_tab_more"
-                    android:layout_weight="1"
-                    android:button="@null"
+                    style="@style/mainTabs_radio"
                     android:drawableTop="@drawable/main_navigation_more"
-                    android:gravity="center"
                     android:text="@string/main_more" />
             </RadioGroup>
         </LinearLayout>

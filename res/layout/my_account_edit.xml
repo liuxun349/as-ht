@@ -44,8 +44,7 @@
                 android:paddingTop="2dp" >
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/register_font"
                     android:text="用户ID：" />
 
                 <TextView
@@ -62,8 +61,7 @@
                 android:paddingTop="2dp" >
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/register_font"
                     android:text="姓名：" />
 
                 <TextView
@@ -80,8 +78,7 @@
                 android:paddingTop="2dp" >
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/register_font"
                     android:text="身份：" />
 
                 <TextView
@@ -98,8 +95,7 @@
                 android:paddingTop="2dp" >
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/register_font"
                     android:text="手机号码：" />
 
                 <TextView
@@ -116,8 +112,7 @@
                 android:paddingTop="2dp" >
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/register_font"
                     android:text="昵称：" />
 
                 <TextView
@@ -134,8 +129,7 @@
                 android:paddingTop="2dp" >
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/register_font"
                     android:text="真实姓名：" />
 
                 <TextView
@@ -152,8 +146,7 @@
                 android:paddingTop="2dp" >
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/register_font"
                     android:text="性别：" />
 
                 <TextView
@@ -170,8 +163,7 @@
                 android:paddingTop="2dp" >
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/register_font"
                     android:text="年龄：" />
 
                 <TextView
@@ -188,8 +180,7 @@
                 android:paddingTop="2dp" >
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/register_font"
                     android:text="Email：" />
 
                 <TextView
@@ -206,8 +197,7 @@
                 android:paddingTop="2dp" >
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/register_font"
                     android:text="贡献值：" />
 
                 <TextView
@@ -216,8 +206,7 @@
                     android:layout_weight="1" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/register_font"
                     android:text="如何升级？" />
             </TableRow>
 
@@ -229,8 +218,7 @@
                 android:paddingTop="2dp" >
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/register_font"
                     android:text="Z币余额：" />
 
                 <TextView
@@ -239,8 +227,7 @@
                     android:layout_weight="1" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/register_font"
                     android:text="如何使用Z币？" />
             </TableRow>
         </TableLayout>

@@ -36,11 +36,12 @@ public class Des3 {
 		IvParameterSpec ips = new IvParameterSpec(iv.getBytes());
 		cipher.init(Cipher.ENCRYPT_MODE, deskey, ips);
 		System.out.println("encode:"+content);
+		
 		byte[] encryptData = cipher.doFinal(content.getBytes(encoding));
 		return Base64.encode(encryptData);
 	}
-
-	/**
+  
+	/** 
 	 * 3DES解密
 	 * 
 	 * @param encryptText

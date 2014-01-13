@@ -21,7 +21,6 @@ import com.asht.model.Recommend;
 import com.asht.model.Record;
 import com.asht.model.UserInfo;
 import com.asht.utl.ApplictionManager;
-import com.asht.utl.ToastUtils;
 
 public class NewRecommendActivity extends Activity implements
 		OnItemSelectedListener, OnClickListener {
@@ -115,7 +114,7 @@ public class NewRecommendActivity extends Activity implements
 			@Override
 			public void onStartAsync() {
 
-				AsHt asht = ApplictionManager.getInstance().getAsHt();
+				AsHt asht = AsHt.getInstance();
 				UserInfo user = ApplictionManager.getInstance().getUserInfo();
 				user = new UserInfo();
 				user.setUserPhoneNo("13000001011");

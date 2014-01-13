@@ -12,6 +12,7 @@ import android.util.Base64;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.asht.AsHtException;
 import com.asht.http.AshtResponse;
 import com.lidroid.xutils.db.annotation.Foreign;
 import com.lidroid.xutils.db.annotation.Id;
@@ -60,8 +61,7 @@ public class Resume extends AshtResponse {
 	 * 是否选中了属性// 用于Adapter的选中状态（0选中，1没有选中）（数据库保存没实际意义）
 	 */
 	public int isClick = 1;
-	
-	
+
 	/**
 	 * 当前病例属于的病例组
 	 */
@@ -83,20 +83,24 @@ public class Resume extends AshtResponse {
 	}
 
 	public String getMedicalRecordImageFileToByte() {
-		if (localRecordImageUrl == null)
+		if (localRecordImageUrl == null) {
 			return "";
-		else {
+		} else {
 			Bitmap bm = BitmapFactory.decodeFile(localRecordImageUrl);
 
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			bm.compress(Bitmap.CompressFormat.JPEG, 40, baos);
 			byte[] b = baos.toByteArray();
-
 			return Base64.encodeToString(b, Base64.DEFAULT);
 		}
 	}
 
-	public static List<Resume> getResumes(AshtResponse rs) {
+	public static List<Resume> getResumes(AshtResponse rs) throws AsHtException {
+		if (!rs.success) {
+			throw new AsHtException(rs.message);
+		} else if (rs.result == null) {
+			return null;
+		}
 		return JSON.parseArray(((JSON) rs.result).toJSONString(), Resume.class);
 	}
 

@@ -1,7 +1,5 @@
 package com.asht.controller;
 
-import java.util.List;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -13,13 +11,12 @@ import android.widget.EditText;
 
 import com.asht.AsHt;
 import com.asht.AsyncDataLoader;
-import com.asht.R;
 import com.asht.AsyncDataLoader.Callback;
+import com.asht.R;
 import com.asht.model.Record;
-import com.asht.model.Resume;
 import com.asht.model.UserInfo;
 import com.asht.utl.ApplictionManager;
-import com.asht.utl.ToastUtils;
+import com.asht.view.ToastUtils;
 
 public class AddCasesActivity extends Activity implements OnClickListener {
 	EditText et = null;
@@ -65,14 +62,15 @@ public class AddCasesActivity extends Activity implements OnClickListener {
 			@Override
 			public void onStartAsync() {
 
-				AsHt asht = ApplictionManager.getInstance().getAsHt();
+				AsHt asht = AsHt.getInstance();
 				UserInfo user = ApplictionManager.getInstance().getUserInfo();
 				user = new UserInfo();
 				user.setUserPhoneNo("13000001011");
 				try {
-//					asht.uploadCaseToGroup(user, groupId, resume)
-//					Resume r = new Resume();
-//					asht.deleteCaseFromGroup(user, "142", r.getImedicalrecorditemid()+"")
+					// asht.uploadCaseToGroup(user, groupId, resume)
+					// Resume r = new Resume();
+					// asht.deleteCaseFromGroup(user, "142",
+					// r.getImedicalrecorditemid()+"")
 					record = asht.addRecordGroup(user, et.getText().toString());
 				} catch (Exception e) {
 					e.printStackTrace();

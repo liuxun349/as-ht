@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.asht.AsHtException;
 import com.asht.http.AshtResponse;
 
 public class Recommend extends AshtResponse {
@@ -27,7 +28,7 @@ public class Recommend extends AshtResponse {
 	 */
 	private String recommendPhoneNo;
 	/**
-	 * 推荐人真实姓名 
+	 * 推荐人真实姓名
 	 */
 	private String recommendtrueName;
 	/**
@@ -59,7 +60,17 @@ public class Recommend extends AshtResponse {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Recommend(AshtResponse rs){
+	public Recommend(String recommendPhoneNo, String recommendtrueName,
+			String recommendCertificateTypeId, String recommendCertificateId,
+			String recommendeMail ) {
+		this.recommendCertificateId = recommendCertificateId;
+		this.recommendCertificateTypeId = recommendCertificateTypeId;
+		this.recommendeMail = recommendeMail;
+		this.recommendPhoneNo = recommendPhoneNo;
+		this.recommendtrueName = recommendtrueName;
+	}
+
+	public Recommend(AshtResponse rs) {
 		// TODO Auto-generated constructor stub
 		super(rs);
 		Recommend recommend = JSON.parseObject(((JSON) result).toJSONString(),
@@ -71,8 +82,15 @@ public class Recommend extends AshtResponse {
 		this.recommendtrueName = recommend.recommendtrueName;
 	}
 
-	public static List<Recommend> getRecommends(AshtResponse rs) {
-		return JSON.parseArray(((JSON) rs.result).toJSONString(), Recommend.class);
+	public static List<Recommend> getRecommends(AshtResponse rs)
+			throws AsHtException {
+		if (!rs.success) {
+			throw new AsHtException(rs.message);
+		} else if (rs.result == null) {
+			return null;
+		}
+		return JSON.parseArray(((JSON) rs.result).toJSONString(),
+				Recommend.class);
 	}
 
 	public String getRecommendPhoneNo() {
@@ -139,7 +157,7 @@ public class Recommend extends AshtResponse {
 		this.examineDateTime = examineDateTime;
 	}
 
-//	@Override
+	// @Override
 	public JSONObject toJson() {
 		// TODO Auto-generated method stub
 		JSONObject json = new JSONObject();

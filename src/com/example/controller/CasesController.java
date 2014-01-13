@@ -123,56 +123,57 @@ public class CasesController implements OnItemClickListener,
 	}
 
 	public void update(final boolean fag, final boolean isTouch) {
-		
+
 		new AsyncDataLoader(new Callback() {
 			private List<Record> records;
 
 			@Override
 			public void onStartAsync() {
 
-
 				System.out.println("do it ? ..");
-//				UserInfo userInfo = new UserInfo();
-//				AsHt	mAsht = AsHt.getInstance();
-//				try {
-//					userInfo = mAsht.login(userPhoneNo, userPwd);
-//				} catch (AsHtException e) {
-//					// TODO Auto-generated catch block
-//					loginActivity();
-//				}
-//				ApplictionManager.getInstance().userInfo = userInfo;
-//				Intent intent = new Intent(AppStart.this, MainActivity.class);
-//				startActivity(intent);
-			
-				
-				AsHt asht = ApplictionManager.getInstance().getAsHt();
+				// UserInfo userInfo = new UserInfo();
+				// AsHt mAsht = AsHt.getInstance();
+				// try {
+				// userInfo = mAsht.login(userPhoneNo, userPwd);
+				// } catch (AsHtException e) {
+				// // TODO Auto-generated catch block
+				// loginActivity();
+				// }
+				// ApplictionManager.getInstance().userInfo = userInfo;
+				// Intent intent = new Intent(AppStart.this,
+				// MainActivity.class);
+				// startActivity(intent);
+
+				AsHt asht = AsHt.getInstance();
 				UserInfo user = ApplictionManager.getInstance().getUserInfo();
 				user = new UserInfo();
-//				user.setUserId("13000001011");
-				user.setUserPhoneNo("13000001011"); 
+				// user.setUserId("13000001011");
+				user.setUserPhoneNo("13000001011");
 				try {
-//					asht.addRecordGroup(user, "yj"); 
-//					Resume resume = new Resume();
-//					resume.setLocalRecordImageUrl("/mnt/sdcard/download/timg.jpeg");
-//					asht.uploadCaseToGroup(user, "123", resume);
-					records = asht.getRecordGroup(user, true, "2013-12-25 20:06:15.0");
-					System.out.println(" size: "+records.size()); 
-//					List<Resume> resumes = asht.getAllCaseFromGroup(user, "123"); 
-//					System.out.println(" size2: "+resumes.size());
-				} catch (Exception e) { 
+					// asht.addRecordGroup(user, "yj");
+					// Resume resume = new Resume();
+					// resume.setLocalRecordImageUrl("/mnt/sdcard/download/timg.jpeg");
+					// asht.uploadCaseToGroup(user, "123", resume);
+					records = asht.getRecordGroup(user, true,
+							"2013-12-25 20:06:15.0");
+					System.out.println(" size: " + records.size());
+					// List<Resume> resumes = asht.getAllCaseFromGroup(user,
+					// "123");
+					// System.out.println(" size2: "+resumes.size());
+				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-					Log.w("Record", e.toString()); 
+					Log.w("Record", e.toString());
 				}
 
 			}
-			
+
 			@Override
 			public void onPrepareAsync() {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void onFinishAsync() {
 				// TODO Auto-generated method stub
@@ -180,76 +181,76 @@ public class CasesController implements OnItemClickListener,
 				updateHandler.sendEmptyMessage(10001);
 				// mHanleLintener.update(fag, true, isTouch);
 				mHanleLintener.update(true, true, true);
-			
+
 			}
 		}).execute();
-		
+
 	}
 
-//	AsyncDataLoader asyncDataLoader = new AsyncDataLoader(new Callback() {
-//		private List<Record> records;
-//
-//		@Override
-//		public void onStart() {
-//			// TODO Auto-generated method stub
-//			AsHt asht = ApplictionManager.getInstance().getAsHt();
-//			UserInfo user = ApplictionManager.getInstance().getUserInfo();
-//			user = new UserInfo();
-//			user.setUserId("13000001011");
-//			try {
-//				// List<Resume> resumes = asht.getAllCaseFromGroup(user, "123");
-//
-//				records = asht.getRecordGroup(user, true,
-//						"2013-12-25 20:06:15.0");
-//			} catch (AsHtException e) {
-//				e.printStackTrace();
-//				Log.w("Record", e.toString());
-//			}
-//
-//		}
-//
-//		@Override
-//		public void onPrepare() {
-//			// TODO Auto-generated method stub
-//
-//		}
-//
-//		@Override
-//		public void onFinish() {
-//			// TODO Auto-generated method stub
-//			adapter.setInfos(records);
-//			updateHandler.sendEmptyMessage(10001);
-//			// mHanleLintener.update(fag, true, isTouch);
-//			mHanleLintener.update(true, true, true);
-//		}
-//	});
+	// AsyncDataLoader asyncDataLoader = new AsyncDataLoader(new Callback() {
+	// private List<Record> records;
+	//
+	// @Override
+	// public void onStart() {
+	// // TODO Auto-generated method stub
+	// AsHt asht = ApplictionManager.getInstance().getAsHt();
+	// UserInfo user = ApplictionManager.getInstance().getUserInfo();
+	// user = new UserInfo();
+	// user.setUserId("13000001011");
+	// try {
+	// // List<Resume> resumes = asht.getAllCaseFromGroup(user, "123");
+	//
+	// records = asht.getRecordGroup(user, true,
+	// "2013-12-25 20:06:15.0");
+	// } catch (AsHtException e) {
+	// e.printStackTrace();
+	// Log.w("Record", e.toString());
+	// }
+	//
+	// }
+	//
+	// @Override
+	// public void onPrepare() {
+	// // TODO Auto-generated method stub
+	//
+	// }
+	//
+	// @Override
+	// public void onFinish() {
+	// // TODO Auto-generated method stub
+	// adapter.setInfos(records);
+	// updateHandler.sendEmptyMessage(10001);
+	// // mHanleLintener.update(fag, true, isTouch);
+	// mHanleLintener.update(true, true, true);
+	// }
+	// });
 
 	public void gengduo(final boolean fag, final boolean isTouch) {
-//		CaseDao.update(mContext, new CaseUpdateListener() {
-//
-//			@Override
-//			public void update(List<Record> list, boolean isServer, int tag) {
-//				adapter.setInfos(list);
-//				updateHandler.sendEmptyMessage(10001);
-//				mHanleLintener.gengduo(true, isTouch);
-//			}
-//		}, fag);
+		// CaseDao.update(mContext, new CaseUpdateListener() {
+		//
+		// @Override
+		// public void update(List<Record> list, boolean isServer, int tag) {
+		// adapter.setInfos(list);
+		// updateHandler.sendEmptyMessage(10001);
+		// mHanleLintener.gengduo(true, isTouch);
+		// }
+		// }, fag);
 	}
 
 	public void deleteSelectCasesGroup() {
-//		CaseDao.delete(mContext, new CaseDeleteListener() {
-//
-//			@Override
-//			public void delete(List<Record> list, int tag) {
-//				List<Record> infos = adapter.getInfos();
-//				infos.removeAll(list);
-//				adapter.setInfos(infos);
-//				selectViews.clear();
-//				mUINotification.delete();
-//				mHanleLintener.deletefinish(true);
-//				updateHandler.sendEmptyMessage(10001);
-//			}
-//		}, selectViews);
+		// CaseDao.delete(mContext, new CaseDeleteListener() {
+		//
+		// @Override
+		// public void delete(List<Record> list, int tag) {
+		// List<Record> infos = adapter.getInfos();
+		// infos.removeAll(list);
+		// adapter.setInfos(infos);
+		// selectViews.clear();
+		// mUINotification.delete();
+		// mHanleLintener.deletefinish(true);
+		// updateHandler.sendEmptyMessage(10001);
+		// }
+		// }, selectViews);
 
 	}
 

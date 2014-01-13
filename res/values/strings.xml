@@ -16,6 +16,13 @@
     <string name="main_home_page">主页</string>
     <string name="main_safety_center">安全中心</string>
     <string name="main_more">更多</string>
+    <string name="setting">设置</string>
+    <string name="accountManage">帐号管理</string>
+    <string name="official">官方微博</string>
+    <string name="feedback">意见反馈</string>
+    <string name="version">检测新版本</string>
+    <string name="readMode">浏览模式</string>
+    <string name="about">关于</string>
     <string name="text_sure">确定</string>
     <string name="text_login_title">用户登录</string>
     <string name="text_login_user_name">用户名 :</string>

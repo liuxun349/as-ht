@@ -1,7 +1,6 @@
 package com.asht;
 
 import java.util.List;
-
 import com.alibaba.fastjson.JSONObject;
 import com.asht.controller.SystemService;
 import com.asht.http.AccountService;
@@ -31,7 +30,7 @@ public class AsHt {
 		return mInstance;
 	}
 
-	// --------------------------------SystemService-------------------------------
+//--------------------------------SystemService-------------------------------
 	/**
 	 * 登录
 	 * 
@@ -79,34 +78,24 @@ public class AsHt {
 	}
 
 	/**
-	 * 注册
-	 * 
-	 * @return
-	 * @throws AsHtException
-	 */
-	public boolean getPass(UserInfo userInfo) throws AsHtException {
-		return response(systemService.regist(userInfo));
-	}
-
-	/**
 	 * 发送密码到邮箱
 	 * 
 	 * @param userPhoneNo
 	 * @return
 	 * @throws AsHtException
 	 */
-	public boolean sendPasswdToEmai(String userPhoneNo) throws AsHtException {
+	public boolean sendPasswdToEmai(String userPhoneNo)
+			throws AsHtException {
 		return response(systemService.sendPasswdToEmai(userPhoneNo));
 	}
-
-	// ----------------------------------UserService--------------------------------------------
+	
+//----------------------------------UserService--------------------------------------------
 
 	/**
 	 * 修改个人资料
-	 * 
 	 * @param userInfo
 	 * @return
-	 * @throws AsHtException
+	 * @throws AsHtException 
 	 */
 	public boolean modifyInfo(UserInfo userInfo) throws AsHtException {
 		return response(userService.modifyInfo(userInfo));
@@ -127,7 +116,6 @@ public class AsHt {
 
 	/**
 	 * 修改支付密码
-	 * 
 	 * @param userInfo
 	 * @param checkNo
 	 * @param usercertificate
@@ -140,180 +128,137 @@ public class AsHt {
 		return response(userService.modifyPayPasswd(userInfo, checkNo,
 				usercertificate, newPayPasswd));
 	}
-
 	/**
 	 * 修改密报问题
-	 * 
 	 * @param userInfo
 	 * @param questionNo
 	 * @param answer
 	 * @return
-	 * @throws AsHtException
+	 * @throws AsHtException 
 	 */
-	public boolean modifyAnswerOfSecurityQuestion(UserInfo userInfo,
-			int questionNo, String answer) throws AsHtException {
-		return response(userService.modifyAnswerOfSecurityQuestion(userInfo,
-				questionNo, answer));
+	public boolean modifyAnswerOfSecurityQuestion(UserInfo userInfo,int questionNo,String answer) throws AsHtException{
+		return response(userService.modifyAnswerOfSecurityQuestion(userInfo, questionNo, answer));
 	}
-
 	/**
 	 * 判断用户是否设置密保问题
-	 * 
 	 * @param userInfo
 	 * @return
-	 * @throws AsHtException
+	 * @throws AsHtException 
 	 */
-	public boolean isUserSetPasswdProtected(UserInfo userInfo)
-			throws AsHtException {
-		return ((JSONObject) responseObject(userService
-				.isUserSetPasswdProtected(userInfo)))
-				.getBooleanValue("isPasswordProtection");
+	public boolean isUserSetPasswdProtected(UserInfo userInfo) throws AsHtException{
+		return ((JSONObject)responseObject(userService.isUserSetPasswdProtected(userInfo))).getBooleanValue("isPasswordProtection");
 	}
-
 	/**
 	 * 检查用户输入密保答案是否与设置相同
-	 * 
 	 * @param userInfo
 	 * @param questionNo
 	 * @param questionContent
 	 * @return
-	 * @throws AsHtException
+	 * @throws AsHtException 
 	 */
-	public boolean checkPasswdAnswerIsRight(UserInfo userInfo, int questionNo,
-			String questionContent) throws AsHtException {
-		return ((JSONObject) responseObject(userService
-				.checkPasswdAnswerIsRight(userInfo, questionNo, questionContent)))
-				.getBooleanValue("isPasswordProtectionValid");
+	public boolean checkPasswdAnswerIsRight(UserInfo userInfo,int questionNo,String questionContent) throws AsHtException{
+		return ((JSONObject)responseObject(userService.checkPasswdAnswerIsRight(userInfo, questionNo, questionContent))).getBooleanValue("isPasswordProtectionValid");
 	}
-
 	/**
 	 * 修改手机号
-	 * 
 	 * @param userInfo
 	 * @param checkNo
 	 * @param payPasswd
 	 * @param newUserPhoneNo
 	 * @return
-	 * @throws AsHtException
+	 * @throws AsHtException 
 	 */
-	public boolean modifyMobileNumber(UserInfo userInfo, String checkNo,
-			String payPasswd, String newUserPhoneNo) throws AsHtException {
-		return response(userService.modifyMobileNumber(userInfo, checkNo,
-				payPasswd, newUserPhoneNo));
-
-	}
-
-	// ------------------------------AccountService-----------------------------------------
+	public boolean modifyMobileNumber(UserInfo userInfo,String checkNo,String payPasswd,String newUserPhoneNo) throws AsHtException{
+		return response(userService.modifyMobileNumber(userInfo, checkNo, payPasswd, newUserPhoneNo));
+		
+	}	
+//------------------------------AccountService-----------------------------------------
 	/**
 	 * 查询贡献值
-	 * 
 	 * @param userInfo
 	 * @return
-	 * @throws AsHtException
+	 * @throws AsHtException 
 	 */
-	public long searchContributions(UserInfo userInfo) throws AsHtException {
-		return ((JSONObject) responseObject(accountService
-				.searchContributions(userInfo))).getLongValue("contributions");
+	public long searchContributions(UserInfo userInfo) throws AsHtException{
+		return ((JSONObject)responseObject(accountService.searchContributions(userInfo))).getLongValue("contributions");
 	}
-
+	
 	/**
 	 * 查询Z币
-	 * 
 	 * @param userInfo
 	 * @return
-	 * @throws AsHtException
+	 * @throws AsHtException 
 	 */
-	public long getZGold(UserInfo userInfo) throws AsHtException {
-		return (long) ((JSONObject) responseObject(accountService
-				.getZGold(userInfo))).getLongValue("zGold");
+	public long getZGold(UserInfo userInfo) throws AsHtException{
+		return (long)((JSONObject)responseObject(accountService.getZGold(userInfo))).getLongValue("zGold");
 	}
-
+	
 	/**
 	 * 兑换Z券
-	 * 
 	 * @param userInfo
 	 * @param exchangeValue
 	 * @return
-	 * @throws AsHtException
+	 * @throws AsHtException 
 	 */
-	public ZCoupon exchangeZCoupon(UserInfo userInfo, int exchangeValue)
-			throws AsHtException {
-		return new ZCoupon(accountService.exchangeZCoupon(userInfo,
-				exchangeValue));
+	public ZCoupon exchangeZCoupon(UserInfo userInfo,int exchangeValue) throws AsHtException{
+		return new ZCoupon(accountService.exchangeZCoupon(userInfo, exchangeValue));
 	}
-
+	
 	/**
 	 * 查看Z券信息
-	 * 
 	 * @param userInfo
 	 * @return
-	 * @throws AsHtException
+	 * @throws AsHtException 
 	 */
-	public List<ZCoupon> getZCouponsByOwner(UserInfo userInfo)
-			throws AsHtException {
+	public List<ZCoupon> getZCouponsByOwner(UserInfo userInfo) throws AsHtException{
 		return ZCoupon.getZCoupons(accountService.getZCouponsByOwner(userInfo));
 	}
-
 	/**
 	 * 添加意见反馈
-	 * 
 	 * @param userInfo
 	 * @param advice
 	 * @return
-	 * @throws AsHtException
+	 * @throws AsHtException 
 	 */
-	public boolean addAdvice(UserInfo userInfo, String advice)
-			throws AsHtException {
+	public boolean addAdvice(UserInfo userInfo,String advice) throws AsHtException{
 		return response(accountService.addAdvice(userInfo, advice));
 	}
-
 	/**
 	 * 搜索反馈意见
-	 * 
 	 * @param userInfo
 	 * @return
-	 * @throws AsHtException
+	 * @throws AsHtException 
 	 */
-	public List<Advice> searchAdvices(UserInfo userInfo) throws AsHtException {
+	public List<Advice> searchAdvices(UserInfo userInfo) throws AsHtException{
 		return Advice.getUserAdvices(accountService.searchAdvices(userInfo));
 	}
-
 	/**
 	 * 搜索消息
-	 * 
 	 * @param userInfo
 	 * @return
-	 * @throws AsHtException
+	 * @throws AsHtException 
 	 */
-	public List<Message> searchMessages(UserInfo userInfo) throws AsHtException {
+	public List<Message> searchMessages(UserInfo userInfo) throws AsHtException{
 		return Message.getMessages(accountService.searchMessages(userInfo));
 	}
-
 	/**
 	 * 推荐病人
-	 * 
 	 * @param userInfo
 	 * @return
-	 * @throws AsHtException
+	 * @throws AsHtException 
 	 */
-	public boolean recommendPatient(UserInfo userInfo, Recommend recommend)
-			throws AsHtException {
+	public boolean recommendPatient(UserInfo userInfo,Recommend recommend) throws AsHtException{
 		return response(accountService.recommendPatient(userInfo, recommend));
 	}
-
 	/**
 	 * 获取所有自己的推荐信息
-	 * 
 	 * @param userInfo
 	 * @return
-	 * @throws AsHtException
+	 * @throws AsHtException 
 	 */
-	public List<Recommend> getRecommendationsByPresenter(UserInfo userInfo)
-			throws AsHtException {
-		return Recommend.getRecommends(accountService
-				.getRecommendationsByPresenter(userInfo));
+	public List<Recommend> getRecommendationsByPresenter(UserInfo userInfo) throws AsHtException{
+		return Recommend.getRecommends(accountService.getRecommendationsByPresenter(userInfo));
 	}
-
 	// ---------------------------------RecordService---------------------------------
 	/**
 	 * 获取用户自己的病例组（分页查询，10个病例）
@@ -420,34 +365,29 @@ public class AsHt {
 	 * @return
 	 * @throws AsHtException
 	 */
-	public Resume getCaseImageFromGroup(UserInfo user, String groupId, int type)
+	public List<Resume> getCaseImageFromGroup(UserInfo user, String groupId, int type)
 			throws AsHtException {
-		return new Resume(recordService.getCaseImageFromGroup(user, groupId,
+		return Resume.getResumes(recordService.getCaseImageFromGroup(user, groupId,
 				type));
-	}
-
+	} 
 	/**
 	 * 处理返回信息（针对true ，false）
-	 * 
-	 * @param rs
-	 *            服务器返回
+	 * @param rs 服务器返回
 	 * @return
 	 * @throws AsHtException
 	 */
-	private boolean response(AshtResponse rs) throws AsHtException {
-		if (rs.success) {
+	private boolean response(AshtResponse rs) throws AsHtException{
+		if( rs.success ){
 			return true;
-		} else {
+		}else {
 			throw new AsHtException(rs.message);
 		}
 	}
-
 	private Object responseObject(AshtResponse rs) throws AsHtException {
-		if (rs.success && rs.result != null) {
+		if(rs.success && rs.result != null){
 			return rs.result;
-		} else {
+		}else{
 			throw new AsHtException(rs.message);
 		}
 	}
-
 }
