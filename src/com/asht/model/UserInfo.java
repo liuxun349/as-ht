@@ -16,7 +16,11 @@ public class UserInfo extends AshtResponse {
 	private String userLoginPwd;
 	private String userPayPwd;
 	private String userTrueName;
+<<<<<<< HEAD
 	private long roleid = 1001;
+=======
+	private int userRole = 1;
+>>>>>>> 75b8d38929e96f51c7affae9e408f4402fe8289f
 	private int userCertificateType;
 	private String userCertificateNo;
 	private String userEmail;
@@ -68,6 +72,7 @@ public class UserInfo extends AshtResponse {
 		}
 	}
 
+<<<<<<< HEAD
 	private void parseJson() { 
 		if( result == null ) return;
 		UserInfo rs = JSON.parseObject(result.toString(),UserInfo.class);
@@ -80,12 +85,28 @@ public class UserInfo extends AshtResponse {
 		userCertificateNo = rs.userCertificateNo;
 		userAge = rs.userAge;
 		userSex = rs.userSex;
+=======
+	private void parseJson() {
+		JSONObject rs = (JSONObject) result;
+		if( rs == null ) return;
+		userPhoneNo = rs.getString("userPhoneNo");
+		userLoginPwd = (String) rs.get("userLoginPwd");
+		userPayPwd = (String) rs.get("useruserPayPwd");
+		userTrueName = (String) rs.get("userTrueName");
+		userRole = (Integer) rs.get("userRole");
+		userNickName = (String) rs.get("userNickName");
+		userEmail = (String) rs.get("userEmail");
+		userCertificateType = (Integer) rs.get("userCertificateType");
+		userCertificateNo = (String) rs.get("userCertificateNo");
+		securityQA = (JSONArray) rs.get("tbUserPasswordquestionAnswer");
+>>>>>>> 75b8d38929e96f51c7affae9e408f4402fe8289f
 	}
 
 	public JSONObject toJson() {
 		JSONObject jObject = new JSONObject();
 		jObject.put("userPhoneNo", userPhoneNo);
 		jObject.put("userLoginPwd", userLoginPwd);
+<<<<<<< HEAD
 		jObject.put("userPayPwd", userPayPwd);
 		jObject.put("userTrueName", userTrueName);
 		jObject.put("userNickName", userNickName);
@@ -96,6 +117,16 @@ public class UserInfo extends AshtResponse {
 		jObject.put("userCertificateType", userCertificateType);
 		jObject.put("userCertificateNo", userCertificateNo);
 //		jObject.put("tbUserPasswordquestionAnswer", securityQA);
+=======
+		jObject.put("useruserPayPwd", userPayPwd);
+		jObject.put("userTrueName", userTrueName);
+		jObject.put("userRole", userRole);
+		jObject.put("userNickName", userNickName);
+		jObject.put("userEmail", userEmail);
+		jObject.put("userCertificateType", userCertificateType);
+		jObject.put("userCertificateNo", userCertificateNo);
+		jObject.put("tbUserPasswordquestionAnswer", securityQA);
+>>>>>>> 75b8d38929e96f51c7affae9e408f4402fe8289f
 
 		return jObject;
 	}
@@ -106,6 +137,7 @@ public class UserInfo extends AshtResponse {
 
 	public String getUserPhoneNo() {
 		return userPhoneNo;
+<<<<<<< HEAD
 	}
 
 	public void setUserPhoneNo(String userPhoneNo) {
@@ -184,6 +216,86 @@ public class UserInfo extends AshtResponse {
 		this.userSex = userSex;
 	}
 
+=======
+	}
+
+	public void setUserPhoneNo(String userPhoneNo) {
+		this.userPhoneNo = userPhoneNo;
+	}
+
+	public String getUserLoginPwd() {
+		return userLoginPwd;
+	}
+
+	public void setUserLoginPwd(String userLoginPwd) {
+		this.userLoginPwd = userLoginPwd;
+	}
+
+	public String getUserPayPwd() {
+		return userPayPwd;
+	}
+
+	public void setUserPayPwd(String userPayPwd) {
+		this.userPayPwd = userPayPwd;
+	}
+
+	public String getUserTrueName() {
+		return userTrueName;
+	}
+
+	public void setUserTrueName(String userTrueName) {
+		this.userTrueName = userTrueName;
+	}
+
+	public int getUserRole() {
+		return userRole;
+	}
+
+	public void setUserRole(int userRole) {
+		this.userRole = userRole;
+	}
+
+	public int getUserCertificateType() {
+		return userCertificateType;
+	}
+
+	public void setUserCertificateType(int userCertificateType) {
+		this.userCertificateType = userCertificateType;
+	}
+
+	public String getUserCertificateNo() {
+		return userCertificateNo;
+	}
+
+	public void setUserCertificateNo(String userCertificateNo) {
+		this.userCertificateNo = userCertificateNo;
+	}
+
+	public String getUserEmail() {
+		return userEmail;
+	}
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+
+	public String getUserNickName() {
+		return userNickName;
+	}
+
+	public void setUserNickName(String userNickName) {
+		this.userNickName = userNickName;
+	}
+
+	public int getUserSex() {
+		return userSex;
+	}
+
+	public void setUserSex(int userSex) {
+		this.userSex = userSex;
+	}
+
+>>>>>>> 75b8d38929e96f51c7affae9e408f4402fe8289f
 	public int getUserAge() {
 		return userAge;
 	}
