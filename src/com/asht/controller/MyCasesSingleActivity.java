@@ -43,8 +43,6 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_case_single);
 
-		Record mRecord = MyApplication
-				.getmRecord();
 		// FinalDb db = FinalDb.create(this);
 		// for (int i = 0; i < str.length; i++) {
 		// ClinicalHistoryInfo info = new ClinicalHistoryInfo();
@@ -108,16 +106,16 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 
 	private void initData() {
 
-		Record info = MyApplication
-				.getmRecord();
-		((TextView) findViewById(R.id.tv_caseSingleTitle)).setText(info
-				.medicalRecordGroupName);
+		Record mRecord = MyApplication.getmRecord();
+		mRecord = new Record();
+		mRecord.medicalRecordGroupID = "123";
+		((TextView) findViewById(R.id.tv_caseSingleTitle))
+				.setText(mRecord.medicalRecordGroupName);
 		mCasesSingleController = new CasesSingleController(this,
-				gv_myCasesSingle, info);
+				gv_myCasesSingle, mRecord);
 		mCasesSingleController.setUIHandleLinstener(mHanleLintener);
 		mCasesSingleController.setUINotification(uiNotification);
-		mCasesSingleController.start();
-		mCasesSingleController.update();
+		mCasesSingleController.update(false,false);
 
 	}
 
@@ -219,7 +217,7 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 
 				}
 			} else {
-				mCasesSingleController.deleteSelectCases();
+				mCasesSingleController.deleteSelectAll();
 			}
 		}
 	};
@@ -236,7 +234,7 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 		public void deletefinish(boolean fag) {
 			// TODO Auto-generated method stub
 
-		}
+		}                       
 
 		@Override
 		public void addfinish(boolean fag) {

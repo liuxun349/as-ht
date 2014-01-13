@@ -29,7 +29,7 @@ public class RecordService {
 			String beforeCurrentTime) throws AsHtException {
 		method = "getMedicalRecordGroupsByOwner";
 		json = new JSONObject();
-		json.put("userPhoneNo", user.getUserId());
+		json.put("userPhoneNo", user.getUserPhoneNo());
 		json.put("getRecent", getRecent);
 		if (beforeCurrentTime == null) {
 			json.put("beforeCurrentTime", "2013-12-11 22:48:47");
@@ -52,7 +52,7 @@ public class RecordService {
 			throws AsHtException {
 		method = "addMedicalRecordGroup";
 		json = new JSONObject();
-		json.put("userPhoneNo", user.getUserId());
+		json.put("userPhoneNo", user.getUserPhoneNo());
 		json.put("MedicalRecordGroupName", newGroupName);
 		return get(method, json);
 	}
@@ -70,8 +70,8 @@ public class RecordService {
 			throws AsHtException {
 		method = "deleteMedicalRecordGroups";
 		json = new JSONObject();
-		json.put("userPhoneNo", user.getUserId());
-		json.put("MedicalRecordGroupID", groupId);
+		json.put("userPhoneNo", user.getUserPhoneNo());
+		json.put("medicalRecordGroupID", groupId);
 		return get(method, json);
 	}
 
@@ -88,9 +88,8 @@ public class RecordService {
 			Resume resume) throws AsHtException {
 		method = "uploadMedicalRecordItemsToGroup";
 		json = new JSONObject();
-		json.put("userPhoneNo", user.getUserId());
-		
-		json.put("imedicalrecordgroupid", groupId);
+		json.put("userPhoneNo", user.getUserPhoneNo());
+		json.put("medicalRecordGroupID", groupId);
 		json.put("medicalRecordItemFile", resume.getMedicalRecordImageFileToByte());
 		return get(method, json);
 	}
@@ -105,14 +104,15 @@ public class RecordService {
 	 *            病例名称
 	 * @return
 	 * @throws AsHtException
+	 * 
 	 */
 	public AshtResponse deleteCaseFromGroup(UserInfo user, String groupId,
-			String caseName) throws AsHtException {
+			String caseId) throws AsHtException {
 		method = "deleteMedicalRecordItems";
 		json = new JSONObject();
-		json.put("userPhone", user.getUserId());
+		json.put("userPhone", user.getUserPhoneNo());
 		json.put("medicalRecordGroupID", groupId);
-		json.put("medicalRecordItemFileName", caseName);
+		json.put("medicalRecordItemID", caseId);
 		return get(method, json);
 	}
 
@@ -128,7 +128,7 @@ public class RecordService {
 			throws AsHtException {
 		method = "getMedicalRecordItemsBigCaseByGroup";
 		json = new JSONObject();
-		json.put("userPhoneNo", user.getUserId());
+		json.put("userPhoneNo", user.getUserPhoneNo());
 		json.put("medicalRecordGroupID", groupId);
 		return get(method, json);
 	}
@@ -148,7 +148,7 @@ public class RecordService {
 			int type) throws AsHtException {
 		method = "getMedicalRecordItemsSmallCaseByGroup";
 		json = new JSONObject();
-		json.put("userPhoneNo", user.getUserId());
+		json.put("userPhoneNo", user.getUserPhoneNo());
 		json.put("medicalRecordGroupID", groupId);
 		json.put("type", type);
 		return get(method, json);

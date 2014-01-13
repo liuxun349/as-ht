@@ -13,12 +13,13 @@ import android.widget.ImageView;
 
 import com.asht.R;
 import com.asht.model.Resume;
+import com.lidroid.xutils.BitmapUtils;
 
 public class MyCasesSingleAdapter extends BaseAdapter {
 
 	private List<Resume> infos;
 	private Context mContext;
-//	FinalBitmap bit = null;
+	BitmapUtils bit = null;
 	private int width, height;
 
 	public void setInfos(List<Resume> info) {
@@ -44,8 +45,8 @@ public class MyCasesSingleAdapter extends BaseAdapter {
 		}
 	}
 
-	public MyCasesSingleAdapter(Context context,
-			List<Resume> lists, int width, int height) {
+	public MyCasesSingleAdapter(Context context, List<Resume> lists, int width,
+			int height) {
 		infos = lists;
 		if (infos == null) {
 			infos = new ArrayList<Resume>();
@@ -53,7 +54,7 @@ public class MyCasesSingleAdapter extends BaseAdapter {
 		mContext = context;
 		this.height = height;
 		this.width = width;
-//		bit = FinalBitmap.create(mContext);
+		bit = new BitmapUtils(mContext);
 	}
 
 	@Override
@@ -93,8 +94,9 @@ public class MyCasesSingleAdapter extends BaseAdapter {
 
 		hview = (MyCasesSingleItemView) convertView.getTag();
 		Resume info = infos.get(position);
-
-//		bit.display(hview.iv1, info.getUrl(), width, width);
+		bit.display(hview.iv1,
+				"http://115.28.48.85:8080/ascs/" + info.getMinFileName());
+		// bit.display(hview.iv1, info.getUrl(), width, width);
 		hview.cbIsShenHe.setChecked(info.istate == "ok");
 		if (info.isClick == 0) {
 			hview.iv_delete.setVisibility(View.VISIBLE);

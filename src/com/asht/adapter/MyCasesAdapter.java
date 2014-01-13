@@ -18,13 +18,16 @@ import com.asht.model.Record;
 
 public class MyCasesAdapter extends BaseAdapter {
 
-	private List<Record> infos;
+	private List<Record> infos = new ArrayList<Record>();
 	private Context mContext;
 	private int width, height;
 
 	public void setInfos(List<Record> info) {
 		if (infos.equals(info)) {
 			return;
+		}
+		if(infos==null){
+			infos = new ArrayList<Record>();
 		}
 		this.infos = info;
 	}
@@ -58,6 +61,9 @@ public class MyCasesAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
+		if(infos == null){
+			infos = new ArrayList<Record>();
+		}
 		return infos.size();
 	}
 

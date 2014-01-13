@@ -19,7 +19,7 @@ public class AsyncDataLoader extends AsyncTask<Void, Long, Object> {
 	@Override
 	protected Object doInBackground(Void... voids) {
 		if (mCallback != null) {
-			mCallback.onStart();
+			mCallback.onStartAsync();
 		}
 		return null;
 	}
@@ -28,7 +28,7 @@ public class AsyncDataLoader extends AsyncTask<Void, Long, Object> {
 	protected void onPostExecute(Object result) {
 		super.onPostExecute(result);
 		if (mCallback != null) {
-			mCallback.onFinish();
+			mCallback.onFinishAsync();
 		}
 	}
 
@@ -36,7 +36,7 @@ public class AsyncDataLoader extends AsyncTask<Void, Long, Object> {
 	protected void onPreExecute() {
 		super.onPreExecute();
 		if (mCallback != null) {
-			mCallback.onPrepare();
+			mCallback.onPrepareAsync();
 		}
 	}
 
@@ -45,11 +45,11 @@ public class AsyncDataLoader extends AsyncTask<Void, Long, Object> {
 	}
 
 	public interface Callback {
-		public void onPrepare();
+		public void onPrepareAsync();
 
-		public void onStart();
+		public void onStartAsync();
 
-		public void onFinish();
+		public void onFinishAsync();
 	}
 
 	void Log(String msg) {

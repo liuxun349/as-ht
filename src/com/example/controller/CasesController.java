@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -20,6 +21,8 @@ import com.asht.AsyncDataLoader;
 import com.asht.R;
 import com.asht.AsyncDataLoader.Callback;
 import com.asht.adapter.MyCasesAdapter;
+import com.asht.controller.AppStart;
+import com.asht.controller.MainActivity;
 import com.asht.controller.MyCasesActivity;
 import com.asht.interfaces.UIHanleLintener;
 import com.asht.interfaces.UINotification;
@@ -120,48 +123,67 @@ public class CasesController implements OnItemClickListener,
 	}
 
 	public void update(final boolean fag, final boolean isTouch) {
+		
 		new AsyncDataLoader(new Callback() {
 			private List<Record> records;
 
 			@Override
-			public void onStart() {
-				// TODO Auto-generated method stub
+			public void onStartAsync() {
+
+
+				System.out.println("do it ? ..");
+//				UserInfo userInfo = new UserInfo();
+//				AsHt	mAsht = AsHt.getInstance();
+//				try {
+//					userInfo = mAsht.login(userPhoneNo, userPwd);
+//				} catch (AsHtException e) {
+//					// TODO Auto-generated catch block
+//					loginActivity();
+//				}
+//				ApplictionManager.getInstance().userInfo = userInfo;
+//				Intent intent = new Intent(AppStart.this, MainActivity.class);
+//				startActivity(intent);
+			
+				
 				AsHt asht = ApplictionManager.getInstance().getAsHt();
 				UserInfo user = ApplictionManager.getInstance().getUserInfo();
 				user = new UserInfo();
-				user.setUserId("13000000000");
+//				user.setUserId("13000001011");
+				user.setUserPhoneNo("13000001011"); 
 				try {
-//					asht.addRecordGroup(user, "新建病例123");
+//					asht.addRecordGroup(user, "yj"); 
 //					Resume resume = new Resume();
 //					resume.setLocalRecordImageUrl("/mnt/sdcard/download/timg.jpeg");
 //					asht.uploadCaseToGroup(user, "123", resume);
-//					records = asht.getRecordGroup(user, true, "2013-12-25 20:06:15.0");
-//					System.out.println(" size: "+records.size()); 
-					List<Resume> resumes = asht.getAllCaseFromGroup(user, "123"); 
-					System.out.println(" size2: "+resumes.size());
-				} catch (AsHtException e) { 
+					records = asht.getRecordGroup(user, true, "2013-12-25 20:06:15.0");
+					System.out.println(" size: "+records.size()); 
+//					List<Resume> resumes = asht.getAllCaseFromGroup(user, "123"); 
+//					System.out.println(" size2: "+resumes.size());
+				} catch (Exception e) { 
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 					Log.w("Record", e.toString()); 
 				}
 
 			}
-
+			
 			@Override
-			public void onPrepare() {
+			public void onPrepareAsync() {
 				// TODO Auto-generated method stub
-
+				
 			}
-
+			
 			@Override
-			public void onFinish() {
+			public void onFinishAsync() {
 				// TODO Auto-generated method stub
 				adapter.setInfos(records);
 				updateHandler.sendEmptyMessage(10001);
 				// mHanleLintener.update(fag, true, isTouch);
 				mHanleLintener.update(true, true, true);
+			
 			}
 		}).execute();
+		
 	}
 
 //	AsyncDataLoader asyncDataLoader = new AsyncDataLoader(new Callback() {
@@ -173,7 +195,7 @@ public class CasesController implements OnItemClickListener,
 //			AsHt asht = ApplictionManager.getInstance().getAsHt();
 //			UserInfo user = ApplictionManager.getInstance().getUserInfo();
 //			user = new UserInfo();
-//			user.setUserId("13000000000");
+//			user.setUserId("13000001011");
 //			try {
 //				// List<Resume> resumes = asht.getAllCaseFromGroup(user, "123");
 //

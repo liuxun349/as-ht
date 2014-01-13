@@ -35,11 +35,11 @@ public class RegisterSecendActivity extends Activity {
 				boolean isOk = checking();
 				if( isOk ){
 					UserInfo userInfo = ApplictionManager.getInstance().userInfo;
-					userInfo.setNickName(nickName);
-					userInfo.setTureName(tureName);
-					userInfo.setCertificateNo(certificateNo);
-					userInfo.setCertificateType(certificateType);
-					userInfo.setEmail(email);
+					userInfo.setUserNickName(nickName);
+					userInfo.setUserTrueName(tureName);
+					userInfo.setUserCertificateNo(certificateNo);
+					userInfo.setUserCertificateType(certificateType);
+					userInfo.setUserEmail(email);
 					
 					System.out.println(" ===> "+userInfo.toJson().toString());
 					Intent intent = new Intent(RegisterSecendActivity.this, RegisterEndActivity.class);
