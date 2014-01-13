@@ -16,11 +16,7 @@ public class UserInfo extends AshtResponse {
 	private String userLoginPwd;
 	private String userPayPwd;
 	private String userTrueName;
-<<<<<<< HEAD
-	private long roleid = 1001;
-=======
-	private int userRole = 1;
->>>>>>> 75b8d38929e96f51c7affae9e408f4402fe8289f
+	private int userRole = 1001;
 	private int userCertificateType;
 	private String userCertificateNo;
 	private String userEmail;
@@ -72,20 +68,6 @@ public class UserInfo extends AshtResponse {
 		}
 	}
 
-<<<<<<< HEAD
-	private void parseJson() { 
-		if( result == null ) return;
-		UserInfo rs = JSON.parseObject(result.toString(),UserInfo.class);
-		userPhoneNo = rs.userPhoneNo;
-		userTrueName = rs.userTrueName;
-		roleid = rs.roleid;
-		userNickName = rs.userNickName;
-		userEmail = rs.userEmail;
-		userCertificateType = rs.userCertificateType;
-		userCertificateNo = rs.userCertificateNo;
-		userAge = rs.userAge;
-		userSex = rs.userSex;
-=======
 	private void parseJson() {
 		JSONObject rs = (JSONObject) result;
 		if( rs == null ) return;
@@ -99,25 +81,12 @@ public class UserInfo extends AshtResponse {
 		userCertificateType = (Integer) rs.get("userCertificateType");
 		userCertificateNo = (String) rs.get("userCertificateNo");
 		securityQA = (JSONArray) rs.get("tbUserPasswordquestionAnswer");
->>>>>>> 75b8d38929e96f51c7affae9e408f4402fe8289f
 	}
 
 	public JSONObject toJson() {
 		JSONObject jObject = new JSONObject();
 		jObject.put("userPhoneNo", userPhoneNo);
 		jObject.put("userLoginPwd", userLoginPwd);
-<<<<<<< HEAD
-		jObject.put("userPayPwd", userPayPwd);
-		jObject.put("userTrueName", userTrueName);
-		jObject.put("userNickName", userNickName);
-		jObject.put("userEmail", userEmail);
-		jObject.put("userSex", userSex);
-		jObject.put("userAge", userAge);
-		jObject.put("roleid", roleid);
-		jObject.put("userCertificateType", userCertificateType);
-		jObject.put("userCertificateNo", userCertificateNo);
-//		jObject.put("tbUserPasswordquestionAnswer", securityQA);
-=======
 		jObject.put("useruserPayPwd", userPayPwd);
 		jObject.put("userTrueName", userTrueName);
 		jObject.put("userRole", userRole);
@@ -126,7 +95,6 @@ public class UserInfo extends AshtResponse {
 		jObject.put("userCertificateType", userCertificateType);
 		jObject.put("userCertificateNo", userCertificateNo);
 		jObject.put("tbUserPasswordquestionAnswer", securityQA);
->>>>>>> 75b8d38929e96f51c7affae9e408f4402fe8289f
 
 		return jObject;
 	}
@@ -137,86 +105,6 @@ public class UserInfo extends AshtResponse {
 
 	public String getUserPhoneNo() {
 		return userPhoneNo;
-<<<<<<< HEAD
-	}
-
-	public void setUserPhoneNo(String userPhoneNo) {
-		this.userPhoneNo = userPhoneNo;
-	}
-
-	public String getUserLoginPwd() {
-		return userLoginPwd;
-	}
-
-	public void setUserLoginPwd(String userLoginPwd) {
-		this.userLoginPwd = userLoginPwd;
-	}
-
-	public String getUserPayPwd() {
-		return userPayPwd;
-	}
-
-	public void setUserPayPwd(String userPayPwd) {
-		this.userPayPwd = userPayPwd;
-	}
-
-	public String getUserTrueName() {
-		return userTrueName;
-	}
-
-	public void setUserTrueName(String userTrueName) {
-		this.userTrueName = userTrueName;
-	}
-
-	public long getRoleid() {
-		return roleid; 
-	}
-
-	public void setRoleid(int roleid) {
-		this.roleid = roleid;
-	}
-
-	public int getUserCertificateType() {
-		return userCertificateType;
-	}
-
-	public void setUserCertificateType(int userCertificateType) {
-		this.userCertificateType = userCertificateType;
-	}
-
-	public String getUserCertificateNo() {
-		return userCertificateNo;
-	}
-
-	public void setUserCertificateNo(String userCertificateNo) {
-		this.userCertificateNo = userCertificateNo;
-	}
-
-	public String getUserEmail() {
-		return userEmail;
-	}
-
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
-	}
-
-	public String getUserNickName() {
-		return userNickName;
-	}
-
-	public void setUserNickName(String userNickName) {
-		this.userNickName = userNickName;
-	}
-
-	public int getUserSex() {
-		return userSex;
-	}
-
-	public void setUserSex(int userSex) {
-		this.userSex = userSex;
-	}
-
-=======
 	}
 
 	public void setUserPhoneNo(String userPhoneNo) {
@@ -295,7 +183,6 @@ public class UserInfo extends AshtResponse {
 		this.userSex = userSex;
 	}
 
->>>>>>> 75b8d38929e96f51c7affae9e408f4402fe8289f
 	public int getUserAge() {
 		return userAge;
 	}

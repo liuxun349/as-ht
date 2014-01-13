@@ -50,7 +50,6 @@ public class AppStart extends Activity implements Callback {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-<<<<<<< HEAD
 //				initCheck();
 				UserInfo user = new UserInfo();
 				user.setUserPhoneNo("13000001011");
@@ -60,36 +59,6 @@ public class AppStart extends Activity implements Callback {
 				} catch (AsHtException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-=======
-				AsHt asht = ApplictionManager.getInstance().getAsHt();
-				UserInfo user = ApplictionManager.getInstance().getUserInfo();
-				user = new UserInfo();
-				try {
-					// asht.addRecordGroup(user, "新建病例");
-					// Resume resume = new Resume();
-					// resume.setLocalRecordImageUrl("/mnt/sdcard/download/timg.jpeg");
-					// asht.uploadCaseToGroup(user, "123", resume);
-					// asht.deleteRecordGroup(user, "122");
-					// asht.deleteCaseFromGroup(user, "123",
-					// "FILESPACE/MEDICALRECORD_GROUP/3_20131227132700424/20140101132003842.jpg");
-					// records = asht.getRecordGroup(user, true,
-					// "2013-12-25 20:06:15.0");
-					// System.out.println(" size: "+records.size());
-					// List<Resume> resumes = asht.getAllCaseFromGroup(user,
-					// "123");
-					//
-					// System.out.println(" size2: "+resumes.size());
-					user = new UserInfo("13000000001", "123456", "llh", "对了",
-							1, "510203100103203042", "dfa@qq.com", "LLH",1,
-							20, "四川");
-
-					asht.regist(user);
-					
-				} catch (AsHtException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					Log.w("Record", e.toString());
->>>>>>> 75b8d38929e96f51c7affae9e408f4402fe8289f
 				}
 			}
 		}, 3000);

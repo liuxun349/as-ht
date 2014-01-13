@@ -50,15 +50,7 @@ public class AsHt {
 	 * @throws AsHtException 
 	 */
 	public boolean regist(UserInfo userInfo) throws AsHtException {
-<<<<<<< HEAD
 		return response(systemService.regist(userInfo));
-=======
-		AshtResponse rs = systemService.regist(userInfo);
-		if( rs.success && rs.result != null){
-			return (Boolean) rs.result;
-		}
-		return false;
->>>>>>> 75b8d38929e96f51c7affae9e408f4402fe8289f
 	}
 	/**
 	 * 向手机发送验证码
@@ -81,16 +73,6 @@ public class AsHt {
 	public boolean checkVerificationCode(String phoneNo, String checkNo)
 			throws AsHtException {
 		return response(systemService.checkVerificationCode(phoneNo, checkNo));
-	}
-
-	/**
-	 * 注册
-	 * 
-	 * @return
-	 * @throws AsHtException
-	 */
-	public boolean getPass(UserInfo userInfo) throws AsHtException {
-		return response(systemService.regist(userInfo));
 	}
 
 	/**
