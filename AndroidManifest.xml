@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.asht"
     android:versionCode="1"
     android:versionName="1.0" >
 
-    <uses-sdk
-        android:minSdkVersion="10"
-         />
+    <uses-sdk android:minSdkVersion="10" />
 
     <application
         android:allowBackup="true"
@@ -23,7 +20,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.asht.controller.MainActivity"></activity>
+        <activity android:name="com.asht.controller.MainActivity" >
+        </activity>
         <activity android:name="com.asht.controller.MainHomePageActivity" />
         <activity android:name="com.asht.controller.MainMessageActivity" >
         </activity>
@@ -33,7 +31,7 @@
         </activity>
         <activity android:name="com.asht.controller.MyAcountActivity" >
         </activity>
-        <activity android:name="com.asht.controller.LoginActivity"/>
+        <activity android:name="com.asht.controller.LoginActivity" />
         <activity android:name="com.asht.controller.RegisterFirstActivity" >
         </activity>
         <activity android:name="com.asht.controller.RegisterSecendActivity" >
@@ -41,6 +39,11 @@
         <activity android:name="com.asht.controller.RegisterEndActivity" >
         </activity>
     </application>
-	
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
 </manifest>
