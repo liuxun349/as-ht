@@ -304,7 +304,9 @@ public class MyCasesActivity extends Activity implements OnClickListener {
 		@Override
 		public void deletefinish(boolean fag) {
 			// TODO Auto-generated method stub
-
+			if (pop_edit != null && pop_edit.isShowing()) {
+				pop_edit.dismiss();
+			}
 		}
 
 		@Override

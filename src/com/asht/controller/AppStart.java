@@ -47,7 +47,7 @@ public class AppStart extends Activity implements Callback {
 				user.setUserPhoneNo("13000001011");
 				try {
 					Resume resume = new Resume();
-					AsHt.getInstance().getCaseImageFromGroup(user, "142", 1);
+					AsHt.getInstance().getCaseImageFromGroup(user, "12", 1);
 				} catch (AsHtException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

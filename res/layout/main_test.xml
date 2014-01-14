@@ -24,5 +24,12 @@
         android:layout_height="wrap_content"
         android:onClick="onclick"
         android:text="病例组" />
+    
+    <Button
+        android:id="@+id/test_add_cases"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onclick"
+        android:text="添加病例组" />
 
 </LinearLayout>

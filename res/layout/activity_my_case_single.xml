@@ -23,6 +23,16 @@
             android:text="@string/title_back"
             android:textColor="@color/title_text_color"
             android:textSize="@dimen/title_text_size" />
+        
+        <TextView
+            android:id="@+id/tv_add_cases_single"
+            android:layout_width="@dimen/title_height"
+            android:layout_height="@dimen/title_height"
+            android:layout_gravity="center_vertical|right"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="@string/title_add_case_single"
+            android:textColor="#f00"
+            android:textSize="@dimen/title_text_size" />
     </FrameLayout>
 
     <FrameLayout
@@ -55,7 +65,6 @@
 
     <LinearLayout
         style="@style/body"
-        android:layout_marginBottom="50dp"
         android:orientation="vertical" >
 
         <com.asht.ui.PullToRefreshView
@@ -76,35 +85,6 @@
                 android:verticalSpacing="@dimen/grid_spacing" />
         </com.asht.ui.PullToRefreshView>
     </LinearLayout>
-
-    <FrameLayout
-        style="@style/top"
-        android:layout_gravity="bottom|center_horizontal" >
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:id="@+id/tv_localimport"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:drawableTop="@drawable/setting_update"
-                android:gravity="center_vertical|center_horizontal"
-                android:text="本地导入" />
-
-            <TextView
-                android:id="@+id/tv_cameraimport"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:drawableTop="@drawable/setting_update"
-                android:gravity="center_vertical|center_horizontal"
-                android:text="相机拍照" />
-        </LinearLayout>
-    </FrameLayout>
 
     <FrameLayout
         android:id="@+id/fl_myCasesSingle_delete"

@@ -26,7 +26,11 @@ public class MyCasesSingleAdapter extends BaseAdapter {
 		if (infos.equals(info)) {
 			return;
 		}
+
 		this.infos = info;
+		if (infos == null) {
+			infos = new ArrayList<Resume>();
+		}
 	}
 
 	public List<Resume> getInfos() {
@@ -59,6 +63,9 @@ public class MyCasesSingleAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
+		if (infos == null) {
+			infos = new ArrayList<Resume>();
+		}
 		return infos.size();
 	}
 

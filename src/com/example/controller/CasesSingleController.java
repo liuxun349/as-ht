@@ -155,6 +155,9 @@ public class CasesSingleController implements OnItemClickListener,
 	}
 
 	public int getSelectCasesCount() {
+		if(selectViews==null){
+			selectViews = new ArrayList<Resume>();
+		}
 		return selectViews.size();
 	}
 
@@ -198,8 +201,9 @@ public class CasesSingleController implements OnItemClickListener,
 				user = new UserInfo();
 				user.setUserPhoneNo("13000001011");
 				try {
+					Record r = mRecord;
 					mResume = asht.getAllCaseFromGroup(user,
-							mRecord.medicalRecordGroupID);
+							r.medicalRecordGroupID);
 					System.out.println(" size2: " + mResume.size());
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -253,9 +257,9 @@ public class CasesSingleController implements OnItemClickListener,
 							fag = asht.deleteCaseFromGroup(user,
 									mRecord.medicalRecordGroupID,
 									Resume_tmp.getImedicalrecorditemid() + "");
-							AFinalController.create(mContext).getfinalDb()
-									.delete(Resume_tmp);
-						} catch (DbException e) {
+//							AFinalController.create(mContext).getfinalDb()
+//									.delete(Resume_tmp);
+						} catch (Exception e) {
 							e.printStackTrace();
 						}
 						adapter.removeResume(Resume_tmp);

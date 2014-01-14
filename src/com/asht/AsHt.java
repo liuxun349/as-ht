@@ -27,7 +27,10 @@ public class AsHt {
 	}
 
 	public static AsHt getInstance() {
-		return mInstance;
+		if(mInstance == null){
+			initalize();
+		}
+		return mInstance ;
 	}
 
 //--------------------------------SystemService-------------------------------
