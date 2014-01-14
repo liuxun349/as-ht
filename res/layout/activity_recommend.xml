@@ -12,7 +12,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical|center_horizontal"
             android:gravity="center_vertical|center_horizontal"
-            android:text="我的病例"
+            android:text="我的推荐"
             android:textColor="@color/title_text_color"
             android:textSize="@dimen/title_text_size" />
 
@@ -27,6 +27,47 @@
             android:textSize="@dimen/title_text_size" />
     </FrameLayout>
 
-    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <RadioGroup
+            android:id="@+id/rg_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="45dp"
+            android:orientation="horizontal"
+            android:weightSum="2" >
+
+            <RadioButton
+                android:id="@+id/rb_illness"
+                android:layout_width="0dp"
+                android:layout_height="42.67dp"
+                android:layout_weight="1"
+                android:background="@drawable/radiobutton_middle_selector"
+                android:button="@null"
+                android:checked="true"
+                android:gravity="center"
+                android:text="患"
+                android:textColor="@color/black" />
+
+            <RadioButton
+                android:id="@+id/rb_doctor"
+                android:layout_width="0dp"
+                android:layout_height="42.67dp"
+                android:layout_weight="1"
+                android:background="@drawable/radiobutton_middle_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:text="医"
+                android:textColor="@color/black" />
+        </RadioGroup>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/rg_group" />
+    </RelativeLayout>
 
 </FrameLayout>

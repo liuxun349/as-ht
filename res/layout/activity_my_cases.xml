@@ -33,7 +33,7 @@
         android:visibility="gone" >
 
         <TextView
-            android:id="@+id/txt_myCases_selected_txt"
+            android:id="@+id/tv_myCases_selected_txt"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical|center_horizontal"
@@ -41,12 +41,14 @@
             android:text="已选999个" />
 
         <Button
+            android:id="@+id/btn_myCases_selected_cleanSelect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left|center_vertical"
             android:text="取消" />
 
         <Button
+            android:id="@+id/btn_myCases_selected_allSelect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right|center_vertical"
@@ -55,16 +57,27 @@
 
     <LinearLayout
         style="@style/body"
+        android:gravity="center_vertical|center_horizontal"
         android:orientation="vertical" >
 
-        <GridView
-            android:id="@+id/gv_myCases"
-            android:layout_width="fill_parent"
+        <com.asht.ui.PullToRefreshView
+            android:id="@+id/ptrv_cases"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:horizontalSpacing="10dp"
-            android:numColumns="2"
-            android:verticalSpacing="10dp" >
-        </GridView>
+            android:orientation="vertical" >
+
+            <GridView
+                android:id="@+id/gv_myCases"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:gravity="center"
+                android:horizontalSpacing="@dimen/grid_spacing"
+                android:listSelector="@null"
+                android:numColumns="2"
+                android:verticalSpacing="@dimen/grid_spacing" >
+            </GridView>
+        </com.asht.ui.PullToRefreshView>
     </LinearLayout>
 
     <FrameLayout
@@ -86,52 +99,9 @@
             android:text="删除" />
     </FrameLayout>
 
-    <LinearLayout
-        android:id="@+id/ll_myCases_delete_isOk"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_gravity="bottom|center_horizontal"
-        android:background="#ddd"
-        android:orientation="vertical"
-        android:visibility="gone" >
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="删除" />
-
-        <TextView
-            android:id="@+id/txt_myCases_delte_txt"
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="确定删除2哥病例组（包含9张病例）吗？" />
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal" >
-
-            <Button
-                android:id="@+id/btn_myCases_delete_cancel"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical|center_horizontal"
-                android:text="取消" />
-
-            <Button
-                android:id="@+id/btn_myCases_delete_ok"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical|center_horizontal"
-                android:text="确定" />
-        </LinearLayout>
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/img_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </FrameLayout>

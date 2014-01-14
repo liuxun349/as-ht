@@ -5,7 +5,7 @@
     android:background="@color/probject_bg"
     android:orientation="vertical" >
 
-    <FrameLayout style="@style/top">
+    <FrameLayout style="@style/top" >
 
         <TextView
             android:layout_width="fill_parent"
@@ -77,10 +77,10 @@
                     android:layout_height="wrap_content"
                     android:text="证件类型：" />
 
-                <EditText
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                <Spinner
+                    android:id="@+id/spinner_documentType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
             </TableRow>
 
             <TableRow
@@ -109,10 +109,10 @@
                     android:layout_height="wrap_content"
                     android:text="您的身份：" />
 
-                <EditText
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                <Spinner
+                    android:id="@+id/spinner_yourIdentity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
             </TableRow>
 
             <TableRow
@@ -133,17 +133,18 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/at" /> 
+                    android:text="@string/at" />
 
-                <EditText
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                <Spinner
+                    android:id="@+id/spinner_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
             </TableRow>
         </TableLayout>
     </LinearLayout>
 
     <Button
+        android:id="@+id/btn_newRecommend_summit"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"

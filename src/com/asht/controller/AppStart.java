@@ -1,14 +1,9 @@
 package com.asht.controller;
 
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.asht.AsHt;
@@ -17,10 +12,7 @@ import com.asht.AshtSettings;
 import com.asht.AsyncDataLoader;
 import com.asht.AsyncDataLoader.Callback;
 import com.asht.R;
-import com.asht.model.Recommend;
-import com.asht.model.Record;
 import com.asht.model.Resume;
-import com.asht.model.User;
 import com.asht.model.UserInfo;
 import com.asht.utl.ApplictionManager;
 import com.asht.view.WaitingDialog;
@@ -63,7 +55,6 @@ public class AppStart extends Activity implements Callback {
 			}
 		}, 3000);
 	}
-
 	private void initCheck() {
 		// TODO Auto-generated method stub
 
@@ -90,7 +81,9 @@ public class AppStart extends Activity implements Callback {
 
 	private void loginActivity() {
 		// TODO Auto-generated method stub
-			}
+		Intent intent = new Intent(AppStart.this, LoginActivity.class);
+		startActivity(intent);
+	}
 
 	private void autoLogin() {
 		// TODO Auto-generated method stub

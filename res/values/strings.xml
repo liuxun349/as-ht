@@ -53,5 +53,6 @@
     <string name="text_answer">答案 ：</string>
     <string name="text_message">消息</string>
     <string name="text_my_account">我的帐号</string>
+    <string name="add_case_summit_null">病例组不能为空</string>
 
 </resources>

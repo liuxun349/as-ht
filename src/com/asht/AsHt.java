@@ -1,8 +1,6 @@
 package com.asht;
 
 import java.util.List;
-
-
 import com.alibaba.fastjson.JSONObject;
 import com.asht.controller.SystemService;
 import com.asht.http.AccountService;
@@ -23,13 +21,15 @@ public class AsHt {
 	private RecordService recordService = new RecordService();
 	private UserService userService = new UserService();
 	private AccountService accountService = new AccountService();
-	
-	public static void initalize(){
+
+	public static void initalize() {
 		mInstance = new AsHt();
 	}
-	public static AsHt getInstance(){
+
+	public static AsHt getInstance() {
 		return mInstance;
 	}
+
 //--------------------------------SystemService-------------------------------
 	/**
 	 * 登录
@@ -42,16 +42,18 @@ public class AsHt {
 	public UserInfo login(String name, String passwd) throws AsHtException {
 		return new UserInfo(systemService.login(name, passwd));
 	}
+
 	/**
 	 * 注册
 	 * 
 	 * @param userInfo
 	 * @return
-	 * @throws AsHtException 
+	 * @throws AsHtException
 	 */
 	public boolean regist(UserInfo userInfo) throws AsHtException {
 		return response(systemService.regist(userInfo));
 	}
+
 	/**
 	 * 向手机发送验证码
 	 * 
@@ -98,16 +100,20 @@ public class AsHt {
 	public boolean modifyInfo(UserInfo userInfo) throws AsHtException {
 		return response(userService.modifyInfo(userInfo));
 	}
+
 	/**
 	 * 修改登录密码
+	 * 
 	 * @param oldpwd
 	 * @param newpwd
 	 * @return
-	 * @throws AsHtException 
+	 * @throws AsHtException
 	 */
-	public boolean modifyLoginPasswd(String oldpwd, String newpwd) throws AsHtException {
+	public boolean modifyLoginPasswd(String oldpwd, String newpwd)
+			throws AsHtException {
 		return response(userService.modifyLoginPasswd(oldpwd, newpwd));
 	}
+
 	/**
 	 * 修改支付密码
 	 * @param userInfo
@@ -115,10 +121,12 @@ public class AsHt {
 	 * @param usercertificate
 	 * @param newPayPasswd
 	 * @return
-	 * @throws AsHtException  
+	 * @throws AsHtException
 	 */
-	public boolean modifyPayPasswd(UserInfo userInfo,String checkNo,String usercertificate,String newPayPasswd) throws AsHtException{
-		return response(userService.modifyPayPasswd(userInfo, checkNo, usercertificate, newPayPasswd));
+	public boolean modifyPayPasswd(UserInfo userInfo, String checkNo,
+			String usercertificate, String newPayPasswd) throws AsHtException {
+		return response(userService.modifyPayPasswd(userInfo, checkNo,
+				usercertificate, newPayPasswd));
 	}
 	/**
 	 * 修改密报问题
@@ -251,8 +259,7 @@ public class AsHt {
 	public List<Recommend> getRecommendationsByPresenter(UserInfo userInfo) throws AsHtException{
 		return Recommend.getRecommends(accountService.getRecommendationsByPresenter(userInfo));
 	}
-
-//---------------------------------RecordService---------------------------------
+	// ---------------------------------RecordService---------------------------------
 	/**
 	 * 获取用户自己的病例组（分页查询，10个病例）
 	 * 
@@ -283,7 +290,8 @@ public class AsHt {
 			throws AsHtException {
 		Record record = new Record();
 		record.medicalRecordGroupName = newGroupName;
-		record.medicalRecordGroupID = ""+ (recordService.addRecordGroup(user, newGroupName).result); 
+		record.medicalRecordGroupID = recordService.addRecordGroup(user,
+				newGroupName).result + "";
 		return record;
 	}
 
@@ -328,7 +336,8 @@ public class AsHt {
 	 */
 	public boolean deleteCaseFromGroup(UserInfo user, String groupId,
 			String caseId) throws AsHtException {
-		return response(recordService.deleteCaseFromGroup(user, groupId, caseId));
+		return response(recordService
+				.deleteCaseFromGroup(user, groupId, caseId));
 	}
 
 	/**
@@ -381,5 +390,4 @@ public class AsHt {
 			throw new AsHtException(rs.message);
 		}
 	}
-		
 }
