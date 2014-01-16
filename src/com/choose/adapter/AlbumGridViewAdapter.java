@@ -14,8 +14,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ToggleButton;
 
+import com.asht.R;
 import com.choose.util.ImageManager2;
-import com.example.R;
 
 public class AlbumGridViewAdapter extends BaseAdapter implements
 		OnClickListener {
@@ -79,7 +79,7 @@ public class AlbumGridViewAdapter extends BaseAdapter implements
 		if (convertView == null) {
 			viewHolder = new ViewHolder();
 			convertView = LayoutInflater.from(mContext).inflate(
-					R.layout.select_imageview, parent, false);
+					R.layout.choose_select_imageview, parent, false);
 			viewHolder.imageView = (ImageView) convertView
 					.findViewById(R.id.image_view);
 			viewHolder.toggleButton = (ToggleButton) convertView

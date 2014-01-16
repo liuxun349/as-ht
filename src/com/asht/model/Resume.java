@@ -4,6 +4,7 @@
 package com.asht.model;
 
 import java.io.ByteArrayOutputStream;
+import java.io.Serializable;
 import java.util.List;
 
 import android.graphics.Bitmap;
@@ -19,7 +20,7 @@ import com.lidroid.xutils.db.annotation.Id;
 import com.lidroid.xutils.db.annotation.NoAutoIncrement;
 import com.lidroid.xutils.db.annotation.NotNull;
 
-public class Resume extends AshtResponse {
+public class Resume extends AshtResponse implements Serializable {
 	private static final long serialVersionUID = -6193310436318894856L;
 	/**
 	 * 病例图片id
@@ -33,17 +34,9 @@ public class Resume extends AshtResponse {
 	 */
 	private int imedicalrecordgroupid;
 	/**
-	 * 病理图片　
-	 */
-	private Bitmap medicalRecordItemFile;
-	/**
 	 * 上传病例图片位置
 	 */
 	private String localRecordImageUrl;
-	/**
-	 * 缩略图图片
-	 */
-	private Bitmap minRecordItemFile;
 	/**
 	 * 病例图片状态
 	 */
@@ -76,7 +69,6 @@ public class Resume extends AshtResponse {
 		super(rs);
 		Resume resume = JSON.parseObject(result.toString(), Resume.class);
 		this.imedicalrecordgroupid = resume.imedicalrecordgroupid;
-		this.medicalRecordItemFile = resume.medicalRecordItemFile;
 		this.istate = resume.istate;
 		this.imedicalrecorditemfilename = resume.imedicalrecorditemfilename;
 		this.minFileName = resume.minFileName;
@@ -104,20 +96,12 @@ public class Resume extends AshtResponse {
 		return JSON.parseArray(((JSON) rs.result).toJSONString(), Resume.class);
 	}
 
-	public Bitmap getMedicalRecordItemFile() {
-		return medicalRecordItemFile;
-	}
-
 	public String getLocalRecordImageUrl() {
 		return localRecordImageUrl;
 	}
 
 	public void setLocalRecordImageUrl(String localRecordImageUrl) {
 		this.localRecordImageUrl = localRecordImageUrl;
-	}
-
-	public void setMedicalRecordItemFile(Bitmap medicalRecordItemFile) {
-		this.medicalRecordItemFile = medicalRecordItemFile;
 	}
 
 	@Override
@@ -140,14 +124,6 @@ public class Resume extends AshtResponse {
 
 	public void setImedicalrecordgroupid(int imedicalrecordgroupid) {
 		this.imedicalrecordgroupid = imedicalrecordgroupid;
-	}
-
-	public Bitmap getMinRecordItemFile() {
-		return minRecordItemFile;
-	}
-
-	public void setMinRecordItemFile(Bitmap minRecordItemFile) {
-		this.minRecordItemFile = minRecordItemFile;
 	}
 
 	public String getIstate() {
@@ -177,5 +153,29 @@ public class Resume extends AshtResponse {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
+	// public static final Parcelable.Creator<Resume> CREATOR = new
+	// Creator<Resume>() {
+	// public Resume createFromParcel(Parcel source) {
+	// Resume mResume = new Resume();
+	// mResume.ResumeName = source.readString();
+	// mResume.author = source.readString();
+	// return mResume;
+	// }
+	//
+	// public Resume[] newArray(int size) {
+	// return new Resume[size];
+	// }
+	// };
+	//
+	// public int describeContents() {
+	// return 0;
+	// }
+	//
+	// public void writeToParcel(Parcel parcel, int flags) {
+	// parcel.writeString(bookName);
+	// parcel.writeString(author);
+	// parcel.writeInt(publishTime);
+	// }
 
 }

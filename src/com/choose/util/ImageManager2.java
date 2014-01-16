@@ -27,7 +27,7 @@ import android.os.Message;
 import android.support.v4.util.LruCache;
 import android.widget.ImageView;
 
-import com.choose.MyApplication;
+import com.example.testafinal.MyApplication;
 
 /**
  * 图片加载类

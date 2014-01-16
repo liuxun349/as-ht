@@ -3,6 +3,7 @@ package com.choose.multiimagechooser;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -21,9 +22,9 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.asht.R;
 import com.choose.adapter.AlbumGridViewAdapter;
 import com.choose.util.ImageManager2;
-import com.example.R;
 
 @SuppressLint("ShowToast")
 public class AlbumActivity extends Activity {
@@ -43,7 +44,7 @@ public class AlbumActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_album);
+		setContentView(R.layout.choose_album);
 		selectedDataList = new ArrayList<String>();
 
 		init();
@@ -165,7 +166,8 @@ public class AlbumActivity extends Activity {
 				Intent intent = new Intent();
 				Bundle bundle = new Bundle();
 				// intent.putArrayListExtra("dataList", dataList);
-				bundle.putStringArrayList("dataList", selectedDataList);
+				ArrayList<String> list = selectedDataList;
+				bundle.putStringArrayList("dataList", list);
 				intent.putExtras(bundle);
 				setResult(RESULT_OK, intent);
 				finish();

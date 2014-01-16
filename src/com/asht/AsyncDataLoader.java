@@ -31,6 +31,12 @@ public class AsyncDataLoader extends AsyncTask<Void, Long, Object> {
 			mCallback.onFinishAsync();
 		}
 	}
+	
+	@Override
+	protected void onProgressUpdate(Long... values) {
+		super.onProgressUpdate(values);
+		System.out.println("yj_onProgressUpdate"+values);
+	}
 
 	@Override
 	protected void onPreExecute() {

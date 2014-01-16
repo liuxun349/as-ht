@@ -1,5 +1,7 @@
 package com.asht.controller;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -266,7 +268,7 @@ public class MyCasesActivity extends Activity implements OnClickListener {
 		}
 
 		@Override
-		public void onClick(Object info) {
+		public void onClick(int index, View citem, Object info, List<?> list) {
 			Intent intent = new Intent(MyCasesActivity.this,
 					MyCasesSingleActivity.class);
 			saveTmp(MyCasesActivity.this, (Record) info);
@@ -276,7 +278,7 @@ public class MyCasesActivity extends Activity implements OnClickListener {
 	};
 
 	public void saveTmp(Context context, Record info) {
-		MyApplication.setmRecord(info);
+		((MyApplication) getApplication()).setmRecord(info);
 	}
 
 	UIHanleLintener mHanleLintener = new UIHanleLintener() {

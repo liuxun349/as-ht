@@ -82,6 +82,8 @@ public class CasesSingleController implements OnItemClickListener,
 		Resume_tmp = (Resume) adapter.getItem(index);
 
 		if (!isSelectMode) {
+			mUINotification
+					.onClick(index, view, Resume_tmp, adapter.getInfos());
 			return;
 		}
 		if (selectViews == null) {
@@ -155,7 +157,7 @@ public class CasesSingleController implements OnItemClickListener,
 	}
 
 	public int getSelectCasesCount() {
-		if(selectViews==null){
+		if (selectViews == null) {
 			selectViews = new ArrayList<Resume>();
 		}
 		return selectViews.size();
@@ -257,8 +259,8 @@ public class CasesSingleController implements OnItemClickListener,
 							fag = asht.deleteCaseFromGroup(user,
 									mRecord.medicalRecordGroupID,
 									Resume_tmp.getImedicalrecorditemid() + "");
-//							AFinalController.create(mContext).getfinalDb()
-//									.delete(Resume_tmp);
+							// AFinalController.create(mContext).getfinalDb()
+							// .delete(Resume_tmp);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}

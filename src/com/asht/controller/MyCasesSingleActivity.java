@@ -1,6 +1,11 @@
 package com.asht.controller;
 
+import java.io.Serializable;
+import java.util.List;
+
+import uk.co.senab.photoview.sample.ViewPagerActivity;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -14,10 +19,17 @@ import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
 
+import com.asht.AsHt;
+import com.asht.AsyncDataLoader;
+import com.asht.AsyncDataLoader.Callback;
 import com.asht.R;
 import com.asht.interfaces.UIHanleLintener;
 import com.asht.interfaces.UINotification;
 import com.asht.model.Record;
+import com.asht.model.Resume;
+import com.asht.model.UserInfo;
+import com.asht.utl.ApplictionManager;
+import com.choose.multiimagechooser.AlbumActivity;
 import com.example.controller.CasesSingleController;
 import com.example.testafinal.MyApplication;
 
@@ -60,6 +72,62 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 		findViewById(R.id.tv_title_back).setOnClickListener(this);
 		initView();
 		initData();
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+
+		if (resultCode == Activity.RESULT_OK) {
+
+			if (requestCode == 1000) {
+				Bundle bundle = data.getExtras();
+				@SuppressWarnings("unchecked")
+				final List<String> tDataList = (List<String>) bundle
+						.getSerializable("dataList");
+				System.out.println(tDataList);
+
+				new AsyncDataLoader(new Callback() {
+					private List<Resume> mResume;
+
+					@Override
+					public void onStartAsync() {
+
+						System.out.println("do it ? ..");
+						AsHt asht = AsHt.getInstance();
+						UserInfo user = ApplictionManager.getInstance()
+								.getUserInfo();
+						user = new UserInfo();
+						user.setUserPhoneNo("13000001011");
+						for (String string : tDataList) {
+							try {
+								asht.uploadCaseToGroup(user,
+										mRecord.medicalRecordGroupID, string);
+							} catch (Exception e) {
+							}
+						}
+					}
+
+					@Override
+					public void onPrepareAsync() {
+						// TODO Auto-generated method stub
+
+					}
+
+					@Override
+					public void onFinishAsync() {
+						// TODO Auto-generated method stub
+						mCasesSingleController.update(false, false);
+
+					}
+				}).execute();
+
+			} else {
+
+			}
+
+		}
+
 	}
 
 	private void initView() {
@@ -105,9 +173,11 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 				.setOnClickListener(addCaseSingleOnClick);
 	}
 
+	Record mRecord;
+
 	private void initData() {
 
-		Record mRecord = MyApplication.getmRecord();
+		mRecord = ((MyApplication) getApplication()).getmRecord();
 
 		((TextView) findViewById(R.id.tv_caseSingleTitle))
 				.setText(mRecord.medicalRecordGroupName);
@@ -191,10 +261,8 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 		public CasesAddCaseSingle() {
 			main = View.inflate(MyCasesSingleActivity.this,
 					R.layout.pop_add_case_single, null);
-			view_localimport =  main
-					.findViewById(R.id.tv_localimport);
-			view_cameraimport =  main
-					.findViewById(R.id.tv_cameraimport);
+			view_localimport = main.findViewById(R.id.tv_localimport);
+			view_cameraimport = main.findViewById(R.id.tv_cameraimport);
 		}
 	}
 
@@ -285,11 +353,16 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 
 		@Override
 		public void onClick(View v) {
+			Intent intent = null;
 			if (v.getId() == mAddCaseSingle.view_cameraimport.getId()) {
-
+				intent = new Intent("android.media.action.IMAGE_CAPTURE");
+				startActivityForResult(intent, 0);
 			} else {
-
+				intent = new Intent();
+				intent.setClass(getApplicationContext(), AlbumActivity.class);
+				startActivityForResult(intent, 1000);
 			}
+
 		}
 	};
 
@@ -364,7 +437,14 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 		}
 
 		@Override
-		public void onClick(Object info) {
+		public void onClick(int index, View citem, Object info, List<?> list) {
+			Intent intent = new Intent(getApplicationContext(),
+					ViewPagerActivity.class);
+			Bundle b = new Bundle();
+			b.putSerializable("dataList", (Serializable)list);
+			b.putInt("index", index);
+			intent.putExtras(b);
+			startActivity(intent);
 		}
 
 	};

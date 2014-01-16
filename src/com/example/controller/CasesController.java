@@ -83,7 +83,8 @@ public class CasesController implements OnItemClickListener,
 		Record_tmp = (Record) adapter.getItem(index);
 
 		if (!isSelectMode) {
-			mUINotification.onClick(Record_tmp);
+			mUINotification
+					.onClick(index, view, Record_tmp, adapter.getInfos());
 			return;
 		}
 		if (selectViews == null) {

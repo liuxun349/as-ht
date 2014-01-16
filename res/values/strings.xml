@@ -55,5 +55,7 @@
     <string name="text_message">消息</string>
     <string name="text_my_account">我的帐号</string>
     <string name="add_case_summit_null">病例组不能为空</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="dummy_button">Dummy Button</string>
 
 </resources>
