@@ -21,9 +21,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="uk.co.senab.photoview.sample.ViewPagerActivity" >
+        <activity android:name="com.asht.controller.ViewPagerActivity" >
         </activity>
-        <activity android:name="com.choose.multiimagechooser.AlbumActivity" >
+        <activity android:name="com.asht.controller.AlbumActivity" >
         </activity>
         <activity android:name="com.asht.controller.AppStart" >
         </activity>

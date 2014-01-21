@@ -104,7 +104,7 @@ public class MyCasesActivity extends Activity implements OnClickListener {
 
 				}
 			} else {
-				mCasesController.deleteSelectCasesGroup();
+				mCasesController.deleteSelectAll();
 			}
 		}
 	};

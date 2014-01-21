@@ -1,5 +1,7 @@
 package com.asht.http;
 
+import java.util.List;
+
 import com.alibaba.fastjson.JSONObject;
 import com.asht.AsHtException;
 import com.asht.model.UserInfo;
@@ -64,12 +66,12 @@ public class RecordService {
 	 * @return
 	 * @throws AsHtException
 	 */
-	public AshtResponse deleteRecordGroup(UserInfo user, String groupId)
+	public AshtResponse deleteRecordGroup(UserInfo user, List<String> groupIds)
 			throws AsHtException {
 		method = "deleteMedicalRecordGroups";
 		json = new JSONObject();
 		json.put("userPhoneNo", user.getUserPhoneNo());
-		json.put("medicalRecordGroupID", groupId);
+		json.put("medicalRecordGroupID", groupIds);
 		return get(method, json);
 	}
 
@@ -83,13 +85,13 @@ public class RecordService {
 	 * @throws AsHtException
 	 */
 	public AshtResponse uploadCaseToGroup(UserInfo user, String groupId,
-			String imgPath) throws AsHtException {
+			String resume) throws AsHtException {
 		method = "uploadMedicalRecordItemsToGroup";
 		json = new JSONObject();
 		json.put("userPhoneNo", user.getUserPhoneNo());
 		json.put("medicalRecordGroupID", groupId);
 		json.put("medicalRecordItemFile", new BitmapCompressUtils()
-				.getMedicalRecordImageFileToByte(imgPath));
+				.getMedicalRecordImageFileToByte(resume));
 		return get(method, json);
 	}
 
@@ -106,12 +108,12 @@ public class RecordService {
 	 * 
 	 */
 	public AshtResponse deleteCaseFromGroup(UserInfo user, String groupId,
-			String caseId) throws AsHtException {
+			List<String> caseIds) throws AsHtException {
 		method = "deleteMedicalRecordItems";
 		json = new JSONObject();
 		json.put("userPhone", user.getUserPhoneNo());
 		json.put("medicalRecordGroupID", groupId);
-		json.put("medicalRecordItemID", caseId);
+		json.put("medicalRecordItemID", caseIds);
 		return get(method, json);
 	}
 

@@ -10,16 +10,17 @@ import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.asht.R;
 import com.asht.model.Resume;
-import com.lidroid.xutils.BitmapUtils;
+import com.yj.compress.YJBitmap;
 
 public class MyCasesSingleAdapter extends BaseAdapter {
 
 	private List<Resume> infos;
 	private Context mContext;
-	BitmapUtils bit = null;
+	YJBitmap mYjBitmap;
 	private int width, height;
 
 	public void setInfos(List<Resume> info) {
@@ -38,8 +39,23 @@ public class MyCasesSingleAdapter extends BaseAdapter {
 	}
 
 	public void addResume(Resume info) {
+		if (infos == null) {
+			infos = new ArrayList<Resume>();
+		}
 		if (infos != null && infos.contains(info)) {
 			infos.add(info);
+		}
+	}
+
+	public void addResumes(List<Resume> info) {
+		if (infos == null) {
+			infos = new ArrayList<Resume>();
+		}
+		if (info != null) {
+			for (Resume resume : info) {
+				if (resume != null)
+					infos.add(resume);
+			}
 		}
 	}
 
@@ -58,7 +74,7 @@ public class MyCasesSingleAdapter extends BaseAdapter {
 		mContext = context;
 		this.height = height;
 		this.width = width;
-		bit = new BitmapUtils(mContext);
+		mYjBitmap = YJBitmap.create(context);
 	}
 
 	@Override
@@ -92,6 +108,8 @@ public class MyCasesSingleAdapter extends BaseAdapter {
 					.findViewById(R.id.iv_myCasesSingle_pic);
 			hview.iv_delete = (ImageView) convertView
 					.findViewById(R.id.iv_myCasesSingle_delete);
+			hview.tv_case_upload = (TextView) convertView
+					.findViewById(R.id.tv_case_upload);
 
 			AbsListView.LayoutParams ll = new AbsListView.LayoutParams(width,
 					height, 1);
@@ -101,22 +119,40 @@ public class MyCasesSingleAdapter extends BaseAdapter {
 
 		hview = (MyCasesSingleItemView) convertView.getTag();
 		Resume info = infos.get(position);
-		bit.display(hview.iv1,
-				"http://115.28.48.85:8080/ascs/" + info.getMinFileName());
-		// bit.display(hview.iv1, info.getUrl(), width, width);
-		hview.cbIsShenHe.setChecked(info.istate == "ok");
-		if (info.isClick == 0) {
-			hview.iv_delete.setVisibility(View.VISIBLE);
-		} else {
+		// bit.display(hview.iv1,
+		// "http://115.28.48.85:8080/ascs/" + info.getMinFileName());
+		if (info.getState() != 3) {
+			mYjBitmap.display(hview.iv1, info.getLocalRecordImageUrl(), width,
+					width);
+			hview.cbIsShenHe.setVisibility(View.GONE);
 			hview.iv_delete.setVisibility(View.GONE);
-		}
+			hview.tv_case_upload.setVisibility(View.VISIBLE);
+			if (info.getState() == 2) {
+				(hview.tv_case_upload).setText("上传");
+			} else {
+				(hview.tv_case_upload).setText("删除");
+			}
+		} else {
 
+			hview.tv_case_upload.setVisibility(View.GONE);
+			mYjBitmap.display(hview.iv1, "http://115.28.48.85:8080/ascs/"
+					+ info.getMinFileName(), width, width);
+			hview.cbIsShenHe.setChecked("1".equals(info.getIstate()));
+
+			hview.cbIsShenHe.setVisibility(View.VISIBLE);
+			if (info.isClick == 0) {
+				hview.iv_delete.setVisibility(View.VISIBLE);
+			} else {
+				hview.iv_delete.setVisibility(View.GONE);
+			}
+		}
 		return convertView;
 	}
 
 	public class MyCasesSingleItemView {
 		public ImageView iv1, iv_delete;
 		public CheckBox cbIsShenHe;
+		public TextView tv_case_upload;
 	}
 
 }

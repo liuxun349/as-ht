@@ -3,9 +3,10 @@ package com.example.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.tsz.afinal.annotation.sqlite.ManyToOne;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -16,24 +17,20 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.GridView;
 
 import com.asht.AsHt;
-import com.asht.AsHtException;
 import com.asht.AsyncDataLoader;
-import com.asht.R;
 import com.asht.AsyncDataLoader.Callback;
+import com.asht.R;
 import com.asht.adapter.MyCasesAdapter;
-import com.asht.controller.AppStart;
-import com.asht.controller.MainActivity;
 import com.asht.controller.MyCasesActivity;
 import com.asht.interfaces.UIHanleLintener;
 import com.asht.interfaces.UINotification;
 import com.asht.model.Record;
-import com.asht.model.Resume;
 import com.asht.model.UserInfo;
 import com.asht.utl.ApplictionManager;
 
 @SuppressLint({ "UseSparseArrays", "HandlerLeak" })
 public class CasesController implements OnItemClickListener,
-		OnItemLongClickListener {
+		OnItemLongClickListener, ViewLinstener {
 	GridView gridView = null;
 	Context mContext;// 上下文对象
 	int spacing = 4;// 间隔
@@ -138,6 +135,7 @@ public class CasesController implements OnItemClickListener,
 					records = asht.getRecordGroup(user, true,
 							"2013-12-25 20:06:15.0");
 					System.out.println(" size: " + records.size());
+
 				} catch (Exception e) {
 					e.printStackTrace();
 					Log.w("Record", e.toString());
@@ -171,52 +169,6 @@ public class CasesController implements OnItemClickListener,
 		// mHanleLintener.gengduo(true, isTouch);
 		// }
 		// }, fag);
-	}
-
-	public void deleteSelectCasesGroup() {
-
-		new AsyncDataLoader(new Callback() {
-
-			@Override
-			public void onStartAsync() {
-
-				AsHt asht = AsHt.getInstance();
-				UserInfo user = ApplictionManager.getInstance().getUserInfo();
-				user = new UserInfo();
-				user.setUserPhoneNo("13000001011");
-				try {
-					List<Record> lists = selectViews;
-					for (Record record : lists) {
-						try {
-							boolean del = asht.deleteRecordGroup(user,
-									record.medicalRecordGroupID);
-							if (del) {
-								adapter.removeRecord(record);
-							}
-						} catch (Exception e) {
-						}
-					}
-
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-
-			}
-
-			@Override
-			public void onPrepareAsync() {
-
-			}
-
-			@Override
-			public void onFinishAsync() {
-				selectClear();
-				updateHandler.sendEmptyMessage(10001);
-				mHanleLintener.deletefinish(true);
-
-			}
-		}).execute();
-
 	}
 
 	public void selectAll() {
@@ -286,4 +238,59 @@ public class CasesController implements OnItemClickListener,
 			}
 		};
 	};
+
+	@Override
+	public void deleteSelectAll() {
+		new AsyncDataLoader(new Callback() {
+			boolean fag = false;
+
+			@Override
+			public void onStartAsync() {
+
+				AsHt asht = AsHt.getInstance();
+				UserInfo user = ApplictionManager.getInstance().getUserInfo();
+				user = new UserInfo();
+				user.setUserPhoneNo("13000001011");
+				List<String> ids = new ArrayList<String>();
+				for (Record record : selectViews) {
+					ids.add(record.medicalRecordGroupID);
+				}
+				try {
+					fag = asht.deleteRecordGroup(user, ids);
+				} catch (Exception e) {
+				}
+
+			}
+
+			@Override
+			public void onPrepareAsync() {
+
+			}
+
+			@Override
+			public void onFinishAsync() {
+
+				if (fag) {
+					for (Record r : selectViews) {
+						adapter.removeRecord(r);
+					}
+				}
+
+				selectClear();
+				updateHandler.sendEmptyMessage(10001);
+				mHanleLintener.deletefinish(fag);
+			}
+		}).execute();
+
+	}
+
+	@Override
+	public void gengduo() {
+
+	}
+
+	@Override
+	public void add(List<?> infos) {
+
+	}
 }

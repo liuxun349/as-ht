@@ -1,6 +1,8 @@
 package com.asht;
 
 import java.util.List;
+
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.asht.controller.SystemService;
 import com.asht.http.AccountService;
@@ -351,9 +353,9 @@ public class AsHt {
 	 * @return
 	 * @throws AsHtException
 	 */
-	public boolean deleteRecordGroup(UserInfo user, String groupId)
+	public boolean deleteRecordGroup(UserInfo user, List<String> groupIds)
 			throws AsHtException {
-		return response(recordService.deleteRecordGroup(user, groupId));
+		return response(recordService.deleteRecordGroup(user, groupIds));
 	}
 
 	/**
@@ -365,10 +367,29 @@ public class AsHt {
 	 * @return
 	 * @throws AsHtException
 	 */
-	public boolean uploadCaseToGroup(UserInfo user, String groupId,
+	public Resume uploadCaseToGroup(UserInfo user, String groupId,
 			String imgPath) throws AsHtException {
-		return response(recordService.uploadCaseToGroup(user, groupId, imgPath));
+		AshtResponse as = recordService.uploadCaseToGroup(user, groupId,
+				imgPath);
+		return JSON.parseObject(as.result.toString(), Resume.class);
 	}
+
+	// public Resume uploadCaseToGroup(UserInfo user, String groupId, Resume
+	// resume)
+	// throws AsHtException {
+	// Resume r = null;
+	// try {
+	// AshtResponse as = recordService.uploadCaseToGroup(user, groupId,
+	// resume.getLocalRecordImageUrl());
+	// r = JSON.parseObject(as.result.toString(), Resume.class);
+	// } catch (Exception e) {
+	// r = null;
+	// }
+	// if (r != null) {
+	// resume.setAttribute(r);
+	// }
+	// return resume;
+	// }
 
 	/**
 	 * 删除病例（单个）
@@ -382,7 +403,8 @@ public class AsHt {
 	 * @throws AsHtException
 	 */
 	public boolean deleteCaseFromGroup(UserInfo user, String groupId,
-			String caseId) throws AsHtException {
+			List<String> caseId) throws AsHtException {
+
 		return response(recordService
 				.deleteCaseFromGroup(user, groupId, caseId));
 	}
@@ -428,6 +450,7 @@ public class AsHt {
 	 */
 	private boolean response(AshtResponse rs) throws AsHtException {
 		if (rs.success) {
+
 			return true;
 		} else {
 			throw new AsHtException(rs.message);

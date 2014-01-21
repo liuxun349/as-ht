@@ -21,4 +21,17 @@ public class BitmapCompressUtils {
 		}
 	}
 
+	public byte[] getMedicalRecordImageFileToBytes(String path) {
+		if (path == null) {
+			return null;
+		} else {
+			Bitmap bm = BitmapFactory.decodeFile(path);
+
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			bm.compress(Bitmap.CompressFormat.JPEG, 40, baos);
+			byte[] b = baos.toByteArray();
+			return b;
+		}
+	}
+
 }

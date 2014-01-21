@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package uk.co.senab.photoview.sample;
+package com.asht.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,10 +29,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 
-import com.asht.R;
 import com.asht.model.Resume;
-import com.choose.util.ImageManager2;
-import com.lidroid.xutils.BitmapUtils;
+import com.yj.compress.YJBitmap;
 
 public class ViewPagerActivity extends Activity {
 
@@ -55,17 +53,43 @@ public class ViewPagerActivity extends Activity {
 
 		mViewPager.setAdapter(new SamplePagerAdapter(tDataList));
 		mViewPager.setCurrentItem(index);
+		// PhotoView photoView = (PhotoView) mViewPager
+		// .findViewById(100000 + index);
+		// FinalBitmap.create(getApplicationContext()).display(
+		// photoView,
+		// "http://115.28.48.85:8080/ascs/"
+		// + tDataList.get(index).getImedicalrecorditemfilename());
+		// mViewPager.setOnPageChangeListener(new OnPageChangeListener() {
+		//
+		// @Override
+		// public void onPageSelected(int index) {
+		// PhotoView photoView = (PhotoView) mViewPager
+		// .findViewById(100000 + index);
+		// FinalBitmap.create(getApplicationContext()).display(
+		// photoView,
+		// "http://115.28.48.85:8080/ascs/"
+		// + tDataList.get(index).getImedicalrecorditemfilename());
+		// }
+		//
+		// @Override
+		// public void onPageScrolled(int arg0, float arg1, int arg2) {
+		// }
+		//
+		// @Override
+		// public void onPageScrollStateChanged(int index) {
+		// }
+		// });
 	}
 
 	class SamplePagerAdapter extends PagerAdapter {
 
 		private List<Resume> resumes = new ArrayList<Resume>();
-		BitmapUtils bitmap;
+		YJBitmap yjBitmap;
 
 		public SamplePagerAdapter(List<Resume> resumes) {
 			this.resumes = resumes;
 
-			bitmap = new BitmapUtils(getApplicationContext());
+			yjBitmap = YJBitmap.create(getApplicationContext());
 		}
 
 		@Override
@@ -74,8 +98,8 @@ public class ViewPagerActivity extends Activity {
 		}
 
 		@Override
-		public View instantiateItem(ViewGroup container, int position) {
-			PhotoView photoView = new PhotoView(container.getContext());
+		public View instantiateItem(ViewGroup container, final int position) {
+			final PhotoView photoView = new PhotoView(container.getContext());
 			// photoView.setImageResource(sDrawables[position]);
 
 			// Now just add PhotoView to ViewPager and return it
@@ -84,8 +108,17 @@ public class ViewPagerActivity extends Activity {
 			// ImageManager2.from(ViewPagerActivity.this).displayImage(photoView,
 			// resumes.get(position).getImedicalrecorditemfilename(),
 			// R.drawable.camera_default);
-			bitmap.display(photoView, "http://115.28.48.85:8080/ascs/"
-					+ resumes.get(position).getImedicalrecorditemfilename());
+			// finalBitmap.display(photoView, "http://115.28.48.85:8080/ascs/"
+			// + resumes.get(position).getMinFileName());
+
+			yjBitmap.display(
+					photoView,
+					"http://115.28.48.85:8080/ascs/"
+							+ resumes.get(position)
+									.getImedicalrecorditemfilename(),
+					yjBitmap.getBitmapFromCache("http://115.28.48.85:8080/ascs/"
+							+ resumes.get(position).getMinFileName()));
+			photoView.setId(100000 + position);
 			return photoView;
 		}
 

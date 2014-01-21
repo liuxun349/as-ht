@@ -1,9 +1,9 @@
 package com.asht.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-import uk.co.senab.photoview.sample.ViewPagerActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -29,7 +29,6 @@ import com.asht.model.Record;
 import com.asht.model.Resume;
 import com.asht.model.UserInfo;
 import com.asht.utl.ApplictionManager;
-import com.choose.multiimagechooser.AlbumActivity;
 import com.example.controller.CasesSingleController;
 import com.example.testafinal.MyApplication;
 
@@ -85,43 +84,21 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 				@SuppressWarnings("unchecked")
 				final List<String> tDataList = (List<String>) bundle
 						.getSerializable("dataList");
-				System.out.println(tDataList);
 
-				new AsyncDataLoader(new Callback() {
-					private List<Resume> mResume;
-
-					@Override
-					public void onStartAsync() {
-
-						System.out.println("do it ? ..");
-						AsHt asht = AsHt.getInstance();
-						UserInfo user = ApplictionManager.getInstance()
-								.getUserInfo();
-						user = new UserInfo();
-						user.setUserPhoneNo("13000001011");
-						for (String string : tDataList) {
-							try {
-								asht.uploadCaseToGroup(user,
-										mRecord.medicalRecordGroupID, string);
-							} catch (Exception e) {
-							}
-						}
-					}
-
-					@Override
-					public void onPrepareAsync() {
-						// TODO Auto-generated method stub
-
-					}
-
-					@Override
-					public void onFinishAsync() {
-						// TODO Auto-generated method stub
-						mCasesSingleController.update(false, false);
-
-					}
-				}).execute();
-
+				// 没有选择数据
+				if (tDataList == null) {
+					return;
+				}
+				if (tDataList.size() < 1) {
+					return;
+				}
+				List<Resume> lists = new ArrayList<Resume>();
+				for (String string : tDataList) {
+					Resume r = new Resume();
+					r.setLocalRecordImageUrl(string);
+					lists.add(r);
+				}
+				mCasesSingleController.add(lists);
 			} else {
 
 			}
@@ -357,10 +334,12 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 			if (v.getId() == mAddCaseSingle.view_cameraimport.getId()) {
 				intent = new Intent("android.media.action.IMAGE_CAPTURE");
 				startActivityForResult(intent, 0);
+				pop_add.dismiss();
 			} else {
 				intent = new Intent();
 				intent.setClass(getApplicationContext(), AlbumActivity.class);
 				startActivityForResult(intent, 1000);
+				pop_add.dismiss();
 			}
 
 		}
@@ -441,7 +420,7 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 			Intent intent = new Intent(getApplicationContext(),
 					ViewPagerActivity.class);
 			Bundle b = new Bundle();
-			b.putSerializable("dataList", (Serializable)list);
+			b.putSerializable("dataList", (Serializable) list);
 			b.putInt("index", index);
 			intent.putExtras(b);
 			startActivity(intent);

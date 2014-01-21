@@ -1,14 +1,13 @@
 package com.example.controller;
 
+import net.tsz.afinal.FinalDb;
 import android.content.Context;
-
-import com.lidroid.xutils.DbUtils;
 
 public class AFinalController {
 
 	private static AFinalController aFinalController;
 
-	private DbUtils finalDb;
+	private FinalDb finalDb;
 
 	private synchronized static AFinalController getinit(Context context) {
 		if (aFinalController == null) {
@@ -18,18 +17,18 @@ public class AFinalController {
 	}
 
 	private AFinalController(Context context) {
-		finalDb = DbUtils.create(context);
+		finalDb = FinalDb.create(context);
 	}
 
 	public static AFinalController create(Context context) {
 		return getinit(context);
 	}
 
-	public DbUtils getfinalDb() {
+	public FinalDb getfinalDb() {
 		return finalDb;
 	}
 
-	public static DbUtils getDB(Context context) {
+	public static FinalDb  getDB(Context context) {
 		// TODO Auto-generated method stub
 		return create(context).getfinalDb();
 	}

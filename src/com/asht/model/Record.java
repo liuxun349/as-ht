@@ -5,25 +5,23 @@ package com.asht.model;
 
 import java.util.List;
 
+import net.tsz.afinal.annotation.sqlite.Id;
+import net.tsz.afinal.annotation.sqlite.Table;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.asht.AsHtException;
 import com.asht.http.AshtResponse;
-import com.lidroid.xutils.db.annotation.Finder;
-import com.lidroid.xutils.db.annotation.Id;
-import com.lidroid.xutils.db.annotation.NoAutoIncrement;
-import com.lidroid.xutils.db.annotation.NotNull;
-import com.lidroid.xutils.db.sqlite.FinderLazyLoader;
 
+@Table(name="record")
 public class Record extends AshtResponse {
 
+	@Id
+	public int id;
 	/**
 	 * 病例组id
 	 */
-	@Id(column = "id")
-	@NoAutoIncrement
-	@NotNull
 	public String medicalRecordGroupID;
 	/**
 	 * 病例组名称
@@ -47,11 +45,11 @@ public class Record extends AshtResponse {
 	 */
 	public int isClick = 1;
 
-	/**
-	 * 得到当前病例组下面的所有病例
-	 */
-	@Finder(valueColumn = "medicalRecordGroupID", targetColumn = "groupid")
-	public FinderLazyLoader<Resume> resume = null;// 获取病例信息
+	// /**
+	// * 得到当前病例组下面的所有病例
+	// */
+	// @Finder(valueColumn = "medicalRecordGroupID", targetColumn = "groupid")
+	// public FinderLazyLoader<Resume> resume = null;// 获取病例信息
 
 	public Record() {
 	}
@@ -72,9 +70,9 @@ public class Record extends AshtResponse {
 
 	public static List<Record> getRecords(AshtResponse ashtResponse)
 			throws AsHtException {
-		if( !ashtResponse.success){
+		if (!ashtResponse.success) {
 			throw new AsHtException(ashtResponse.message);
-		}else if( ashtResponse.result == null){
+		} else if (ashtResponse.result == null) {
 			return null;
 		}
 		return JSON.parseArray(

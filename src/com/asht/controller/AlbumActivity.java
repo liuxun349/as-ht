@@ -1,4 +1,4 @@
-package com.choose.multiimagechooser;
+package com.asht.controller;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -23,8 +23,8 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.asht.R;
-import com.choose.adapter.AlbumGridViewAdapter;
-import com.choose.util.ImageManager2;
+import com.asht.adapter.AlbumGridViewAdapter;
+import com.yj.compress.YJBitmap;
 
 @SuppressLint("ShowToast")
 public class AlbumActivity extends Activity {
@@ -78,8 +78,8 @@ public class AlbumActivity extends Activity {
 					selectedImageLayout, false);
 			selectedImageLayout.addView(imageView);
 			hashMap.put(path, imageView);
-			ImageManager2.from(AlbumActivity.this).displayImage(imageView,
-					path, R.drawable.camera_default, 100, 100);
+			YJBitmap.create(getApplicationContext()).display(imageView, path,
+					100, 100);
 			imageView.setOnClickListener(new View.OnClickListener() {
 
 				@Override
@@ -134,10 +134,8 @@ public class AlbumActivity extends Activity {
 
 								hashMap.put(path, imageView);
 								selectedDataList.add(path);
-								ImageManager2.from(AlbumActivity.this)
-										.displayImage(imageView, path,
-												R.drawable.camera_default, 100,
-												100);
+								YJBitmap.create(getApplicationContext())
+										.display(imageView, path, 100, 100);
 								imageView
 										.setOnClickListener(new View.OnClickListener() {
 

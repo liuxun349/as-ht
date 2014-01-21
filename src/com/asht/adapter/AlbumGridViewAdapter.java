@@ -1,4 +1,4 @@
-package com.choose.adapter;
+package com.asht.adapter;
 
 import java.util.ArrayList;
 
@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.ToggleButton;
 
 import com.asht.R;
-import com.choose.util.ImageManager2;
+import com.yj.compress.YJBitmap;
 
 public class AlbumGridViewAdapter extends BaseAdapter implements
 		OnClickListener {
@@ -99,8 +99,8 @@ public class AlbumGridViewAdapter extends BaseAdapter implements
 		if (path.contains("default")) {
 			viewHolder.imageView.setImageResource(R.drawable.camera_default);
 		} else {
-			ImageManager2.from(mContext).displayImage(viewHolder.imageView,
-					path, R.drawable.camera_default, 100, 100);
+			YJBitmap.create(mContext).display(viewHolder.imageView, path,
+					width, height);
 		}
 		viewHolder.toggleButton.setTag(position);
 		viewHolder.toggleButton.setOnClickListener(this);

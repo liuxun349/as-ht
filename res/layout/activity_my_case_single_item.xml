@@ -20,6 +20,15 @@
         android:clickable="false"
         android:focusable="false" />
 
+    <TextView
+        android:id="@+id/tv_case_upload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="正在上传信息 请稍候。。"
+        android:textColor="#f00" />
+
     <ImageView
         android:id="@+id/iv_myCasesSingle_delete"
         android:layout_width="wrap_content"
