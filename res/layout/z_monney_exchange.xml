@@ -30,7 +30,8 @@
     <LinearLayout
         style="@style/body"
         android:padding="10dp"
-        android:orientation="vertical" >
+        android:orientation="vertical" 
+        android:background="@color/containt">
 
         <TableLayout
             android:layout_width="fill_parent"

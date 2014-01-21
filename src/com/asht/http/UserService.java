@@ -28,9 +28,10 @@ public class UserService {
 	 * @return
 	 * @throws AsHtException 
 	 */
-	public AshtResponse modifyLoginPasswd(String oldpwd, String newpwd) throws AsHtException {
+	public AshtResponse modifyLoginPasswd(UserInfo user,String oldpwd, String newpwd) throws AsHtException {
 		method = "modifyLoginPassword";
 		json = new JSONObject();
+		json.put("userPhoneNo", user.getUserPhoneNo());
 		json.put("oldLoginPwd", oldpwd);
 		json.put("newLoginPwd", newpwd);
 		return get(method, json);

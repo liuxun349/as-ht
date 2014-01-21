@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/top" >
+
+    <TextView
+        android:id="@+id/app_title_name"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:gravity="center_vertical|center_horizontal"
+        android:textColor="@color/title_text_color"
+        android:textSize="@dimen/title_text_size" />
+
+    <Button
+        android:id="@+id/tv_title_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/btn_defalut_selector"
+        android:text="@string/title_back"
+        android:textColor="@color/title_text_color"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/btnEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|center"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/btn_defalut_selector"
+        android:textColor="@color/title_text_color"
+        android:visibility="gone" />
+
+</FrameLayout>

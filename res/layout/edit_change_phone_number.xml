@@ -5,27 +5,7 @@
     android:layout_height="fill_parent"
     android:background="#ffefebe7" >
 
-    <FrameLayout style="@style/top" >
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="更换手机"
-            android:textColor="@color/title_text_color"
-            android:textSize="@dimen/title_text_size" />
-
-        <TextView
-            android:id="@+id/tv_title_back"
-            android:layout_width="@dimen/title_height"
-            android:layout_height="@dimen/title_height"
-            android:layout_gravity="center_vertical|left"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="@string/title_back"
-            android:textColor="@color/title_text_color"
-            android:textSize="@dimen/title_text_size" />
-    </FrameLayout>
+    <include layout="@layout/app_toptitle" />
 
     <TableLayout
         style="@style/body"
@@ -46,7 +26,7 @@
             <EditText
                 android:id="@+id/et_newPhone"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/edit_heigh"
                 android:layout_weight="1" />
         </TableRow>
 
@@ -57,13 +37,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="验证吗:"
+                android:text="验证码:"
                 android:textColor="@color/black" />
 
             <EditText
                 android:id="@+id/et_checkNumber"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/edit_heigh"
                 android:layout_weight="1" />
         </TableRow>
 
@@ -80,7 +60,7 @@
             <EditText
                 android:id="@+id/et_payPwd"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/edit_heigh"
                 android:layout_weight="1" />
         </TableRow>
 

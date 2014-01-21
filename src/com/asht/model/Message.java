@@ -10,7 +10,11 @@ public class Message {
 	/**
 	 * 消息编号
 	 */
-	public String massageID;
+	public String messageID;
+	/**
+	 * 消息标题
+	 */
+	public String messageTitle;
 	/**
 	 * 消息内容
 	 */

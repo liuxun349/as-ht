@@ -1,26 +1,47 @@
 package com.asht.controller;
 
 import android.app.Activity;
+import android.app.Dialog;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.asht.AsHt;
+import com.asht.AsHtException;
 import com.asht.R;
 import com.asht.model.UserInfo;
 import com.asht.utl.ApplictionManager;
+import com.asht.utl.Settings;
+import com.asht.view.WaitingDialog;
 
 
-public class RegisterFirstActivity extends Activity {
+public class RegisterFirstActivity extends Activity implements OnClickListener{
 
+	private static final int SUCCESS = 1;
+	private static final int FAIL = 2;
+	
 	private EditText phoneNum;
 	private Button getcheckNum;
 	private EditText checkNum;
 	private Button next;
 	private UserInfo userInfo;
-
+	private WaitingDialog waitingDialog;
+	private Handler mHandler = new Handler(){
+		public void handleMessage(android.os.Message msg) {
+			waitingDialog.dismiss();
+			if(msg.arg1 == SUCCESS){
+				
+			}else{
+				
+			}
+		};
+	};
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -73,6 +94,40 @@ public class RegisterFirstActivity extends Activity {
 		getcheckNum = (Button) findViewById(R.id.get_check_number);
 		checkNum = (EditText) findViewById(R.id.register_check_number);
 		next = (Button) findViewById(R.id.register_frist_next);
+		waitingDialog = new WaitingDialog(this);
 	}
 
+	@Override
+	public void onClick(View arg0) {
+		// TODO Auto-generated method stub
+		if(arg0 ==  getcheckNum){
+			waitingDialog.show();
+			sendRequest();
+		}
+	}
+	public void sendRequest(){
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				String phoneNo = phoneNum.getText().toString().trim();
+				boolean isSuccess = false;
+				try {
+					isSuccess = AsHt.getInstance().sendVerificationCode(phoneNo,null,Settings.REASON_TYPE_REGIST);
+				} catch (AsHtException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				Message msg = new Message();
+				if(isSuccess){
+					msg.arg1 = SUCCESS;
+					mHandler.sendMessage(msg);
+				}else{
+					msg.arg1 = FAIL;
+					mHandler.sendMessage(msg);
+				}
+			}
+		}).start();
+	}
 }

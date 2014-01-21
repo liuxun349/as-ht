@@ -9,6 +9,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
+import com.asht.AsHtException;
 import com.asht.http.AshtResponse;
 
 public class UserInfo extends AshtResponse {
@@ -25,12 +26,12 @@ public class UserInfo extends AshtResponse {
 	private int userAge;
 	private String address;
 	private JSONArray securityQA;
-	
+
 	public UserInfo() {
 
 	}
 
-	public UserInfo(AshtResponse response) {
+	public UserInfo(AshtResponse response) throws AsHtException{
 		super(response);
 		parseJson();
 	}
@@ -68,19 +69,22 @@ public class UserInfo extends AshtResponse {
 		}
 	}
 
-	private void parseJson() {
-		JSONObject rs = (JSONObject) result;
-		if( rs == null ) return;
-		userPhoneNo = rs.getString("userPhoneNo");
-		userLoginPwd = (String) rs.get("userLoginPwd");
-		userPayPwd = (String) rs.get("useruserPayPwd");
-		userTrueName = (String) rs.get("userTrueName");
-		userRole = (Integer) rs.get("userRole");
-		userNickName = (String) rs.get("userNickName");
-		userEmail = (String) rs.get("userEmail");
-		userCertificateType = (Integer) rs.get("userCertificateType");
-		userCertificateNo = (String) rs.get("userCertificateNo");
-		securityQA = (JSONArray) rs.get("tbUserPasswordquestionAnswer");
+	private void parseJson() throws AsHtException{
+		if(!success){
+			throw new AsHtException("登录失败！",10011);
+		}
+		UserInfo rs = JSON.parseObject(result.toString(), UserInfo.class);
+		if (rs == null)
+			return;
+		userPhoneNo = rs.userPhoneNo;
+		userLoginPwd = rs.userLoginPwd;
+		userPayPwd = rs.userPayPwd;
+		userTrueName = rs.userTrueName;
+		userRole = rs.userRole;
+		userNickName = rs.userNickName;
+		userEmail = rs.userEmail;
+		userCertificateType = rs.userCertificateType;
+		userCertificateNo = rs.userCertificateNo;
 	}
 
 	public JSONObject toJson() {
@@ -202,5 +206,5 @@ public class UserInfo extends AshtResponse {
 	public void setSecurityQA(JSONArray securityQA) {
 		this.securityQA = securityQA;
 	}
-	
+
 }

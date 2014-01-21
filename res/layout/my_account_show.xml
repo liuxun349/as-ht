@@ -5,7 +5,7 @@
     android:orientation="vertical" >
 
     <FrameLayout style="@style/top" >
- 
+
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
@@ -30,7 +30,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right|center"
-            android:text="编辑" />
+            android:layout_marginRight="10dp"
+            android:background="@drawable/btn_defalut_selector"
+            android:text="编辑"
+            android:textColor="@color/title_text_color" />
     </FrameLayout>
 
     <LinearLayout
@@ -40,7 +43,7 @@
         android:background="#FFFFFF" >
 
         <TextView
-            android:id="@+id/text1"
+            android:id="@+id/my_account"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1.0"
@@ -50,7 +53,7 @@
             android:textSize="20.0dip" />
 
         <TextView
-            android:id="@+id/text2"
+            android:id="@+id/my_zmoney"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1.0"
@@ -60,21 +63,9 @@
             android:textSize="20.0dip" />
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/cursor"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="matrix"
-        android:src="@drawable/a" />
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vPager"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:layout_weight="1.0"
-        android:background="#000000"
-        android:flipInterval="30"
-        android:persistentDrawingCache="animation" />
+    <FrameLayout
+        android:id="@+id/my_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>

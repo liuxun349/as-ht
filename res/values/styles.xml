@@ -10,7 +10,7 @@
     <style name="top">
         <item name="android:layout_gravity">top</item>
         <item name="android:layout_width">fill_parent</item>
-        <item name="android:background">@color/title_bg</item>
+        <item name="android:background">@drawable/title_bg</item>
         <item name="android:layout_height">@dimen/title_height</item>
     </style>
 
@@ -66,6 +66,16 @@
         <item name="android:textSize">16.0sp</item>
     </style>
 
+    <style name="zmoney_font">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginLeft">10.0dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16.0sp</item>
+    </style>
+
     <style name="more_triangle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -111,12 +121,6 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">#FF999999</item>
         <item name="android:textSize">16.0sp</item>
-    </style>
-
-    <style name="vertical_layout">
-        <item name="android:layout_width">1dp</item>
-        <item name="android:layout_height">fill_parent</item>
-        <item name="android:background">@drawable/domo_toolbar_bg</item>
     </style>
 
     <style name="horizontal_layout">

@@ -5,37 +5,11 @@
     android:background="@color/probject_bg"
     android:orientation="vertical" >
 
-    <FrameLayout style="@style/top" >
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="安全中心"
-            android:textColor="@color/title_text_color"
-            android:textSize="@dimen/title_text_size" />
-
-        <TextView
-            android:id="@+id/tv_title_back"
-            android:layout_width="@dimen/title_height"
-            android:layout_height="@dimen/title_height"
-            android:layout_gravity="center_vertical|left"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="@string/title_back"
-            android:textColor="@color/title_text_color"
-            android:textSize="@dimen/title_text_size" />
-    </FrameLayout>
-<ScrollView
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/top_relative"
-    android:fadingEdge="none" >
+    <include layout="@layout/app_toptitle" />
 
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:paddingBottom="60.0dip"
         android:paddingLeft="10.0dip"
@@ -56,9 +30,9 @@
         </LinearLayout>
 
         <LinearLayout
+            style="@style/body"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            style="@style/body"
             android:padding="10dp" >
 
             <TableLayout
@@ -70,7 +44,7 @@
                 android:stretchColumns="0" >
 
                 <TableRow
-                    android:id="@+id/more_page_row4"
+                    android:id="@+id/safety_editloginPwd"
                     android:layout_width="fill_parent"
                     android:layout_marginLeft="2.0dip"
                     android:layout_marginRight="2.0dip"
@@ -100,7 +74,7 @@
                 </TableRow>
 
                 <TableRow
-                    android:id="@+id/more_page_row1"
+                    android:id="@+id/safety_editPayPwd"
                     android:layout_width="fill_parent"
                     android:layout_marginLeft="2.0dip"
                     android:layout_marginRight="2.0dip"
@@ -130,7 +104,7 @@
                 </TableRow>
 
                 <TableRow
-                    android:id="@+id/more_page_row2"
+                    android:id="@+id/safety_findPayPwd"
                     android:layout_width="fill_parent"
                     android:layout_marginLeft="2.0dip"
                     android:layout_marginRight="2.0dip"
@@ -160,11 +134,11 @@
                 </TableRow>
 
                 <TableRow
-                    android:id="@+id/more_page_row5"
+                    android:id="@+id/safety_changePhoneNo"
                     android:layout_width="fill_parent"
                     android:layout_marginLeft="2.0dip"
                     android:layout_marginRight="2.0dip"
-                    android:background="@drawable/more_itemmiddle_press"
+                    android:background="@drawable/more_itembottom_press"
                     android:paddingBottom="16.0dip"
                     android:paddingTop="16.0dip" >
 
@@ -188,10 +162,8 @@
                         android:paddingRight="20.0dip"
                         android:src="@drawable/ic_arrow" />
                 </TableRow>
-
             </TableLayout>
         </LinearLayout>
     </LinearLayout>
 
-</ScrollView>
 </FrameLayout>

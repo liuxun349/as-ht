@@ -249,15 +249,15 @@ public class CasesSingleController implements OnItemClickListener,
 					int size = selectViews.size();
 					for (int i = 0; i < size; i++) {
 						Resume_tmp = selectViews.get(i);
-						try {
-							fag = asht.deleteCaseFromGroup(user,
-									mRecord.medicalRecordGroupID,
-									Resume_tmp.getImedicalrecorditemid() + "");
-							AFinalController.create(mContext).getfinalDb()
-									.delete(Resume_tmp);
-						} catch (DbException e) {
-							e.printStackTrace();
-						}
+//						try {
+//							fag = asht.deleteCaseFromGroup(user,
+//									mRecord.medicalRecordGroupID,
+//									Resume_tmp.getImedicalrecorditemid() + "");
+//							AFinalController.create(mContext).getfinalDb()
+//									.delete(Resume_tmp);
+//						} catch (DbException e) {
+//							e.printStackTrace();
+//						}
 						adapter.removeResume(Resume_tmp);
 					}
 					selectViews.clear();

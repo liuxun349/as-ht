@@ -8,9 +8,7 @@
     android:orientation="vertical" >
 
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/title_bg"
+        style="@style/top"
         android:gravity="center" >
 
         <TextView
@@ -18,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/main_more"
-            android:textColor="#FF000000"
+            android:textColor="@color/title_text_color"
             android:textSize="18.0sp" />
     </LinearLayout>
 
@@ -37,16 +35,18 @@
             android:orientation="vertical" >
 
             <LinearLayout
+                android:id="@+id/more_setting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10.0dp"
-                android:background="@drawable/list_above"
+                android:background="@drawable/more_itemtop_press"
                 android:clickable="true"
                 android:orientation="horizontal" >
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:background="@drawable/moreitems_setting_icon" />
 
                 <TextView
@@ -59,20 +59,22 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/more_security_center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/list_mid"
+                android:background="@drawable/more_itemmiddle_press"
                 android:clickable="true"
                 android:orientation="horizontal" >
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/moreitems_accountmanage_icon" />
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/home_security" />
 
                 <TextView
                     style="@style/more_font"
-                    android:text="@string/accountManage" />
+                    android:text="@string/main_safety_center" />
 
                 <ImageView
                     style="@style/more_triangle"
@@ -82,13 +84,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/list_mid"
+                android:background="@drawable/more_itemmiddle_press"
                 android:clickable="true"
                 android:orientation="horizontal" >
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:background="@drawable/readmode_icon" />
 
                 <TextView
@@ -101,36 +104,17 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/more_advice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/list_mid"
+                android:background="@drawable/more_itemmiddle_press"
                 android:clickable="true"
                 android:orientation="horizontal" >
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/moreitems_officialweibo_icon" />
-
-                <TextView
-                    style="@style/more_font"
-                    android:text="@string/official" />
-
-                <ImageView
-                    style="@style/more_triangle"
-                    android:background="@drawable/triangle" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/list_mid"
-                android:clickable="true"
-                android:orientation="horizontal" >
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:background="@drawable/moreitems_feedback_icon" />
 
                 <TextView
@@ -143,15 +127,17 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/more_update"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/list_mid"
+                android:background="@drawable/more_itemmiddle_press"
                 android:clickable="true"
                 android:orientation="horizontal" >
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:background="@drawable/moreitems_version" />
 
                 <TextView
@@ -164,16 +150,41 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/accountExit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/list_below"
+                android:background="@drawable/more_itemmiddle_press"
                 android:clickable="true"
                 android:orientation="horizontal" >
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/moreitems_about_icon" />
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/home_more" />
+
+                <TextView
+                    style="@style/more_font"
+                    android:text="@string/accountExit" />
+
+                <ImageView
+                    style="@style/more_triangle"
+                    android:background="@drawable/triangle" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/more_about"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/more_itembottom_press"
+                android:clickable="true"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/home_more" />
 
                 <TextView
                     style="@style/more_font"

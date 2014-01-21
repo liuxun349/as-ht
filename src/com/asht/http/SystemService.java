@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.asht.AsHtException;
 import com.asht.http.AshtResponse;
 import com.asht.http.HttpClient;
-import com.asht.model.User;
 import com.asht.model.UserInfo;
 
 public class SystemService {
@@ -13,7 +12,7 @@ public class SystemService {
 	private String method ;
 	private HttpClient httpClient = new HttpClient(NAMESPACE,SERVICEURL);
 	JSONObject json;
-	
+
 	/**
 	 * 验证手机与手机验证码
 	 * 
@@ -36,37 +35,47 @@ public class SystemService {
 	 * @return
 	 * @throws AsHtException 
 	 */
-	public AshtResponse sendVerificationCode() throws AsHtException {
-		method = "GenerateAndSendMobileVerificationCode";
-		return get(method, null);
+	public AshtResponse sendVerificationCode(String phoneNo,String reciverPhoneNo,int type) throws AsHtException {
+		method = "generateAndSendMobileVerificationCode";
+		json = new JSONObject();
+		json.put("userPhoneNo", phoneNo);
+		json.put("receivePhoneNo", reciverPhoneNo);
+		json.put("type", type);
+		return get(method, json);
 	}
+
 	/**
 	 * 获得密保问题
+	 * 
 	 * @param no
 	 * @param question
 	 * @return
 	 * @throws AsHtException 
 	 */
-	public AshtResponse getQuestion(String no,String question) throws AsHtException{
+	public AshtResponse getQuestion(String no, String question) throws AsHtException {
 		method = "getPasswordProtectionQuestion";
 		json = new JSONObject();
 		json.put("no", no);
 		json.put("question", question);
 		return get(method, json);
 	}
+
 	/**
 	 * 注册
+	 * 
 	 * @param userInfo
 	 * @return
 	 * @throws AsHtException 
 	 */
-	public AshtResponse regist(UserInfo userInfo) throws AsHtException{
-		method = "Regist";
+	public AshtResponse regist(UserInfo userInfo) throws AsHtException {
+		method = "regist";
 		json = userInfo.toJson();
 		return get(method, json);
 	}
+
 	/**
 	 * 登录
+	 * 
 	 * @param name
 	 * @param passwd
 	 * @return
@@ -79,8 +88,10 @@ public class SystemService {
 		json.put("userLoginPwd", passwd);
 		return get(method, json);
 	}
+
 	/**
 	 * 发送登录密码到邮箱
+	 * 
 	 * @param userPhoneNo
 	 * @return
 	 * @throws AsHtException 
@@ -91,33 +102,40 @@ public class SystemService {
 		json.put("userPhoneNo", userPhoneNo);
 		return get(method, json);
 	}
+
 	/**
 	 * 下载app
+	 * 
 	 * @return
 	 * @throws AsHtException 
 	 */
-	public AshtResponse DownLoadApp() throws AsHtException{
+	public AshtResponse DownLoadApp() throws AsHtException {
 		method = "downloadApp";
 		return get(method, null);
 	}
+
 	/**
 	 * 获取公司信息
+	 * 
 	 * @return
 	 * @throws AsHtException 
 	 */
-	public AshtResponse getCompanyInfo() throws AsHtException{
+	public AshtResponse getCompanyInfo() throws AsHtException {
 		method = "getCompanyInfo";
 		return get(method, null);
 	}
+
 	/**
 	 * 获取法律声明
+	 * 
 	 * @return
 	 * @throws AsHtException 
 	 */
-	public AshtResponse getLawDeclareInfo() throws AsHtException{
+	public AshtResponse getLawDeclareInfo() throws AsHtException {
 		method = "getLawDeclareInfo";
 		return get(method, null);
 	}
+
 	private AshtResponse get(String method, JSONObject json) throws AsHtException {
 		return httpClient.get(method, json.toJSONString());
 	}

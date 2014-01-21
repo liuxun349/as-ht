@@ -1,5 +1,8 @@
 package com.asht.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -35,32 +38,24 @@ public class AppStart extends Activity implements Callback {
 		mAshtSettings = AshtSettings.getInstance();
 		dialog = new WaitingDialog(this);
 
-		Button btn = (Button) findViewById(R.id.btn);
-		WaitingDialog dialog = new WaitingDialog(this);
-		new Handler().postDelayed(new Runnable() {
+		// WaitingDialog dialog = new WaitingDialog(this);
+		// new Handler().postDelayed(new Runnable() {
+		//
+		// @Override
+		// public void run() {
+		// // TODO Auto-generated method stub
+		// initCheck();
+		// }
+		// }, 0);
 
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-//				initCheck();
-				UserInfo user = new UserInfo();
-				user.setUserPhoneNo("13000001011");
-				try {
-					Resume resume = new Resume();
-					AsHt.getInstance().getCaseImageFromGroup(user, "142", 1);
-				} catch (AsHtException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}, 3000);
+		// TODO Auto-generated method stub
+		initCheck();
 	}
+
 	private void initCheck() {
 		// TODO Auto-generated method stub
 
 		if (mAshtSettings.getIsAutoLogin()) {
-			System.out.println(" true ? " + mAshtSettings.getIsAutoLogin());
-
 			try {
 				userPhoneNo = mAshtSettings.getUserId();
 				userPwd = mAshtSettings.getUserPwd();
@@ -94,6 +89,7 @@ public class AppStart extends Activity implements Callback {
 	@Override
 	public void onStartAsync() {
 		// TODO Auto-generated method stub
+
 		UserInfo userInfo = new UserInfo();
 		mAsht = AsHt.getInstance();
 		try {
@@ -104,6 +100,8 @@ public class AppStart extends Activity implements Callback {
 		}
 		if (userInfo.success == true) {
 			ApplictionManager.getInstance().userInfo = userInfo;
+			ApplictionManager.getInstance().getUser().setLogin(true);
+			ApplictionManager.getInstance().getUser().setUserInfo(userInfo);
 			Controller.MainHomePageActivity(AppStart.this);
 		} else {
 			Controller.LoginActivity(AppStart.this);

@@ -23,6 +23,7 @@ public  class AshtResponse {
 		result = ashtResponse.result;
 		code = ashtResponse.code;
 		success = ashtResponse.success;
+		
 	}
 	public JSONObject toJson(){
 		return null;
@@ -33,7 +34,6 @@ public  class AshtResponse {
 		try {
 			return (AshtResponse)JSON.parseObject(res, AshtResponse.class);
 		} catch (Exception e) {
-			System.out.println("ddddddddd");
 			e.printStackTrace();
 			Log.d("TAG", e.toString());
 			throw new AsHtException("读入错误", 1);

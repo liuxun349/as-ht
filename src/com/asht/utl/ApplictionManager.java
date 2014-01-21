@@ -5,17 +5,21 @@ import java.util.List;
 
 import com.asht.AsHt;
 import com.asht.AshtSettings;
+import com.asht.fragment.AshtFragment;
 import com.asht.model.User;
 import com.asht.model.UserInfo;
 
 import android.app.Activity;
 import android.app.Application;
+import android.support.v4.app.Fragment;
 
 public class ApplictionManager extends Application {
 	private User user = new User();
 	private List<Activity> activityList = new LinkedList<Activity>();
-	public UserInfo userInfo = new UserInfo();
+	public UserInfo userInfo = user.getUserInfo();
 	private static ApplictionManager instance;
+	public AshtFragment currentFragment = null;
+
 	private ApplictionManager() {
 		user.setIsLogin(false);
 	}
@@ -31,9 +35,10 @@ public class ApplictionManager extends Application {
 		activityList.add(activity);
 	}
 
-	public UserInfo getUserInfo(){
+	public UserInfo getUserInfo() {
 		return userInfo;
 	}
+
 	public void exit() {
 		for (Activity activity : activityList) {
 			if (!activity.isFinishing()) {
@@ -45,7 +50,8 @@ public class ApplictionManager extends Application {
 			android.os.Process.killProcess(id);
 		}
 	}
-	public User getUser(){
+
+	public User getUser() {
 		return user;
 	}
 }
