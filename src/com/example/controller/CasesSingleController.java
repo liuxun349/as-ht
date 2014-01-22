@@ -315,7 +315,11 @@ public class CasesSingleController implements OnItemClickListener,
 				try {
 					List<String> deletes = new ArrayList<String>();
 					for (Resume info : mResume) {
-						deletes.add(info.getImedicalrecorditemid() + "");
+						if (info.getImedicalrecorditemid() != 0) {
+							adapter.removeResume(info);
+						} else {
+							deletes.add(info.getImedicalrecorditemid() + "");
+						}
 						// info.setState(1);
 						// AFinalController.getDB(mContext).update(info);
 					}
