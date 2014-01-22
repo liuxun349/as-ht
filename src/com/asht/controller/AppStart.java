@@ -83,7 +83,7 @@ public class AppStart extends Activity implements Callback {
 	private void autoLogin() {
 		// TODO Auto-generated method stub
 		asyncDataLoader = new AsyncDataLoader(this);
-		asyncDataLoader.execute(null);
+		asyncDataLoader.execute();
 	}
 
 	@Override

@@ -3,51 +3,42 @@
  */
 package com.asht.model;
 
-import java.io.ByteArrayOutputStream;
+import java.io.Serializable;
 import java.util.List;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Base64;
+import net.tsz.afinal.annotation.sqlite.Id;
+import net.tsz.afinal.annotation.sqlite.Table;
+import net.tsz.afinal.utils.Utils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.asht.AsHtException;
 import com.asht.http.AshtResponse;
-import com.lidroid.xutils.db.annotation.Foreign;
-import com.lidroid.xutils.db.annotation.Id;
-import com.lidroid.xutils.db.annotation.NoAutoIncrement;
-import com.lidroid.xutils.db.annotation.NotNull;
 
-public class Resume extends AshtResponse {
-	private static final long serialVersionUID = -6193310436318894856L;
+@Table(name = "resume")
+public class Resume extends AshtResponse implements Serializable {
+	public static final long serialVersionUID = -6193310436318894856L;
 	/**
 	 * 病例图片id
 	 */
 	@Id
-	@NoAutoIncrement
-	@NotNull
+	public int id;
+
 	private int imedicalrecorditemid;
+
+	private String localRecordImageUrlId = "";
 	/**
 	 * 病例组id
 	 */
-	private int imedicalrecordgroupid;
-	/**
-	 * 病理图片　
-	 */
-	private Bitmap medicalRecordItemFile;
+	private int imedicalrecordgroupid = 0;
 	/**
 	 * 上传病例图片位置
 	 */
-	private String localRecordImageUrl;
-	/**
-	 * 缩略图图片
-	 */
-	private Bitmap minRecordItemFile;
+	private String localRecordImageUrl = "";
 	/**
 	 * 病例图片状态
 	 */
-	public String istate;
+	private String istate;
 	/**
 	 * 病理图片地址（原图）
 	 */
@@ -61,12 +52,16 @@ public class Resume extends AshtResponse {
 	 * 是否选中了属性// 用于Adapter的选中状态（0选中，1没有选中）（数据库保存没实际意义）
 	 */
 	public int isClick = 1;
-
 	/**
-	 * 当前病例属于的病例组
+	 * 该病例本地状态 1、已经删除但是服务器未响应 2、文件上传失败3、正常数据
 	 */
-	@Foreign(column = "groupid", foreign = "medicalRecordGroupID")
-	public Record record = null;
+	private int state = 3;
+
+	// /**
+	// * 当前病例属于的病例组
+	// */
+	// @Foreign(column = "groupid", foreign = "medicalRecordGroupID")
+	// public Record record = null;
 
 	public Resume() {
 
@@ -76,23 +71,10 @@ public class Resume extends AshtResponse {
 		super(rs);
 		Resume resume = JSON.parseObject(result.toString(), Resume.class);
 		this.imedicalrecordgroupid = resume.imedicalrecordgroupid;
-		this.medicalRecordItemFile = resume.medicalRecordItemFile;
 		this.istate = resume.istate;
 		this.imedicalrecorditemfilename = resume.imedicalrecorditemfilename;
 		this.minFileName = resume.minFileName;
-	}
-
-	public String getMedicalRecordImageFileToByte() {
-		if (localRecordImageUrl == null) {
-			return "";
-		} else {
-			Bitmap bm = BitmapFactory.decodeFile(localRecordImageUrl);
-
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			bm.compress(Bitmap.CompressFormat.JPEG, 40, baos);
-			byte[] b = baos.toByteArray();
-			return Base64.encodeToString(b, Base64.DEFAULT);
-		}
+		state = 3;
 	}
 
 	public static List<Resume> getResumes(AshtResponse rs) throws AsHtException {
@@ -104,20 +86,15 @@ public class Resume extends AshtResponse {
 		return JSON.parseArray(((JSON) rs.result).toJSONString(), Resume.class);
 	}
 
-	public Bitmap getMedicalRecordItemFile() {
-		return medicalRecordItemFile;
-	}
-
 	public String getLocalRecordImageUrl() {
 		return localRecordImageUrl;
 	}
 
 	public void setLocalRecordImageUrl(String localRecordImageUrl) {
 		this.localRecordImageUrl = localRecordImageUrl;
-	}
-
-	public void setMedicalRecordItemFile(Bitmap medicalRecordItemFile) {
-		this.medicalRecordItemFile = medicalRecordItemFile;
+		this.localRecordImageUrlId = Utils.crc64Long(Utils.getBytes(System
+				.currentTimeMillis() + localRecordImageUrl))
+				+ "";
 	}
 
 	@Override
@@ -138,16 +115,8 @@ public class Resume extends AshtResponse {
 		return imedicalrecordgroupid;
 	}
 
-	public void setImedicalrecordgroupid(int imedicalrecordgroupid) {
-		this.imedicalrecordgroupid = imedicalrecordgroupid;
-	}
-
-	public Bitmap getMinRecordItemFile() {
-		return minRecordItemFile;
-	}
-
-	public void setMinRecordItemFile(Bitmap minRecordItemFile) {
-		this.minRecordItemFile = minRecordItemFile;
+	public void setImedicalrecordgroupid(int medicalRecordGroupID) {
+		this.imedicalrecordgroupid = medicalRecordGroupID;
 	}
 
 	public String getIstate() {
@@ -174,8 +143,63 @@ public class Resume extends AshtResponse {
 		this.minFileName = minFileName;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public int getId() {
+		return id;
 	}
 
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getLocalRecordImageUrlId() {
+		return localRecordImageUrlId;
+	}
+
+	public void setLocalRecordImageUrlId(String localRecordImageUrlId) {
+		this.localRecordImageUrlId = localRecordImageUrlId;
+	}
+
+	public int getState() {
+		return state;
+	}
+
+	public void setState(int state) {
+		this.state = state;
+	}
+
+	public void setAttribute(Resume r) {
+		this.imedicalrecorditemid = r.imedicalrecorditemid;
+		this.imedicalrecorditemfilename = r.imedicalrecorditemfilename;
+		this.imedicalrecordgroupid = r.imedicalrecordgroupid;
+		this.istate = r.istate;
+		this.minFileName = r.minFileName;
+		this.state = 3;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (o == null) {
+			return false;
+		}
+		if (o instanceof Resume) {
+
+			Resume r = (Resume) o;
+
+			if (r.imedicalrecordgroupid != 0 && this.imedicalrecordgroupid != 0
+					&& r.imedicalrecordgroupid == this.imedicalrecorditemid) {
+				return true;
+			} else if (r.localRecordImageUrl != null
+					&& !r.localRecordImageUrl.equals("")
+					&& r.localRecordImageUrl.equals(this.localRecordImageUrl)) {
+				return true;
+			}
+			// if (r.imedicalrecorditemid == this.imedicalrecorditemid) {
+			// return true;
+			// } else if (r.localRecordImageUrl!=null) {
+			// return true;
+			// }
+		}
+		return false;
+
+	}
 }

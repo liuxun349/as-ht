@@ -1,8 +1,11 @@
 package com.asht.controller;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -13,30 +16,32 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.PopupWindow;
+import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
 
+import com.asht.AsHt;
+import com.asht.AsyncDataLoader;
+import com.asht.AsyncDataLoader.Callback;
 import com.asht.R;
-import com.asht.controller.MyCasesSingleActivity_old.MyCasesSingleInfo;
 import com.asht.interfaces.UIHanleLintener;
 import com.asht.interfaces.UINotification;
 import com.asht.model.Record;
+import com.asht.model.Resume;
+import com.asht.model.UserInfo;
+import com.asht.utl.ApplictionManager;
 import com.example.controller.CasesSingleController;
 import com.example.testafinal.MyApplication;
 
 public class MyCasesSingleActivity extends Activity implements OnClickListener {
 
 	GridView gv_myCasesSingle;
-	private List<MyCasesSingleInfo> casesSingleInfos = null;
 	PopupWindow pop_edit = null;
+	PopupWindow pop_add = null;
 	CasesSingleDeleteTitle casesSingleDeleteTitle;
 	private View view_myCasesSingle_delete;
 	private CasesDeleteIsOK casesDeleteIsOK;
 	private CasesSingleController mCasesSingleController;
-	String[] str = {
-			"http://img1.bdstatic.com/img/image/276bba1cd11728b4710a52b61d3c1cec3fdfc0323ac.jpg",
-			"http://img1.bdstatic.com/img/image/290622762d0f703918f8e7ef6c8533d269759eec401.jpg",
-			"http://img1.bdstatic.com/img/image/2742cf5e0fe9925bc31750f5b875cdf8db1cb13705a.jpg",
-			"http://img.baidu.com/img/image/suyan.jpg" };
+	private CasesAddCaseSingle mAddCaseSingle;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,14 +71,47 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 		findViewById(R.id.tv_title_back).setOnClickListener(this);
 		initView();
 		initData();
-		findViewById(R.id.tv_localimport).setOnClickListener(this);
-		findViewById(R.id.tv_cameraimport).setOnClickListener(this);
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+
+		if (resultCode == Activity.RESULT_OK) {
+
+			if (requestCode == 1000) {
+				Bundle bundle = data.getExtras();
+				@SuppressWarnings("unchecked")
+				final List<String> tDataList = (List<String>) bundle
+						.getSerializable("dataList");
+
+				// 没有选择数据
+				if (tDataList == null) {
+					return;
+				}
+				if (tDataList.size() < 1) {
+					return;
+				}
+				List<Resume> lists = new ArrayList<Resume>();
+				for (String string : tDataList) {
+					Resume r = new Resume();
+					r.setLocalRecordImageUrl(string);
+					lists.add(r);
+				}
+				mCasesSingleController.add(lists);
+			} else {
+
+			}
+
+		}
+
 	}
 
 	private void initView() {
 		gv_myCasesSingle = (GridView) findViewById(R.id.gv_myCasesSingle);
 		initDeleteTitle();
 		initDeleteIsOK();
+		initAddCaseSingle();
 		view_myCasesSingle_delete = findViewById(R.id.fl_myCasesSingle_delete);
 		view_myCasesSingle_delete.setOnClickListener(this);
 	}
@@ -104,18 +142,35 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 
 	}
 
+	private void initAddCaseSingle() {
+		mAddCaseSingle = new CasesAddCaseSingle();
+		mAddCaseSingle.view_cameraimport
+				.setOnClickListener(addCaseSingleOnClick);
+		mAddCaseSingle.view_localimport
+				.setOnClickListener(addCaseSingleOnClick);
+	}
+
+	Record mRecord;
+
 	private void initData() {
 
-		Record mRecord = MyApplication.getmRecord();
-		mRecord = new Record();
-		mRecord.medicalRecordGroupID = "123";
+		mRecord = ((MyApplication) getApplication()).getmRecord();
+
 		((TextView) findViewById(R.id.tv_caseSingleTitle))
 				.setText(mRecord.medicalRecordGroupName);
 		mCasesSingleController = new CasesSingleController(this,
 				gv_myCasesSingle, mRecord);
 		mCasesSingleController.setUIHandleLinstener(mHanleLintener);
 		mCasesSingleController.setUINotification(uiNotification);
-		mCasesSingleController.update(false,false);
+		mCasesSingleController.update(false, false);
+		((TextView) findViewById(R.id.tv_add_cases_single))
+				.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						addCase();
+					}
+				});
 
 	}
 
@@ -148,8 +203,6 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 		case R.id.fl_myCasesSingle_delete:
 			delete();
 			break;
-		case R.id.tv_localimport:
-			break;
 		default:
 			break;
 		}
@@ -167,6 +220,27 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 		public TextView tv_selectDeleteTitle;
 		public Button btn_clearDelete;
 		public Button btn_okDelete;
+	}
+
+	/**
+	 * 病例添加 （选择器）
+	 * 
+	 * @author mac
+	 * 
+	 */
+	public class CasesAddCaseSingle {
+		public View main;
+		// 本地选择
+		public View view_localimport;
+		// 照相机选择
+		public View view_cameraimport;
+
+		public CasesAddCaseSingle() {
+			main = View.inflate(MyCasesSingleActivity.this,
+					R.layout.pop_add_case_single, null);
+			view_localimport = main.findViewById(R.id.tv_localimport);
+			view_cameraimport = main.findViewById(R.id.tv_cameraimport);
+		}
 	}
 
 	OnClickListener casesDeleteOnClick = new OnClickListener() {
@@ -200,9 +274,40 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 			pop_edit.setOutsideTouchable(true);
 			// 设置此参数获得焦点，否则无法点击
 			pop_edit.setFocusable(true);
+			pop_edit.setOnDismissListener(new OnDismissListener() {
+
+				@Override
+				public void onDismiss() {
+					// TODO Auto-generated method stub
+					mCasesSingleController.selectClear();
+				}
+			});
 		}
 		if (!pop_edit.isShowing()) {
 			pop_edit.showAtLocation(casesDeleteIsOK.main, Gravity.BOTTOM, 0, 0);
+		}
+	}
+
+	private void addCase() {
+		int size = mCasesSingleController.getSelectCasesCount();
+		casesDeleteIsOK.tv_selectDeleteTitle.setText("确定" + size + "张吗？");
+		// 创建PopupWindow对象
+		if (pop_add == null) {
+			pop_add = new PopupWindow(mAddCaseSingle.main,
+					WindowManager.LayoutParams.MATCH_PARENT,
+					WindowManager.LayoutParams.WRAP_CONTENT, false);
+			// 需要设置一下此参数，点击外边可消失
+			pop_add.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+			// 设置点击窗口外边窗口消失
+			pop_add.setOutsideTouchable(true);
+			// 设置此参数获得焦点，否则无法点击
+			pop_add.setFocusable(true);
+		}
+		if (pop_edit != null && pop_edit.isShowing()) {
+			pop_edit.dismiss();
+		}
+		if (!pop_add.isShowing()) {
+			pop_add.showAtLocation(mAddCaseSingle.main, Gravity.BOTTOM, 0, 0);
 		}
 	}
 
@@ -221,6 +326,24 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 			}
 		}
 	};
+	OnClickListener addCaseSingleOnClick = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			Intent intent = null;
+			if (v.getId() == mAddCaseSingle.view_cameraimport.getId()) {
+				intent = new Intent("android.media.action.IMAGE_CAPTURE");
+				startActivityForResult(intent, 0);
+				pop_add.dismiss();
+			} else {
+				intent = new Intent();
+				intent.setClass(getApplicationContext(), AlbumActivity.class);
+				startActivityForResult(intent, 1000);
+				pop_add.dismiss();
+			}
+
+		}
+	};
 
 	UIHanleLintener mHanleLintener = new UIHanleLintener() {
 
@@ -234,7 +357,7 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 		public void deletefinish(boolean fag) {
 			// TODO Auto-generated method stub
 
-		}                       
+		}
 
 		@Override
 		public void addfinish(boolean fag) {
@@ -293,7 +416,14 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 		}
 
 		@Override
-		public void onClick(Object info) {
+		public void onClick(int index, View citem, Object info, List<?> list) {
+			Intent intent = new Intent(getApplicationContext(),
+					ViewPagerActivity.class);
+			Bundle b = new Bundle();
+			b.putSerializable("dataList", (Serializable) list);
+			b.putInt("index", index);
+			intent.putExtras(b);
+			startActivity(intent);
 		}
 
 	};

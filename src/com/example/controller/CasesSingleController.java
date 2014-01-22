@@ -1,8 +1,12 @@
 package com.example.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.tsz.afinal.FinalDb;
+import net.tsz.afinal.core.AsyncTask;
+import android.R.integer;
 import android.content.Context;
 import android.os.Handler;
 import android.util.DisplayMetrics;
@@ -14,9 +18,10 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.GridView;
 
 import com.asht.AsHt;
+import com.asht.AsHtException;
 import com.asht.AsyncDataLoader;
-import com.asht.R;
 import com.asht.AsyncDataLoader.Callback;
+import com.asht.R;
 import com.asht.adapter.MyCasesSingleAdapter;
 import com.asht.controller.MyCasesSingleActivity;
 import com.asht.interfaces.UIHanleLintener;
@@ -24,9 +29,8 @@ import com.asht.interfaces.UINotification;
 import com.asht.model.Record;
 import com.asht.model.Resume;
 import com.asht.model.UserInfo;
-import com.asht.server.ClinicalHistoryServer;
 import com.asht.utl.ApplictionManager;
-import com.lidroid.xutils.exception.DbException;
+import com.yj.compress.YJBitmap;
 
 public class CasesSingleController implements OnItemClickListener,
 		OnItemLongClickListener, ViewLinstener {
@@ -82,6 +86,8 @@ public class CasesSingleController implements OnItemClickListener,
 		Resume_tmp = (Resume) adapter.getItem(index);
 
 		if (!isSelectMode) {
+			mUINotification
+					.onClick(index, view, Resume_tmp, adapter.getInfos());
 			return;
 		}
 		if (selectViews == null) {
@@ -155,6 +161,9 @@ public class CasesSingleController implements OnItemClickListener,
 	}
 
 	public int getSelectCasesCount() {
+		if (selectViews == null) {
+			selectViews = new ArrayList<Resume>();
+		}
 		return selectViews.size();
 	}
 
@@ -186,8 +195,19 @@ public class CasesSingleController implements OnItemClickListener,
 
 	@Override
 	public void update(final boolean fag, final boolean isTouch) {
+		// Record r = mRecord;
+		// adapter.setInfos(AFinalController.getDB(mContext)
+		// .findAllByWhere(Resume.class,
+		// "imedicalrecordgroupid=" + r.medicalRecordGroupID));
+		// updateHandler.sendEmptyMessage(10001);
+		// // mHanleLintener.update(fag, true, isTouch);
+		// mHanleLintener.update(fag, true, isTouch);
 		new AsyncDataLoader(new Callback() {
 			private List<Resume> mResume;
+			// 获得当前病例组下需要上传的
+			List<Resume> upLoad;
+			// 获得需要删除的
+			List<Resume> delete;
 
 			@Override
 			public void onStartAsync() {
@@ -198,12 +218,44 @@ public class CasesSingleController implements OnItemClickListener,
 				user = new UserInfo();
 				user.setUserPhoneNo("13000001011");
 				try {
-					mResume = asht.getAllCaseFromGroup(user,
-							mRecord.medicalRecordGroupID);
-					System.out.println(" size2: " + mResume.size());
+					Record r = mRecord;
+					// 服务器数据
+					List<Resume> resumes = asht.getAllCaseFromGroup(user,
+							r.medicalRecordGroupID);
+					FinalDb db = AFinalController.getDB(mContext);
+					// 获得当前病例组下需要上传的
+					upLoad = db.findAllByWhere(Resume.class,
+							"imedicalrecordgroupid = " + r.medicalRecordGroupID
+									+ " and state =" + 2);
+					// 获得需要删除的
+					delete = db.findAllByWhere(Resume.class,
+							"imedicalrecordgroupid = " + r.medicalRecordGroupID
+									+ " and state =" + 1);
+
+					for (Resume resume : delete) {
+						for (Resume resume2 : resumes) {
+							if (resume.getImedicalrecorditemid() == resume2
+									.getImedicalrecorditemid()) {
+								resume2.setState(resume.getState());
+							}
+						}
+					}
+
+					// 清空本地数据
+					db.deleteByWhere(
+							Resume.class,
+							("imedicalrecordgroupid = " + r.medicalRecordGroupID)
+									+ "");
+
+					resumes.addAll(upLoad);
+					// 保存本地数据
+					for (Resume resume : resumes) {
+						db.save(resume);
+					}
+					mResume = resumes;
+
 				} catch (Exception e) {
 					e.printStackTrace();
-					Log.w("Record", e.toString());
 				}
 
 			}
@@ -222,6 +274,23 @@ public class CasesSingleController implements OnItemClickListener,
 				// mHanleLintener.update(fag, true, isTouch);
 				mHanleLintener.update(fag, true, isTouch);
 
+				// 有数据未上传 --再次请求数据上传
+				if (upLoad != null && upLoad.size() > 0) {
+					// 上传图片
+					for (Object obj : upLoad) {
+						Resume resume = (Resume) obj;
+						resume.setState(2);
+						resume.setImedicalrecordgroupid(Integer
+								.parseInt(mRecord.medicalRecordGroupID));
+						new UploadCase(resume).execute();
+					}
+				}
+				// 本地有删除数据 --再次请求服务器 同步数据
+				if (delete != null && delete.size() > 0) {
+					// 删除服务器数据
+
+				}
+
 			}
 		}).execute();
 
@@ -237,36 +306,24 @@ public class CasesSingleController implements OnItemClickListener,
 
 			@Override
 			public void onStartAsync() {
-
-				System.out.println("do it ? ..");
+				mResume = new ArrayList<Resume>();
+				mResume.addAll(selectViews);
 				AsHt asht = AsHt.getInstance();
 				UserInfo user = ApplictionManager.getInstance().getUserInfo();
 				user = new UserInfo();
 				user.setUserPhoneNo("13000001011");
 				try {
-					Record R = mRecord;
-
-					int size = selectViews.size();
-					for (int i = 0; i < size; i++) {
-						Resume_tmp = selectViews.get(i);
-//						try {
-//							fag = asht.deleteCaseFromGroup(user,
-//									mRecord.medicalRecordGroupID,
-//									Resume_tmp.getImedicalrecorditemid() + "");
-//							AFinalController.create(mContext).getfinalDb()
-//									.delete(Resume_tmp);
-//						} catch (DbException e) {
-//							e.printStackTrace();
-//						}
-						adapter.removeResume(Resume_tmp);
+					List<String> deletes = new ArrayList<String>();
+					for (Resume info : mResume) {
+						deletes.add(info.getImedicalrecorditemid() + "");
+						// info.setState(1);
+						// AFinalController.getDB(mContext).update(info);
 					}
-					selectViews.clear();
-
+					fag = asht.deleteCaseFromGroup(user,
+							mRecord.medicalRecordGroupID, deletes);
 				} catch (Exception e) {
 					e.printStackTrace();
-					Log.w("Record", e.toString());
 				}
-
 			}
 
 			@Override
@@ -279,14 +336,18 @@ public class CasesSingleController implements OnItemClickListener,
 			public void onFinishAsync() {
 
 				if (fag) {
+					for (Resume r : mResume) {
+						AFinalController.getDB(mContext).delete(r);
+						adapter.removeResume(r);
+					}
 					if (mUINotification != null) {
 						mUINotification.delete();
-						adapter.notifyDataSetChanged();
 					}
-					mHanleLintener.deletefinish(true);
-				} else {
-					mHanleLintener.deletefinish(false);
+					update(true, false);
+					adapter.notifyDataSetChanged();
 				}
+				selectClear();
+				mHanleLintener.deletefinish(fag);
 			}
 
 		}).execute();
@@ -295,7 +356,76 @@ public class CasesSingleController implements OnItemClickListener,
 
 	@Override
 	public void gengduo() {
-		// TODO Auto-generated method stub
 
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void add(final List<?> infos) {
+		for (Object obj : infos) {
+			Resume resume = (Resume) obj;
+			resume.setState(2);
+			resume.setImedicalrecordgroupid(Integer
+					.parseInt(mRecord.medicalRecordGroupID));
+			new UploadCase(resume).execute();
+			AFinalController.getDB(mContext).save(resume);
+		}
+		adapter.addResumes((List<Resume>) infos);
+		adapter.notifyDataSetChanged();
+	}
+
+	class UploadCase extends AsyncTask<Void, Long, Void> {
+
+		private Resume resume;
+
+		public UploadCase(Resume resume) {
+			this.resume = resume;
+		}
+
+		public Resume setAttribute(Resume r) {
+			if (r != null) {
+				resume.setAttribute(r);
+				YJBitmap.create(mContext).addImageCache(
+						"http://115.28.48.85:8080/ascs/"
+								+ r.getImedicalrecorditemfilename(),
+						resume.getLocalRecordImageUrl());
+				resume.setState(3);
+			}
+			AFinalController.getDB(mContext).update(
+					resume,
+					"imedicalrecordgroupid ="
+							+ resume.getImedicalrecordgroupid()
+							+ " and localRecordImageUrlId ='"
+							+ resume.getLocalRecordImageUrlId() + "'");
+			return resume;
+		}
+
+		public Resume getResume() {
+			return resume;
+		}
+
+		@Override
+		protected Void doInBackground(Void... params) {
+
+			System.out.println("do it ? ..");
+			AsHt asht = AsHt.getInstance();
+			UserInfo user = ApplictionManager.getInstance().getUserInfo();
+			user = new UserInfo();
+			user.setUserPhoneNo("13000001011");
+			try {
+				setAttribute(asht.uploadCaseToGroup(user,
+						mRecord.medicalRecordGroupID,
+						resume.getLocalRecordImageUrl()));
+			} catch (AsHtException e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			super.onPostExecute(result);
+			adapter.notifyDataSetChanged();
+		}
 	}
 }

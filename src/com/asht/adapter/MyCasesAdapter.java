@@ -26,7 +26,7 @@ public class MyCasesAdapter extends BaseAdapter {
 		if (infos.equals(info)) {
 			return;
 		}
-		if(infos==null){
+		if (infos == null) {
 			infos = new ArrayList<Record>();
 		}
 		this.infos = info;
@@ -61,7 +61,7 @@ public class MyCasesAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		if(infos == null){
+		if (infos == null) {
 			infos = new ArrayList<Record>();
 		}
 		return infos.size();
@@ -111,7 +111,7 @@ public class MyCasesAdapter extends BaseAdapter {
 
 		Record myCasesInfo = infos.get(position);
 		myCasesItemView.tv_title.setText(myCasesInfo.medicalRecordGroupName);
-		myCasesItemView.cbIsShenHe.setChecked(myCasesInfo.state == "ok");
+		myCasesItemView.cbIsShenHe.setChecked(myCasesInfo.state.equals("1"));
 		if (myCasesInfo.isClick == 0) {
 			myCasesItemView.iv_delete.setVisibility(View.VISIBLE);
 		} else {

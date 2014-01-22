@@ -1,6 +1,7 @@
 package com.asht.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -140,11 +141,6 @@ public class MutualRecommendationActivity extends Activity implements
 			});
 			recommendController1.setUINotification(new UINotification() {
 
-				@Override
-				public void onClick(Object object) {
-					// TODO Auto-generated method stub
-
-				}
 
 				@Override
 				public void notificationStart(int size) {
@@ -168,6 +164,13 @@ public class MutualRecommendationActivity extends Activity implements
 				public void delete() {
 					// TODO Auto-generated method stub
 
+				}
+
+				@Override
+				public void onClick(int index, View citem, Object object,
+						List<?> list) {
+					// TODO Auto-generated method stub
+					
 				}
 			});
 		}
@@ -235,11 +238,6 @@ public class MutualRecommendationActivity extends Activity implements
 			});
 			recommendController2.setUINotification(new UINotification() {
 
-				@Override
-				public void onClick(Object object) {
-					// TODO Auto-generated method stub
-
-				}
 
 				@Override
 				public void notificationStart(int size) {
@@ -263,6 +261,13 @@ public class MutualRecommendationActivity extends Activity implements
 				public void delete() {
 					// TODO Auto-generated method stub
 
+				}
+
+				@Override
+				public void onClick(int index, View citem, Object object,
+						List<?> list) {
+					// TODO Auto-generated method stub
+					
 				}
 			});
 		}

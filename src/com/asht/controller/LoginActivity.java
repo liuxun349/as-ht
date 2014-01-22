@@ -69,7 +69,7 @@ public class LoginActivity extends Activity implements AsyncDataLoader.Callback 
 				// TODO Auto-generated method stub
 				userName = login_input_name.getText().toString().trim();
 				userPwd = login_input_password.getText().toString().trim();
-				login.execute(null);
+				login.execute();
 				if (AshtUtil.IsHandset(userName)) {
 				} else {
 					System.out.println("格式错误");

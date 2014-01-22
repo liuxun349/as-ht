@@ -1,6 +1,8 @@
 package com.asht;
 
 import java.util.List;
+
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.asht.http.AccountService;
 import com.asht.http.AshtResponse;
@@ -27,6 +29,9 @@ public class AsHt {
 	}
 
 	public static AsHt getInstance() {
+		if (mInstance == null) {
+			initalize();
+		}
 		return mInstance;
 	}
 
@@ -364,10 +369,29 @@ public class AsHt {
 	 * @return
 	 * @throws AsHtException
 	 */
-	public boolean uploadCaseToGroup(UserInfo user, String groupId,
-			Resume resume) throws AsHtException {
-		return response(recordService.uploadCaseToGroup(user, groupId, resume));
+	public Resume uploadCaseToGroup(UserInfo user, String groupId,
+			String imgPath) throws AsHtException {
+		AshtResponse as = recordService.uploadCaseToGroup(user, groupId,
+				imgPath);
+		return JSON.parseObject(as.result.toString(), Resume.class);
 	}
+
+	// public Resume uploadCaseToGroup(UserInfo user, String groupId, Resume
+	// resume)
+	// throws AsHtException {
+	// Resume r = null;
+	// try {
+	// AshtResponse as = recordService.uploadCaseToGroup(user, groupId,
+	// resume.getLocalRecordImageUrl());
+	// r = JSON.parseObject(as.result.toString(), Resume.class);
+	// } catch (Exception e) {
+	// r = null;
+	// }
+	// if (r != null) {
+	// resume.setAttribute(r);
+	// }
+	// return resume;
+	// }
 
 	/**
 	 * 删除病例（单个）

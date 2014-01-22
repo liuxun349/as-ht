@@ -1,5 +1,9 @@
 package com.asht.interfaces;
 
+import java.util.List;
+
+import android.view.View;
+
 public interface UINotification {
 
 	void notificationStart(int size);
@@ -10,5 +14,5 @@ public interface UINotification {
 
 	void delete();
 
-	void onClick(Object object);
+	void onClick(int index, View citem, Object object, List<?> list);
 }

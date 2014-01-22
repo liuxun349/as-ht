@@ -1,12 +1,11 @@
 package com.asht.http;
 
-import java.util.Date;
 import java.util.List;
 
 import com.alibaba.fastjson.JSONObject;
 import com.asht.AsHtException;
-import com.asht.model.Resume;
 import com.asht.model.UserInfo;
+import com.yj.compress.BitmapCompressUtils;
 
 public class RecordService {
 	private static final String NAMESPACE = "http://recordService.CXFWebservice.modules.www.ascs.com/";
@@ -86,13 +85,13 @@ public class RecordService {
 	 * @throws AsHtException
 	 */
 	public AshtResponse uploadCaseToGroup(UserInfo user, String groupId,
-			Resume resume) throws AsHtException {
+			String resume) throws AsHtException {
 		method = "uploadMedicalRecordItemsToGroup";
 		json = new JSONObject();
 		json.put("userPhoneNo", user.getUserPhoneNo());
 		json.put("medicalRecordGroupID", groupId);
-		json.put("medicalRecordItemFile",
-				resume.getMedicalRecordImageFileToByte());
+		json.put("medicalRecordItemFile", new BitmapCompressUtils()
+				.getMedicalRecordImageFileToByte(resume));
 		return get(method, json);
 	}
 
