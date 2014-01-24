@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,11 +25,12 @@ public class ToastUtils extends Handler {
 		ll = new LinearLayout(context);
 		tv = new TextView(context);
 		tv.setTextColor(Color.BLACK);
-		tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, 14);
+		tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, 16);
 		tv.setPadding(10, 5, 10, 4);
 		ll.addView(tv);
 		ll.setBackgroundResource(R.drawable.dialog_full_holo_light);
 		toast.setView(ll);
+		toast.setGravity(Gravity.BOTTOM | Gravity.CENTER, 0, 0);
 	}
 
 	@Override
@@ -45,6 +47,9 @@ public class ToastUtils extends Handler {
 	}
 
 	public void show(String str) {
+		if (str == null || str.equals("")) {
+			return;
+		}
 		tv.setText(str);
 		sendEmptyMessage(1);
 	}

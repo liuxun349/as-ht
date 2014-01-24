@@ -27,6 +27,7 @@ import com.asht.interfaces.UIHanleLintener;
 import com.asht.interfaces.UINotification;
 import com.asht.model.Record;
 import com.asht.model.Resume;
+import com.asht.model.UpdateState;
 import com.asht.model.UserInfo;
 import com.asht.utl.ApplictionManager;
 import com.example.controller.CasesSingleController;
@@ -156,8 +157,8 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 
 		mRecord = ((MyApplication) getApplication()).getmRecord();
 
-		((TextView) findViewById(R.id.tv_caseSingleTitle))
-				.setText(mRecord.medicalRecordGroupName);
+		((TextView) findViewById(R.id.tv_caseSingleTitle)).setText(mRecord
+				.getMedicalRecordGroupName());
 		mCasesSingleController = new CasesSingleController(this,
 				gv_myCasesSingle, mRecord);
 		mCasesSingleController.setUIHandleLinstener(mHanleLintener);
@@ -334,11 +335,15 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 			if (v.getId() == mAddCaseSingle.view_cameraimport.getId()) {
 				intent = new Intent("android.media.action.IMAGE_CAPTURE");
 				startActivityForResult(intent, 0);
+				overridePendingTransition(R.anim.activity_in,
+						R.anim.activity_out);
 				pop_add.dismiss();
 			} else {
 				intent = new Intent();
 				intent.setClass(getApplicationContext(), AlbumActivity.class);
 				startActivityForResult(intent, 1000);
+				overridePendingTransition(R.anim.activity_in,
+						R.anim.activity_out);
 				pop_add.dismiss();
 			}
 
@@ -348,7 +353,7 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 	UIHanleLintener mHanleLintener = new UIHanleLintener() {
 
 		@Override
-		public void update(boolean isServer, boolean fag, boolean isTouch) {
+		public void update(boolean isServer, UpdateState state, boolean isTouch) {
 			// TODO Auto-generated method stub
 
 		}
@@ -366,7 +371,7 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 		}
 
 		@Override
-		public void gengduo(boolean fag, boolean isTouch) {
+		public void gengduo(boolean fag, UpdateState state, boolean isTouch) {
 			// TODO Auto-generated method stub
 
 		}
@@ -424,6 +429,7 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 			b.putInt("index", index);
 			intent.putExtras(b);
 			startActivity(intent);
+			overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
 		}
 
 	};

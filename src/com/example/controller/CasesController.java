@@ -3,13 +3,12 @@ package com.example.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.tsz.afinal.annotation.sqlite.ManyToOne;
+import net.tsz.afinal.db.sqlite.DbModel;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -17,6 +16,7 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.GridView;
 
 import com.asht.AsHt;
+import com.asht.AsHtException;
 import com.asht.AsyncDataLoader;
 import com.asht.AsyncDataLoader.Callback;
 import com.asht.R;
@@ -25,8 +25,11 @@ import com.asht.controller.MyCasesActivity;
 import com.asht.interfaces.UIHanleLintener;
 import com.asht.interfaces.UINotification;
 import com.asht.model.Record;
+import com.asht.model.Resume;
+import com.asht.model.UpdateState;
 import com.asht.model.UserInfo;
 import com.asht.utl.ApplictionManager;
+import com.asht.view.Diag;
 
 @SuppressLint({ "UseSparseArrays", "HandlerLeak" })
 public class CasesController implements OnItemClickListener,
@@ -42,12 +45,15 @@ public class CasesController implements OnItemClickListener,
 	Record Record_tmp;
 
 	UINotification mUINotification;
-	UIHanleLintener mHanleLintener;
+	UIHanleLintener mHanleLintener;//
+	Diag diag;
 
 	public CasesController(Context context, GridView gridView) {
 		mContext = context;
 		this.gridView = gridView;
-
+		if (diag == null) {
+			diag = new Diag(mContext);
+		}
 		int spacing = (int) mContext.getResources().getDimension(
 				R.dimen.grid_spacing);
 		this.spacing = spacing;
@@ -120,25 +126,120 @@ public class CasesController implements OnItemClickListener,
 		}
 	}
 
-	public void update(final boolean fag, final boolean isTouch) {
+	public synchronized void update(final boolean isServer,
+			final boolean isTouch) {
+		if (!isTouch)
+			gridView.post(new Runnable() {
 
+				@Override
+				public void run() {
+					diag.show();
+				}
+			});
 		new AsyncDataLoader(new Callback() {
 			private List<Record> records;
+			private List<Record> updates;
+			private UpdateState state = null;
 
 			@Override
 			public void onStartAsync() {
-				AsHt asht = AsHt.getInstance();
-				UserInfo user = ApplictionManager.getInstance().getUserInfo();
-				user = new UserInfo();
-				user.setUserPhoneNo("13000001011");
-				try {
-					records = asht.getRecordGroup(user, true,
-							"2013-12-25 20:06:15.0");
-					System.out.println(" size: " + records.size());
+				updates = new ArrayList<Record>();
+				if (isServer) {
 
-				} catch (Exception e) {
-					e.printStackTrace();
-					Log.w("Record", e.toString());
+					AsHt asht = AsHt.getInstance();
+					UserInfo user = ApplictionManager.getInstance()
+							.getUserInfo();
+					try {
+						List<Record> records = asht.getRecordGroup(user, true,
+								"2013-12-25 20:06:15.0");
+						state = new UpdateState(UpdateState.UK_SERVER_OK);
+						StringBuilder ids = new StringBuilder();
+						for (Record record : records) {
+							if (record != null) {
+								ids.append("'"
+										+ record.getMedicalRecordGroupID()
+										+ "',");
+							}
+						}
+
+						String id = ids.toString();
+						id = id.substring(0, id.length() - 1);
+
+						// 清空以前的病例缓存
+						AFinalController.getDB(mContext).deleteByWhere(
+								Resume.class,
+								"imedicalrecordgroupid not in (" + id + ")");
+
+						// 清空以前的病例组缓存
+						AFinalController.getDB(mContext).deleteByWhere(
+								Record.class,
+								"medicalRecordGroupID not in (" + id + ")");
+
+						for (Record info : records) {
+							DbModel dm = AFinalController
+									.getDB(mContext)
+									.findDbModelBySQL(
+											"select updateTime from record where medicalRecordGroupID = '"
+													+ info.getMedicalRecordGroupID()
+													+ "';");
+							if (dm == null) {
+								/** 删除病例组缓存 */
+								AFinalController
+										.getDB(mContext)
+										.deleteByWhere(
+												Resume.class,
+												" imedicalrecordgroupid = '"
+														+ info.getMedicalRecordGroupID()
+														+ "'");
+								/**
+								 * 保存病例组信息
+								 */
+								AFinalController.getDB(mContext).save(info);
+								updates.add(info);
+
+							} else {
+								/** 服务器和本地数据一致 不用处理 不一致就删除缓存 */
+								if (!info.getUpdateTime().equals(
+										dm.get("updateTime"))) {
+									/** 删除病例缓存 */
+									AFinalController
+											.getDB(mContext)
+											.deleteByWhere(
+													Record.class,
+													" medicalRecordGroupID = '"
+															+ info.getMedicalRecordGroupID()
+															+ "'");
+									/** 删除病例组缓存 */
+									AFinalController
+											.getDB(mContext)
+											.deleteByWhere(
+													Resume.class,
+													" imedicalrecordgroupid = '"
+															+ info.getMedicalRecordGroupID()
+															+ "'");
+									/**
+									 * 保存病例组信息
+									 */
+									AFinalController.getDB(mContext).save(info);
+									updates.add(info);
+								}
+							}
+
+						}
+						updateResumes(updates);
+						this.records = records;
+					} catch (Exception e) {
+						records = null;
+						state = new UpdateState(UpdateState.UK_SERVER_NET_ERROR);
+						state.setLog(e.getMessage());
+						records = AFinalController.getDB(mContext).findAll(
+								Record.class);
+						e.printStackTrace();
+					}
+				} else {
+					state = new UpdateState(UpdateState.UK_DB_OK);
+					records = AFinalController.getDB(mContext).findAll(
+							Record.class);
 				}
 
 			}
@@ -151,24 +252,73 @@ public class CasesController implements OnItemClickListener,
 			public void onFinishAsync() {
 				adapter.setInfos(records);
 				updateHandler.sendEmptyMessage(10001);
-				// mHanleLintener.update(fag, true, isTouch);
-				mHanleLintener.update(true, true, true);
 
+				mHanleLintener.update(isServer, state, isTouch);
+				if (diag.isShowing())
+					diag.dismiss();
 			}
 		}).execute();
 
 	}
 
+	List<Record> getDBRecord() {
+		return AFinalController.getDB(mContext).findAllByWhere(Record.class,
+				"", "updateTime desc limit 10");
+	}
+
 	public void gengduo(final boolean fag, final boolean isTouch) {
-		// CaseDao.update(mContext, new CaseUpdateListener() {
-		//
-		// @Override
-		// public void update(List<Record> list, boolean isServer, int tag) {
-		// adapter.setInfos(list);
-		// updateHandler.sendEmptyMessage(10001);
-		// mHanleLintener.gengduo(true, isTouch);
-		// }
-		// }, fag);
+		new AsyncDataLoader(new Callback() {
+			private List<Record> records;
+			private UpdateState mUpdateState = null;
+
+			@Override
+			public void onStartAsync() {
+				AsHt asht = AsHt.getInstance();
+				UserInfo user = ApplictionManager.getInstance().getUserInfo();
+				try {
+					DbModel db = AFinalController
+							.getDB(mContext)
+							.findDbModelBySQL(
+									"select updateTime from record order by updateTime limit 1;");
+					String time = db.getString("updateTime");
+					List<Record> records = asht.getRecordGroup(user, false,
+							time);
+					if (records == null || records.size() == 0) {
+						mUpdateState = new UpdateState(UpdateState.UK_NO_DATA);
+						mUpdateState.setLog("亲，已经没有数据了");
+					} else {
+						mUpdateState = new UpdateState(UpdateState.UK_SERVER_OK);
+						mUpdateState.setLog("亲，加载更多完成");
+						AFinalController.getDB(mContext).deleteByWhere(
+								Record.class, "updateTime < '" + time + "'");
+						for (Record info : records) {
+							AFinalController.getDB(mContext).save(info);
+						}
+						updateResumes(records);
+						this.records = records;
+					}
+				} catch (Exception e) {
+					mUpdateState = new UpdateState(UpdateState.UK_ERROR);
+					mUpdateState.setLog(e.getMessage());
+					e.printStackTrace();
+				}
+
+			}
+
+			@Override
+			public void onPrepareAsync() {
+			}
+
+			@Override
+			public void onFinishAsync() {
+				if (mUpdateState.getAction() == UpdateState.UK_SERVER_OK) {
+					adapter.addRecords(records);
+					updateHandler.sendEmptyMessage(10001);
+				}
+				mHanleLintener.gengduo(fag, mUpdateState, isTouch);
+			}
+		}).execute();
+
 	}
 
 	public void selectAll() {
@@ -209,7 +359,7 @@ public class CasesController implements OnItemClickListener,
 		int sum = 0;
 		for (int i = 0; i < size; i++) {
 			Record_tmp = selectViews.get(i);
-			sum += Record_tmp.medicalRecordItemTotal;
+			sum += Record_tmp.getMedicalRecordItemTotal();
 		}
 		return sum;
 	}
@@ -243,21 +393,23 @@ public class CasesController implements OnItemClickListener,
 	public void deleteSelectAll() {
 		new AsyncDataLoader(new Callback() {
 			boolean fag = false;
+			List<Record> recList = null;
 
 			@Override
 			public void onStartAsync() {
 
+				recList = new ArrayList<Record>(selectViews);
+
 				AsHt asht = AsHt.getInstance();
 				UserInfo user = ApplictionManager.getInstance().getUserInfo();
-				user = new UserInfo();
-				user.setUserPhoneNo("13000001011");
 				List<String> ids = new ArrayList<String>();
-				for (Record record : selectViews) {
-					ids.add(record.medicalRecordGroupID);
+				for (Record record : recList) {
+					ids.add(record.getMedicalRecordGroupID());
 				}
 				try {
 					fag = asht.deleteRecordGroup(user, ids);
 				} catch (Exception e) {
+					fag = false;
 				}
 
 			}
@@ -271,7 +423,12 @@ public class CasesController implements OnItemClickListener,
 			public void onFinishAsync() {
 
 				if (fag) {
-					for (Record r : selectViews) {
+					for (Record r : recList) {
+						AFinalController.getDB(mContext).deleteByWhere(
+								Resume.class,
+								"imedicalrecordgroupid = "
+										+ r.getMedicalRecordGroupID());
+						AFinalController.getDB(mContext).delete(r);
 						adapter.removeRecord(r);
 					}
 				}
@@ -292,5 +449,51 @@ public class CasesController implements OnItemClickListener,
 	@Override
 	public void add(List<?> infos) {
 
+	}
+
+	private void updateResumes(final List<Record> records) {
+		new AsyncDataLoader(new Callback() {
+			final List<Record> lists = new ArrayList<Record>(records);
+			int progress = 0;
+			int max = 0;
+
+			@Override
+			public void onStartAsync() {
+				AsHt asht = AsHt.getInstance();
+				UserInfo user = ApplictionManager.getInstance().getUserInfo();
+				max = lists.size();
+				for (int i = 0; i < max; i++) {
+					progress = i;
+					final Record r = lists.get(i);
+					try {
+						final List<Resume> resumes = asht.getAllCaseFromGroup(
+								user, r.getMedicalRecordGroupID());
+
+						AFinalController.getDB(mContext).deleteByWhere(
+								Resume.class,
+								"imedicalrecordgroupid = "
+										+ r.getMedicalRecordGroupID()
+										+ " and state <> " + 2);
+						for (Resume resume : resumes) {
+							AFinalController.getDB(mContext).save(resume);
+						}
+					} catch (AsHtException e) {
+						e.printStackTrace();
+					} 
+					progress = i + 1;
+				}
+
+			}
+
+			@Override
+			public void onPrepareAsync() {
+
+			}
+
+			@Override
+			public void onFinishAsync() {
+
+			}
+		}).execute();
 	}
 }

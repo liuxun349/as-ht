@@ -1,5 +1,7 @@
 package com.asht.interfaces;
 
+import com.asht.model.UpdateState;
+
 public interface UIHanleLintener {
 	void addfinish(boolean fag);
 
@@ -15,7 +17,7 @@ public interface UIHanleLintener {
 	 * @param isTouch
 	 *            是否是下拉刷新更新的数据
 	 */
-	void update(boolean isServer, boolean fag, boolean isTouch);
+	void update(boolean isServer, UpdateState state, boolean isTouch);
 
-	void gengduo(boolean fag, boolean isTouch);
+	void gengduo(boolean isServer, UpdateState state, boolean isTouch);
 }

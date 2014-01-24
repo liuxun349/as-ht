@@ -28,7 +28,7 @@ public class AFinalController {
 		return finalDb;
 	}
 
-	public static FinalDb  getDB(Context context) {
+	public static FinalDb getDB(Context context) {
 		// TODO Auto-generated method stub
 		return create(context).getfinalDb();
 	}

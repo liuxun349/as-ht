@@ -1,16 +1,13 @@
 package com.example.controller;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import net.tsz.afinal.FinalDb;
 import net.tsz.afinal.core.AsyncTask;
-import android.R.integer;
 import android.content.Context;
 import android.os.Handler;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -30,6 +27,7 @@ import com.asht.model.Record;
 import com.asht.model.Resume;
 import com.asht.model.UserInfo;
 import com.asht.utl.ApplictionManager;
+import com.asht.view.Diag;
 import com.yj.compress.YJBitmap;
 
 public class CasesSingleController implements OnItemClickListener,
@@ -47,6 +45,7 @@ public class CasesSingleController implements OnItemClickListener,
 	private UIHanleLintener mHanleLintener;
 	private UINotification mUINotification;
 	private Record mRecord;
+	Diag diag;
 
 	public CasesSingleController(Context context, GridView gridView, Record info) {
 		mContext = context;
@@ -55,6 +54,8 @@ public class CasesSingleController implements OnItemClickListener,
 		int spacing = (int) mContext.getResources().getDimension(
 				R.dimen.grid_spacing);
 		this.spacing = spacing;
+
+		diag = new Diag(mContext);
 
 		// 获取分辨率
 		DisplayMetrics dm = new DisplayMetrics();
@@ -202,6 +203,14 @@ public class CasesSingleController implements OnItemClickListener,
 		// updateHandler.sendEmptyMessage(10001);
 		// // mHanleLintener.update(fag, true, isTouch);
 		// mHanleLintener.update(fag, true, isTouch);
+		if (!isTouch)
+			gridView.post(new Runnable() {
+
+				@Override
+				public void run() {
+					diag.show();
+				}
+			});
 		new AsyncDataLoader(new Callback() {
 			private List<Resume> mResume;
 			// 获得当前病例组下需要上传的
@@ -212,52 +221,68 @@ public class CasesSingleController implements OnItemClickListener,
 			@Override
 			public void onStartAsync() {
 
-				System.out.println("do it ? ..");
-				AsHt asht = AsHt.getInstance();
-				UserInfo user = ApplictionManager.getInstance().getUserInfo();
-				user = new UserInfo();
-				user.setUserPhoneNo("13000001011");
-				try {
-					Record r = mRecord;
-					// 服务器数据
-					List<Resume> resumes = asht.getAllCaseFromGroup(user,
-							r.medicalRecordGroupID);
-					FinalDb db = AFinalController.getDB(mContext);
-					// 获得当前病例组下需要上传的
-					upLoad = db.findAllByWhere(Resume.class,
-							"imedicalrecordgroupid = " + r.medicalRecordGroupID
-									+ " and state =" + 2);
-					// 获得需要删除的
-					delete = db.findAllByWhere(Resume.class,
-							"imedicalrecordgroupid = " + r.medicalRecordGroupID
-									+ " and state =" + 1);
+				if (fag) {
+					System.out.println("do it ? ..");
+					AsHt asht = AsHt.getInstance();
+					UserInfo user = ApplictionManager.getInstance()
+							.getUserInfo();
+					try {
+						Record r = mRecord;
+						// 服务器数据
+						List<Resume> resumes = asht.getAllCaseFromGroup(user,
+								r.getMedicalRecordGroupID());
+						FinalDb db = AFinalController.getDB(mContext);
+						// 获得当前病例组下需要上传的
+						upLoad = db.findAllByWhere(
+								Resume.class,
+								"imedicalrecordgroupid = "
+										+ r.getMedicalRecordGroupID()
+										+ " and state =" + 2);
+						// 获得需要删除的
+						delete = db.findAllByWhere(
+								Resume.class,
+								"imedicalrecordgroupid = "
+										+ r.getMedicalRecordGroupID()
+										+ " and state =" + 1);
 
-					for (Resume resume : delete) {
-						for (Resume resume2 : resumes) {
-							if (resume.getImedicalrecorditemid() == resume2
-									.getImedicalrecorditemid()) {
-								resume2.setState(resume.getState());
+						for (Resume resume : delete) {
+							for (Resume resume2 : resumes) {
+								if (resume.getImedicalrecorditemid() == resume2
+										.getImedicalrecorditemid()) {
+									resume2.setState(resume.getState());
+								}
 							}
 						}
+
+						// 清空本地数据
+						db.deleteByWhere(
+								Resume.class,
+								("imedicalrecordgroupid = " + r
+										.getMedicalRecordGroupID()) + "");
+
+						resumes.addAll(upLoad);
+						// 保存本地数据
+						for (Resume resume : resumes) {
+							db.save(resume);
+						}
+						mResume = resumes;
+
+					} catch (Exception e) {
+						mResume = AFinalController.getDB(mContext)
+								.findAllByWhere(
+										Resume.class,
+										("imedicalrecordgroupid = " + mRecord
+												.getMedicalRecordGroupID())
+												+ "");
+						e.printStackTrace();
 					}
 
-					// 清空本地数据
-					db.deleteByWhere(
+				} else {
+					mResume = AFinalController.getDB(mContext).findAllByWhere(
 							Resume.class,
-							("imedicalrecordgroupid = " + r.medicalRecordGroupID)
-									+ "");
-
-					resumes.addAll(upLoad);
-					// 保存本地数据
-					for (Resume resume : resumes) {
-						db.save(resume);
-					}
-					mResume = resumes;
-
-				} catch (Exception e) {
-					e.printStackTrace();
+							("imedicalrecordgroupid = " + mRecord
+									.getMedicalRecordGroupID()) + "");
 				}
-
 			}
 
 			@Override
@@ -272,7 +297,7 @@ public class CasesSingleController implements OnItemClickListener,
 				adapter.setInfos(mResume);
 				updateHandler.sendEmptyMessage(10001);
 				// mHanleLintener.update(fag, true, isTouch);
-				mHanleLintener.update(fag, true, isTouch);
+				mHanleLintener.update(fag, null, isTouch);
 
 				// 有数据未上传 --再次请求数据上传
 				if (upLoad != null && upLoad.size() > 0) {
@@ -281,7 +306,7 @@ public class CasesSingleController implements OnItemClickListener,
 						Resume resume = (Resume) obj;
 						resume.setState(2);
 						resume.setImedicalrecordgroupid(Integer
-								.parseInt(mRecord.medicalRecordGroupID));
+								.parseInt(mRecord.getMedicalRecordGroupID()));
 						new UploadCase(resume).execute();
 					}
 				}
@@ -290,7 +315,9 @@ public class CasesSingleController implements OnItemClickListener,
 					// 删除服务器数据
 
 				}
-
+				if (diag != null && diag.isShowing()) {
+					diag.dismiss();
+				}
 			}
 		}).execute();
 
@@ -310,8 +337,6 @@ public class CasesSingleController implements OnItemClickListener,
 				mResume.addAll(selectViews);
 				AsHt asht = AsHt.getInstance();
 				UserInfo user = ApplictionManager.getInstance().getUserInfo();
-				user = new UserInfo();
-				user.setUserPhoneNo("13000001011");
 				try {
 					List<String> deletes = new ArrayList<String>();
 					for (Resume info : mResume) {
@@ -324,7 +349,7 @@ public class CasesSingleController implements OnItemClickListener,
 						// AFinalController.getDB(mContext).update(info);
 					}
 					fag = asht.deleteCaseFromGroup(user,
-							mRecord.medicalRecordGroupID, deletes);
+							mRecord.getMedicalRecordGroupID(), deletes);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -369,8 +394,8 @@ public class CasesSingleController implements OnItemClickListener,
 		for (Object obj : infos) {
 			Resume resume = (Resume) obj;
 			resume.setState(2);
-			resume.setImedicalrecordgroupid(Integer
-					.parseInt(mRecord.medicalRecordGroupID));
+			resume.setImedicalrecordgroupid(Integer.parseInt(mRecord
+					.getMedicalRecordGroupID()));
 			new UploadCase(resume).execute();
 			AFinalController.getDB(mContext).save(resume);
 		}
@@ -410,15 +435,11 @@ public class CasesSingleController implements OnItemClickListener,
 
 		@Override
 		protected Void doInBackground(Void... params) {
-
-			System.out.println("do it ? ..");
 			AsHt asht = AsHt.getInstance();
 			UserInfo user = ApplictionManager.getInstance().getUserInfo();
-			user = new UserInfo();
-			user.setUserPhoneNo("13000001011");
 			try {
 				setAttribute(asht.uploadCaseToGroup(user,
-						mRecord.medicalRecordGroupID,
+						mRecord.getMedicalRecordGroupID(),
 						resume.getLocalRecordImageUrl()));
 			} catch (AsHtException e) {
 				e.printStackTrace();

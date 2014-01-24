@@ -23,15 +23,8 @@ public class MainHomePageActivity extends Activity {
 		Intent intent = null;
 		intent = new Intent();
 		switch (v.getId()) {
-		case R.id.test_add_case:
-			intent.setClass(getApplicationContext(), AppStart.class);
-			break;
 		case R.id.test_add_cases:
 			intent.setClass(getApplicationContext(), AddCasesActivity.class);
-			break;
-		case R.id.test_case:
-			intent.setClass(getApplicationContext(),
-					MyCasesSingleActivity.class);
 			break;
 		case R.id.test_cases:
 			intent.setClass(getApplicationContext(), MyCasesActivity.class);

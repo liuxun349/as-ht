@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:id="@+id/fl_photo_prompt"
+        style="@style/top" >
+
+        <Button
+            android:id="@+id/tv_title_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/btn_defalut_selector"
+            android:text="@string/title_back"
+            android:textColor="@color/title_text_color" />
+
+        <TextView
+            android:id="@+id/tv_photo_prompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center"
+            android:layout_marginRight="10dp"
+            android:text="0/0"
+            android:textColor="@color/title_text_color" />
+    </FrameLayout>
+
+    <com.asht.view.HackyViewPager
+        android:id="@+id/hvp_photo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

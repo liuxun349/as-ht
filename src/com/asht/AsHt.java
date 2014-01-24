@@ -340,9 +340,9 @@ public class AsHt {
 	public Record addRecordGroup(UserInfo user, String newGroupName)
 			throws AsHtException {
 		Record record = new Record();
-		record.medicalRecordGroupName = newGroupName;
-		record.medicalRecordGroupID = recordService.addRecordGroup(user,
-				newGroupName).result + "";
+		record.setMedicalRecordGroupName(newGroupName);
+		record.setMedicalRecordGroupID(recordService.addRecordGroup(user,
+				newGroupName).result + "");
 		return record;
 	}
 

@@ -10,6 +10,7 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 
 import com.asht.AsHt;
+import com.asht.AsHtException;
 import com.asht.AsyncDataLoader;
 import com.asht.AsyncDataLoader.Callback;
 import com.asht.R;
@@ -17,6 +18,7 @@ import com.asht.model.Record;
 import com.asht.model.UserInfo;
 import com.asht.utl.ApplictionManager;
 import com.asht.view.ToastUtils;
+import com.example.controller.AFinalController;
 
 public class AddCasesActivity extends Activity implements OnClickListener {
 	EditText et = null;
@@ -64,17 +66,13 @@ public class AddCasesActivity extends Activity implements OnClickListener {
 
 				AsHt asht = AsHt.getInstance();
 				UserInfo user = ApplictionManager.getInstance().getUserInfo();
-				user = new UserInfo();
-				user.setUserPhoneNo("13000001011");
 				try {
-					// asht.uploadCaseToGroup(user, groupId, resume)
-					// Resume r = new Resume();
-					// asht.deleteCaseFromGroup(user, "142",
-					// r.getImedicalrecorditemid()+"")
 					record = asht.addRecordGroup(user, et.getText().toString());
+					AFinalController.getDB(getApplicationContext())
+							.save(record);
 				} catch (Exception e) {
+					record = null;
 					e.printStackTrace();
-					Log.w("Record", e.toString());
 				}
 			}
 
@@ -85,21 +83,21 @@ public class AddCasesActivity extends Activity implements OnClickListener {
 
 			@Override
 			public void onFinishAsync() {
-				// if (record != null) {
-				// ToastUtils.getInit(getApplicationContext()).show("添加完成");
-				// } else {
-				// ToastUtils.getInit(getApplicationContext()).show("添加失败");
-				// }
 
 				findViewById(R.id.ll_waiting).setVisibility(View.GONE);
 				AlertDialog.Builder alertDialog = new AlertDialog.Builder(
 						AddCasesActivity.this);
-				alertDialog.setTitle("添加成功");
-				alertDialog.setMessage("返回病例组");
+				alertDialog.setTitle(record != null ? "添加病例组成功" : "添加病例组失败");
+				alertDialog.setMessage(record != null ? "返回病例组" : "网络错误时候重试");
 				alertDialog.setPositiveButton(getString(R.string.text_sure),
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,
 									int which) {
+								if (record == null) {
+									summit();
+								} else {
+									finish();
+								}
 							}
 						});
 				alertDialog.show();

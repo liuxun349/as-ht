@@ -13,14 +13,15 @@ import android.widget.GridView;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.asht.R;
 import com.asht.adapter.AdvancedPagerAdapter;
 import com.asht.interfaces.UIHanleLintener;
 import com.asht.interfaces.UINotification;
+import com.asht.model.UpdateState;
 import com.asht.ui.PullToRefreshView;
 import com.asht.ui.PullToRefreshView.OnFooterRefreshListener;
 import com.asht.ui.PullToRefreshView.OnHeaderRefreshListener;
 import com.example.controller.RecommendController;
-import com.asht.R;
 
 public class MutualRecommendationActivity extends Activity implements
 		OnPageChangeListener {
@@ -85,7 +86,7 @@ public class MutualRecommendationActivity extends Activity implements
 			recommendController1.setUIHandleLinstener(new UIHanleLintener() {
 
 				@Override
-				public void update(boolean isServer, boolean fag,
+				public void update(boolean isServer, UpdateState state,
 						boolean isTouch) {
 					// TODO Auto-generated method stub
 
@@ -119,7 +120,8 @@ public class MutualRecommendationActivity extends Activity implements
 				}
 
 				@Override
-				public void gengduo(boolean fag, boolean isTouch) {
+				public void gengduo(boolean fag, UpdateState state,
+						boolean isTouch) {
 
 					if (!isTouch) {
 						Toast.makeText(getApplicationContext(), "加载更多更新完成",
@@ -140,7 +142,6 @@ public class MutualRecommendationActivity extends Activity implements
 				}
 			});
 			recommendController1.setUINotification(new UINotification() {
-
 
 				@Override
 				public void notificationStart(int size) {
@@ -170,7 +171,7 @@ public class MutualRecommendationActivity extends Activity implements
 				public void onClick(int index, View citem, Object object,
 						List<?> list) {
 					// TODO Auto-generated method stub
-					
+
 				}
 			});
 		}
@@ -183,7 +184,7 @@ public class MutualRecommendationActivity extends Activity implements
 			recommendController2.setUIHandleLinstener(new UIHanleLintener() {
 
 				@Override
-				public void update(boolean isServer, boolean fag,
+				public void update(boolean isServer, UpdateState state,
 						boolean isTouch) {
 					// TODO Auto-generated method stub
 
@@ -216,7 +217,8 @@ public class MutualRecommendationActivity extends Activity implements
 				}
 
 				@Override
-				public void gengduo(boolean fag, boolean isTouch) {
+				public void gengduo(boolean fag, UpdateState state,
+						boolean isTouch) {
 
 					if (!isTouch) {
 						Toast.makeText(getApplicationContext(), "加载更多更新完成",
@@ -237,7 +239,6 @@ public class MutualRecommendationActivity extends Activity implements
 				}
 			});
 			recommendController2.setUINotification(new UINotification() {
-
 
 				@Override
 				public void notificationStart(int size) {
@@ -267,7 +268,7 @@ public class MutualRecommendationActivity extends Activity implements
 				public void onClick(int index, View citem, Object object,
 						List<?> list) {
 					// TODO Auto-generated method stub
-					
+
 				}
 			});
 		}

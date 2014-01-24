@@ -16,15 +16,17 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.asht.R;
 import com.asht.interfaces.UIHanleLintener;
 import com.asht.interfaces.UINotification;
 import com.asht.model.Record;
+import com.asht.model.UpdateState;
 import com.asht.ui.PullToRefreshView;
 import com.asht.ui.PullToRefreshView.OnFooterRefreshListener;
 import com.asht.ui.PullToRefreshView.OnHeaderRefreshListener;
+import com.asht.utl.SharedPreferencesUtils;
+import com.asht.view.ToastUtils;
 import com.example.controller.CasesController;
 import com.example.testafinal.MyApplication;
 
@@ -36,7 +38,7 @@ public class MyCasesActivity extends Activity implements OnClickListener {
 	private CasesDeleteIsOK casesDeleteIsOK;
 	private View view_myCases_delete;
 	private PopupWindow pop_edit = null;
-	CasesController mCasesController;
+	private CasesController mCasesController;
 	private PullToRefreshView ptrv_cases;
 
 	@Override
@@ -47,13 +49,13 @@ public class MyCasesActivity extends Activity implements OnClickListener {
 		initView();
 		initListener();
 		initData();
+
+		mCasesController.update(false, false);
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-
-		mCasesController.update(false, false);
 	}
 
 	private void initView() {
@@ -140,7 +142,6 @@ public class MyCasesActivity extends Activity implements OnClickListener {
 
 			@Override
 			public void onHeaderRefresh(PullToRefreshView view) {
-				// TODO Auto-generated method stub
 				mCasesController.update(true, true);
 			}
 		});
@@ -148,15 +149,15 @@ public class MyCasesActivity extends Activity implements OnClickListener {
 
 			@Override
 			public void onFooterRefresh(PullToRefreshView view) {
-				// TODO Auto-generated method stub
-
 				mCasesController.gengduo(true, true);
 			}
 		});
 
 		mCasesController.setUIHandleLinstener(mHanleLintener);
 		mCasesController.setUINotification(uiNotification);
-		mCasesController.update(false, false);
+
+		ptrv_cases.onHeaderRefreshComplete(SharedPreferencesUtils
+				.getTime(getApplicationContext()));
 	}
 
 	private void showDeleteTitle() {
@@ -273,6 +274,7 @@ public class MyCasesActivity extends Activity implements OnClickListener {
 					MyCasesSingleActivity.class);
 			saveTmp(MyCasesActivity.this, (Record) info);
 			startActivity(intent);
+			overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
 		}
 
 	};
@@ -284,28 +286,17 @@ public class MyCasesActivity extends Activity implements OnClickListener {
 	UIHanleLintener mHanleLintener = new UIHanleLintener() {
 
 		@Override
-		public void update(boolean isServer, boolean fag, boolean isTouch) {
-			// TODO Auto-generated method stub
-
-			if (!isTouch) {
-				Toast.makeText(getApplicationContext(), "加载更新完成",
-						Toast.LENGTH_LONG).show();
-				return;
+		public void update(boolean isServer, UpdateState state, boolean isTouch) {
+			ToastUtils.getInit(getApplicationContext()).show(state.getLog());
+			if (isTouch)
+				ptrv_cases.onHeaderRefreshComplete();
+			if (state.getAction() == UpdateState.UK_SERVER_OK) {
+				SharedPreferencesUtils.setTime(getApplicationContext());
 			}
-			ptrv_cases.postDelayed(new Runnable() {
-
-				@Override
-				public void run() {
-					ptrv_cases.onHeaderRefreshComplete();
-					Toast.makeText(getApplicationContext(), "上拉更新完成",
-							Toast.LENGTH_LONG).show();
-				}
-			}, 2000);
 		}
 
 		@Override
 		public void deletefinish(boolean fag) {
-			// TODO Auto-generated method stub
 			if (pop_edit != null && pop_edit.isShowing()) {
 				pop_edit.dismiss();
 			}
@@ -313,29 +304,16 @@ public class MyCasesActivity extends Activity implements OnClickListener {
 
 		@Override
 		public void addfinish(boolean fag) {
-			// TODO Auto-generated method stub
 
 		}
 
 		@Override
-		public void gengduo(boolean fag, boolean isTouch) {
+		public void gengduo(boolean fag, final UpdateState state,
+				boolean isTouch) {
+			ToastUtils.getInit(getApplicationContext()).show(state.getLog());
+			if (isTouch)
+				ptrv_cases.onFooterRefreshComplete();
 
-			if (!isTouch) {
-				Toast.makeText(getApplicationContext(), "加载更多更新完成",
-						Toast.LENGTH_LONG).show();
-				return;
-			}
-			ptrv_cases.postDelayed(new Runnable() {
-
-				@Override
-				public void run() {
-					ptrv_cases.onFooterRefreshComplete();
-
-					Toast.makeText(getApplicationContext(), "下拉更新完成",
-							Toast.LENGTH_LONG).show();
-
-				}
-			}, 2000);
 		}
 	};
 

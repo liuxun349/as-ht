@@ -1,7 +1,5 @@
 package com.asht.ui;
 
-import com.asht.R;
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -18,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.asht.R;
 
 public class PullToRefreshView extends LinearLayout {
 	private static final String TAG = "PullToRefreshView";
@@ -555,7 +554,6 @@ public class PullToRefreshView extends LinearLayout {
 		mHeaderImageView.setImageResource(R.drawable.ic_pulltorefresh_arrow);
 		mHeaderTextView.setText(R.string.pull_to_refresh_pull_label);
 		mHeaderProgressBar.setVisibility(View.GONE);
-		// mHeaderUpdateTextView.setText("");
 		mHeaderState = PULL_TO_REFRESH;
 	}
 
@@ -579,7 +577,6 @@ public class PullToRefreshView extends LinearLayout {
 		mFooterImageView.setImageResource(R.drawable.ic_pulltorefresh_arrow_up);
 		mFooterTextView.setText(R.string.pull_to_refresh_footer_pull_label);
 		mFooterProgressBar.setVisibility(View.GONE);
-		// mHeaderUpdateTextView.setText("");
 		mFooterState = PULL_TO_REFRESH;
 	}
 

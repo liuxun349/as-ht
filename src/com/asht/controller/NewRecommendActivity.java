@@ -30,7 +30,7 @@ public class NewRecommendActivity extends Activity implements
 
 	private ArrayAdapter adapter_documentType, adapter_yourIdentity,
 			adapter_email;
-	private EditText et_name,et_;
+	private EditText et_name, et_;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -101,10 +101,10 @@ public class NewRecommendActivity extends Activity implements
 
 	private void summit() {
 
-//		if (et.getText() == null || et.getText().equals("")) {
-//			ToastUtils.getInit(getApplicationContext()).show(
-//					R.string.add_case_summit_null);
-//		}
+		// if (et.getText() == null || et.getText().equals("")) {
+		// ToastUtils.getInit(getApplicationContext()).show(
+		// R.string.add_case_summit_null);
+		// }
 
 		findViewById(R.id.ll_waiting).setVisibility(View.VISIBLE);
 
@@ -116,10 +116,9 @@ public class NewRecommendActivity extends Activity implements
 
 				AsHt asht = AsHt.getInstance();
 				UserInfo user = ApplictionManager.getInstance().getUserInfo();
-				user = new UserInfo();
-				user.setUserPhoneNo("13000001011");
 				try {
-//					record = asht.addRecordGroup(user, et.getText().toString());
+					// record = asht.addRecordGroup(user,
+					// et.getText().toString());
 					asht.recommendPatient(user, new Recommend());
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -139,7 +138,7 @@ public class NewRecommendActivity extends Activity implements
 				// } else {
 				// ToastUtils.getInit(getApplicationContext()).show("添加失败");
 				// }
-				
+
 				findViewById(R.id.ll_waiting).setVisibility(View.GONE);
 				AlertDialog.Builder alertDialog = new AlertDialog.Builder(
 						NewRecommendActivity.this);
@@ -155,6 +154,5 @@ public class NewRecommendActivity extends Activity implements
 			}
 		}).execute();
 
-	
 	}
 }
