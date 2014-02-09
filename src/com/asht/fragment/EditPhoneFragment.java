@@ -41,14 +41,15 @@ public class EditPhoneFragment extends AshtFragment implements OnClickListener {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
 		mActivity.findViewById(R.id.tv_title_back).setOnClickListener(this);
-		Controller.setNomePagTop(getActivity(), true, "更换手机");
+		Controller.setNomePagTop(getActivity(), true, true, "更换手机");
 
 		et_newPhone = (EditText) mActivity.findViewById(R.id.et_newPhone);
 		et_checkNumber = (EditText) mActivity.findViewById(R.id.et_checkNumber);
 		et_payPwd = (EditText) mActivity.findViewById(R.id.et_payPwd);
 		btn_getCheckNumber = (Button) mActivity
 				.findViewById(R.id.btn_getCheckNumber);
-		btn_submit = (Button) mActivity.findViewById(R.id.btn_submit);
+		btn_submit = (Button) mActivity.findViewById(R.id.btnEdit);
+		btn_submit.setText("确定");
 		btn_getCheckNumber.setOnClickListener(this);
 		btn_submit.setOnClickListener(this);
 	}

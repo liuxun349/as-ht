@@ -53,7 +53,8 @@ public class EditLoginPasswordFragment extends AshtFragment implements
 		et_newLoginPwd = (EditText) mActivity.findViewById(R.id.et_newLoginPwd);
 		et_newLoginPwd2 = (EditText) mActivity
 				.findViewById(R.id.et_newLoginPwd2);
-		btn_submit = (Button) mActivity.findViewById(R.id.btn_submit);
+		btn_submit = (Button) mActivity.findViewById(R.id.btnEdit);
+		btn_submit.setText("确定");
 		btn_submit.setOnClickListener(this);
 	}
 

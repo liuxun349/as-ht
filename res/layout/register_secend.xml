@@ -1,166 +1,164 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/probject_bg"
     android:orientation="vertical" >
 
-    <FrameLayout style="@style/top" >
+    <include layout="@layout/app_toptitle" />
 
-        <TextView
-            android:layout_width="fill_parent"
+    <ScrollView
+        android:id="@+id/myscroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="30dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="@string/text_user_register"
-            android:textColor="@color/title_text_color"
-            android:textSize="@dimen/title_text_size" />
+            android:orientation="vertical"
+            android:padding="10dp" >
 
-        <TextView
-            android:id="@+id/tv_title_back"
-            android:layout_width="@dimen/title_height"
-            android:layout_height="@dimen/title_height"
-            android:layout_gravity="center_vertical|left"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="@string/title_back"
-            android:textColor="@color/title_text_color"
-            android:textSize="@dimen/title_text_size" />
-    </FrameLayout>
-
-    <LinearLayout
-        style="@style/body"
-        android:orientation="vertical"
-        android:padding="10dp" >
-
-        <TableLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
-
-            <TableRow
+            <TableLayout
                 android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" >
+                android:layout_height="wrap_content" >
 
-                <TextView
-                    style="@style/register_font"
-                    android:text="@string/text_user_name" />
-
-                <EditText
-                    android:id="@+id/etx_nickname"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:lines="1"
-                    android:maxLength="16"
-                    android:textSize="16.0sp" />
-            </TableRow>
+                    android:background="@drawable/edit_bg_selector"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp" >
 
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" >
+                    <TextView
+                        style="@style/register_font"
+                        android:text="@string/text_user_name" />
 
-                <TextView
-                    style="@style/register_font"
-                    android:text="@string/text_user_true_name" />
+                    <EditText
+                        android:id="@+id/etx_nickname"
+                        style="@style/register_editTxv_font"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:maxLength="16" />
+                </TableRow>
 
-                <EditText
-                    android:id="@+id/etx_turename"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="5dp"
                     android:layout_weight="1"
-                    android:lines="1"
-                    android:maxLength="16" />
-            </TableRow>
+                    android:background="@drawable/edit_bg_selector"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp" >
 
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" >
+                    <TextView
+                        style="@style/register_font"
+                        android:text="@string/text_user_true_name" />
 
-                <TextView
-                    style="@style/register_font"
-                    android:text="@string/text_card_class" />
+                    <EditText
+                        android:id="@+id/etx_turename"
+                        style="@style/register_editTxv_font"
+                        android:layout_weight="1"
+                        android:background="@null" />
+                </TableRow>
 
-                <EditText
-                    android:id="@+id/etx_certificateType"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="5dp"
                     android:layout_weight="1"
-                    android:textSize="16.0sp" />
-            </TableRow>
+                    android:background="@drawable/edit_bg_selector"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp" >
 
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" >
+                    <TextView
+                        style="@style/register_font"
+                        android:text="@string/text_card_class" />
 
-                <TextView
-                    style="@style/register_font"
-                    android:text="@string/text_card_id" />
+                    <Spinner
+                        android:id="@+id/etx_certificateType"
+                        style="@style/register_spinner"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:background="@null" />
 
-                <EditText
-                    android:id="@+id/etx_certificateNo"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/triangle_down" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="5dp"
                     android:layout_weight="1"
-                    android:textSize="16.0sp" />
-            </TableRow>
+                    android:background="@drawable/edit_bg_selector"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp" >
 
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:visibility="gone" >
+                    <TextView
+                        style="@style/register_font"
+                        android:text="@string/text_card_id" />
 
-                <TextView
-                    style="@style/register_font"
-                    android:text="@string/text_user_role" />
+                    <EditText
+                        android:id="@+id/etx_certificateNo"
+                        style="@style/register_editTxv_font"
+                        android:layout_weight="1"
+                        android:background="@null" />
+                </TableRow>
 
-                <EditText
-                    android:id="@+id/etx_roleId"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" >
-
-                <TextView
-                    style="@style/register_font"
-                    android:text="@string/text_user_email" />
-
-                <EditText
-                    android:id="@+id/etx_mailePre"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:textSize="16.0sp" />
-
-                <TextView
-                    style="@style/register_font"
-                    android:text="@string/at" />
-
-                <EditText
-                    android:id="@+id/etx_mailelast"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="5dp"
                     android:layout_weight="1"
-                    android:textSize="16.0sp" />
-            </TableRow>
-        </TableLayout>
-    </LinearLayout>
+                    android:background="@drawable/edit_bg_selector"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp" >
 
-    <Button
-        android:id="@+id/btn_next"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_margin="10dp"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="@string/text_sure" />
+                    <TextView
+                        style="@style/register_font"
+                        android:text="@string/text_user_role" />
 
-</FrameLayout>
+                    <Spinner
+                        android:id="@+id/etx_roleId"
+                        style="@style/register_spinner"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:clickable="false"
+                        android:background="@null" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/triangle_down" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/edit_bg_selector"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp" >
+
+                    <TextView
+                        style="@style/register_font"
+                        android:text="@string/text_user_email" />
+
+                    <EditText
+                        android:id="@+id/etx_mailePre"
+                        style="@style/register_editTxv_font"
+                        android:layout_weight="2"
+                        android:background="@null" />
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

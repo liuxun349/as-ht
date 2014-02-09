@@ -2,34 +2,13 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#ffefebe7" >
+    android:background="@color/white" >
 
-    <FrameLayout style="@style/top" >
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="@string/text_register"
-            android:textColor="@color/title_text_color"
-            android:textSize="@dimen/title_text_size" />
-
-        <TextView
-            android:id="@+id/tv_title_back"
-            android:layout_width="@dimen/title_height"
-            android:layout_height="@dimen/title_height"
-            android:layout_gravity="center_vertical|left"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="@string/title_back"
-            android:textColor="@color/title_text_color"
-            android:textSize="@dimen/title_text_size" />
-    </FrameLayout>
+    <include layout="@layout/app_toptitle" />
 
     <ScrollView
         android:id="@+id/regist_scroller"
         style="@style/body"
-        android:background="#ffefebe7"
         android:padding="10dp" >
 
         <LinearLayout
@@ -43,7 +22,8 @@
 
                 <TableRow
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" >
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/zmoney_item_top" >
 
                     <TextView
                         style="@style/register_font"
@@ -51,19 +31,22 @@
 
                     <EditText
                         android:id="@+id/login_pwd"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/register_editTxv_font"
                         android:layout_weight="1"
-                        android:background="@drawable/edit_text_x"
-                        android:lines="1"
-                        android:maxLength="16"
+                        android:background="@null"
                         android:password="true"
                         android:singleLine="true" />
                 </TableRow>
 
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/zmoney_item_line" />
+
                 <TableRow
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" >
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/zmoney_item_bottom" >
 
                     <TextView
                         style="@style/register_font"
@@ -71,19 +54,18 @@
 
                     <EditText
                         android:id="@+id/login_pwd_agin"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/register_editTxv_font"
                         android:layout_weight="1"
-                        android:background="@drawable/edit_text_x"
-                        android:lines="1"
-                        android:maxLength="16"
+                        android:background="@null"
                         android:password="true"
                         android:singleLine="true" />
                 </TableRow>
 
                 <TableRow
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" >
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/zmoney_item"
+                    android:visibility="gone" >
 
                     <View
                         android:layout_width="0dp"
@@ -100,7 +82,9 @@
 
                 <TableRow
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" >
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/zmoney_item_top" >
 
                     <TextView
                         style="@style/register_font"
@@ -108,19 +92,22 @@
 
                     <EditText
                         android:id="@+id/pay_pwd"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/register_editTxv_font"
                         android:layout_weight="1"
-                        android:background="@drawable/edit_text_x"
-                        android:lines="1"
-                        android:maxLength="16"
+                        android:background="@null"
                         android:password="true"
                         android:singleLine="true" />
                 </TableRow>
 
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/zmoney_item_line" />
+
                 <TableRow
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" >
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/zmoney_item_bottom" >
 
                     <TextView
                         style="@style/register_font"
@@ -128,19 +115,18 @@
 
                     <EditText
                         android:id="@+id/pay_pwd_agin"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/register_editTxv_font"
                         android:layout_weight="1"
-                        android:background="@drawable/edit_text_x"
-                        android:lines="1"
-                        android:maxLength="16"
+                        android:background="@null"
                         android:password="true"
                         android:singleLine="true" />
                 </TableRow>
 
                 <TableRow
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" >
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/zmoney_item"
+                    android:visibility="gone" >
 
                     <View
                         android:layout_width="0dp"
@@ -156,22 +142,41 @@
                 </TableRow>
 
                 <TableRow
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" >
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/zmoney_item_top"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp" >
 
                     <TextView
                         style="@style/register_font"
                         android:text="@string/text_Q_one" />
 
                     <Spinner
-                        android:id="@+id/securityQ_1"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content" />
+                        android:id="@+id/register_securityQ_1"
+                        style="@style/register_spinner"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:gravity="center_horizontal" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/triangle_down" />
                 </TableRow>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/zmoney_item_line" />
 
                 <TableRow
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" >
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/zmoney_item_bottom" >
 
                     <TextView
                         style="@style/register_font"
@@ -179,31 +184,46 @@
 
                     <EditText
                         android:id="@+id/securityA_1"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/register_editTxv_font"
                         android:layout_weight="1"
-                        android:background="@drawable/edit_text_x"
+                        android:background="@null"
                         android:singleLine="true" />
                 </TableRow>
 
                 <TableRow
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" >
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/zmoney_item_top" >
 
                     <TextView
                         style="@style/register_font"
                         android:text="@string/text_Q_sec" />
 
                     <Spinner
-                        android:id="@+id/securityQ_2"
-                        android:layout_width="fill_parent"
+                        android:id="@+id/register_securityQ_2"
+                        style="@style/register_spinner"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:gravity="center_horizontal" />
+
+
+                    <ImageView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:singleLine="true" />
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/triangle_down" />
                 </TableRow>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/zmoney_item_line" />
 
                 <TableRow
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" >
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/zmoney_item_bottom" >
 
                     <TextView
                         style="@style/register_font"
@@ -211,10 +231,9 @@
 
                     <EditText
                         android:id="@+id/securityA_2"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/register_editTxv_font"
                         android:layout_weight="1"
-                        android:background="@drawable/edit_text_x"
+                        android:background="@null"
                         android:singleLine="true" />
                 </TableRow>
             </TableLayout>
@@ -223,7 +242,6 @@
                 android:id="@+id/register_end"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
                 android:layout_gravity="bottom"
                 android:layout_margin="20dp"
                 android:layout_marginBottom="16dp"

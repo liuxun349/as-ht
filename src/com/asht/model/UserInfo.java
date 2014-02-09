@@ -67,8 +67,8 @@ public class UserInfo extends AshtResponse {
 	}
 
 	private void parseJson() throws AsHtException{
-		if(!success){
-			throw new AsHtException("登录失败！",10011);
+		if(result == null){
+			throw new AsHtException("密码错误！",10011);
 		}
 		UserInfo rs = JSON.parseObject(result.toString(), UserInfo.class);
 		if (rs == null)

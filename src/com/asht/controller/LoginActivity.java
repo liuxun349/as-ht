@@ -6,6 +6,8 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.InputType;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -16,6 +18,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.asht.AsHt;
 import com.asht.AsHtException;
@@ -25,15 +28,53 @@ import com.asht.R;
 import com.asht.model.UserInfo;
 import com.asht.utl.ApplictionManager;
 import com.asht.utl.AshtUtil;
+import com.asht.view.WaitingDialog;
 
-public class LoginActivity extends Activity implements AsyncDataLoader.Callback {
+public class LoginActivity extends Activity {
 	private EditText login_input_name, login_input_password;
 	private Button btn_login, register;
 	private CheckBox remember_user, display_passwd;
 	private String userName, userPwd;
-	private Dialog dialog;
-	private AsyncDataLoader login;
-	private UserInfo userInfo;
+	private WaitingDialog mDialog;
+	private Handler mHandler = new Handler() {
+		public void handleMessage(android.os.Message msg) {
+			if (msg.arg1 == 0) {
+				mDialog.dismiss();
+				Toast.makeText(getApplicationContext(), (String) msg.obj, 0)
+						.show();
+			} else if (msg.arg1 == 1) {
+				mDialog.dismiss();
+				loginSuccess();
+			}
+		};
+	};
+	private Thread loginThread;
+
+	private Thread login() {
+		Thread t1 = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				Message msg = new Message();
+				try {
+					ApplictionManager.getInstance().userInfo = AsHt
+							.getInstance().login(userName, userPwd);
+				} catch (AsHtException e) {
+					// TODO Auto-generated catch block
+					System.out.println(" " + e.getMessage());
+					msg.arg1 = 0;
+					msg.obj = e.getMessage();
+					mHandler.sendMessage(msg);
+					return;
+				}
+				msg.arg1 = 1;
+				mHandler.sendMessage(msg);
+			}
+		});
+		t1.start();
+		return t1;
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +84,7 @@ public class LoginActivity extends Activity implements AsyncDataLoader.Callback 
 		setContentView(R.layout.login);
 		getView();
 		setLinsener();
-		login = new AsyncDataLoader(this);
+		mDialog = new WaitingDialog(this);
 	}
 
 	private void getView() {
@@ -69,8 +110,9 @@ public class LoginActivity extends Activity implements AsyncDataLoader.Callback 
 				// TODO Auto-generated method stub
 				userName = login_input_name.getText().toString().trim();
 				userPwd = login_input_password.getText().toString().trim();
-				login.execute();
 				if (AshtUtil.IsHandset(userName)) {
+					mDialog.show();
+					loginThread = login();
 				} else {
 					System.out.println("格式错误");
 				}
@@ -117,15 +159,28 @@ public class LoginActivity extends Activity implements AsyncDataLoader.Callback 
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-
-				Intent intent = new Intent(LoginActivity.this,
-						RegisterFirstActivity.class);
-				startActivity(intent);
-
+				Controller.RegisterActivity(LoginActivity.this);
+				LoginActivity.this.finish();
 			}
 		});
 	}
 
+	private void loginSuccess() {
+		ApplictionManager.getInstance().getUser().setIsLogin(true);
+		ApplictionManager.getInstance().getUser()
+				.setUserInfo(ApplictionManager.getInstance().userInfo);
+		try {
+			AshtSettings.getInstance().setUserId(userName);
+			AshtSettings.getInstance().setUserPwd(userPwd);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Controller.MainHomePageActivity(this);
+		finish();
+	}
+
+	// 退出
 	public boolean dispatchKeyEvent(KeyEvent event) {
 		int keyCode = event.getKeyCode();
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -153,44 +208,5 @@ public class LoginActivity extends Activity implements AsyncDataLoader.Callback 
 			}
 		}
 		return super.dispatchKeyEvent(event);
-	}
-
-	@Override
-	public void onPrepareAsync() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onStartAsync() {
-		// TODO Auto-generated method stub
-		try {
-			ApplictionManager.getInstance().userInfo = AsHt.getInstance()
-					.login(userName, userPwd);
-		} catch (AsHtException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		loginSuccess();
-	}
-
-	@Override
-	public void onFinishAsync() { 
-		// TODO Auto-generated method stub
-		LoginActivity.this.finish();
-	}
-
-	private void loginSuccess() {
-		ApplictionManager.getInstance().getUser().setIsLogin(true);
-		try {
-			AshtSettings.getInstance().setUserId(userName);
-			AshtSettings.getInstance().setUserPwd(userPwd);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-		startActivity(intent);
 	}
 }

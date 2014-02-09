@@ -1,7 +1,7 @@
 package com.asht;
 
 public class AsHtException extends Exception {
-	private int statusCode = -1;
+	public int statusCode = -1;
 
 	public AsHtException(String msg) {
 		super(msg);
@@ -14,6 +14,5 @@ public class AsHtException extends Exception {
 	public AsHtException(String msg, int statusCode) {
 		super(msg);
 		this.statusCode = statusCode;
-
 	}
 }

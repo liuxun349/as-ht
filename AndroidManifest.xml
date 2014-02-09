@@ -45,13 +45,8 @@
         <activity android:name="com.asht.controller.MyAcountActivity" >
         </activity>
         <activity android:name="com.asht.controller.LoginActivity" />
-        <activity android:name="com.asht.controller.RegisterFirstActivity" >
+        <activity android:name="com.asht.controller.ContainerFragmentActivity" >
         </activity>
-        <activity android:name="com.asht.controller.RegisterSecendActivity" >
-        </activity>
-        <activity android:name="com.asht.controller.RegisterEndActivity" >
-        </activity>
-        <activity android:name="com.asht.controller.ContainerFragmentActivity"></activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

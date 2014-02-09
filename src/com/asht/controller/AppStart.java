@@ -26,7 +26,6 @@ public class AppStart extends Activity implements Callback {
 	private String userPhoneNo = "";
 	private String userPwd = "";
 	private AsHt mAsht;
-	private WaitingDialog dialog;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -36,7 +35,6 @@ public class AppStart extends Activity implements Callback {
 		AshtSettings.initailze(this);
 		AsHt.initalize();
 		mAshtSettings = AshtSettings.getInstance();
-		dialog = new WaitingDialog(this);
 
 		// WaitingDialog dialog = new WaitingDialog(this);
 		// new Handler().postDelayed(new Runnable() {
@@ -76,8 +74,7 @@ public class AppStart extends Activity implements Callback {
 
 	private void loginActivity() {
 		// TODO Auto-generated method stub
-		Intent intent = new Intent(AppStart.this, LoginActivity.class);
-		startActivity(intent);
+		Controller.LoginActivity(AppStart.this);
 	}
 
 	private void autoLogin() {
@@ -94,9 +91,10 @@ public class AppStart extends Activity implements Callback {
 		mAsht = AsHt.getInstance();
 		try {
 			userInfo = mAsht.login(userPhoneNo, userPwd);
+			
 		} catch (AsHtException e) {
 			// TODO Auto-generated catch block
-			Controller.LoginActivity(AppStart.this);
+			loginActivity();
 		}
 		if (userInfo.success == true) {
 			ApplictionManager.getInstance().userInfo = userInfo;
@@ -104,7 +102,7 @@ public class AppStart extends Activity implements Callback {
 			ApplictionManager.getInstance().getUser().setUserInfo(userInfo);
 			Controller.MainHomePageActivity(AppStart.this);
 		} else {
-			Controller.LoginActivity(AppStart.this);
+			loginActivity();
 		}
 	}
 

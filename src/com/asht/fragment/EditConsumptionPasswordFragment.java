@@ -45,10 +45,11 @@ public class EditConsumptionPasswordFragment extends AshtFragment implements
 		et_careId = (EditText) mActivity.findViewById(R.id.et_cardId);
 		et_phone = (EditText) mActivity.findViewById(R.id.et_phone);
 		et_inputName = (EditText) mActivity.findViewById(R.id.et_checkNumber);
-		btn_submit = (Button) mActivity.findViewById(R.id.btn_submit);
+		btn_submit = (Button) mActivity.findViewById(R.id.btnEdit);
 		btn_getCheckNumber = (Button) mActivity
 				.findViewById(R.id.btn_getCheckNumber);
 		btn_submit.setOnClickListener(this);
+		btn_submit.setText("确定");
 		btn_getCheckNumber.setOnClickListener(this);
 	}
 

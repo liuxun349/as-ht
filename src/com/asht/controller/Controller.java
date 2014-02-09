@@ -11,6 +11,7 @@ import com.asht.fragment.EditPhoneFragment;
 import com.asht.fragment.EditPwdAnswerFragment;
 import com.asht.fragment.FindPayPwdFragment;
 import com.asht.fragment.MessageDetailFragment;
+import com.asht.fragment.RegisterFirstFragment;
 import com.asht.fragment.SafetyCenterFragment;
 import com.asht.fragment.SendAdviceFragment;
 import com.asht.model.Advice;
@@ -37,6 +38,21 @@ public class Controller {
 			String titleName) {
 		if (haveBackBtn) {
 			Button back = (Button) mActivity.findViewById(R.id.tv_title_back);
+			back.setVisibility(View.VISIBLE);
+		}
+		TextView titleNameTxv = (TextView) mActivity
+				.findViewById(R.id.app_title_name);
+		titleNameTxv.setText(titleName);
+	}
+
+	public static void setNomePagTop(Activity mActivity, boolean haveBackBtn,
+			boolean haveRightBtn, String titleName) {
+		if (haveBackBtn) {
+			Button back = (Button) mActivity.findViewById(R.id.tv_title_back);
+			back.setVisibility(View.VISIBLE);
+		}
+		if (haveRightBtn) {
+			Button back = (Button) mActivity.findViewById(R.id.btnEdit);
 			back.setVisibility(View.VISIBLE);
 		}
 		TextView titleNameTxv = (TextView) mActivity
@@ -104,7 +120,9 @@ public class Controller {
 	 * @param context
 	 */
 	public static void RegisterActivity(Context context) {
-		Intent intent = new Intent(context, RegisterFirstActivity.class);
+		Intent intent = new Intent(context, ContainerFragmentActivity.class);
+		RegisterFirstFragment mFragment = new RegisterFirstFragment();
+		ApplictionManager.getInstance().currentFragment = mFragment;
 		context.startActivity(intent);
 	}
 
@@ -237,4 +255,5 @@ public class Controller {
 		ApplictionManager.getInstance().currentFragment = mFragment;
 		context.startActivity(intent);
 	}
+
 }

@@ -52,48 +52,48 @@
 
                 <TableRow
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" >
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/zmoney_item_top" >
 
                     <TextView
                         android:id="@+id/login_page_input_name"
                         style="@style/userinfo_font"
-                        android:text="@string/text_login_user_name"
-                        android:textColor="#FF000000" />
+                        android:text="@string/text_login_user_name" />
 
                     <EditText
                         android:id="@+id/login_input_name"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/register_editTxv_font"
                         android:layout_weight="1"
-                        android:background="@drawable/edit_text_x"
+                        android:background="@null"
                         android:hint="@string/text_login_user_name_toast"
                         android:numeric="integer"
-                        android:singleLine="true"
-                        android:textSize="16.0sp" />
+                        android:singleLine="true" />
                 </TableRow>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/zmoney_item_line" />
 
                 <TableRow
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" >
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/zmoney_item_bottom" >
 
                     <TextView
                         android:id="@+id/login_page_input_password"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/text_login_user_passwd"
-                        android:textColor="@color/black" />
+                        style="@style/userinfo_font"
+                        android:text="@string/text_login_user_passwd" />
 
                     <EditText
                         android:id="@+id/login_input_password"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/register_editTxv_font"
                         android:layout_weight="1"
-                        android:background="@drawable/edit_text_x"
+                        android:background="@null"
                         android:hint="@string/text_login_user_passwd_toast"
                         android:inputType="textPassword"
                         android:password="true"
-                        android:singleLine="true"
-                        android:textSize="16.0sp" />
+                        android:singleLine="true" />
                 </TableRow>
             </TableLayout>
 
@@ -146,7 +146,9 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:text="@string/text_login" />
+                android:background="@drawable/btn_defalut_selector"
+                android:text="@string/text_login"
+                android:textColor="@color/white" />
         </LinearLayout>
     </ScrollView>
 

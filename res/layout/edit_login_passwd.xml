@@ -5,7 +5,7 @@
     android:background="@color/probject_bg"
     android:orientation="vertical" >
 
-   <include layout="@layout/app_toptitle"/>
+    <include layout="@layout/app_toptitle" />
 
     <LinearLayout
         style="@style/body"
@@ -14,69 +14,75 @@
 
         <TableLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_bg_selector" >
 
             <TableRow
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1" >
+                android:layout_weight="1"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp" >
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/register_font"
                     android:text="旧密码：" />
 
                 <EditText
                     android:id="@+id/et_oldLoginPwd"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    style="@style/register_editTxv_font"
+                    android:layout_weight="1"
+                    android:background="@null" />
             </TableRow>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/zmoney_item_line" />
 
             <TableRow
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1" >
+                android:layout_weight="1"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp" >
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/register_font"
                     android:text="新密码：" />
 
                 <EditText
                     android:id="@+id/et_newLoginPwd"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    style="@style/register_editTxv_font"
                     android:layout_weight="1"
+                    android:background="@null"
                     android:password="true" />
             </TableRow>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/zmoney_item_line" />
 
             <TableRow
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1" >
+                android:layout_weight="1"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp" >
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/register_font"
                     android:text="再次输入：" />
 
                 <EditText
                     android:id="@+id/et_newLoginPwd2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    style="@style/register_editTxv_font"
                     android:layout_weight="1"
+                    android:background="@null"
                     android:password="true" />
             </TableRow>
         </TableLayout>
-
-        <Button
-            android:id="@+id/btn_submit"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="确 定" />
     </LinearLayout>
 
 </FrameLayout>

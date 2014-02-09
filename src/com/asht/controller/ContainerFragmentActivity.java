@@ -1,27 +1,25 @@
 package com.asht.controller;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.provider.SyncStateContract.Constants;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
+import android.view.inputmethod.InputMethodManager;
 
 import com.asht.R;
 import com.asht.fragment.AshtFragment;
 import com.asht.fragment.AshtFragmentCallback;
-import com.asht.fragment.EditLoginPasswordFragment;
 import com.asht.utl.ApplictionManager;
 
 public class ContainerFragmentActivity<Container> extends FragmentActivity {
 	private View containerView;
 	private FragmentManager fManager;
 	private AshtFragment fragment;
+	private Activity mActivity;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +31,7 @@ public class ContainerFragmentActivity<Container> extends FragmentActivity {
 		fragment.setAshtFragmentCallback(callback);
 		fManager.beginTransaction().add(R.id.fragment_container, fragment)
 				.commit();
+		mActivity = this;
 	}
 
 	private AshtFragmentCallback callback = new AshtFragmentCallback() {
@@ -56,11 +55,21 @@ public class ContainerFragmentActivity<Container> extends FragmentActivity {
 	private float mLastx = 0;
 	private float x = 0;
 
+	@Override
 	public boolean onTouchEvent(MotionEvent event) {
+		// TODO Auto-generated method stub
 
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN:
 			mLastx = x = event.getX();
+			System.out.println(" yes ");
+			if (getCurrentFocus() != null
+					&& getCurrentFocus().getWindowToken() != null) {
+				((InputMethodManager) getSystemService(mActivity.INPUT_METHOD_SERVICE))
+						.hideSoftInputFromWindow(getCurrentFocus()
+								.getWindowToken(),
+								InputMethodManager.HIDE_NOT_ALWAYS);
+			}
 			break;
 		case MotionEvent.ACTION_MOVE:
 			mLastx = event.getX();
@@ -71,7 +80,6 @@ public class ContainerFragmentActivity<Container> extends FragmentActivity {
 			}
 			break;
 		}
-		return true;
+		return super.onTouchEvent(event);
 	}
-
 }
