@@ -42,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:text="点击查看详情"
                     android:textColor="@color/black" />
-
+ 
             </LinearLayout>
         </LinearLayout>
 

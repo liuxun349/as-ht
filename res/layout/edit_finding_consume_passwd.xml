@@ -2,14 +2,13 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#ffefebe7" >
+    android:background="@color/probject_bg" >
 
-    <include layout="@layout/app_toptitle"/>
+    <include layout="@layout/app_toptitle" />
 
     <ScrollView
         android:id="@+id/regist_scroller"
         style="@style/body"
-        android:background="#ffefebe7"
         android:padding="10dp" >
 
         <LinearLayout
@@ -22,97 +21,101 @@
                 android:layout_height="wrap_content" >
 
                 <TableRow
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" >
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/zmoney_item_top"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp" >
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/text_Q_one"
-                        android:textColor="@color/black" />
+                        style="@style/register_font"
+                        android:text="@string/text_Q_one" />
 
                     <Spinner
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/register_securityQ_1"
+                        style="@style/register_spinner"
                         android:layout_weight="1"
-                        android:background="@drawable/edit_text_x"
-                        android:editable="false"
-                        android:singleLine="true" />
+                        android:background="@null"
+                        android:gravity="center_horizontal" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/triangle_down" />
                 </TableRow>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/zmoney_item_line" />
 
                 <TableRow
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" >
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/zmoney_item_bottom" >
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/text_answer"
-                        android:textColor="@color/black" />
+                        style="@style/register_font"
+                        android:text="@string/text_answer" />
 
                     <EditText
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/securityA_1"
+                        style="@style/register_editTxv_font"
                         android:layout_weight="1"
-                        android:background="@drawable/edit_text_x"
-                        android:editable="false"
+                        android:background="@null"
                         android:singleLine="true" />
                 </TableRow>
 
                 <TableRow
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" >
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/zmoney_item_top" >
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/text_Q_sec"
-                        android:textColor="@color/black" />
+                        style="@style/register_font"
+                        android:text="@string/text_Q_sec" />
 
                     <Spinner
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/register_securityQ_2"
+                        style="@style/register_spinner"
                         android:layout_weight="1"
-                        android:background="@drawable/edit_text_x"
-                        android:editable="false"
-                        android:singleLine="true" />
+                        android:background="@null"
+                        android:gravity="center_horizontal" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/triangle_down" />
                 </TableRow>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/zmoney_item_line" />
 
                 <TableRow
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" >
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/zmoney_item_bottom" >
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/text_answer"
-                        android:textColor="@color/black" />
+                        style="@style/register_font"
+                        android:text="@string/text_answer" />
 
                     <EditText
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/securityA_2"
+                        style="@style/register_editTxv_font"
                         android:layout_weight="1"
-                        android:background="@drawable/edit_text_x"
-                        android:editable="false"
+                        android:background="@null"
                         android:singleLine="true" />
                 </TableRow>
             </TableLayout>
         </LinearLayout>
     </ScrollView>
-
-    <Button
-        android:id="@+id/btn_submit"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_gravity="bottom"
-        android:layout_margin="20dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/android_big_button_x"
-        android:gravity="center"
-        android:text="确认"
-        android:textColor="#ff000000"
-        android:textSize="20.0sp" />
 
 </FrameLayout>

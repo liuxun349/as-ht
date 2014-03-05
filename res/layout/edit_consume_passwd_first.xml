@@ -11,38 +11,43 @@
         style="@style/body"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         android:padding="10dp" >
 
         <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/zmoney_item"
-            android:padding="10dp" >
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
 
             <TableRow
                 android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" >
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/list_above" >
 
                 <TextView
                     style="@style/register_font"
                     android:text="@string/text_card_class" />
 
-                <EditText
-                    android:id="@+id/etx_certificateType"
-                    style="@style/register_editTxv_font"
+                <Spinner
+                    android:id="@+id/id_care"
+                    style="@style/register_spinner"
+                    android:layout_width="fill_parent"
+                    android:layout_span="3"
                     android:layout_weight="1"
-                    android:background="@null" />
-            </TableRow>
+                    android:background="@null"
+                    android:gravity="center_horizontal" />
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/zmoney_item_line" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|right"
+                    android:background="@drawable/triangle_down" />
+            </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:background="@drawable/list_mid" >
 
                 <TextView
                     style="@style/register_font"
@@ -55,14 +60,10 @@
                     android:background="@null" />
             </TableRow>
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/zmoney_item_line" />
-
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:background="@drawable/list_mid" >
 
                 <TextView
                     style="@style/register_font"
@@ -75,14 +76,10 @@
                     android:background="@null" />
             </TableRow>
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/zmoney_item_line" />
-
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="match_parent"
+                android:background="@drawable/list_below" >
 
                 <TextView
                     style="@style/register_font"
@@ -93,24 +90,15 @@
                     style="@style/register_editTxv_font"
                     android:layout_weight="1"
                     android:background="@null" />
-            </TableRow>
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/zmoney_item_line" />
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
 
                 <Button
                     android:id="@+id/btn_getCheckNumber"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:background="@drawable/btn_defalut_selector"
                     android:text="@string/text_get_check_number"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/title_text_color" />
             </TableRow>
         </TableLayout>
     </LinearLayout>

@@ -15,13 +15,12 @@
 
         <TableLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/zmoney_item"
-            android:padding="10.0dip" >
+            android:layout_height="wrap_content" >
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:background="@drawable/list_above" >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -36,19 +35,17 @@
                     android:background="@null" />
             </TableRow>
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/zmoney_item_line" />
-
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:background="@drawable/list_mid" >
 
                 <TextView
+                    
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="验证码:"
+                    android:gravity="right"
                     android:textColor="@color/black" />
 
                 <EditText
@@ -56,21 +53,27 @@
                     style="@style/register_editTxv_font"
                     android:layout_weight="1"
                     android:background="@null" />
-            </TableRow>
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/zmoney_item_line" />
+                <Button
+                    android:id="@+id/getCheckNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/btn_defalut_selector"
+                    android:text="@string/text_get_check_number"
+                    android:textColor="@color/title_text_color" />
+            </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:background="@drawable/list_below" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="消费密码:"
+                    android:gravity="right"
                     android:textColor="@color/black" />
 
                 <EditText
@@ -78,23 +81,6 @@
                     style="@style/register_editTxv_font"
                     android:layout_weight="1"
                     android:background="@null" />
-            </TableRow>
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/zmoney_item_line" />
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-
-                <Button
-                    android:id="@+id/btn_getCheckNumber"
-                    android:layout_weight="1"
-                    android:background="@drawable/btn_defalut_selector"
-                    android:text="获取验证码"
-                    android:textColor="@color/white" />
             </TableRow>
         </TableLayout>
     </LinearLayout>

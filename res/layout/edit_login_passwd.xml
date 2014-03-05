@@ -14,13 +14,13 @@
 
         <TableLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/edit_bg_selector" >
+            android:layout_height="wrap_content" >
 
             <TableRow
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:background="@drawable/list_above"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp" >
 
@@ -35,15 +35,11 @@
                     android:background="@null" />
             </TableRow>
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/zmoney_item_line" />
-
             <TableRow
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:background="@drawable/list_mid"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp" >
 
@@ -59,15 +55,11 @@
                     android:password="true" />
             </TableRow>
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/zmoney_item_line" />
-
             <TableRow
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:background="@drawable/list_below"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp" >
 
