@@ -3,10 +3,11 @@ package com.asht.http;
 import com.alibaba.fastjson.JSONObject;
 import com.asht.AsHtException;
 import com.asht.model.UserInfo;
+import com.asht.utl.Settings;
 
 public class UserService {
 	private static final String NAMESPACE = "http://userService.CXFWebservice.modules.www.ascs.com/";
-	private static final String SERVICEURL = "http://115.28.48.85:8080/ascs/WS/UserService?wsdl";
+	private static final String SERVICEURL = Settings.WEB_URL+"ascs/WS/UserService?wsdl";
 	private String method ;
 	private HttpClient httpClient = new HttpClient(NAMESPACE,SERVICEURL);
 	JSONObject json;

@@ -27,6 +27,7 @@ import com.asht.model.Record;
 import com.asht.model.Resume;
 import com.asht.model.UserInfo;
 import com.asht.utl.ApplictionManager;
+import com.asht.utl.Settings;
 import com.asht.view.Diag;
 import com.yj.compress.YJBitmap;
 
@@ -415,8 +416,7 @@ public class CasesSingleController implements OnItemClickListener,
 			if (r != null) {
 				resume.setAttribute(r);
 				YJBitmap.create(mContext).addImageCache(
-						"http://115.28.48.85:8080/ascs/"
-								+ r.getImedicalrecorditemfilename(),
+						Settings.WEB_URL + r.getImedicalrecorditemfilename(),
 						resume.getLocalRecordImageUrl());
 				resume.setState(3);
 			}

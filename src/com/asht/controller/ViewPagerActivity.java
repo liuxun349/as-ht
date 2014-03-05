@@ -32,6 +32,7 @@ import android.widget.TextView;
 
 import com.asht.R;
 import com.asht.model.Resume;
+import com.asht.utl.Settings;
 import com.asht.view.HackyViewPager;
 import com.yj.compress.YJBitmap;
 
@@ -125,10 +126,10 @@ public class ViewPagerActivity extends Activity {
 
 			yjBitmap.display(
 					photoView,
-					"http://115.28.48.85:8080/ascs/"
+					Settings.WEB_URL
 							+ resumes.get(position)
 									.getImedicalrecorditemfilename(),
-					yjBitmap.getBitmapFromCache("http://115.28.48.85:8080/ascs/"
+					yjBitmap.getBitmapFromCache(Settings.WEB_URL
 							+ resumes.get(position).getMinFileName()));
 			photoView.setId(10000 + position);
 			photoView.setOnClickListener(onclick);

@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.asht.R;
 import com.asht.model.Resume;
+import com.asht.utl.Settings;
 import com.yj.compress.YJBitmap;
 
 public class MyCasesSingleAdapter extends BaseAdapter {
@@ -120,7 +121,7 @@ public class MyCasesSingleAdapter extends BaseAdapter {
 		hview = (MyCasesSingleItemView) convertView.getTag();
 		Resume info = infos.get(position);
 		// bit.display(hview.iv1,
-		// "http://115.28.48.85:8080/ascs/" + info.getMinFileName());
+		// Settings.WEB_URL + info.getMinFileName());
 		if (info.getState() != 3) {
 			mYjBitmap.display(hview.iv1, info.getLocalRecordImageUrl(), width,
 					width);
@@ -135,7 +136,7 @@ public class MyCasesSingleAdapter extends BaseAdapter {
 		} else {
 
 			hview.tv_case_upload.setVisibility(View.GONE);
-			mYjBitmap.display(hview.iv1, "http://115.28.48.85:8080/ascs/"
+			mYjBitmap.display(hview.iv1, Settings.WEB_URL
 					+ info.getMinFileName(), width, width);
 			hview.cbIsShenHe.setChecked("1".equals(info.getIstate()));
 

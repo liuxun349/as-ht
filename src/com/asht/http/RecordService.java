@@ -5,11 +5,12 @@ import java.util.List;
 import com.alibaba.fastjson.JSONObject;
 import com.asht.AsHtException;
 import com.asht.model.UserInfo;
+import com.asht.utl.Settings;
 import com.yj.compress.BitmapCompressUtils;
 
 public class RecordService {
 	private static final String NAMESPACE = "http://recordService.CXFWebservice.modules.www.ascs.com/";
-	private static final String SERVICEURL = "http://115.28.48.85:8080/ascs/WS/RecordService?wsdl";
+	private static final String SERVICEURL = Settings.WEB_URL+"ascs/WS/RecordService?wsdl";
 	private String method;
 	private HttpClient httpClient = new HttpClient(NAMESPACE, SERVICEURL);
 	private JSONObject json;

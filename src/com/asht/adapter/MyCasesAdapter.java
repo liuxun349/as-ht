@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.tsz.afinal.FinalBitmap;
-
 import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
@@ -17,8 +16,7 @@ import android.widget.TextView;
 
 import com.asht.R;
 import com.asht.model.Record;
-import com.asht.model.Resume;
-import com.example.controller.AFinalController;
+import com.asht.utl.Settings;
 
 public class MyCasesAdapter extends BaseAdapter {
 
@@ -127,13 +125,13 @@ public class MyCasesAdapter extends BaseAdapter {
 
 		Record myCasesInfo = infos.get(position);
 
-		mBitmap.display(myCasesItemView.iv1, "http://115.28.48.85:8080/ascs/"
+		mBitmap.display(myCasesItemView.iv1, Settings.WEB_URL
 				+ myCasesInfo.getImg1(), width / 4, height / 4);
-		mBitmap.display(myCasesItemView.iv2, "http://115.28.48.85:8080/ascs/"
+		mBitmap.display(myCasesItemView.iv2, Settings.WEB_URL
 				+ myCasesInfo.getImg2(), width / 4, height / 4);
-		mBitmap.display(myCasesItemView.iv3, "http://115.28.48.85:8080/ascs/"
+		mBitmap.display(myCasesItemView.iv3, Settings.WEB_URL
 				+ myCasesInfo.getImg3(), width / 4, height / 4);
-		mBitmap.display(myCasesItemView.iv4, "http://115.28.48.85:8080/ascs/"
+		mBitmap.display(myCasesItemView.iv4, Settings.WEB_URL
 				+ myCasesInfo.getImg4(), width / 4, height / 4);
 
 		myCasesItemView.tv_title.setText(myCasesInfo
