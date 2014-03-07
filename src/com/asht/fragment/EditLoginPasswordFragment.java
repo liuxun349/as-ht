@@ -1,9 +1,11 @@
 package com.asht.fragment;
 
+import android.R.bool;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,8 @@ import com.asht.AsHtException;
 import com.asht.R;
 import com.asht.controller.Controller;
 import com.asht.utl.ApplictionManager;
+import com.asht.view.ToastUtils;
+import com.asht.view.WaitingDialog;
 
 @SuppressLint("ValidFragment")
 public class EditLoginPasswordFragment extends AshtFragment implements
@@ -23,9 +27,13 @@ public class EditLoginPasswordFragment extends AshtFragment implements
 	private Activity mActivity;
 	private EditText et_oldLoginPwd, et_newLoginPwd, et_newLoginPwd2;
 	private Button btn_submit;
+	private WaitingDialog waitingDialog;
 	private Handler mHandler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
-
+			if ((Boolean) msg.obj) {
+				waitingDialog.dismiss();
+				callback.back();
+			}
 		};
 	};
 
@@ -47,7 +55,7 @@ public class EditLoginPasswordFragment extends AshtFragment implements
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
-		Controller.setNomePagTop(getActivity(), "修改登录密码",true,true,"确定" );
+		Controller.setNomePagTop(getActivity(), "修改登录密码", true, true, "确定");
 		mActivity.findViewById(R.id.tv_title_back).setOnClickListener(this);
 		et_oldLoginPwd = (EditText) mActivity.findViewById(R.id.et_oldLoginPwd);
 		et_newLoginPwd = (EditText) mActivity.findViewById(R.id.et_newLoginPwd);
@@ -55,6 +63,7 @@ public class EditLoginPasswordFragment extends AshtFragment implements
 				.findViewById(R.id.et_newLoginPwd2);
 		btn_submit = (Button) mActivity.findViewById(R.id.btnEdit);
 		btn_submit.setOnClickListener(this);
+		waitingDialog = new WaitingDialog(getActivity());
 	}
 
 	@Override
@@ -77,7 +86,8 @@ public class EditLoginPasswordFragment extends AshtFragment implements
 			System.out.println(" out .. ");
 			callback.back();
 			break;
-		case R.id.btn_submit:
+		case R.id.btnEdit:
+
 			submitNewsPwd();
 			break;
 		default:
@@ -88,14 +98,21 @@ public class EditLoginPasswordFragment extends AshtFragment implements
 
 	private void submitNewsPwd() {
 		final String oldPwd = et_oldLoginPwd.getText().toString();
-		final String newPwd = et_newLoginPwd.getText().toString();
+		final String newPwd = et_newLoginPwd.getText().toString().trim();
+		final String newPwdAgain = et_newLoginPwd2.getText().toString().trim();
+		if (!newPwd.equals(newPwdAgain)) {
+			System.out.println(" ysout.... ");
+			ToastUtils.getInit(getActivity().getApplicationContext()).show(
+					"修改登陆密码失败");
+			return;
+		}
+		waitingDialog.show();
 		new Thread(new Runnable() {
 
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
 				boolean isSuccess = false;
-
 				try {
 					isSuccess = AsHt.getInstance().modifyLoginPasswd(
 							ApplictionManager.getInstance().userInfo, oldPwd,
@@ -107,37 +124,11 @@ public class EditLoginPasswordFragment extends AshtFragment implements
 				if (isSuccess) {
 					System.out.println(" success ");
 				}
+				Message message = new Message();
+				message.obj = isSuccess;
+				mHandler.sendMessage(message);
 			}
 		}).start();
-		// UserBaseHandlerDAO.modifyLoginPassword("100001", oldPwd, newPwd,
-		// new ConnCallback() {
-		//
-		// @Override
-		// public void connCode(int code, String result) {
-		// // TODO Auto-generated method stub
-		// try {
-		// if (code == 1) {
-		// JSONObject json = new JSONObject(result);
-		// if (json.getInt(Settings.RETURN_CODE) == Settings.RETURN_CODE_ACCESS)
-		// {
-		// ToastUtils.getInit(getApplicationContext())
-		// .show("修改登陆密码成功");
-		// System.out.println("修改登陆密码成功");
-		// setResult(RESULT_CANCELED);
-		// finish();
-		// } else {
-		// ToastUtils.getInit(getApplicationContext())
-		// .show("修改登陆密码失败");
-		// System.out.println("修改登陆密码失败");
-		// }
-		// }else{
-		// ToastUtils.getInit(getApplicationContext()).show("正在请求中 请稍后。。。");
-		// }
-		//
-		// } catch (Exception e) {
-		// }
-		// }
-		//
-		// });
 	}
+
 }

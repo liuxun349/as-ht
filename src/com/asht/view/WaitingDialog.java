@@ -14,17 +14,25 @@ import android.view.animation.AnimationUtils;
 public class WaitingDialog {
 	AnimationDrawable rocketAnimation;
 	private Dialog dialog;
+
 	public WaitingDialog(Context context) {
 		// TODO Auto-generated constructor stub
-		View view = LayoutInflater.from(context).inflate(R.layout.waiting, null);
-		Animation animation = AnimationUtils.loadAnimation(context, R.anim.loading);
+		View view = LayoutInflater.from(context)
+				.inflate(R.layout.waiting, null);
+		Animation animation = AnimationUtils.loadAnimation(context,
+				R.anim.loading);
 		view.findViewById(R.id.waitingImage).setAnimation(animation);
-		dialog = new AlertDialog.Builder(context).setView(view).setTitle("加载中：").create();
+		dialog = new AlertDialog.Builder(context).setView(view)
+				.setTitle("加载中：").create();
 	}
-	public void show(){
+
+	public void show() {
 		dialog.show();
 	}
-	public void dismiss(){
-		dialog.dismiss();
+
+	public void dismiss() {
+		if (dialog != null && dialog.isShowing()) {
+			dialog.dismiss();
+		}
 	}
 }

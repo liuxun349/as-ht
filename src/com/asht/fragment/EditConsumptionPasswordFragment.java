@@ -40,7 +40,7 @@ public class EditConsumptionPasswordFragment extends AshtFragment implements
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
-		Controller.setNomePagTop(getActivity(), true, "修改消费密码");
+		Controller.setNomePagTop(getActivity(), "修改消费密码", true, true, "下一步");
 		mActivity.findViewById(R.id.tv_title_back).setOnClickListener(this);
 		et_careId = (EditText) mActivity.findViewById(R.id.et_cardId);
 		et_phone = (EditText) mActivity.findViewById(R.id.et_phone);
@@ -49,7 +49,6 @@ public class EditConsumptionPasswordFragment extends AshtFragment implements
 		btn_getCheckNumber = (Button) mActivity
 				.findViewById(R.id.btn_getCheckNumber);
 		btn_submit.setOnClickListener(this);
-		btn_submit.setText("确定");
 		btn_getCheckNumber.setOnClickListener(this);
 	}
 
@@ -60,7 +59,7 @@ public class EditConsumptionPasswordFragment extends AshtFragment implements
 		case R.id.tv_title_back:
 			callback.back();
 			break;
-		case R.id.btn_submit:
+		case R.id.btnEdit:
 			checkPhoneNo();
 			break;
 		case R.id.get_check_number:
@@ -79,6 +78,11 @@ public class EditConsumptionPasswordFragment extends AshtFragment implements
 	private void nextFragment() {
 
 		AshtFragment mFragment = new EditConsumptionPassword2Fragment();
+		Bundle bundle = new Bundle();
+		bundle.putString("cardNo", et_careId.getText().toString().trim());
+		bundle.putString("phoneNo", et_phone.getText().toString().trim());
+		bundle.putString("checkNo", et_inputName.getText().toString().trim());
+		((EditConsumptionPassword2Fragment) mFragment).setBundle(bundle);
 		mFragment.setAshtFragmentCallback(callback);
 		FragmentTransaction mTransaction = getFragmentManager()
 				.beginTransaction();

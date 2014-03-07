@@ -27,16 +27,18 @@ import com.asht.AsHtException;
 import com.asht.utl.Settings;
 
 public class HttpClient {
-	
+
 	public static final String ERROR = "错误";
-	
-	private String NAMESPACE = null; 
-	private String SERVICEURL = null; 
-	public HttpClient(String nameSpace,String serviceUrl){
+
+	private String NAMESPACE = null;
+	private String SERVICEURL = null;
+
+	public HttpClient(String nameSpace, String serviceUrl) {
 		this.NAMESPACE = nameSpace;
 		this.SERVICEURL = serviceUrl;
 	}
-	public AshtResponse get(String method,String json) throws AsHtException{
+
+	public AshtResponse get(String method, String json) throws AsHtException {
 		try {
 			// 构造SoapHeader
 			// 用于验证是否有接口调用权限==========================================
@@ -53,42 +55,49 @@ public class HttpClient {
 			header.addChild(Node.ELEMENT, pass);
 
 			// ====================================================
-			
+
 			SoapObject rpc = new SoapObject(NAMESPACE, method);
-			System.out.println(" json : "+ json+" "+NAMESPACE+ " "+ SERVICEURL);
+			System.out.println(" json : " + json + " " + NAMESPACE + " "
+					+ SERVICEURL);
 			rpc.addProperty("json", json);
 			SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
 					SoapEnvelope.VER11);
 			envelope.dotNet = false;
 			envelope.encodingStyle = "UTF-8";
-			
+
 			envelope.headerOut = new Element[] { header };
 			envelope.bodyOut = rpc;
 
-			HttpTransportSE ht = new HttpTransportSE(SERVICEURL+method);
+			HttpTransportSE ht = new HttpTransportSE(SERVICEURL + method);
 
 			ht.call(null, envelope);
 			// 此处如果用soapobject会报错
 			SoapPrimitive detail = (SoapPrimitive) envelope.getResponse();
 			System.out.println("rs : " + detail.toString());
-			return AshtResponse.getResponse( detail.toString() );
+			return AshtResponse.getResponse(detail.toString());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			throw new AsHtException(Settings.NET_CONN_ERROR, Settings.RETURN_CODE_FAILED);
+			throw new AsHtException(Settings.NET_CONN_ERROR,
+					Settings.RETURN_CODE_FAILED);
 		} catch (XmlPullParserException e) {
 			// TODO Auto-generated catch block
-			throw new AsHtException(Settings.NET_CONN_ERROR, Settings.RETURN_CODE_FAILED);
+			throw new AsHtException(Settings.NET_CONN_ERROR,
+					Settings.RETURN_CODE_FAILED);
 		}
 	}
+
 	/**
 	 * 网络连接部分
-	 * @param name	接口名称
-	 * @param param	发送的JSON数据包
-	 * @return	
+	 * 
+	 * @param name
+	 *            接口名称
+	 * @param param
+	 *            发送的JSON数据包
+	 * @return
 	 */
 	public String downloadFile(String fileAddress) {
-//		File result = new File(filePath+"/"+fileName);
+		// File result = new File(filePath+"/"+fileName);
 		String result = null;
 		String url = SERVICEURL + fileAddress;
 		HttpPost request = new HttpPost(url);
@@ -96,8 +105,8 @@ public class HttpClient {
 		StringEntity se;
 		try {
 			// 绑定到请求 Entry
-//			se = new StringEntity(param.toString());
-//			request.setEntity(se);
+			// se = new StringEntity(param.toString());
+			// request.setEntity(se);
 			// 发送请求
 			HttpResponse httpResponse = new DefaultHttpClient()
 					.execute(request);

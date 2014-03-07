@@ -5,62 +5,52 @@
     android:background="@color/probject_bg"
     android:orientation="vertical" >
 
-   <include layout="@layout/app_toptitle"/>
+    <include layout="@layout/app_toptitle" />
 
     <LinearLayout
         style="@style/body"
-        android:padding="10dp"
-        android:orientation="vertical" >
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp" >
 
         <TableLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" >
 
             
-
             <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" >
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/list_above" >
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/register_font"
                     android:text="新密码：" />
 
                 <EditText
                     android:id="@+id/et_newPwd"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    style="@style/register_editTxv_font"
+                    android:layout_weight="1"
+                    android:background="@null" />
             </TableRow>
 
             <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" >
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/list_mid" >
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/register_font"
                     android:text="再次输入：" />
 
                 <EditText
                     android:id="@+id/et_newPwd2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    style="@style/register_editTxv_font"
                     android:layout_weight="1"
-                    android:password="true" />
+                    android:background="@null" />
             </TableRow>
         </TableLayout>
-
-        <Button
-            android:id="@+id/btn_submit"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="确 定" />
     </LinearLayout>
 
 </FrameLayout>

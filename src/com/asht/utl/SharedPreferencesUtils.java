@@ -37,5 +37,4 @@ public class SharedPreferencesUtils {
 		df = new SimpleDateFormat("MM-dd HH:mm:ss");
 		sp = context.getSharedPreferences("update_time", Context.MODE_PRIVATE);
 	}
-
 }

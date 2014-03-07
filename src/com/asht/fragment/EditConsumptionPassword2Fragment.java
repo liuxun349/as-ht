@@ -2,6 +2,8 @@ package com.asht.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +11,12 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.asht.AsHt;
+import com.asht.AsHtException;
 import com.asht.R;
 import com.asht.controller.Controller;
+import com.asht.utl.ApplictionManager;
+import com.asht.view.WaitingDialog;
 
 public class EditConsumptionPassword2Fragment extends AshtFragment implements
 		OnClickListener {
@@ -18,6 +24,16 @@ public class EditConsumptionPassword2Fragment extends AshtFragment implements
 	EditText et_newPwd, et_newPwd2;
 	Button btn_submit, btn_getCheckNumber;
 	private Activity mActivity;
+	private Bundle mBundle;
+	private WaitingDialog waitingDialog;
+	private Handler mHandler = new Handler() {
+		public void handleMessage(Message msg) {
+			if((Boolean)msg.obj){
+				waitingDialog.dismiss();
+			}
+			
+		};
+	};
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -38,13 +54,14 @@ public class EditConsumptionPassword2Fragment extends AshtFragment implements
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
-		Controller.setNomePagTop(getActivity(), true, "修改消费密码");
+		Controller.setNomePagTop(getActivity(), "修改消费密码", true, true, "确定");
 
 		mActivity.findViewById(R.id.tv_title_back).setOnClickListener(this);
+		mActivity.findViewById(R.id.btnEdit).setOnClickListener(this);
 		et_newPwd = (EditText) mActivity.findViewById(R.id.et_newPwd);
 		et_newPwd2 = (EditText) mActivity.findViewById(R.id.et_newPwd2);
-		btn_submit = (Button) mActivity.findViewById(R.id.btn_submit);
-		btn_submit.setOnClickListener(this);
+		
+		waitingDialog = new WaitingDialog(getActivity());
 	}
 
 	@Override
@@ -54,7 +71,7 @@ public class EditConsumptionPassword2Fragment extends AshtFragment implements
 		case R.id.tv_title_back:
 			callback.back();
 			break;
-		case R.id.btn_submit:
+		case R.id.btnEdit:
 			submitNewsPwd();
 			break;
 		default:
@@ -64,6 +81,39 @@ public class EditConsumptionPassword2Fragment extends AshtFragment implements
 	}
 
 	private void submitNewsPwd() {
+		final String newPwd = et_newPwd.getText().toString().trim();
+		final String newPwd2 = et_newPwd2.getText().toString().trim();
 
+		if (!newPwd.equals(newPwd2)) {
+			return;
+		}
+		waitingDialog.show();
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				boolean isSuccess = false;
+				try {
+					isSuccess = AsHt.getInstance().modifyPayPasswd(
+							ApplictionManager.getInstance().userInfo,
+							mBundle.getString("checkNo"),
+							mBundle.getString("cardNo"), newPwd);
+				} catch (AsHtException e) {
+					// TODO Auto-generated catch block
+					isSuccess = false;
+				}
+				if (isSuccess) {
+					System.out.println(" success ");
+					Message message = new Message();
+					message.obj = isSuccess;
+					mHandler.sendMessage(message);
+				}
+			}
+		}).start();
+	}
+
+	public void setBundle(Bundle bundle) {
+		mBundle = bundle;
 	}
 }

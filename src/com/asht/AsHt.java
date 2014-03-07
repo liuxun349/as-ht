@@ -16,7 +16,7 @@ import com.asht.model.Record;
 import com.asht.model.Resume;
 import com.asht.model.UserInfo;
 import com.asht.model.ZCoupon;
-
+ 
 public class AsHt {
 	private static AsHt mInstance;
 	private SystemService systemService = new SystemService();

@@ -19,7 +19,7 @@ public class SafetyCenterFragment extends AshtFragment implements
 	private View editLoginPwd;
 	private View findPayPwd;
 	private View findLoginPwd;
-	private View changePhoneNo;
+	private View changePhoneNo; 
 	private Context mContext;
 
 	@Override
@@ -27,6 +27,7 @@ public class SafetyCenterFragment extends AshtFragment implements
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
 		Controller.setNomePagTop(getActivity(), true, "安全中心");
+		getActivity().findViewById(R.id.tv_title_back).setOnClickListener(this);
 		init(getActivity());
 		setListener();
 	}
@@ -87,14 +88,22 @@ public class SafetyCenterFragment extends AshtFragment implements
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		if (v == editLoginPwd) {
+		switch (v.getId()) {
+		case R.id.tv_title_back:
+			callback.back();
+			break;
+		case R.id.safety_editloginPwd:
 			Controller.EditLoginPwd(mContext);
-		} else if (v == editPayPwd) {
+			break;
+		case R.id.safety_editPayPwd:
 			Controller.EditPayPwd(mContext);
-		} else if (v == findPayPwd) {
-			Controller.findPayPwd(mContext);
-		} else if (v == changePhoneNo) {
+			break;
+		case R.id.safety_changePhoneNo:
 			Controller.changePhoneNo(mContext);
+			break;
+		case R.id.safety_findPayPwd:
+			Controller.findPayPwd(mContext);
+			break;
 		}
 	}
 
