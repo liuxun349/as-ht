@@ -1,10 +1,10 @@
 package com.asht.controller;
 
+import java.util.Set;
+
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -19,15 +19,16 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.Toast;
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 
 import com.asht.AsHt;
 import com.asht.AsHtException;
 import com.asht.AshtSettings;
-import com.asht.AsyncDataLoader;
 import com.asht.R;
-import com.asht.model.UserInfo;
 import com.asht.utl.ApplictionManager;
 import com.asht.utl.AshtUtil;
+import com.asht.utl.ExampleUtil;
 import com.asht.view.WaitingDialog;
 
 public class LoginActivity extends Activity {
@@ -172,6 +173,8 @@ public class LoginActivity extends Activity {
 		try {
 			AshtSettings.getInstance().setUserId(userName);
 			AshtSettings.getInstance().setUserPwd(userPwd);
+			JPushInterface.setAliasAndTags(getApplicationContext(), userName,
+					null, mAliasCallback);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -209,4 +212,39 @@ public class LoginActivity extends Activity {
 		}
 		return super.dispatchKeyEvent(event);
 	}
+
+	private static final int MSG_SET_ALIAS = 1001;
+	private final TagAliasCallback mAliasCallback = new TagAliasCallback() {
+
+		@Override
+		public void gotResult(int code, String alias, Set<String> tags) {
+			String logs;
+			switch (code) {
+			case 0:
+				logs = "Set tag and alias success";
+				System.out.println(logs);
+				break;
+
+			case 6002:
+				logs = "Failed to set alias and tags due to timeout. Try again after 60s.";
+				System.out.println(logs);
+				if (ExampleUtil.isConnected(getApplicationContext())) {
+					mHandler.sendMessageDelayed(
+							mHandler.obtainMessage(MSG_SET_ALIAS, alias),
+							1000 * 60);
+				} else {
+					System.out.println("No network");
+				}
+				break;
+
+			default:
+				logs = "Failed with errorCode = " + code;
+				System.out.println(logs);
+			}
+
+			ExampleUtil.showToast(logs, getApplicationContext());
+		}
+
+	};
+
 }

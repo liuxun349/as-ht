@@ -2,14 +2,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/probject_bg"
     android:scrollbars="vertical" >
 
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="@color/probject_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="10dp" >
+
         <TableLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" >
@@ -18,207 +19,164 @@
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:background="@drawable/list_above"
                 android:paddingBottom="2dp"
                 android:paddingTop="2dp" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:text="用户ID："
-                    android:textColor="#000"
-                    android:textSize="16.0sp" />
-
-                <TextView
-                    android:id="@+id/userid"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_weight="1"
-                    android:textSize="16.0sp" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:paddingBottom="2dp"
-                android:paddingTop="2dp" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
+                    android:layout_gravity="right|center_vertical"
                     android:text="昵称："
                     android:textColor="#000" />
 
                 <EditText
                     android:id="@+id/nickName"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_weight="1" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingBottom="2dp"
-                android:paddingTop="2dp" >
-            </TableRow>
-
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:paddingBottom="2dp"
-                android:paddingTop="2dp" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:text="身份："
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="center_vertical"
                     android:textColor="#000" />
-
-                <TextView
-                    android:id="@+id/idCard"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_weight="1" />
             </TableRow>
 
             <TableRow
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:background="@drawable/list_mid"
                 android:paddingBottom="2dp"
                 android:paddingTop="2dp" >
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="right"
-                    android:text="手机号码："
-                    android:textColor="#000" />
-
-                <TextView
-                    android:id="@+id/phone"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_weight="1" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:paddingBottom="2dp"
-                android:paddingTop="2dp" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
+                    android:gravity="center_vertical"
                     android:text="真实姓名："
                     android:textColor="#000" />
 
                 <EditText
                     android:id="@+id/trueName"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="right"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:textColor="#000" />
             </TableRow>
 
             <TableRow
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:background="@drawable/list_mid"
                 android:paddingBottom="2dp"
                 android:paddingTop="2dp" >
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="right"
+                    android:gravity="center_vertical"
                     android:text="证件类型："
                     android:textColor="#000" />
 
                 <Spinner
                     android:id="@+id/CertificateType"
-                    android:layout_width="0dp"
+                    style="@style/register_spinner"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="center_horizontal" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_weight="1" />
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/triangle_down" />
             </TableRow>
 
             <TableRow
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:background="@drawable/list_mid"
                 android:paddingBottom="2dp"
                 android:paddingTop="2dp" >
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="right"
+                    android:gravity="center_vertical"
                     android:text="证件号码："
                     android:textColor="#000" />
 
                 <EditText
                     android:id="@+id/CertificateNo"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="right"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:textColor="#000" />
             </TableRow>
 
             <TableRow
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:background="@drawable/list_mid"
                 android:paddingBottom="2dp"
                 android:paddingTop="2dp" >
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="right"
+                    android:gravity="center_vertical"
                     android:text="性别："
                     android:textColor="#000" />
 
                 <Spinner
                     android:id="@+id/sex"
-                    android:layout_width="0dp"
+                    style="@style/register_spinner"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="center_horizontal" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_weight="1" />
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/triangle_down" />
             </TableRow>
 
             <TableRow
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:background="@drawable/list_mid"
                 android:paddingBottom="2dp"
                 android:paddingTop="2dp" >
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="right"
+                    android:gravity="center_vertical"
                     android:text="年龄："
                     android:textColor="#000" />
 
                 <EditText
-                    android:id="@+id/age"
+                    android:id="@+id/ageEdit"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="center_vertical"
                     android:textColor="#000" />
             </TableRow>
 
@@ -226,82 +184,26 @@
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:background="@drawable/list_below"
                 android:paddingBottom="2dp"
                 android:paddingTop="2dp" >
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="right"
+                    android:gravity="center_vertical"
                     android:text="Email："
                     android:textColor="#000" />
 
                 <EditText
                     android:id="@+id/email"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_weight="1" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:paddingBottom="2dp"
-                android:paddingTop="2dp" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:text="贡献值："
-                    android:textColor="#000" />
-
-                <TextView
-                    android:id="@+id/ContributionValue"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:id="@+id/aboutUpdate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="如何升级？"
-                    android:textColor="#000" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:paddingBottom="2dp"
-                android:paddingTop="2dp" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:text="Z币余额："
-                    android:textColor="#000" />
-
-                <TextView
-                    android:id="@+id/ZMoney"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="right"
                     android:layout_weight="1"
-                    android:text="23123213"
-                    android:textColor="#000" />
-
-                <TextView
-                    android:id="@+id/howUseUMoney"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="如何使用Z币？"
-                    android:textColor="#000" />
+                    android:background="@null"
+                    android:gravity="center_vertical" />
             </TableRow>
         </TableLayout>
     </LinearLayout>

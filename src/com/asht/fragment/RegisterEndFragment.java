@@ -5,6 +5,8 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.graphics.SweepGradient;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +29,8 @@ import com.asht.model.UserInfo;
 import com.asht.utl.ApplictionManager;
 import com.asht.utl.ConnCallback;
 import com.asht.utl.Settings;
+import com.asht.view.ToastUtils;
+import com.asht.view.WaitingDialog;
 
 public class RegisterEndFragment extends AshtFragment {
 	private Button post;
@@ -37,6 +41,7 @@ public class RegisterEndFragment extends AshtFragment {
 	private ArrayAdapter adapter1, adapter2;
 	private String loginPwd, payPwd, securityA1, securityA2;
 	private Activity mActivity;
+	private WaitingDialog waitingDialog;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,24 +58,31 @@ public class RegisterEndFragment extends AshtFragment {
 		init(getActivity());
 		setSpinner();
 
+		waitingDialog = new WaitingDialog(mActivity);
 		post.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				getDataFromWidgt();
+				waitingDialog.show();
 				new Thread(new Runnable() {
 
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
+						boolean isSuccess = false;
 						try {
-							AsHt.getInstance().regist(
+							isSuccess = AsHt.getInstance().regist(
 									ApplictionManager.getInstance().userInfo);
 						} catch (AsHtException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
+						Message msg = new Message();
+						msg.arg1 = 2;
+						msg.obj = isSuccess;
+						mHandler.sendMessage(msg);
 					}
 				}).start();
 			}
@@ -103,6 +115,15 @@ public class RegisterEndFragment extends AshtFragment {
 	private void init(Activity mActivity) {
 		this.mActivity = mActivity;
 		post = (Button) mActivity.findViewById(R.id.btnEdit);
+		mActivity.findViewById(R.id.tv_title_back).setOnClickListener(
+				new OnClickListener() {
+
+					@Override
+					public void onClick(View arg0) {
+						// TODO Auto-generated method stub
+						callback.back();
+					}
+				});
 		post.setText("确定注册");
 		login_pwd = (EditText) mActivity.findViewById(R.id.login_pwd);
 		login_pwd_agin = (EditText) mActivity.findViewById(R.id.login_pwd_agin);
@@ -126,10 +147,12 @@ public class RegisterEndFragment extends AshtFragment {
 		String pwd2 = login_pwd_agin.getText().toString().trim();
 		if (!pwd1.equals(pwd2)) {
 			infoView_pay.setVisibility(View.VISIBLE);
+			ToastUtils.getInit(mActivity).show("密码不一致");
 			return false;
 		}
 		if (pwd1.length() < 6 | pwd1.length() > 16) {
 			infoView_pay.setVisibility(View.VISIBLE);
+			ToastUtils.getInit(mActivity).show("密码长度太短");
 			return false;
 		}
 		loginPwd = pwd1;
@@ -161,4 +184,20 @@ public class RegisterEndFragment extends AshtFragment {
 		securityA2 = answer2;
 		return true;
 	}
+
+	private Handler mHandler = new Handler() {
+		public void handleMessage(Message msg) {
+			if (msg.arg1 == 2) {
+				waitingDialog.dismiss();
+
+				if ((Boolean) msg.obj) {
+					ToastUtils.getInit(getActivity()).show("注册成功");
+					Controller.LoginActivity(mActivity);
+				} else {
+					ToastUtils.getInit(getActivity()).show("注册失败");
+				}
+			}
+		};
+	};
+
 }

@@ -32,7 +32,7 @@ public class RegisterSecendFragment extends AshtFragment {
 	private EditText etx_nickName, etx_turename, etx_certificationNo,
 			etx_mailePre, etx_mailelast, etx_xx;
 	private String nickName, tureName, certificateNo, email;
-	private Spinner etx_certificateType, etx_roleId;
+	private Spinner etx_certificateType, etx_roleId, etx_Sex;
 	private int certificateType; // 证件类型(编号表示)
 	private Activity mActivity;
 	private TableRow tableRow;
@@ -51,14 +51,23 @@ public class RegisterSecendFragment extends AshtFragment {
 		super.onActivityCreated(savedInstanceState);
 		Controller.setNomePagTop(getActivity(), true, true, "注册");
 		init(getActivity());
+		getActivity().findViewById(R.id.tv_title_back).setOnClickListener(
+				new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						callback.back();
+					}
+				});
 		// 下一步
 		btn_next.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-//				boolean isOk = checking();
-				boolean isOk = true;
+				boolean isOk = checking();
+				// boolean isOk = true;
 				if (isOk) {
 					UserInfo userInfo = ApplictionManager.getInstance().userInfo;
 					userInfo.setUserNickName(nickName);
@@ -66,7 +75,8 @@ public class RegisterSecendFragment extends AshtFragment {
 					userInfo.setUserCertificateNo(certificateNo);
 					userInfo.setUserCertificateType(certificateType);
 					userInfo.setUserEmail(email);
-
+					userInfo.setUserSex(etx_Sex.getSelectedItemPosition());
+					userInfo.setUserAge(0);
 					System.out.println(" ===> " + userInfo.toJson().toString());
 					nextFragment();
 				}
@@ -84,19 +94,19 @@ public class RegisterSecendFragment extends AshtFragment {
 		nickName = etx_nickName.getText().toString().trim();
 		tureName = etx_turename.getText().toString().trim();
 		certificateNo = etx_certificationNo.getText().toString().trim();
-		email = etx_mailePre.getText().toString().trim();
-		certificateType = 0;
+		email = etx_mailelast.getText().toString().trim();
+		certificateType = etx_certificateType.getSelectedItemPosition();
 
-		if (!AshtUtil.isEmail(email)) {
-			System.out.println("密码格式不对");
-			return false;
-		} else if (!AshtUtil.IsChinese(tureName)) {
-			System.out.println("真名格式不对");
-			return false;
-		} else if (!AshtUtil.IsIDcard(certificateNo)) {
-			System.out.println("身份证格式不对");
-			return false;
-		}
+		// if (!AshtUtil.isEmail(email)) {
+		// System.out.println("密码格式不对");
+		// return false;
+		// } else if (!AshtUtil.IsChinese(tureName)) {
+		// System.out.println("真名格式不对");
+		// return false;
+		// } else if (!AshtUtil.IsIDcard(certificateNo)) {
+		// System.out.println("身份证格式不对");
+		// return false;
+		// }
 		return true;
 	}
 
@@ -124,6 +134,11 @@ public class RegisterSecendFragment extends AshtFragment {
 		etx_roleId.setAdapter(adapterRoleId);
 		etx_nickName = (EditText) mActivity.findViewById(R.id.etx_nickname);
 		etx_turename = (EditText) mActivity.findViewById(R.id.etx_turename);
+		ArrayAdapter sexAadpt = ArrayAdapter.createFromResource(getActivity(),
+				R.array.sex, android.R.layout.simple_spinner_item);
+
+		etx_Sex = (Spinner) mActivity.findViewById(R.id.etx_sex);
+		etx_Sex.setAdapter(sexAadpt);
 		myScroller = mActivity.findViewById(R.id.myscroll);
 		myScroller.setOnTouchListener(onScrollerTouchListener);
 	}
@@ -138,5 +153,4 @@ public class RegisterSecendFragment extends AshtFragment {
 		mTransaction.commit();
 	}
 
-	
 }

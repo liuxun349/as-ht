@@ -219,6 +219,7 @@ public class Controller {
 		MessageDetailFragment mFragment = new MessageDetailFragment();
 		mFragment.bundleSource(msg);
 		ApplictionManager.getInstance().currentFragment = mFragment;
+		System.out.println(" 1 ");
 		context.startActivity(intent);
 	}
 

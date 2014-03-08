@@ -1,20 +1,22 @@
 package com.asht.controller;
 
-import com.asht.R;
-import com.asht.utl.ApplictionManager;
-
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.TabActivity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.RadioButton;
 import android.widget.TabHost;
+
+import com.asht.R;
+import com.asht.utl.ApplictionManager;
+import com.asht.utl.ExampleUtil;
 
 public class MainActivity extends TabActivity {
 	TabHost tabHost;
@@ -28,6 +30,8 @@ public class MainActivity extends TabActivity {
 		initTab(savedInstanceState);
 		init();
 		ApplictionManager.getInstance().addActivity(this);
+		registerMessageReceiver(); // used for receive msg
+
 	}
 
 	public void init() {
@@ -58,13 +62,13 @@ public class MainActivity extends TabActivity {
 
 			}
 		});
-//		main_tab_safety.setOnClickListener(new OnClickListener() {
-//
-//			public void onClick(View view) {
-//				tabHost.setCurrentTabByTag("safety");
-//
-//			}
-//		});
+		// main_tab_safety.setOnClickListener(new OnClickListener() {
+		//
+		// public void onClick(View view) {
+		// tabHost.setCurrentTabByTag("safety");
+		//
+		// }
+		// });
 		main_tab_more.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View view) {
@@ -82,8 +86,8 @@ public class MainActivity extends TabActivity {
 				.setContent(new Intent(this, MainMessageActivity.class)));
 		tabHost.addTab(tabHost.newTabSpec("home").setIndicator("home")
 				.setContent(new Intent(this, MainHomePageActivity.class)));
-//		tabHost.addTab(tabHost.newTabSpec("safety").setIndicator("safety")
-//				.setContent(new Intent(this, MainSafetyCenterActivity.class)));
+		// tabHost.addTab(tabHost.newTabSpec("safety").setIndicator("safety")
+		// .setContent(new Intent(this, MainSafetyCenterActivity.class)));
 		tabHost.addTab(tabHost.newTabSpec("more").setIndicator("more")
 				.setContent(new Intent(this, MainMoreActivity.class)));
 		if (bundle == null) {
@@ -121,5 +125,52 @@ public class MainActivity extends TabActivity {
 		}
 		return super.dispatchKeyEvent(event);
 	}
+
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		unregisterReceiver(mMessageReceiver);
+	}
+
+	// for receive customer msg from jpush server
+	private MessageReceiver mMessageReceiver;
+	public static final String MESSAGE_RECEIVED_ACTION = "cn.jpush.android.intent.MESSAGE_RECEIVED";
+	public static final String KEY_TITLE = "title";
+	public static final String KEY_MESSAGE = "message";
+	public static final String KEY_EXTRAS = "extras";
+
+	public void registerMessageReceiver() {
+		mMessageReceiver = new MessageReceiver();
+		IntentFilter filter = new IntentFilter();
+		filter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
+		filter.addAction(MESSAGE_RECEIVED_ACTION);
+		registerReceiver(mMessageReceiver, filter);
+	}
+
+	public class MessageReceiver extends BroadcastReceiver {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			if (MESSAGE_RECEIVED_ACTION.equals(intent.getAction())) {
+				String messge = intent.getStringExtra(KEY_MESSAGE);
+				String extras = intent.getStringExtra(KEY_EXTRAS);
+				StringBuilder showMsg = new StringBuilder();
+				showMsg.append(KEY_MESSAGE + " : " + messge + "\n");
+				if (!ExampleUtil.isEmpty(extras)) {
+					showMsg.append(KEY_EXTRAS + " : " + extras + "\n");
+				}
+				// setCostomMsg(showMsg.toString());
+				System.out.println(" out ... " + showMsg);
+			}
+		}
+	}
+
+	// private void setCostomMsg(String msg) {
+	// if (null != msgText) {
+	// msgText.setText(msg);
+	// msgText.setVisibility(android.view.View.VISIBLE);
+	// }
+	// }
 
 }

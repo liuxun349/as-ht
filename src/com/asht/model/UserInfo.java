@@ -89,14 +89,16 @@ public class UserInfo extends AshtResponse {
 		JSONObject jObject = new JSONObject();
 		jObject.put("userPhoneNo", userPhoneNo);
 		jObject.put("userLoginPwd", userLoginPwd);
-		jObject.put("useruserPayPwd", userPayPwd);
+		jObject.put("userPayPwd", userPayPwd);
 		jObject.put("userTrueName", userTrueName);
-		jObject.put("userRole", userRole);
+//		jObject.put("userRole", userRole);
 		jObject.put("userNickName", userNickName);
 		jObject.put("userEmail", userEmail);
 		jObject.put("userCertificateType", userCertificateType);
 		jObject.put("userCertificateNo", userCertificateNo);
-		jObject.put("tbUserPasswordquestionAnswer", securityQA);
+		jObject.put("userSex", userSex);
+		jObject.put("userAge", userAge);
+		// jObject.put("tbUserPasswordquestionAnswer", securityQA);
 
 		return jObject;
 	}

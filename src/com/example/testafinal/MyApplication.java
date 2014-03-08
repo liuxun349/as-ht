@@ -16,6 +16,9 @@ import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.HTTP;
 
 import android.app.Application;
+import android.util.Log;
+
+import cn.jpush.android.api.JPushInterface;
 
 import com.asht.model.Record;
 
@@ -23,11 +26,18 @@ public class MyApplication extends Application {
 
 	private HttpClient httpClient;
 	public boolean isLogin = false;
+	private static final String TAG = "JPush";
 
 	@Override
 	public void onCreate() {
+		// TODO Auto-generated method stub
+		System.out.println(" aplication");
+		Log.d(TAG, "[ExampleApplication] onCreate");
 		super.onCreate();
 		httpClient = this.createHttpClient();
+
+		JPushInterface.setDebugMode(true); // 设置开启日志,发布时请关闭日志
+		JPushInterface.init(this); // 初始化 JPush
 	}
 
 	@Override

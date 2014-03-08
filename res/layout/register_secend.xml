@@ -44,6 +44,33 @@
                 </TableRow>
 
                 <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/edit_bg_selector"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp" >
+
+                    <TextView
+                        style="@style/register_font"
+                        android:text="@string/text_user_sex" />
+
+                    <Spinner
+                        android:id="@+id/etx_sex"
+                        style="@style/register_spinner"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:gravity="center_horizontal" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/triangle_down" />
+                </TableRow>
+
+                <TableRow
                     android:layout_width="fill_parent"
                     android:layout_height="0dp"
                     android:layout_marginTop="5dp"
@@ -80,8 +107,8 @@
                         android:id="@+id/etx_certificateType"
                         style="@style/register_spinner"
                         android:layout_weight="1"
-                        android:gravity="center_horizontal"
-                        android:background="@null" />
+                        android:background="@null"
+                        android:gravity="center_horizontal" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -127,9 +154,9 @@
                         android:id="@+id/etx_roleId"
                         style="@style/register_spinner"
                         android:layout_weight="1"
-                        android:gravity="center_horizontal"
+                        android:background="@null"
                         android:clickable="false"
-                        android:background="@null" />
+                        android:gravity="center_horizontal" />
 
                     <ImageView
                         android:layout_width="wrap_content"

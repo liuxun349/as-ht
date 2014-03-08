@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Button;
 
+import cn.jpush.android.api.JPushInterface;
+
 import com.asht.AsHt;
 import com.asht.AsHtException;
 import com.asht.AshtSettings;
@@ -26,6 +28,7 @@ public class AppStart extends Activity implements Callback {
 	private String userPhoneNo = "";
 	private String userPwd = "";
 	private AsHt mAsht;
+	public static boolean isForeground = false;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -125,5 +128,17 @@ public class AppStart extends Activity implements Callback {
 	public void onFinishAsync() {
 		// TODO Auto-generated method stub
 		AppStart.this.finish();
+	}
+
+	@Override
+	protected void onResume() {
+		JPushInterface.onResume(this);
+		super.onResume();
+	}
+
+	@Override
+	protected void onPause() {
+		JPushInterface.onPause(this);
+		super.onPause();
 	}
 }

@@ -3,15 +3,14 @@ package com.asht.utl;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.asht.AsHt;
-import com.asht.AshtSettings;
+import android.app.Activity;
+import android.app.Application;
+import android.util.Log;
+import cn.jpush.android.api.JPushInterface;
+
 import com.asht.fragment.AshtFragment;
 import com.asht.model.User;
 import com.asht.model.UserInfo;
-
-import android.app.Activity;
-import android.app.Application;
-import android.support.v4.app.Fragment;
 
 public class ApplictionManager extends Application {
 	private User user = new User();

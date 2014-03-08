@@ -46,7 +46,7 @@ public class MyAcountActivity extends FragmentActivity implements
 	private MyAcountZMoneyFragment mAcountZMoneyFragment;
 	private EditMyAccountInfoFragment myAccountEditInfo;
 	private Button editInfo;
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -67,6 +67,7 @@ public class MyAcountActivity extends FragmentActivity implements
 		// }
 		// ;
 	}
+
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
@@ -77,6 +78,7 @@ public class MyAcountActivity extends FragmentActivity implements
 		}
 		;
 	}
+
 	@Override
 	public void onClick(View arg0) {
 		// TODO Auto-generated method stub
@@ -90,9 +92,11 @@ public class MyAcountActivity extends FragmentActivity implements
 					.replace(R.id.my_container, mAcountZMoneyFragment).commit();
 			break;
 		case R.id.btnEdit:
+			myAccountEditInfo.setPostEditButton(editInfo);
 			getSupportFragmentManager().beginTransaction()
 					.replace(R.id.my_container, myAccountEditInfo).commit();
+
 			break;
 		}
 	}
-}
+	}

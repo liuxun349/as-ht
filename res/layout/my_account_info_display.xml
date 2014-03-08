@@ -294,12 +294,24 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="right"
                     android:layout_weight="1"
-                    android:gravity="center_vertical" />
+                    android:gravity="center_vertical"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/searchContribution"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:background="@drawable/btn_defalut_selector"
+                    android:gravity="center_vertical"
+                    android:text="查询"
+                    android:textColor="@color/title_text_color" />
 
                 <TextView
                     android:id="@+id/aboutUpdate"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_gravity="right"
                     android:gravity="center_vertical"
                     android:text="如何升级？"
                     android:textColor="#000" />
@@ -328,13 +340,24 @@
                     android:layout_gravity="right"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="23123213"
-                    android:textColor="#000" />
+                    android:textColor="#000"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/searchZMoney"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:background="@drawable/btn_defalut_selector"
+                    android:gravity="center_vertical"
+                    android:text="查询"
+                    android:textColor="@color/title_text_color" />
 
                 <TextView
                     android:id="@+id/howUseUMoney"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_gravity="right"
                     android:gravity="center_vertical"
                     android:text="如何使用Z币？"
                     android:textColor="#000" />

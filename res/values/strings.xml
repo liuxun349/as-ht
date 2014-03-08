@@ -44,6 +44,7 @@
     <string name="text_get_check_number">获取验证码</string>
     <string name="text_user_name">昵&#160;&#160;称：&#160;&#160;</string>
     <string name="text_user_true_name">真实姓名：&#160;&#160;</string>
+    <string name="text_user_sex">性&#160;&#160;别：&#160;&#160;</string>
     <string name="text_card_class">证件类型：&#160;&#160;</string>
     <string name="text_card_id">证件号码：&#160;&#160;</string>
     <string name="text_user_role">您的身份：&#160;&#160;</string>

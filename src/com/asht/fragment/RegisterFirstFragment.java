@@ -84,7 +84,6 @@ public class RegisterFirstFragment extends AshtFragment implements
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				System.out.println("...................");
 				String phoneId = phoneNum.getText().toString().trim();
 				String cheknumber = checkNum.getText().toString().trim();
 				if (!(phoneId.equals("") && cheknumber.equals(""))) {
