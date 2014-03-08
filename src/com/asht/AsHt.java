@@ -420,6 +420,9 @@ public class AsHt {
 	 */
 	public List<Resume> getAllCaseFromGroup(UserInfo user, String groupId)
 			throws AsHtException {
+		if (recordService.getAllCaseFromGroup(user, groupId) == null) {
+			return null;
+		}
 		return Resume.getResumes(recordService.getAllCaseFromGroup(user,
 				groupId));
 	}

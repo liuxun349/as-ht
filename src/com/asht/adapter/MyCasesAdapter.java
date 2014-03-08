@@ -15,15 +15,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.asht.R;
+import com.asht.model.CaseView;
 import com.asht.model.Record;
 import com.asht.utl.Settings;
+import com.example.controller.MainThread;
 
 public class MyCasesAdapter extends BaseAdapter {
 
 	private List<Record> infos = new ArrayList<Record>();
 	private Context mContext;
-	private int width, height;
+	private static int width, height;
 	FinalBitmap mBitmap;
+
+	public static int[] getWH() {
+		return new int[] { width, height };
+	}
 
 	public void setInfos(List<Record> info) {
 		if (infos.equals(info)) {
@@ -125,14 +131,14 @@ public class MyCasesAdapter extends BaseAdapter {
 
 		Record myCasesInfo = infos.get(position);
 
-		mBitmap.display(myCasesItemView.iv1, Settings.WEB_URL
-				+ myCasesInfo.getImg1(), width / 4, height / 4);
-		mBitmap.display(myCasesItemView.iv2, Settings.WEB_URL
-				+ myCasesInfo.getImg2(), width / 4, height / 4);
-		mBitmap.display(myCasesItemView.iv3, Settings.WEB_URL
-				+ myCasesInfo.getImg3(), width / 4, height / 4);
-		mBitmap.display(myCasesItemView.iv4, Settings.WEB_URL
-				+ myCasesInfo.getImg4(), width / 4, height / 4);
+		mBitmap.display(myCasesItemView.iv1,
+				Settings.WEB_URL + myCasesInfo.getImg1(), width / 4, height / 4);
+		mBitmap.display(myCasesItemView.iv2,
+				Settings.WEB_URL + myCasesInfo.getImg2(), width / 4, height / 4);
+		mBitmap.display(myCasesItemView.iv3,
+				Settings.WEB_URL + myCasesInfo.getImg3(), width / 4, height / 4);
+		mBitmap.display(myCasesItemView.iv4,
+				Settings.WEB_URL + myCasesInfo.getImg4(), width / 4, height / 4);
 
 		myCasesItemView.tv_title.setText(myCasesInfo
 				.getMedicalRecordGroupName());
@@ -143,6 +149,13 @@ public class MyCasesAdapter extends BaseAdapter {
 		} else {
 			myCasesItemView.iv_delete.setVisibility(View.GONE);
 		}
+//		if (myCasesInfo.getIsUpdate() == 1) {
+//			// 需要更新
+//			CaseView cv = new CaseView();
+//			cv.setRecord(myCasesInfo);
+//			cv.setView(myCasesItemView);
+//			MainThread.getInit(mContext).add(cv);
+//		}
 		return convertView;
 	}
 

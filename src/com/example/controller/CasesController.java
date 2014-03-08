@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.tsz.afinal.db.sqlite.DbModel;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
@@ -16,7 +15,6 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.GridView;
 
 import com.asht.AsHt;
-import com.asht.AsHtException;
 import com.asht.AsyncDataLoader;
 import com.asht.AsyncDataLoader.Callback;
 import com.asht.R;
@@ -24,12 +22,12 @@ import com.asht.adapter.MyCasesAdapter;
 import com.asht.controller.MyCasesActivity;
 import com.asht.interfaces.UIHanleLintener;
 import com.asht.interfaces.UINotification;
+import com.asht.model.CaseView;
 import com.asht.model.Record;
 import com.asht.model.Resume;
 import com.asht.model.UpdateState;
 import com.asht.model.UserInfo;
 import com.asht.utl.ApplictionManager;
-import com.asht.view.Diag;
 
 @SuppressLint({ "UseSparseArrays", "HandlerLeak" })
 public class CasesController implements OnItemClickListener,
@@ -46,14 +44,15 @@ public class CasesController implements OnItemClickListener,
 
 	UINotification mUINotification;
 	UIHanleLintener mHanleLintener;//
-	Diag diag;
+
+	// Diag diag;
 
 	public CasesController(Context context, GridView gridView) {
 		mContext = context;
 		this.gridView = gridView;
-		if (diag == null) {
-			diag = new Diag(mContext);
-		}
+		// if (diag == null) {
+		// diag = new Diag(mContext);
+		// }
 		int spacing = (int) mContext.getResources().getDimension(
 				R.dimen.grid_spacing);
 		this.spacing = spacing;
@@ -128,22 +127,13 @@ public class CasesController implements OnItemClickListener,
 
 	public synchronized void update(final boolean isServer,
 			final boolean isTouch) {
-		if (!isTouch)
-			gridView.post(new Runnable() {
 
-				@Override
-				public void run() {
-					diag.show();
-				}
-			});
 		new AsyncDataLoader(new Callback() {
-			private List<Record> records;
-			private List<Record> updates;
+			private List<Record> records = new ArrayList<Record>();
 			private UpdateState state = null;
 
 			@Override
 			public void onStartAsync() {
-				updates = new ArrayList<Record>();
 				if (isServer) {
 
 					AsHt asht = AsHt.getInstance();
@@ -163,7 +153,10 @@ public class CasesController implements OnItemClickListener,
 						}
 
 						String id = ids.toString();
-						id = id.substring(0, id.length() - 1);
+						if (id == null || id.length() == 0) {
+						} else {
+							id = id.substring(0, id.length() - 1);
+						}
 
 						// 清空以前的病例缓存
 						AFinalController.getDB(mContext).deleteByWhere(
@@ -183,7 +176,7 @@ public class CasesController implements OnItemClickListener,
 													+ info.getMedicalRecordGroupID()
 													+ "';");
 							if (dm == null) {
-								/** 删除病例组缓存 */
+								/** 删除病例缓存 */
 								AFinalController
 										.getDB(mContext)
 										.deleteByWhere(
@@ -194,14 +187,36 @@ public class CasesController implements OnItemClickListener,
 								/**
 								 * 保存病例组信息
 								 */
+								info.setIsUpdate(1);
 								AFinalController.getDB(mContext).save(info);
-								updates.add(info);
+
+								CaseView cv = new CaseView();
+								cv.setRecord(info);
+								MainThread.getInit(mContext).add(cv);
 
 							} else {
 								/** 服务器和本地数据一致 不用处理 不一致就删除缓存 */
 								if (!info.getUpdateTime().equals(
 										dm.get("updateTime"))) {
-									/** 删除病例缓存 */
+
+									// 获取以前病例组的信息
+									List<Record> listold = AFinalController
+											.getDB(mContext)
+											.findAllByWhere(
+													Record.class,
+													" medicalRecordGroupID = '"
+															+ info.getMedicalRecordGroupID()
+															+ "'");
+									// /** 删除病例缓存 */
+									// AFinalController
+									// .getDB(mContext)
+									// .deleteByWhere(
+									// Resume.class,
+									// " imedicalrecordgroupid = '"
+									// + info.getMedicalRecordGroupID()
+									// + "'");
+
+									/** 删除病例zu缓存 */
 									AFinalController
 											.getDB(mContext)
 											.deleteByWhere(
@@ -209,24 +224,31 @@ public class CasesController implements OnItemClickListener,
 													" medicalRecordGroupID = '"
 															+ info.getMedicalRecordGroupID()
 															+ "'");
-									/** 删除病例组缓存 */
-									AFinalController
-											.getDB(mContext)
-											.deleteByWhere(
-													Resume.class,
-													" imedicalrecordgroupid = '"
-															+ info.getMedicalRecordGroupID()
-															+ "'");
+
+									if ((listold != null && listold.size() > 0)) {
+										Record recordOld = listold.get(0);
+										info.setImg1(recordOld.getImg1());
+										info.setImg2(recordOld.getImg2());
+										info.setImg3(recordOld.getImg3());
+										info.setImg4(recordOld.getImg4());
+									}
+
+									info.setIsUpdate(1);
 									/**
 									 * 保存病例组信息
 									 */
 									AFinalController.getDB(mContext).save(info);
-									updates.add(info);
+
+									CaseView cv = new CaseView();
+									cv.setRecord(info);
+									MainThread.getInit(mContext).add(cv);
+								} else {
+									info.setIsUpdate(0);
 								}
 							}
 
+							records.add(info);
 						}
-						updateResumes(updates);
 						this.records = records;
 					} catch (Exception e) {
 						records = null;
@@ -234,6 +256,14 @@ public class CasesController implements OnItemClickListener,
 						state.setLog(e.getMessage());
 						records = AFinalController.getDB(mContext).findAll(
 								Record.class);
+						for (Record r : records) {
+							if (r.getIsUpdate() == 1) {
+
+								CaseView cv = new CaseView();
+								cv.setRecord(r);
+								MainThread.getInit(mContext).add(cv);
+							}
+						}
 						e.printStackTrace();
 					}
 				} else {
@@ -254,8 +284,6 @@ public class CasesController implements OnItemClickListener,
 				updateHandler.sendEmptyMessage(10001);
 
 				mHanleLintener.update(isServer, state, isTouch);
-				if (diag.isShowing())
-					diag.dismiss();
 			}
 		}).execute();
 
@@ -294,8 +322,13 @@ public class CasesController implements OnItemClickListener,
 						for (Record info : records) {
 							AFinalController.getDB(mContext).save(info);
 						}
-						updateResumes(records);
 						this.records = records;
+						for (Record info : records) {
+
+							CaseView cv = new CaseView();
+							cv.setRecord(info);
+							MainThread.getInit(mContext).add(cv);
+						}
 					}
 				} catch (Exception e) {
 					mUpdateState = new UpdateState(UpdateState.UK_ERROR);
@@ -451,49 +484,4 @@ public class CasesController implements OnItemClickListener,
 
 	}
 
-	private void updateResumes(final List<Record> records) {
-		new AsyncDataLoader(new Callback() {
-			final List<Record> lists = new ArrayList<Record>(records);
-			int progress = 0;
-			int max = 0;
-
-			@Override
-			public void onStartAsync() {
-				AsHt asht = AsHt.getInstance();
-				UserInfo user = ApplictionManager.getInstance().getUserInfo();
-				max = lists.size();
-				for (int i = 0; i < max; i++) {
-					progress = i;
-					final Record r = lists.get(i);
-					try {
-						final List<Resume> resumes = asht.getAllCaseFromGroup(
-								user, r.getMedicalRecordGroupID());
-
-						AFinalController.getDB(mContext).deleteByWhere(
-								Resume.class,
-								"imedicalrecordgroupid = "
-										+ r.getMedicalRecordGroupID()
-										+ " and state <> " + 2);
-						for (Resume resume : resumes) {
-							AFinalController.getDB(mContext).save(resume);
-						}
-					} catch (AsHtException e) {
-						e.printStackTrace();
-					} 
-					progress = i + 1;
-				}
-
-			}
-
-			@Override
-			public void onPrepareAsync() {
-
-			}
-
-			@Override
-			public void onFinishAsync() {
-
-			}
-		}).execute();
-	}
 }

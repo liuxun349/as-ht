@@ -1,6 +1,7 @@
 package com.asht.controller;
 
 import java.io.Serializable;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -19,17 +21,13 @@ import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
 
-import com.asht.AsHt;
-import com.asht.AsyncDataLoader;
-import com.asht.AsyncDataLoader.Callback;
 import com.asht.R;
 import com.asht.interfaces.UIHanleLintener;
 import com.asht.interfaces.UINotification;
 import com.asht.model.Record;
 import com.asht.model.Resume;
 import com.asht.model.UpdateState;
-import com.asht.model.UserInfo;
-import com.asht.utl.ApplictionManager;
+import com.asht.view.ToastUtils;
 import com.example.controller.CasesSingleController;
 import com.example.testafinal.MyApplication;
 
@@ -101,7 +99,9 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 				}
 				mCasesSingleController.add(lists);
 			} else {
-
+				Uri uri = data.getData();
+				System.out.println(uri);
+				ToastUtils.getInit(getApplicationContext()).show("功能开发中。。。");
 			}
 
 		}
@@ -163,7 +163,9 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 				gv_myCasesSingle, mRecord);
 		mCasesSingleController.setUIHandleLinstener(mHanleLintener);
 		mCasesSingleController.setUINotification(uiNotification);
-		mCasesSingleController.update(false, false);
+
+		setPro(true);
+		mCasesSingleController.update(true, false);
 		((TextView) findViewById(R.id.tv_add_cases_single))
 				.setOnClickListener(new OnClickListener() {
 
@@ -172,6 +174,20 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 						addCase();
 					}
 				});
+
+	}
+
+	private void setPro(final boolean fag) {
+		findViewById(R.id.prigress).post(new Runnable() {
+
+			@Override
+			public void run() {
+				findViewById(R.id.tv_add_cases_single).setVisibility(
+						fag ? View.GONE : View.VISIBLE);
+				findViewById(R.id.prigress).setVisibility(
+						fag ? View.VISIBLE : View.GONE);
+			}
+		});
 
 	}
 
@@ -355,7 +371,7 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 		@Override
 		public void update(boolean isServer, UpdateState state, boolean isTouch) {
 			// TODO Auto-generated method stub
-
+			setPro(false);
 		}
 
 		@Override

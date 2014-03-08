@@ -46,7 +46,7 @@ public class CasesSingleController implements OnItemClickListener,
 	private UIHanleLintener mHanleLintener;
 	private UINotification mUINotification;
 	private Record mRecord;
-	Diag diag;
+//	Diag diag;
 
 	public CasesSingleController(Context context, GridView gridView, Record info) {
 		mContext = context;
@@ -56,7 +56,7 @@ public class CasesSingleController implements OnItemClickListener,
 				R.dimen.grid_spacing);
 		this.spacing = spacing;
 
-		diag = new Diag(mContext);
+//		diag = new Diag(mContext);
 
 		// 获取分辨率
 		DisplayMetrics dm = new DisplayMetrics();
@@ -209,7 +209,7 @@ public class CasesSingleController implements OnItemClickListener,
 
 				@Override
 				public void run() {
-					diag.show();
+//					diag.show();
 				}
 			});
 		new AsyncDataLoader(new Callback() {
@@ -316,9 +316,9 @@ public class CasesSingleController implements OnItemClickListener,
 					// 删除服务器数据
 
 				}
-				if (diag != null && diag.isShowing()) {
-					diag.dismiss();
-				}
+//				if (diag != null && diag.isShowing()) {
+//					diag.dismiss();
+//				}
 			}
 		}).execute();
 

@@ -33,6 +33,13 @@
             android:text="@string/title_add_case_single"
             android:textColor="#f00"
             android:textSize="@dimen/title_text_size" />
+        
+        
+        <ProgressBar
+            android:id="@+id/prigress"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="right|center" />
     </FrameLayout>
 
     <FrameLayout

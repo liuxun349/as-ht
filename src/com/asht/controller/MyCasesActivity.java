@@ -50,7 +50,20 @@ public class MyCasesActivity extends Activity implements OnClickListener {
 		initListener();
 		initData();
 
-		mCasesController.update(false, false);
+		setPro(true);
+		mCasesController.update(true, true);
+	}
+
+	private void setPro(final boolean fag) {
+		findViewById(R.id.prigress).post(new Runnable() {
+
+			@Override
+			public void run() {
+				findViewById(R.id.prigress).setVisibility(
+						fag ? View.VISIBLE : View.GONE);
+			}
+		});
+
 	}
 
 	@Override
@@ -142,6 +155,8 @@ public class MyCasesActivity extends Activity implements OnClickListener {
 
 			@Override
 			public void onHeaderRefresh(PullToRefreshView view) {
+
+				setPro(true);
 				mCasesController.update(true, true);
 			}
 		});
@@ -290,6 +305,7 @@ public class MyCasesActivity extends Activity implements OnClickListener {
 			ToastUtils.getInit(getApplicationContext()).show(state.getLog());
 			if (isTouch)
 				ptrv_cases.onHeaderRefreshComplete();
+			setPro(false);
 			if (state.getAction() == UpdateState.UK_SERVER_OK) {
 				SharedPreferencesUtils.setTime(getApplicationContext());
 			}

@@ -52,6 +52,7 @@ public class Record extends AshtResponse {
 	private String img2;
 	private String img3;
 	private String img4;
+	private int isUpdate;// 0 没有更新 1更新
 
 	// /**
 	// * 得到当前病例组下面的所有病例
@@ -209,6 +210,14 @@ public class Record extends AshtResponse {
 	// "imedicalrecordgroupid = " + this.getMedicalRecordGroupID()
 	// + " and state <> " + state);
 	// }
+
+	public int getIsUpdate() {
+		return isUpdate;
+	}
+
+	public void setIsUpdate(int isUpdate) {
+		this.isUpdate = isUpdate;
+	}
 
 	@Override
 	public boolean equals(Object o) {

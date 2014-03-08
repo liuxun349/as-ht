@@ -47,7 +47,7 @@ public class HttpClient {
 			Element name = new Element().createElement(NAMESPACE, "name");
 			name.addChild(Node.TEXT, "admin");
 			header.addChild(Node.ELEMENT, name);
-
+  
 			Element pass = new Element().createElement(NAMESPACE, "password");
 			pass.addChild(Node.TEXT, "admin123456");
 			header.addChild(Node.ELEMENT, pass);
