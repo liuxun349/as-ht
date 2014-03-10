@@ -22,8 +22,11 @@ public class ZCoupon extends AshtResponse {
 
 	}
 
-	public ZCoupon(AshtResponse rs) {
+	public ZCoupon(AshtResponse rs) throws AsHtException {
 		super(rs);
+		if (!rs.success) {
+			throw new AsHtException(rs.message);
+		}
 		ZCoupon zCoupon = JSON.parseObject(rs.result.toString(), ZCoupon.class);
 		this.counponId = zCoupon.counponId;
 		this.paycode = zCoupon.paycode;

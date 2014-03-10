@@ -1,11 +1,14 @@
 package com.asht.fragment;
 
+import java.lang.reflect.Array;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
@@ -41,6 +44,11 @@ public class FindPayPwdFragment extends AshtFragment implements OnClickListener 
 		Controller.setNomePagTop(getActivity(), "找回消费密码",true, true, "完成");
 
 		mActivity.findViewById(R.id.tv_title_back).setOnClickListener(this);
+		ArrayAdapter adapter = ArrayAdapter.createFromResource(getActivity(),
+				R.array.securityQ, android.R.layout.simple_spinner_item);
+				spinner_pwdProtection1 = (Spinner) mActivity
+				.findViewById(R.id.register_securityQ_1);
+		spinner_pwdProtection1.setAdapter(adapter);
 		btn_submit = (Button) mActivity.findViewById(R.id.btnEdit);
 		btn_submit.setOnClickListener(this);
 	}

@@ -10,27 +10,27 @@ public class Advice extends AshtResponse{
 	/**
 	 * 意见编号
 	 */
-	public String adviceId;
+	public String iadviceid;
 	/**
 	 * 意见内容
 	 */
-	public String advice;
+	public String txtadvice;
 	/**
 	 * 提出时间
 	 */
-	public String dtInputTime;
+	public String dtinputtime;
 	/**
 	 * 状态
 	 */
-	public String state;
+	public String istate;
 	/**
 	 * 处理时间
 	 */
-	public String dtCloseTime;
+	public String dtclosetime;
 	/**
 	 * 处理结果
 	 */
-	public String txtResult;
+	public String txtresult;
 	public Advice() {
 		// TODO Auto-generated constructor stub
 	}
@@ -41,7 +41,7 @@ public class Advice extends AshtResponse{
 	}
 	public Advice(String advice) {
 		// TODO Auto-generated constructor stub
-		this.advice = advice;
+		this.txtadvice = advice;
 	}
 	
 	public static List<Advice> getUserAdvices(AshtResponse rs ) throws AsHtException{

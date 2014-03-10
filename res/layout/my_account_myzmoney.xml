@@ -5,8 +5,32 @@
     android:background="@color/white"
     android:orientation="vertical" >
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/zmoney_item"
+        android:orientation="horizontal"
+        android:layout_margin="5dp" >
+
+        <EditText
+            android:id="@+id/zvalue"
+            android:background="@null"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="需要兑换的Z币数" />
+
+        <Button
+            android:id="@+id/btnchange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_default"
+            android:text="立即兑换" />
+    </LinearLayout>
+
     <ListView
         android:id="@+id/zmoney_list"
+        android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
     </ListView>

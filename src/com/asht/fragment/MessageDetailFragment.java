@@ -35,7 +35,6 @@ public class MessageDetailFragment extends AshtFragment implements
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
 		Controller.setNomePagTop(getActivity(), true, "消息详情");
-		titleNameTxv = (TextView) getActivity().findViewById(R.id.title_text);
 		messageContentTxv = (TextView) getActivity().findViewById(R.id.content);
 		messageNameTxv = (TextView) getActivity().findViewById(R.id.title);
 

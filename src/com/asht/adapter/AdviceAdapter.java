@@ -35,7 +35,7 @@ public class AdviceAdapter extends BaseAdapter {
 		mActivity = activity;
 		if (source != null) {
 			mAdvices = source;
-		}else{
+		} else {
 			mAdvices = new ArrayList<Advice>();
 		}
 	}
@@ -73,20 +73,26 @@ public class AdviceAdapter extends BaseAdapter {
 					.findViewById(R.id.advice_icon);
 			viewHolder.adviceContent = (TextView) convertView
 					.findViewById(R.id.advice_content);
+			viewHolder.adviceDate = (TextView) convertView
+					.findViewById(R.id.advice_time);
+			viewHolder.adviceState = (TextView) convertView
+					.findViewById(R.id.advice_state);
+
 			LayoutParams lp = viewHolder.adviceContent.getLayoutParams();
 			lp.width = adviceContentWidth;
 			viewHolder.adviceDate.setLayoutParams(lp);
-			viewHolder.adviceState = (TextView) convertView
-					.findViewById(R.id.advice_state);
-			viewHolder.adviceDate = (TextView) convertView
-					.findViewById(R.id.advice_time);
+
 			convertView.setTag(viewHolder);
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
-		viewHolder.adviceDate.setText(mAdvices.get(position).dtInputTime);
-		viewHolder.adviceContent.setText(mAdvices.get(position).advice);
-		viewHolder.adviceState.setText(mAdvices.get(position).state);
+		// viewHolder.adviceDate.setText(mAdvices.get(position).dtinputtime);
+		viewHolder.adviceContent.setText(mAdvices.get(position).txtadvice);
+		if (mAdvices.get(position).istate.equals("0")) {
+			viewHolder.adviceState.setText("未处理");
+		} else {
+			viewHolder.adviceState.setText("已处理");
+		}
 		convertView.setOnClickListener(new OnClickListener() {
 
 			@Override

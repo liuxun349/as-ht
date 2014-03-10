@@ -43,7 +43,7 @@ public class MyAcountDisplayFragment extends AshtFragment implements
 
 	private TextView txtHowUseUMoney;
 	private TextView txtAboutUpdate;
-
+	private TextView role;
 	private Button searchContrbution;
 	private Button searchZmoney;
 
@@ -79,7 +79,7 @@ public class MyAcountDisplayFragment extends AshtFragment implements
 		searchContrbution = (Button) getActivity().findViewById(
 				R.id.searchContribution);
 		searchZmoney = (Button) getActivity().findViewById(R.id.searchZMoney);
-
+		role = (TextView) getActivity().findViewById(R.id.user_role);
 		searchContrbution.setOnClickListener(this);
 		searchZmoney.setOnClickListener(this);
 
@@ -103,6 +103,8 @@ public class MyAcountDisplayFragment extends AshtFragment implements
 		txtNickName.setText(userInfo.getUserNickName());
 		txtSex.setText(getResources().getStringArray(R.array.sex)[userInfo
 				.getUserSex()]);
+
+		role.setText(getResources().getStringArray(R.array.yourIdentity)[0]);
 
 	}
 
@@ -176,8 +178,10 @@ public class MyAcountDisplayFragment extends AshtFragment implements
 			waitingDialog.dismiss();
 			if ((Boolean) msg.obj) {
 				if (msg.arg1 == 0) {
+					txtContributionValue.setVisibility(View.VISIBLE);
 					txtContributionValue.setText(msg.arg2 + "");
 				} else if (msg.arg1 == 1) {
+					txtZmoney.setVisibility(View.VISIBLE);
 					txtZmoney.setText(msg.arg2 + "");
 				}
 			} else {

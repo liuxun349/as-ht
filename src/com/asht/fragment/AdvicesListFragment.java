@@ -4,6 +4,8 @@ import java.util.List;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -12,15 +14,24 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.asht.AsHt;
+import com.asht.AsHtException;
 import com.asht.R;
 import com.asht.adapter.AdviceAdapter;
 import com.asht.controller.Controller;
 import com.asht.model.Advice;
+import com.asht.utl.ApplictionManager;
+import com.asht.view.ToastUtils;
+import com.asht.view.WaitingDialog;
 
 public class AdvicesListFragment extends AshtFragment {
 	private ListView mListView;
 	private List<Advice> sourceAdvices;
 	private View addAdvice;
+	private WaitingDialog waitingDialog;
+
+	private static final int GET_ADVICE_LIST_SUCCESS = 1;
+	private static final int GET_ADVICE_LIST_FAILED = 2;
 
 	public AdvicesListFragment() {
 
@@ -41,10 +52,84 @@ public class AdvicesListFragment extends AshtFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
-		Controller.setNomePagTop(getActivity(), true, "意见反馈");
+		Controller.setNomePagTop(getActivity(), "意见反馈", true, true, "我要反馈");
+		waitingDialog = new WaitingDialog(getActivity());
+
 		mListView = (ListView) getActivity().findViewById(R.id.advice_list);
-		AdviceAdapter adapter = new AdviceAdapter(getActivity(), sourceAdvices);
-		mListView.setAdapter(adapter);
+		setTouchListener();
+		addAdvice = getActivity().findViewById(R.id.btnEdit);
+		getActivity().findViewById(R.id.tv_title_back).setOnClickListener(
+				new OnClickListener() {
+
+					@Override
+					public void onClick(View arg0) {
+						// TODO Auto-generated method stub
+						callback.back();
+					}
+				});
+		addAdvice.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				Controller.newAdvice(getActivity());
+			}
+		});
+	}
+
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		updateAdvice();
+	}
+
+	private void updateAdvice() {
+		// TODO Auto-generated method stub
+		waitingDialog.show();
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				boolean isSuccess = false;
+				try {
+					sourceAdvices = AsHt.getInstance().searchAdvices(
+							ApplictionManager.getInstance().userInfo);
+					isSuccess = true;
+				} catch (AsHtException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				Message msg = new Message();
+				if (sourceAdvices != null) {
+					msg.arg1 = GET_ADVICE_LIST_SUCCESS;
+				} else {
+					msg.arg1 = GET_ADVICE_LIST_FAILED;
+				}
+				mHandler.sendMessage(msg);
+			}
+		}).start();
+	}
+
+	private Handler mHandler = new Handler() {
+		public void handleMessage(Message msg) {
+			waitingDialog.dismiss();
+			if (msg.arg1 == GET_ADVICE_LIST_SUCCESS) {
+				AdviceAdapter adapter = new AdviceAdapter(getActivity(),
+						sourceAdvices);
+				mListView.setAdapter(adapter);
+				System.out.println(" 1 " + sourceAdvices.get(0).txtadvice + " "
+						+ sourceAdvices.get(0).dtinputtime);
+				ToastUtils.getInit(getActivity()).show("更新成功");
+			} else if (msg.arg1 == GET_ADVICE_LIST_FAILED) {
+				ToastUtils.getInit(getActivity()).show("未获得数据");
+			}
+		};
+	};
+
+	private void setTouchListener() {
+		// TODO Auto-generated method stub
 		final int width = getActivity().getWindowManager().getDefaultDisplay()
 				.getWidth() / 2;
 		mListView.setOnTouchListener(new OnTouchListener() {
@@ -70,15 +155,7 @@ public class AdvicesListFragment extends AshtFragment {
 				return true;
 			}
 		});
-		addAdvice = getActivity().findViewById(R.id.btnEdit);
-		addAdvice.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				Controller.newAdvice(getActivity());
-			}
-		});
 	}
 
 	@Override

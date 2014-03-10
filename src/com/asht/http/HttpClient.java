@@ -68,8 +68,9 @@ public class HttpClient {
 			envelope.headerOut = new Element[] { header };
 			envelope.bodyOut = rpc;
 
-			HttpTransportSE ht = new HttpTransportSE(SERVICEURL + method);
-
+			
+			HttpTransportSE ht = new HttpTransportSE(SERVICEURL + method,5*1000);
+			
 			ht.call(null, envelope);
 			// 此处如果用soapobject会报错
 			SoapPrimitive detail = (SoapPrimitive) envelope.getResponse();

@@ -43,7 +43,7 @@ public class ZMoneyAdapter extends BaseAdapter {
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return zCoupons.size();
+		return zCoupons != null ? zCoupons.size() : 0;
 	}
 
 	@Override

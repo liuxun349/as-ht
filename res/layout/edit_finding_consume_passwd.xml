@@ -73,7 +73,8 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/zmoney_item_top" >
+                    android:background="@drawable/zmoney_item_top"
+                    android:visibility="gone" >
 
                     <TextView
                         style="@style/register_font"

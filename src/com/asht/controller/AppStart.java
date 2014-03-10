@@ -22,7 +22,7 @@ import com.asht.model.UserInfo;
 import com.asht.utl.ApplictionManager;
 import com.asht.view.WaitingDialog;
 
-public class AppStart extends Activity implements Callback {
+public class AppStart extends Activity {
 	AsyncDataLoader asyncDataLoader;
 	private AshtSettings mAshtSettings;
 	private String userPhoneNo = "";
@@ -40,14 +40,14 @@ public class AppStart extends Activity implements Callback {
 		mAshtSettings = AshtSettings.getInstance();
 
 		WaitingDialog dialog = new WaitingDialog(this);
-		new Handler().postDelayed(new Runnable() {
-
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				initCheck();
-			}
-		}, 0);
+		// new Handler().postDelayed(new Runnable() {
+		//
+		// @Override
+		// public void run() {
+		// // TODO Auto-generated method stub
+		// initCheck();
+		// }
+		// }, 0);
 
 		// TODO Auto-generated method stub
 		initCheck();
@@ -92,42 +92,31 @@ public class AppStart extends Activity implements Callback {
 
 	private void autoLogin() {
 		// TODO Auto-generated method stub
-		asyncDataLoader = new AsyncDataLoader(this);
-		asyncDataLoader.execute();
-	}
+		new Thread(new Runnable() {
 
-	@Override
-	public void onStartAsync() {
-		// TODO Auto-generated method stub
-
-		UserInfo userInfo = new UserInfo();
-		mAsht = AsHt.getInstance();
-		try {
-			userInfo = mAsht.login(userPhoneNo, userPwd);
-		} catch (AsHtException e) {
-			// TODO Auto-generated catch block
-			loginActivity();
-		}
-		if (userInfo.success == true) {
-			ApplictionManager.getInstance().userInfo = userInfo;
-			ApplictionManager.getInstance().getUser().setLogin(true);
-			ApplictionManager.getInstance().getUser().setUserInfo(userInfo);
-			Controller.MainHomePageActivity(AppStart.this);
-		} else {
-			loginActivity();
-		}
-	}
-
-	@Override
-	public void onPrepareAsync() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onFinishAsync() {
-		// TODO Auto-generated method stub
-		AppStart.this.finish();
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				UserInfo userInfo = new UserInfo();
+				mAsht = AsHt.getInstance();
+				try {
+					userInfo = mAsht.login(userPhoneNo, userPwd);
+				} catch (AsHtException e) {
+					// TODO Auto-generated catch block
+					loginActivity();
+				}
+				if (userInfo.success == true) {
+					ApplictionManager.getInstance().userInfo = userInfo;
+					ApplictionManager.getInstance().getUser().setLogin(true);
+					ApplictionManager.getInstance().getUser()
+							.setUserInfo(userInfo);
+					Controller.MainHomePageActivity(AppStart.this);
+				} else {
+					loginActivity();
+				}
+				AppStart.this.finish();
+			}
+		}).start();
 	}
 
 	@Override
