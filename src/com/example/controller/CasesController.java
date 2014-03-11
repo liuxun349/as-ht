@@ -142,6 +142,10 @@ public class CasesController implements OnItemClickListener,
 					try {
 						List<Record> records = asht.getRecordGroup(user, true,
 								"2013-12-25 20:06:15.0");
+						for (Record record : records) {
+							System.out.println(" size: "
+									+ record.getResumeList().size());
+						}
 						state = new UpdateState(UpdateState.UK_SERVER_OK);
 						StringBuilder ids = new StringBuilder();
 						for (Record record : records) {
@@ -311,6 +315,10 @@ public class CasesController implements OnItemClickListener,
 					String time = db.getString("updateTime");
 					List<Record> records = asht.getRecordGroup(user, false,
 							time);
+					for (Record record : records) {
+						System.out.println(" size: "
+								+ record.getResumeList().size());
+					}
 					if (records == null || records.size() == 0) {
 						mUpdateState = new UpdateState(UpdateState.UK_NO_DATA);
 						mUpdateState.setLog("亲，已经没有数据了");

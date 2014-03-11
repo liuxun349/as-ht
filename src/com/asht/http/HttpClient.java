@@ -78,7 +78,6 @@ public class HttpClient {
 			return AshtResponse.getResponse(detail.toString());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
 			throw new AsHtException(Settings.NET_CONN_ERROR,
 					Settings.RETURN_CODE_FAILED);
 		} catch (XmlPullParserException e) {

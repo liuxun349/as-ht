@@ -48,6 +48,8 @@ public class Record extends AshtResponse {
 	 */
 	public int isClick = 1;
 
+	private List<Resume> items;
+
 	private String img1;
 	private String img2;
 	private String img3;
@@ -217,6 +219,14 @@ public class Record extends AshtResponse {
 
 	public void setIsUpdate(int isUpdate) {
 		this.isUpdate = isUpdate;
+	}
+
+	public void setItems(List<Resume> items) {
+		this.items = items;
+	}
+
+	public List<Resume> getResumeList() {
+		return items;
 	}
 
 	@Override
