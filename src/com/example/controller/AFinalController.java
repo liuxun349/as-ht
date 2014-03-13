@@ -1,5 +1,7 @@
 package com.example.controller;
 
+import com.lidroid.xutils.DbUtils;
+
 import net.tsz.afinal.FinalDb;
 import android.content.Context;
 
@@ -7,7 +9,7 @@ public class AFinalController {
 
 	private static AFinalController aFinalController;
 
-	private FinalDb finalDb;
+	private DbUtils finalDb;
 
 	private synchronized static AFinalController getinit(Context context) {
 		if (aFinalController == null) {
@@ -17,18 +19,19 @@ public class AFinalController {
 	}
 
 	private AFinalController(Context context) {
-		finalDb = FinalDb.create(context);
+		finalDb = DbUtils.create(context);
+		finalDb.configDebug(true);
 	}
 
 	public static AFinalController create(Context context) {
 		return getinit(context);
 	}
 
-	public FinalDb getfinalDb() {
+	public DbUtils getfinalDb() {
 		return finalDb;
 	}
 
-	public static FinalDb getDB(Context context) {
+	public static DbUtils getDB(Context context) {
 		// TODO Auto-generated method stub
 		return create(context).getfinalDb();
 	}

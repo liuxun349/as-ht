@@ -15,9 +15,9 @@ import android.widget.GridView;
 import com.asht.R;
 import com.asht.adapter.RecommendAdapter;
 import com.asht.controller.MutualRecommendationActivity;
-import com.asht.info.RecommendInfo;
 import com.asht.interfaces.UIHanleLintener;
 import com.asht.interfaces.UINotification;
+import com.asht.model.Recommend;
 
 public class ClincalHistoryGroupController implements OnItemClickListener,
 		OnItemLongClickListener {
@@ -30,8 +30,8 @@ public class ClincalHistoryGroupController implements OnItemClickListener,
 	boolean fanzhe = false;
 
 	private RecommendAdapter adapter;
-	RecommendInfo RecommendInfo_tmp = null;
-	private List<RecommendInfo> selectViews;
+	Recommend Recommend_tmp = null;
+	private List<Recommend> selectViews;
 	private UIHanleLintener mHanleLintener;
 	private UINotification mUINotification;
 
@@ -76,29 +76,29 @@ public class ClincalHistoryGroupController implements OnItemClickListener,
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View view, int index, long arg3) {
 
-		RecommendInfo_tmp = (RecommendInfo) adapter.getItem(index);
+		Recommend_tmp = (Recommend) adapter.getItem(index);
 
 		if (!isSelectMode) {
 			return;
 		}
 		if (selectViews == null) {
-			selectViews = new ArrayList<RecommendInfo>();
+			selectViews = new ArrayList<Recommend>();
 		}
 
 		int oldSize = selectViews.size();
-		if (RecommendInfo_tmp.getIsClick() == 1) {
-			RecommendInfo_tmp.setIsClick(0);
+		if (Recommend_tmp.getIsClick() == 1) {
+			Recommend_tmp.setIsClick(0);
 			view.findViewById(R.id.iv_myCasesSingle_delete).setVisibility(
 					View.VISIBLE);
-			if (!selectViews.contains(RecommendInfo_tmp)) {
-				selectViews.add(RecommendInfo_tmp);
+			if (!selectViews.contains(Recommend_tmp)) {
+				selectViews.add(Recommend_tmp);
 			}
 		} else {
-			RecommendInfo_tmp.setIsClick(1);
+			Recommend_tmp.setIsClick(1);
 			view.findViewById(R.id.iv_myCasesSingle_delete).setVisibility(
 					View.GONE);
-			if (selectViews.contains(RecommendInfo_tmp)) {
-				selectViews.remove(RecommendInfo_tmp);
+			if (selectViews.contains(Recommend_tmp)) {
+				selectViews.remove(Recommend_tmp);
 			}
 		}
 		int size = selectViews.size();
@@ -122,7 +122,7 @@ public class ClincalHistoryGroupController implements OnItemClickListener,
 		// RecommendDao.update(mContext, new RecommendUpdateListener() {
 		//
 		// @Override
-		// public void update(List<RecommendInfo> list, boolean isServer,
+		// public void update(List<Recommend> list, boolean isServer,
 		// int tag) {
 		// adapter.setInfos(list);
 		// updateHandler.sendEmptyMessage(10001);
@@ -135,7 +135,7 @@ public class ClincalHistoryGroupController implements OnItemClickListener,
 		// RecommendDao.update(mContext, new RecommendUpdateListener() {
 		//
 		// @Override
-		// public void update(List<RecommendInfo> list, boolean isServer,
+		// public void update(List<Recommend> list, boolean isServer,
 		// int tag) {
 		// adapter.setInfos(list);
 		// updateHandler.sendEmptyMessage(10001);
@@ -150,12 +150,12 @@ public class ClincalHistoryGroupController implements OnItemClickListener,
 	public void selectAll() {
 
 		selectViews.clear();
-		List<RecommendInfo> info = adapter.getInfos();
+		List<Recommend> info = adapter.getInfos();
 		int size = info.size();
 		for (int i = 0; i < size; i++) {
-			RecommendInfo_tmp = info.get(i);
-			RecommendInfo_tmp.setIsClick(0);
-			selectViews.add(RecommendInfo_tmp);
+			Recommend_tmp = info.get(i);
+			Recommend_tmp.setIsClick(0);
+			selectViews.add(Recommend_tmp);
 		}
 
 		adapter.notifyDataSetChanged();
@@ -168,11 +168,11 @@ public class ClincalHistoryGroupController implements OnItemClickListener,
 	public void selectClear() {
 		isSelectMode = false;
 		selectViews.clear();
-		List<RecommendInfo> info = adapter.getInfos();
+		List<Recommend> info = adapter.getInfos();
 		int size = info.size();
 		for (int i = 0; i < size; i++) {
-			RecommendInfo_tmp = info.get(i);
-			RecommendInfo_tmp.setIsClick(1);
+			Recommend_tmp = info.get(i);
+			Recommend_tmp.setIsClick(1);
 		}
 		adapter.notifyDataSetChanged();
 		if (mUINotification != null) {

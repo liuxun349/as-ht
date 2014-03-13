@@ -394,7 +394,7 @@ public class AsHt {
 	// }
 
 	/**
-	 * 删除病例（单个）
+	 * 删除病例（多个）
 	 * 
 	 * @param user
 	 * @param groupId

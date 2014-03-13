@@ -25,6 +25,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.asht.controller.NewRecommendActivity" >
+        </activity>
+        <activity android:name="com.asht.controller.MutualRecommendationActivity" >
+        </activity>
         <activity android:name="com.asht.controller.ViewPagerActivity" >
         </activity>
         <activity android:name="com.asht.controller.AlbumActivity" >
@@ -129,7 +133,6 @@
             android:value="ad875615c31a61ae04aaf98a" /> <!-- </>值来自开发者平台取得的AppKey -->
 
     </application>
-    
 
     <!-- Required  一些系统要求的权限，如访问网络等 -->
     <uses-permission android:name="com.asht.permission.JPUSH_MESSAGE" />

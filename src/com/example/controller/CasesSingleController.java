@@ -3,7 +3,6 @@ package com.example.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.tsz.afinal.FinalDb;
 import net.tsz.afinal.core.AsyncTask;
 import android.content.Context;
 import android.os.Handler;
@@ -28,7 +27,9 @@ import com.asht.model.Resume;
 import com.asht.model.UserInfo;
 import com.asht.utl.ApplictionManager;
 import com.asht.utl.Settings;
-import com.asht.view.Diag;
+import com.lidroid.xutils.DbUtils;
+import com.lidroid.xutils.db.sqlite.WhereBuilder;
+import com.lidroid.xutils.exception.DbException;
 import com.yj.compress.YJBitmap;
 
 public class CasesSingleController implements OnItemClickListener,
@@ -46,7 +47,8 @@ public class CasesSingleController implements OnItemClickListener,
 	private UIHanleLintener mHanleLintener;
 	private UINotification mUINotification;
 	private Record mRecord;
-//	Diag diag;
+
+	// Diag diag;
 
 	public CasesSingleController(Context context, GridView gridView, Record info) {
 		mContext = context;
@@ -56,7 +58,7 @@ public class CasesSingleController implements OnItemClickListener,
 				R.dimen.grid_spacing);
 		this.spacing = spacing;
 
-//		diag = new Diag(mContext);
+		// diag = new Diag(mContext);
 
 		// 获取分辨率
 		DisplayMetrics dm = new DisplayMetrics();
@@ -209,81 +211,86 @@ public class CasesSingleController implements OnItemClickListener,
 
 				@Override
 				public void run() {
-//					diag.show();
+					// diag.show();
 				}
 			});
 		new AsyncDataLoader(new Callback() {
 			private List<Resume> mResume;
 			// 获得当前病例组下需要上传的
 			List<Resume> upLoad;
+
 			// 获得需要删除的
-			List<Resume> delete;
+			// List<Resume> delete;
 
 			@Override
 			public void onStartAsync() {
 
-				if (fag) {
-					System.out.println("do it ? ..");
-					AsHt asht = AsHt.getInstance();
-					UserInfo user = ApplictionManager.getInstance()
-							.getUserInfo();
-					try {
-						Record r = mRecord;
-						// 服务器数据
-						List<Resume> resumes = asht.getAllCaseFromGroup(user,
-								r.getMedicalRecordGroupID());
-						FinalDb db = AFinalController.getDB(mContext);
-						// 获得当前病例组下需要上传的
-						upLoad = db.findAllByWhere(
-								Resume.class,
-								"imedicalrecordgroupid = "
-										+ r.getMedicalRecordGroupID()
-										+ " and state =" + 2);
-						// 获得需要删除的
-						delete = db.findAllByWhere(
-								Resume.class,
-								"imedicalrecordgroupid = "
-										+ r.getMedicalRecordGroupID()
-										+ " and state =" + 1);
+				mResume = mRecord.getResumeList();
 
-						for (Resume resume : delete) {
-							for (Resume resume2 : resumes) {
-								if (resume.getImedicalrecorditemid() == resume2
-										.getImedicalrecorditemid()) {
-									resume2.setState(resume.getState());
-								}
-							}
-						}
-
-						// 清空本地数据
-						db.deleteByWhere(
-								Resume.class,
-								("imedicalrecordgroupid = " + r
-										.getMedicalRecordGroupID()) + "");
-
-						resumes.addAll(upLoad);
-						// 保存本地数据
-						for (Resume resume : resumes) {
-							db.save(resume);
-						}
-						mResume = resumes;
-
-					} catch (Exception e) {
-						mResume = AFinalController.getDB(mContext)
-								.findAllByWhere(
-										Resume.class,
-										("imedicalrecordgroupid = " + mRecord
-												.getMedicalRecordGroupID())
-												+ "");
-						e.printStackTrace();
-					}
-
-				} else {
-					mResume = AFinalController.getDB(mContext).findAllByWhere(
-							Resume.class,
-							("imedicalrecordgroupid = " + mRecord
-									.getMedicalRecordGroupID()) + "");
-				}
+				// if (fag) {
+				// System.out.println("do it ? ..");
+				// AsHt asht = AsHt.getInstance();
+				// UserInfo user = ApplictionManager.getInstance()
+				// .getUserInfo();
+				// try {
+				// Record r = mRecord;
+				// // 服务器数据
+				// List<Resume> resumes = asht.getAllCaseFromGroup(user,
+				// r.getMedicalRecordGroupID());
+				// DbUtils db = AFinalController.getDB(mContext);
+				// // 获得当前病例组下需要上传的
+				// // upLoad = db.findAllByWhere(
+				// // Resume.class,
+				// // "imedicalrecordgroupid = "
+				// // + r.getMedicalRecordGroupID()
+				// // + " and state =" + 2);
+				// // 获得需要删除的
+				// // delete = db.findAllByWhere(
+				// // Resume.class,
+				// // "imedicalrecordgroupid = "
+				// // + r.getMedicalRecordGroupID()
+				// // + " and state =" + 1);
+				//
+				// // for (Resume resume : delete) {
+				// // for (Resume resume2 : resumes) {
+				// // if (resume.getImedicalrecorditemid() == resume2
+				// // .getImedicalrecorditemid()) {
+				// // resume2.setState(resume.getState());
+				// // }
+				// // }
+				// // }
+				//
+				// db.delete(Resume.class, WhereBuilder.b("", "", ""));
+				//
+				// // // 清空本地数据
+				// // db.deleteByWhere(
+				// // Resume.class,
+				// // ("imedicalrecordgroupid = " + r
+				// // .getMedicalRecordGroupID()) + "");
+				//
+				// resumes.addAll(upLoad);
+				// // 保存本地数据
+				// for (Resume resume : resumes) {
+				// db.save(resume);
+				// }
+				// mResume = resumes;
+				//
+				// } catch (Exception e) {
+				// // mResume = AFinalController.getDB(mContext)
+				// // .findAllByWhere(
+				// // Resume.class,
+				// // ("imedicalrecordgroupid = " + mRecord
+				// // .getMedicalRecordGroupID())
+				// // + "");
+				// e.printStackTrace();
+				// }
+				//
+				// } else {
+				// // mResume = AFinalController.getDB(mContext).findAllByWhere(
+				// // Resume.class,
+				// // ("imedicalrecordgroupid = " + mRecord
+				// // .getMedicalRecordGroupID()) + "");
+				// }
 			}
 
 			@Override
@@ -312,13 +319,13 @@ public class CasesSingleController implements OnItemClickListener,
 					}
 				}
 				// 本地有删除数据 --再次请求服务器 同步数据
-				if (delete != null && delete.size() > 0) {
-					// 删除服务器数据
+				// if (delete != null && delete.size() > 0) {
+				// 删除服务器数据
 
-				}
-//				if (diag != null && diag.isShowing()) {
-//					diag.dismiss();
-//				}
+				// }
+				// if (diag != null && diag.isShowing()) {
+				// diag.dismiss();
+				// }
 			}
 		}).execute();
 
@@ -343,7 +350,6 @@ public class CasesSingleController implements OnItemClickListener,
 					for (Resume info : mResume) {
 						if (info.getImedicalrecorditemid() != 0) {
 							adapter.removeResume(info);
-						} else {
 							deletes.add(info.getImedicalrecorditemid() + "");
 						}
 						// info.setState(1);
@@ -367,13 +373,17 @@ public class CasesSingleController implements OnItemClickListener,
 
 				if (fag) {
 					for (Resume r : mResume) {
-						AFinalController.getDB(mContext).delete(r);
+						try {
+							AFinalController.getDB(mContext).delete(r);
+						} catch (DbException e) {
+							e.printStackTrace();
+						}
 						adapter.removeResume(r);
 					}
 					if (mUINotification != null) {
 						mUINotification.delete();
 					}
-					update(true, false);
+					// update(true, false);
 					adapter.notifyDataSetChanged();
 				}
 				selectClear();
@@ -398,7 +408,12 @@ public class CasesSingleController implements OnItemClickListener,
 			resume.setImedicalrecordgroupid(Integer.parseInt(mRecord
 					.getMedicalRecordGroupID()));
 			new UploadCase(resume).execute();
-			AFinalController.getDB(mContext).save(resume);
+			try {
+				AFinalController.getDB(mContext).save(resume);
+				mRecord.getResumeList().add(resume);
+			} catch (DbException e) {
+				e.printStackTrace();
+			}
 		}
 		adapter.addResumes((List<Resume>) infos);
 		adapter.notifyDataSetChanged();
@@ -420,12 +435,16 @@ public class CasesSingleController implements OnItemClickListener,
 						resume.getLocalRecordImageUrl());
 				resume.setState(3);
 			}
-			AFinalController.getDB(mContext).update(
-					resume,
-					"imedicalrecordgroupid ="
-							+ resume.getImedicalrecordgroupid()
-							+ " and localRecordImageUrlId ='"
-							+ resume.getLocalRecordImageUrlId() + "'");
+			try {
+				AFinalController.getDB(mContext).update(
+						resume,
+						"imedicalrecordgroupid ="
+								+ resume.getImedicalrecordgroupid()
+								+ " and localRecordImageUrlId ='"
+								+ resume.getLocalRecordImageUrlId() + "'");
+			} catch (DbException e) {
+				e.printStackTrace();
+			}
 			return resume;
 		}
 

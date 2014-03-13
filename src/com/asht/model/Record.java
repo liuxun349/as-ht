@@ -8,19 +8,19 @@ import java.util.List;
 import net.tsz.afinal.annotation.sqlite.Id;
 import net.tsz.afinal.annotation.sqlite.Table;
 
-import android.content.Context;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.asht.AsHtException;
 import com.asht.http.AshtResponse;
-import com.example.controller.AFinalController;
+import com.lidroid.xutils.db.annotation.Finder;
 
 @Table(name = "record")
+@com.lidroid.xutils.db.annotation.Table(name = "record")
 public class Record extends AshtResponse {
 
 	@Id
+	@com.lidroid.xutils.db.annotation.Id
 	private int id;
 	/**
 	 * 病例组id
@@ -48,19 +48,14 @@ public class Record extends AshtResponse {
 	 */
 	public int isClick = 1;
 
+	@Finder(valueColumn = "medicalRecordGroupID", targetColumn = "groupid")
 	private List<Resume> items;
 
-	private String img1;
-	private String img2;
-	private String img3;
-	private String img4;
 	private int isUpdate;// 0 没有更新 1更新
 
-	// /**
-	// * 得到当前病例组下面的所有病例
-	// */
-	// @Finder(valueColumn = "medicalRecordGroupID", targetColumn = "groupid")
-	// public FinderLazyLoader<Resume> resume = null;// 获取病例信息
+	/**
+	 * 得到当前病例组下面的所有病例
+	 */
 
 	public Record() {
 	}
@@ -136,38 +131,6 @@ public class Record extends AshtResponse {
 
 	public void setUpdateTime(String updateTime) {
 		this.updateTime = updateTime;
-	}
-
-	public String getImg1() {
-		return img1;
-	}
-
-	public void setImg1(String img1) {
-		this.img1 = img1;
-	}
-
-	public String getImg2() {
-		return img2;
-	}
-
-	public void setImg2(String img2) {
-		this.img2 = img2;
-	}
-
-	public String getImg3() {
-		return img3;
-	}
-
-	public void setImg3(String img3) {
-		this.img3 = img3;
-	}
-
-	public String getImg4() {
-		return img4;
-	}
-
-	public void setImg4(String img4) {
-		this.img4 = img4;
 	}
 
 	// @Override

@@ -3,9 +3,9 @@ package com.example.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.tsz.afinal.db.sqlite.DbModel;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.database.Cursor;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -22,12 +22,16 @@ import com.asht.adapter.MyCasesAdapter;
 import com.asht.controller.MyCasesActivity;
 import com.asht.interfaces.UIHanleLintener;
 import com.asht.interfaces.UINotification;
-import com.asht.model.CaseView;
 import com.asht.model.Record;
 import com.asht.model.Resume;
 import com.asht.model.UpdateState;
 import com.asht.model.UserInfo;
 import com.asht.utl.ApplictionManager;
+import com.lidroid.xutils.DbUtils;
+import com.lidroid.xutils.db.sqlite.Selector;
+import com.lidroid.xutils.db.sqlite.WhereBuilder;
+import com.lidroid.xutils.db.table.DbModel;
+import com.lidroid.xutils.exception.DbException;
 
 @SuppressLint({ "UseSparseArrays", "HandlerLeak" })
 public class CasesController implements OnItemClickListener,
@@ -127,7 +131,6 @@ public class CasesController implements OnItemClickListener,
 
 	public synchronized void update(final boolean isServer,
 			final boolean isTouch) {
-
 		new AsyncDataLoader(new Callback() {
 			private List<Record> records = new ArrayList<Record>();
 			private UpdateState state = null;
@@ -142,138 +145,43 @@ public class CasesController implements OnItemClickListener,
 					try {
 						List<Record> records = asht.getRecordGroup(user, true,
 								"2013-12-25 20:06:15.0");
-						for (Record record : records) {
-							System.out.println(" size: "
-									+ record.getResumeList().size());
-						}
 						state = new UpdateState(UpdateState.UK_SERVER_OK);
-						StringBuilder ids = new StringBuilder();
+						DbUtils db = AFinalController.getDB(mContext);
+						db.deleteAll(Resume.class);
+						db.deleteAll(Record.class);
+
+						db.saveAll(records);
 						for (Record record : records) {
-							if (record != null) {
-								ids.append("'"
-										+ record.getMedicalRecordGroupID()
-										+ "',");
+							List<Resume> resumes = record.getResumeList();
+							for (Resume resume : resumes) {
+								resume.record = record;
+								db.saveBindingId(resume);
 							}
-						}
-
-						String id = ids.toString();
-						if (id == null || id.length() == 0) {
-						} else {
-							id = id.substring(0, id.length() - 1);
-						}
-
-						// 清空以前的病例缓存
-						AFinalController.getDB(mContext).deleteByWhere(
-								Resume.class,
-								"imedicalrecordgroupid not in (" + id + ")");
-
-						// 清空以前的病例组缓存
-						AFinalController.getDB(mContext).deleteByWhere(
-								Record.class,
-								"medicalRecordGroupID not in (" + id + ")");
-
-						for (Record info : records) {
-							DbModel dm = AFinalController
-									.getDB(mContext)
-									.findDbModelBySQL(
-											"select updateTime from record where medicalRecordGroupID = '"
-													+ info.getMedicalRecordGroupID()
-													+ "';");
-							if (dm == null) {
-								/** 删除病例缓存 */
-								AFinalController
-										.getDB(mContext)
-										.deleteByWhere(
-												Resume.class,
-												" imedicalrecordgroupid = '"
-														+ info.getMedicalRecordGroupID()
-														+ "'");
-								/**
-								 * 保存病例组信息
-								 */
-								info.setIsUpdate(1);
-								AFinalController.getDB(mContext).save(info);
-
-								CaseView cv = new CaseView();
-								cv.setRecord(info);
-								MainThread.getInit(mContext).add(cv);
-
-							} else {
-								/** 服务器和本地数据一致 不用处理 不一致就删除缓存 */
-								if (!info.getUpdateTime().equals(
-										dm.get("updateTime"))) {
-
-									// 获取以前病例组的信息
-									List<Record> listold = AFinalController
-											.getDB(mContext)
-											.findAllByWhere(
-													Record.class,
-													" medicalRecordGroupID = '"
-															+ info.getMedicalRecordGroupID()
-															+ "'");
-									// /** 删除病例缓存 */
-									// AFinalController
-									// .getDB(mContext)
-									// .deleteByWhere(
-									// Resume.class,
-									// " imedicalrecordgroupid = '"
-									// + info.getMedicalRecordGroupID()
-									// + "'");
-
-									/** 删除病例zu缓存 */
-									AFinalController
-											.getDB(mContext)
-											.deleteByWhere(
-													Record.class,
-													" medicalRecordGroupID = '"
-															+ info.getMedicalRecordGroupID()
-															+ "'");
-
-									if ((listold != null && listold.size() > 0)) {
-										Record recordOld = listold.get(0);
-										info.setImg1(recordOld.getImg1());
-										info.setImg2(recordOld.getImg2());
-										info.setImg3(recordOld.getImg3());
-										info.setImg4(recordOld.getImg4());
-									}
-
-									info.setIsUpdate(1);
-									/**
-									 * 保存病例组信息
-									 */
-									AFinalController.getDB(mContext).save(info);
-
-									CaseView cv = new CaseView();
-									cv.setRecord(info);
-									MainThread.getInit(mContext).add(cv);
-								} else {
-									info.setIsUpdate(0);
-								}
-							}
-
-							records.add(info);
 						}
 						this.records = records;
-					} catch (Exception e) {
-						records = null;
-						state = new UpdateState(UpdateState.UK_SERVER_NET_ERROR);
-						state.setLog(e.getMessage());
-						records = AFinalController.getDB(mContext).findAll(
-								Record.class);
-						for (Record r : records) {
-							if (r.getIsUpdate() == 1) {
 
-								CaseView cv = new CaseView();
-								cv.setRecord(r);
-								MainThread.getInit(mContext).add(cv);
-							}
+					} catch (Exception e) {
+						state = new UpdateState(UpdateState.UK_DB_OK);
+						DbUtils db = AFinalController.getDB(mContext);
+						List<Record> r = null;
+						try {
+							r = db.findAll(Record.class);
+						} catch (DbException e1) {
+							e1.printStackTrace();
 						}
+						this.records = r;
 						e.printStackTrace();
 					}
 				} else {
 					state = new UpdateState(UpdateState.UK_DB_OK);
-					records = AFinalController.getDB(mContext).findAll(
-							Record.class);
+					DbUtils db = AFinalController.getDB(mContext);
+					List<Record> r = null;
+					try {
+						r = db.findAll(Record.class);
+					} catch (DbException e) {
+						e.printStackTrace();
+					}
+					this.records = r;
 				}
 
 			}
@@ -293,11 +201,6 @@ public class CasesController implements OnItemClickListener,
 
 	}
 
-	List<Record> getDBRecord() {
-		return AFinalController.getDB(mContext).findAllByWhere(Record.class,
-				"", "updateTime desc limit 10");
-	}
-
 	public void gengduo(final boolean fag, final boolean isTouch) {
 		new AsyncDataLoader(new Callback() {
 			private List<Record> records;
@@ -307,35 +210,42 @@ public class CasesController implements OnItemClickListener,
 			public void onStartAsync() {
 				AsHt asht = AsHt.getInstance();
 				UserInfo user = ApplictionManager.getInstance().getUserInfo();
+				records = new ArrayList<Record>();
 				try {
-					DbModel db = AFinalController
-							.getDB(mContext)
-							.findDbModelBySQL(
-									"select updateTime from record order by updateTime limit 1;");
-					String time = db.getString("updateTime");
+					DbUtils db = AFinalController.getDB(mContext);
+					// DbModel db = AFinalController
+					// .getDB(mContext).find
+					// .findDbModelBySQL(
+					// "select updateTime from record order by updateTime limit 1;");
+
+					Cursor cursor = db
+							.execQuery("select updateTime from record order by updateTime limit 1;");
+
+					String time = "";
+					if (cursor != null && cursor.getCount() > 0) {
+						cursor.moveToFirst();
+						time = cursor.getString(cursor
+								.getColumnIndex("updateTime"));
+					}
+
 					List<Record> records = asht.getRecordGroup(user, false,
 							time);
+					db.saveAll(records);
 					for (Record record : records) {
-						System.out.println(" size: "
-								+ record.getResumeList().size());
+						for (Resume r : record.getResumeList()) {
+							r.record = record;
+							db.saveBindingId(r);
+						}
 					}
+					this.records.addAll(records);
 					if (records == null || records.size() == 0) {
 						mUpdateState = new UpdateState(UpdateState.UK_NO_DATA);
 						mUpdateState.setLog("亲，已经没有数据了");
 					} else {
 						mUpdateState = new UpdateState(UpdateState.UK_SERVER_OK);
 						mUpdateState.setLog("亲，加载更多完成");
-						AFinalController.getDB(mContext).deleteByWhere(
-								Record.class, "updateTime < '" + time + "'");
 						for (Record info : records) {
 							AFinalController.getDB(mContext).save(info);
-						}
-						this.records = records;
-						for (Record info : records) {
-
-							CaseView cv = new CaseView();
-							cv.setRecord(info);
-							MainThread.getInit(mContext).add(cv);
 						}
 					}
 				} catch (Exception e) {
@@ -354,6 +264,8 @@ public class CasesController implements OnItemClickListener,
 			public void onFinishAsync() {
 				if (mUpdateState.getAction() == UpdateState.UK_SERVER_OK) {
 					adapter.addRecords(records);
+					int size = records.size();
+					adapter.notifyDataSetChanged();
 					updateHandler.sendEmptyMessage(10001);
 				}
 				mHanleLintener.gengduo(fag, mUpdateState, isTouch);
@@ -465,11 +377,31 @@ public class CasesController implements OnItemClickListener,
 
 				if (fag) {
 					for (Record r : recList) {
-						AFinalController.getDB(mContext).deleteByWhere(
-								Resume.class,
-								"imedicalrecordgroupid = "
-										+ r.getMedicalRecordGroupID());
-						AFinalController.getDB(mContext).delete(r);
+						// AFinalController.getDB(mContext).deleteByWhere(
+						// Resume.class,
+						// "imedicalrecordgroupid = "
+						// + r.getMedicalRecordGroupID());
+						try {
+							// AFinalController.getDB(mContext).deleteById(
+							// Record.class, r.getId());
+							AFinalController
+									.getDB(mContext)
+									.delete(Record.class,
+											WhereBuilder.b(
+													" medicalRecordGroupID ",
+													" = ",
+													r.getMedicalRecordGroupID()));
+							AFinalController
+									.getDB(mContext)
+									.delete(Resume.class,
+											WhereBuilder.b(
+													" imedicalrecordgroupid ",
+													" = ",
+													"  "
+															+ r.getMedicalRecordGroupID()));
+						} catch (DbException e) {
+							e.printStackTrace();
+						}
 						adapter.removeRecord(r);
 					}
 				}

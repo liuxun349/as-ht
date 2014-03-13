@@ -63,6 +63,7 @@
 
     <LinearLayout
         style="@style/body"
+        android:paddingTop="@dimen/grid_spacing"
         android:gravity="center_vertical|center_horizontal"
         android:orientation="vertical" >
 

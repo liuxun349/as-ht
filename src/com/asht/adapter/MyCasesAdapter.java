@@ -12,13 +12,14 @@ import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.asht.R;
-import com.asht.model.CaseView;
 import com.asht.model.Record;
+import com.asht.model.Resume;
 import com.asht.utl.Settings;
-import com.example.controller.MainThread;
 
 public class MyCasesAdapter extends BaseAdapter {
 
@@ -26,10 +27,6 @@ public class MyCasesAdapter extends BaseAdapter {
 	private Context mContext;
 	private static int width, height;
 	FinalBitmap mBitmap;
-
-	public static int[] getWH() {
-		return new int[] { width, height };
-	}
 
 	public void setInfos(List<Record> info) {
 		if (infos.equals(info)) {
@@ -120,25 +117,32 @@ public class MyCasesAdapter extends BaseAdapter {
 			myCasesItemView.tv_title = (TextView) item_view
 					.findViewById(R.id.tv_myCases_title);
 			convertView = item_view;
+			int spacing = (int) mContext.getResources().getDimension(
+					R.dimen.grid_spacing);
 			// 获取分辨率
 			AbsListView.LayoutParams ll = new AbsListView.LayoutParams(width,
 					height, 1);
+			LinearLayout.LayoutParams llitem1 = new LinearLayout.LayoutParams(
+					(width - spacing * 2) / 2, height / 2);
+			LinearLayout.LayoutParams llitem2 = new LinearLayout.LayoutParams(
+					(width - spacing * 2) / 2, height / 2);
+			LinearLayout.LayoutParams llitem3 = new LinearLayout.LayoutParams(
+					(width - spacing * 2) / 2, height / 2);
+			LinearLayout.LayoutParams llitem4 = new LinearLayout.LayoutParams(
+					(width - spacing * 2) / 2, height / 2);
+
+			myCasesItemView.iv1.setLayoutParams(llitem1);
+			llitem2.leftMargin = spacing;
+			myCasesItemView.iv2.setLayoutParams(llitem2);
+			myCasesItemView.iv3.setLayoutParams(llitem3);
+			llitem4.leftMargin = spacing;
+			myCasesItemView.iv4.setLayoutParams(llitem4);
 			convertView.setLayoutParams(ll);
 			convertView.setTag(myCasesItemView);
-			convertView.setBackgroundColor(Color.parseColor("#33333333"));
 		}
 		myCasesItemView = (MyCasesItemView) convertView.getTag();
 
 		Record myCasesInfo = infos.get(position);
-
-		mBitmap.display(myCasesItemView.iv1,
-				Settings.WEB_URL + myCasesInfo.getImg1(), width / 4, height / 4);
-		mBitmap.display(myCasesItemView.iv2,
-				Settings.WEB_URL + myCasesInfo.getImg2(), width / 4, height / 4);
-		mBitmap.display(myCasesItemView.iv3,
-				Settings.WEB_URL + myCasesInfo.getImg3(), width / 4, height / 4);
-		mBitmap.display(myCasesItemView.iv4,
-				Settings.WEB_URL + myCasesInfo.getImg4(), width / 4, height / 4);
 
 		myCasesItemView.tv_title.setText(myCasesInfo
 				.getMedicalRecordGroupName());
@@ -149,13 +153,65 @@ public class MyCasesAdapter extends BaseAdapter {
 		} else {
 			myCasesItemView.iv_delete.setVisibility(View.GONE);
 		}
-//		if (myCasesInfo.getIsUpdate() == 1) {
-//			// 需要更新
-//			CaseView cv = new CaseView();
-//			cv.setRecord(myCasesInfo);
-//			cv.setView(myCasesItemView);
-//			MainThread.getInit(mContext).add(cv);
-//		}
+		// if (myCasesInfo.getIsUpdate() == 1) {
+		// // 需要更新
+		// CaseView cv = new CaseView();
+		// cv.setRecord(myCasesInfo);
+		// cv.setView(myCasesItemView);
+		// MainThread.getInit(mContext).add(cv);
+		// }
+
+		List<Resume> result = myCasesInfo.getResumeList();
+
+		if (result == null) {
+		} else {
+			int size = result.size();
+			switch (result.size()) {
+			case 0:
+				myCasesItemView.iv1.setImageBitmap(null);
+				myCasesItemView.iv2.setImageBitmap(null);
+				myCasesItemView.iv3.setImageBitmap(null);
+				myCasesItemView.iv4.setImageBitmap(null);
+				break;
+			case 1:
+				mBitmap.display(myCasesItemView.iv1, Settings.WEB_URL
+						+ result.get(0).getMinFileName(), width / 4, height / 4);
+				myCasesItemView.iv2.setImageBitmap(null);
+				myCasesItemView.iv3.setImageBitmap(null);
+				myCasesItemView.iv4.setImageBitmap(null);
+				break;
+			case 2:
+
+				mBitmap.display(myCasesItemView.iv1, Settings.WEB_URL
+						+ result.get(0).getMinFileName(), width / 4, height / 4);
+				mBitmap.display(myCasesItemView.iv2, Settings.WEB_URL
+						+ result.get(1).getMinFileName(), width / 4, height / 4);
+				myCasesItemView.iv3.setImageBitmap(null);
+				myCasesItemView.iv4.setImageBitmap(null);
+				break;
+			case 3:
+				mBitmap.display(myCasesItemView.iv1, Settings.WEB_URL
+						+ result.get(0).getMinFileName(), width / 4, height / 4);
+				mBitmap.display(myCasesItemView.iv2, Settings.WEB_URL
+						+ result.get(1).getMinFileName(), width / 4, height / 4);
+				mBitmap.display(myCasesItemView.iv3, Settings.WEB_URL
+						+ result.get(2).getMinFileName(), width / 4, height / 4);
+				myCasesItemView.iv4.setImageBitmap(null);
+				break;
+			case 4:
+
+				mBitmap.display(myCasesItemView.iv1, Settings.WEB_URL
+						+ result.get(0).getMinFileName(), width / 4, height / 4);
+				mBitmap.display(myCasesItemView.iv2, Settings.WEB_URL
+						+ result.get(1).getMinFileName(), width / 4, height / 4);
+				mBitmap.display(myCasesItemView.iv3, Settings.WEB_URL
+						+ result.get(2).getMinFileName(), width / 4, height / 4);
+				mBitmap.display(myCasesItemView.iv4, Settings.WEB_URL
+						+ result.get(3).getMinFileName(), width / 4, height / 4);
+				break;
+			}
+		}
+
 		return convertView;
 	}
 

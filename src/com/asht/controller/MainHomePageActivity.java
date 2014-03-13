@@ -29,6 +29,14 @@ public class MainHomePageActivity extends Activity {
 		case R.id.test_cases:
 			intent.setClass(getApplicationContext(), MyCasesActivity.class);
 			break;
+		case R.id.test_add_tuijian:
+			intent.setClass(getApplicationContext(),
+					NewRecommendActivity.class);
+			break;
+		case R.id.test_tuijian:
+			intent.setClass(getApplicationContext(),
+					MutualRecommendationActivity.class);
+			break;
 
 		default:
 			break;

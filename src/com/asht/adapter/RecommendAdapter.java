@@ -12,43 +12,43 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import com.asht.info.RecommendInfo;
 import com.asht.R;
+import com.asht.model.Recommend;
 
 public class RecommendAdapter extends BaseAdapter {
 
-	private List<RecommendInfo> infos;
+	private List<Recommend> infos;
 	private Context mContext;
 	private int width, height;
 
-	public void setInfos(List<RecommendInfo> info) {
+	public void setInfos(List<Recommend> info) {
 		if (infos.equals(info)) {
 			return;
 		}
 		this.infos = info;
 	}
 
-	public List<RecommendInfo> getInfos() {
+	public List<Recommend> getInfos() {
 		return infos;
 	}
 
-	public void addRecommendInfo(RecommendInfo info) {
+	public void addRecommend(Recommend info) {
 		if (infos != null && infos.contains(info)) {
 			infos.add(info);
 		}
 	}
 
-	public void removeRecommendInfo(RecommendInfo info) {
+	public void removeRecommend(Recommend info) {
 		if (infos != null && infos.contains(info)) {
 			infos.remove(info);
 		}
 	}
 
-	public RecommendAdapter(Context context, List<RecommendInfo> lists,
-			int width, int height) {
+	public RecommendAdapter(Context context, List<Recommend> lists, int width,
+			int height) {
 		infos = lists;
 		if (infos == null) {
-			infos = new ArrayList<RecommendInfo>();
+			infos = new ArrayList<Recommend>();
 		}
 		mContext = context;
 		this.height = height;
@@ -57,6 +57,9 @@ public class RecommendAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
+		if (infos == null) {
+			infos = new ArrayList<Recommend>();
+		}
 		return infos.size();
 	}
 
@@ -94,11 +97,11 @@ public class RecommendAdapter extends BaseAdapter {
 		}
 		myCasesItemView = (MyCasesItemView) convertView.getTag();
 
-		RecommendInfo info = infos.get(position);
-		String name = (info.getCertificateId() == 0 ? "患者" : "医生")
-				+ info.getRecommendedName();
-		myCasesItemView.tv_title.setText(name);
-		myCasesItemView.cbIsShenHe.setChecked(info.getAuditState() == 0);
+		Recommend info = infos.get(position);
+//		String name = (info.getCertificateId() == 0 ? "患者" : "医生")
+//				+ info.getRecommendedName();
+//		myCasesItemView.tv_title.setText(name);
+//		myCasesItemView.cbIsShenHe.setChecked(info.getAuditState() == 0);
 		if (info.getIsClick() == 0) {
 			myCasesItemView.iv_delete.setVisibility(View.VISIBLE);
 		} else {

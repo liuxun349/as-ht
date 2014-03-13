@@ -11,18 +11,12 @@ import com.asht.AsHtException;
 import com.asht.http.AshtResponse;
 
 public class Recommend extends AshtResponse {
-	
+
 	private int _id;// 数据库主健id
 	private int recommendId;// 该条信息ID
-	private int userId;// 用户ID
-	private String recommendedName;// 姓名
-	private long identity;// 证件号码
 	private int certificateId;// 身份（0 患者，1医生）
-	private String recommendedTime;// 推荐时间
-	private int auditState;// 审核状态(0,审核过了，1没有过)
-	private String auditTime;// 审核时间
-	private String auditNote;// 审核备注
 	private int isClick;// 用于Adapter的选中状态（0选中，1没有选中）（数据库保存没实际意义）
+
 	/**
 	 * 推荐人手机号
 	 */
@@ -48,7 +42,7 @@ public class Recommend extends AshtResponse {
 	 */
 	private String RecommendDateTime;
 	/**
-	 * 审核状态
+	 * 审核状态 审核状态(0,审核过了，1没有过)
 	 */
 	private String RecommendState;
 	/**
@@ -57,12 +51,11 @@ public class Recommend extends AshtResponse {
 	private String examineDateTime;
 
 	public Recommend() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public Recommend(String recommendPhoneNo, String recommendtrueName,
 			String recommendCertificateTypeId, String recommendCertificateId,
-			String recommendeMail ) {
+			String recommendeMail) {
 		this.recommendCertificateId = recommendCertificateId;
 		this.recommendCertificateTypeId = recommendCertificateTypeId;
 		this.recommendeMail = recommendeMail;
@@ -71,7 +64,6 @@ public class Recommend extends AshtResponse {
 	}
 
 	public Recommend(AshtResponse rs) {
-		// TODO Auto-generated constructor stub
 		super(rs);
 		Recommend recommend = JSON.parseObject(((JSON) result).toJSONString(),
 				Recommend.class);
@@ -93,68 +85,148 @@ public class Recommend extends AshtResponse {
 				Recommend.class);
 	}
 
+	/**
+	 * 推荐人手机号
+	 */
 	public String getRecommendPhoneNo() {
 		return recommendPhoneNo;
 	}
 
+	/**
+	 * 推荐人手机号
+	 */
 	public void setRecommendPhoneNo(String recommendPhoneNo) {
 		this.recommendPhoneNo = recommendPhoneNo;
 	}
 
+	/**
+	 * 真实姓名
+	 */
 	public String getRecommendtrueName() {
 		return recommendtrueName;
 	}
 
+	/**
+	 * 设置真实姓名
+	 */
 	public void setRecommendtrueName(String recommendtrueName) {
 		this.recommendtrueName = recommendtrueName;
 	}
 
+	/**
+	 * 推荐人证件类型
+	 */
 	public String getRecommendCertificateTypeId() {
 		return recommendCertificateTypeId;
 	}
 
+	/**
+	 * 推荐人证件类型
+	 */
 	public void setRecommendCertificateTypeId(String recommendCertificateTypeId) {
 		this.recommendCertificateTypeId = recommendCertificateTypeId;
 	}
 
+	/**
+	 * 推荐人证件类型
+	 */
 	public String getRecommendCertificateId() {
 		return recommendCertificateId;
 	}
 
+	/**
+	 * 推荐人证件号
+	 */
 	public void setRecommendCertificateId(String recommendCertificateId) {
 		this.recommendCertificateId = recommendCertificateId;
 	}
 
+	/**
+	 * 推荐人邮箱
+	 */
 	public String getRecommendeMail() {
 		return recommendeMail;
 	}
 
+	/**
+	 * 推荐人邮箱
+	 */
 	public void setRecommendeMail(String recommendeMail) {
 		this.recommendeMail = recommendeMail;
 	}
 
+	/**
+	 * 推荐时间
+	 */
 	public String getRecommendDateTime() {
 		return RecommendDateTime;
 	}
 
+	/**
+	 * 推荐时间
+	 */
 	public void setRecommendDateTime(String recommendDateTime) {
 		RecommendDateTime = recommendDateTime;
 	}
 
+	/**
+	 * 审核状态
+	 */
 	public String getRecommendState() {
 		return RecommendState;
 	}
 
+	/**
+	 * 审核状态
+	 */
 	public void setRecommendState(String recommendState) {
 		RecommendState = recommendState;
 	}
 
+	/**
+	 * 审核时间
+	 */
 	public String getExamineDateTime() {
 		return examineDateTime;
 	}
 
+	/**
+	 * 审核时间
+	 */
 	public void setExamineDateTime(String examineDateTime) {
 		this.examineDateTime = examineDateTime;
+	}
+
+	public int get_id() {
+		return _id;
+	}
+
+	public void set_id(int _id) {
+		this._id = _id;
+	}
+
+	public int getRecommendId() {
+		return recommendId;
+	}
+
+	public void setRecommendId(int recommendId) {
+		this.recommendId = recommendId;
+	}
+
+	public int getCertificateId() {
+		return certificateId;
+	}
+
+	public void setCertificateId(int certificateId) {
+		this.certificateId = certificateId;
+	}
+
+	public int getIsClick() {
+		return isClick;
+	}
+
+	public void setIsClick(int isClick) {
+		this.isClick = isClick;
 	}
 
 	// @Override

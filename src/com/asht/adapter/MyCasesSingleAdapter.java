@@ -61,9 +61,13 @@ public class MyCasesSingleAdapter extends BaseAdapter {
 	}
 
 	public void removeResume(Resume info) {
+		System.out.println("删除前" + infos.size());
 		if (infos != null && infos.contains(info)) {
+
+			System.out.println("删除zhong" + infos.size());
 			infos.remove(info);
 		}
+		System.out.println("删除后" + infos.size());
 	}
 
 	public MyCasesSingleAdapter(Context context, List<Resume> lists, int width,
@@ -136,8 +140,8 @@ public class MyCasesSingleAdapter extends BaseAdapter {
 		} else {
 
 			hview.tv_case_upload.setVisibility(View.GONE);
-			mYjBitmap.display(hview.iv1, Settings.WEB_URL
-					+ info.getMinFileName(), width, width);
+			mYjBitmap.display(hview.iv1,
+					Settings.WEB_URL + info.getMinFileName(), width, width);
 			hview.cbIsShenHe.setChecked("1".equals(info.getIstate()));
 
 			hview.cbIsShenHe.setVisibility(View.VISIBLE);

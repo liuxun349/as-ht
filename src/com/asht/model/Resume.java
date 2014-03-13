@@ -14,14 +14,17 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.asht.AsHtException;
 import com.asht.http.AshtResponse;
+import com.lidroid.xutils.db.annotation.Foreign;
 
 @Table(name = "resume")
+@com.lidroid.xutils.db.annotation.Table(name = "resume")
 public class Resume extends AshtResponse implements Serializable {
 	public static final long serialVersionUID = -6193310436318894856L;
 	/**
 	 * 病例图片id
 	 */
 	@Id
+	@com.lidroid.xutils.db.annotation.Id
 	public int id;
 
 	private int imedicalrecorditemid;
@@ -57,11 +60,11 @@ public class Resume extends AshtResponse implements Serializable {
 	 */
 	private int state = 3;
 
-	// /**
-	// * 当前病例属于的病例组
-	// */
-	// @Foreign(column = "groupid", foreign = "medicalRecordGroupID")
-	// public Record record = null;
+	/**
+	 * 当前病例属于的病例组
+	 */
+	@Foreign(column = "groupid", foreign = "medicalRecordGroupID")
+	public Record record = null;
 
 	public Resume() {
 
@@ -176,30 +179,31 @@ public class Resume extends AshtResponse implements Serializable {
 		this.state = 3;
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (o == null) {
-			return false;
-		}
-		if (o instanceof Resume) {
-
-			Resume r = (Resume) o;
-
-			if (r.imedicalrecordgroupid != 0 && this.imedicalrecordgroupid != 0
-					&& r.imedicalrecordgroupid == this.imedicalrecorditemid) {
-				return true;
-			} else if (r.localRecordImageUrl != null
-					&& !r.localRecordImageUrl.equals("")
-					&& r.localRecordImageUrl.equals(this.localRecordImageUrl)) {
-				return true;
-			}
-			// if (r.imedicalrecorditemid == this.imedicalrecorditemid) {
-			// return true;
-			// } else if (r.localRecordImageUrl!=null) {
-			// return true;
-			// }
-		}
-		return false;
-
-	}
+//	@Override
+//	public boolean equals(Object o) {
+//		if (o == null) {
+//			return false;
+//		}
+//		if (o instanceof Resume) {
+//
+//			Resume r = (Resume) o;
+//
+//			
+////			if (r.imedicalrecordgroupid != 0 && this.imedicalrecordgroupid != 0
+////					&& r.imedicalrecordgroupid == this.imedicalrecorditemid) {
+////				return true;
+////			} else if (r.localRecordImageUrl != null
+////					&& !r.localRecordImageUrl.equals("")
+////					&& r.localRecordImageUrl.equals(this.localRecordImageUrl)) {
+////				return true;
+////			}
+//			if (r.imedicalrecorditemid == this.imedicalrecorditemid) {
+//				return true;
+//			} else if (r.localRecordImageUrl != null) {
+//				return true;
+//			}
+//		}
+//		return false;
+//
+//	}
 }

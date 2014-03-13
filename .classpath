@@ -11,5 +11,10 @@
 			<attribute name="source_encoding" value="UTF-8"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="lib/xUtils-2.4.4.jar" sourcepath="/Users/mac/Work/xUtils-master/library">
+		<attributes>
+			<attribute name="source_encoding" value="UTF-8"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

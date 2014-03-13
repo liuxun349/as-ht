@@ -54,6 +54,14 @@ public class MyCasesActivity extends Activity implements OnClickListener {
 		mCasesController.update(true, true);
 	}
 
+	@Override
+	protected void onRestart() {
+		super.onRestart();
+
+		setPro(true);
+		mCasesController.update(false, true);
+	}
+
 	private void setPro(final boolean fag) {
 		findViewById(R.id.prigress).post(new Runnable() {
 

@@ -82,7 +82,7 @@ public class MutualRecommendationActivity extends Activity implements
 		if (recommendController1 == null) {
 			recommendController1 = new RecommendController(
 					MutualRecommendationActivity.this,
-					(GridView) tv_illness.findViewById(R.id.gridview), true);
+					(GridView) tv_illness.findViewById(R.id.gridview), 1);
 			recommendController1.setUIHandleLinstener(new UIHanleLintener() {
 
 				@Override
@@ -180,7 +180,7 @@ public class MutualRecommendationActivity extends Activity implements
 		if (recommendController2 == null) {
 			recommendController2 = new RecommendController(
 					MutualRecommendationActivity.this,
-					(GridView) tv_doctor.findViewById(R.id.gridview), false);
+					(GridView) tv_doctor.findViewById(R.id.gridview), 0);
 			recommendController2.setUIHandleLinstener(new UIHanleLintener() {
 
 				@Override
@@ -272,8 +272,8 @@ public class MutualRecommendationActivity extends Activity implements
 				}
 			});
 		}
-		recommendController1.update(false, false);
-		recommendController2.update(false, false);
+		recommendController1.update(true, true);
+		recommendController2.update(true, true);
 	}
 
 	@Override
