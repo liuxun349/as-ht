@@ -225,6 +225,82 @@ public class CasesSingleController implements OnItemClickListener,
 			@Override
 			public void onStartAsync() {
 
+				if (isTouch) {
+					// System.out.println("do it ? ..");
+					AsHt asht = AsHt.getInstance();
+					UserInfo user = ApplictionManager.getInstance()
+							.getUserInfo();
+					try {
+						List<Resume> resumes = asht.getAllCaseFromGroup(user,
+								mRecord.getMedicalRecordGroupID());
+						if(resumes!=null){
+							
+						}
+					} catch (Exception e) {
+
+					}
+					// try {
+					// Record r = mRecord;
+					// // 服务器数据
+					// List<Resume> resumes = asht.getAllCaseFromGroup(user,
+					// r.getMedicalRecordGroupID());
+					// DbUtils db = AFinalController.getDB(mContext);
+					// // 获得当前病例组下需要上传的
+					// // upLoad = db.findAllByWhere(
+					// // Resume.class,
+					// // "imedicalrecordgroupid = "
+					// // + r.getMedicalRecordGroupID()
+					// // + " and state =" + 2);
+					// // 获得需要删除的
+					// // delete = db.findAllByWhere(
+					// // Resume.class,
+					// // "imedicalrecordgroupid = "
+					// // + r.getMedicalRecordGroupID()
+					// // + " and state =" + 1);
+					//
+					// // for (Resume resume : delete) {
+					// // for (Resume resume2 : resumes) {
+					// // if (resume.getImedicalrecorditemid() == resume2
+					// // .getImedicalrecorditemid()) {
+					// // resume2.setState(resume.getState());
+					// // }
+					// // }
+					// // }
+					//
+					// db.delete(Resume.class, WhereBuilder.b("", "", ""));
+					//
+					// // // 清空本地数据
+					// // db.deleteByWhere(
+					// // Resume.class,
+					// // ("imedicalrecordgroupid = " + r
+					// // .getMedicalRecordGroupID()) + "");
+					//
+					// resumes.addAll(upLoad);
+					// // 保存本地数据
+					// for (Resume resume : resumes) {
+					// db.save(resume);
+					// }
+					// mResume = resumes;
+					//
+					// } catch (Exception e) {
+					// // mResume = AFinalController.getDB(mContext)
+					// // .findAllByWhere(
+					// // Resume.class,
+					// // ("imedicalrecordgroupid = " + mRecord
+					// // .getMedicalRecordGroupID())
+					// // + "");
+					// e.printStackTrace();
+					// }
+					//
+					// } else {
+					// // mResume =
+					// AFinalController.getDB(mContext).findAllByWhere(
+					// // Resume.class,
+					// // ("imedicalrecordgroupid = " + mRecord
+					// // .getMedicalRecordGroupID()) + "");
+					// }
+				}
+
 				mResume = mRecord.getResumeList();
 
 				// if (fag) {
@@ -409,13 +485,13 @@ public class CasesSingleController implements OnItemClickListener,
 					.getMedicalRecordGroupID()));
 			new UploadCase(resume).execute();
 			try {
-				AFinalController.getDB(mContext).save(resume);
+				resume.record = mRecord;
+				AFinalController.getDB(mContext).saveBindingId(resume);
 				mRecord.getResumeList().add(resume);
 			} catch (DbException e) {
 				e.printStackTrace();
 			}
 		}
-		adapter.addResumes((List<Resume>) infos);
 		adapter.notifyDataSetChanged();
 	}
 

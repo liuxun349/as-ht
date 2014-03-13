@@ -4,6 +4,7 @@ import java.text.ParseException;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -122,12 +123,18 @@ public class NewRecommendActivity extends Activity implements
 		String name = et_name.getText().toString().trim();
 
 		if (!Phone.isMobileNO(phone)) {
-			ToastUtils.getInit(getApplicationContext()).show("请输入正确的手机号码");
+			ToastUtils.getInit(getApplicationContext()).show("请填写您正确的手机号码");
+			mDialog.dismiss();
+			return;
+		}
+		if (name.length() == 0) {
+
+			ToastUtils.getInit(getApplicationContext()).show("请填写您的姓名");
 			mDialog.dismiss();
 			return;
 		}
 		if (!Phone.isEmail(email, false)) {
-			ToastUtils.getInit(getApplicationContext()).show("请输入正确的邮件地址");
+			ToastUtils.getInit(getApplicationContext()).show("请填写您正确的邮件地址");
 			mDialog.dismiss();
 			return;
 		}
@@ -141,7 +148,7 @@ public class NewRecommendActivity extends Activity implements
 		if (sfz.length() > 0) {
 			ToastUtils.getInit(getApplicationContext()).show(sfz);
 			mDialog.dismiss();
-			return;  
+			return;
 		}
 		new AsyncDataLoader(new Callback() {
 

@@ -7,10 +7,12 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore.Images.Media;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -101,7 +103,18 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 			} else {
 				Uri uri = data.getData();
 				System.out.println(uri);
-				ToastUtils.getInit(getApplicationContext()).show("功能开发中。。。");
+				@SuppressWarnings("deprecation")
+				Cursor c = managedQuery(uri, null, null, null, null);
+				c.moveToFirst();
+				String path = c.getString(c.getColumnIndex(Media.DATA));
+				ToastUtils.getInit(getApplicationContext()).show(
+						"功能开发中。。。" + path);
+				List<Resume> lists = new ArrayList<Resume>();
+				Resume r = new Resume();
+				r.setLocalRecordImageUrl(path);
+				lists.add(r);
+				ToastUtils.getInit(getApplicationContext()).show("aa"+lists.size());
+				mCasesSingleController.add(lists);
 			}
 
 		}

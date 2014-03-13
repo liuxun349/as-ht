@@ -200,6 +200,7 @@ public class MyCasesAdapter extends BaseAdapter {
 				break;
 			case 4:
 
+			default:
 				mBitmap.display(myCasesItemView.iv1, Settings.WEB_URL
 						+ result.get(0).getMinFileName(), width / 4, height / 4);
 				mBitmap.display(myCasesItemView.iv2, Settings.WEB_URL
