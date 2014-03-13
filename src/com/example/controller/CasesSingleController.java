@@ -230,14 +230,22 @@ public class CasesSingleController implements OnItemClickListener,
 					AsHt asht = AsHt.getInstance();
 					UserInfo user = ApplictionManager.getInstance()
 							.getUserInfo();
+					DbUtils db = AFinalController.getDB(mContext);
 					try {
 						List<Resume> resumes = asht.getAllCaseFromGroup(user,
 								mRecord.getMedicalRecordGroupID());
-						if(resumes!=null){
-							
+						if (resumes != null) {
+							db.delete(Resume.class, WhereBuilder.b(
+									" imedicalrecordgroupid ", " = ",
+									mRecord.getMedicalRecordGroupID()));
+							for (Resume resume : resumes) {
+								resume.record = mRecord;
+								db.saveBindingId(resume);
+							}
+							mResume = resumes;
 						}
 					} catch (Exception e) {
-
+						mResume = mRecord.getResumeList();
 					}
 					// try {
 					// Record r = mRecord;
@@ -299,10 +307,10 @@ public class CasesSingleController implements OnItemClickListener,
 					// // ("imedicalrecordgroupid = " + mRecord
 					// // .getMedicalRecordGroupID()) + "");
 					// }
+				} else {
+
+					mResume = mRecord.getResumeList();
 				}
-
-				mResume = mRecord.getResumeList();
-
 				// if (fag) {
 				// System.out.println("do it ? ..");
 				// AsHt asht = AsHt.getInstance();

@@ -29,6 +29,10 @@ import com.asht.interfaces.UINotification;
 import com.asht.model.Record;
 import com.asht.model.Resume;
 import com.asht.model.UpdateState;
+import com.asht.ui.PullToRefreshView;
+import com.asht.ui.PullToRefreshView.OnFooterRefreshListener;
+import com.asht.ui.PullToRefreshView.OnHeaderRefreshListener;
+import com.asht.utl.SharedPreferencesUtils;
 import com.asht.view.ToastUtils;
 import com.example.controller.CasesSingleController;
 import com.example.testafinal.MyApplication;
@@ -43,6 +47,8 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 	private CasesDeleteIsOK casesDeleteIsOK;
 	private CasesSingleController mCasesSingleController;
 	private CasesAddCaseSingle mAddCaseSingle;
+
+	private PullToRefreshView ptrv_cases;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +119,8 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 				Resume r = new Resume();
 				r.setLocalRecordImageUrl(path);
 				lists.add(r);
-				ToastUtils.getInit(getApplicationContext()).show("aa"+lists.size());
+				ToastUtils.getInit(getApplicationContext()).show(
+						"aa" + lists.size());
 				mCasesSingleController.add(lists);
 			}
 
@@ -123,6 +130,7 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 
 	private void initView() {
 		gv_myCasesSingle = (GridView) findViewById(R.id.gv_myCasesSingle);
+		ptrv_cases = (PullToRefreshView) findViewById(R.id.ptrv_cases);
 		initDeleteTitle();
 		initDeleteIsOK();
 		initAddCaseSingle();
@@ -188,6 +196,26 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 					}
 				});
 
+		ptrv_cases.setOnHeaderRefreshListener(new OnHeaderRefreshListener() {
+
+			@Override
+			public void onHeaderRefresh(PullToRefreshView view) {
+
+				setPro(true);
+				mCasesSingleController.update(true, true);
+			}
+		});
+		ptrv_cases.setOnFooterRefreshListener(new OnFooterRefreshListener() {
+
+			@Override
+			public void onFooterRefresh(PullToRefreshView view) {
+				// mCasesSingleController.gengduo(true, true);
+				ptrv_cases.onFooterRefreshComplete();
+			}
+		});
+
+		ptrv_cases.onHeaderRefreshComplete(SharedPreferencesUtils
+				.getTime(getApplicationContext()));
 	}
 
 	private void setPro(final boolean fag) {
@@ -384,6 +412,8 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 		@Override
 		public void update(boolean isServer, UpdateState state, boolean isTouch) {
 			// TODO Auto-generated method stub
+			if (isTouch)
+				ptrv_cases.onHeaderRefreshComplete();
 			setPro(false);
 		}
 

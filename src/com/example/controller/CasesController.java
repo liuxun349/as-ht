@@ -397,8 +397,7 @@ public class CasesController implements OnItemClickListener,
 											WhereBuilder.b(
 													" imedicalrecordgroupid ",
 													" = ",
-													"  "
-															+ r.getMedicalRecordGroupID()));
+													r.getMedicalRecordGroupID()));
 						} catch (DbException e) {
 							e.printStackTrace();
 						}

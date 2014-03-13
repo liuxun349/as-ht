@@ -75,6 +75,7 @@
         android:orientation="vertical" >
 
         <com.asht.ui.PullToRefreshView
+            android:id="@+id/ptrv_cases"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:background="@android:color/white"
