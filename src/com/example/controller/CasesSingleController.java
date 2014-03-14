@@ -520,12 +520,7 @@ public class CasesSingleController implements OnItemClickListener,
 				resume.setState(3);
 			}
 			try {
-				AFinalController.getDB(mContext).update(
-						resume,
-						"imedicalrecordgroupid ="
-								+ resume.getImedicalrecordgroupid()
-								+ " and localRecordImageUrlId ='"
-								+ resume.getLocalRecordImageUrlId() + "'");
+				AFinalController.getDB(mContext).update(resume);
 			} catch (DbException e) {
 				e.printStackTrace();
 			}

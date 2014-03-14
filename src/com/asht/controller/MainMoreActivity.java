@@ -65,13 +65,13 @@ public class MainMoreActivity extends Activity implements OnClickListener {
 			Controller.SecurityCenter(this);
 			break;
 		case R.id.more_update:
-			updateCheck();
+//			updateCheck();
 			break;
 		}
 	}
 
-	private void updateCheck() {
-		UpdateManager updateManager = new UpdateManager(MainMoreActivity.this);
-		updateManager.checkUpdate();
-	}
+//	private void updateCheck() {
+//		updateManager updateManager = new UpdateManager(MainMoreActivity.this);
+//		updateManager.checkUpdate();
+//	}
 }
