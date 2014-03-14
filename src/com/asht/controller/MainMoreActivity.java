@@ -42,6 +42,7 @@ public class MainMoreActivity extends Activity implements OnClickListener {
 		advice.setOnClickListener(this);
 		setting.setOnClickListener(this);
 		securityCenter.setOnClickListener(this);
+		update.setOnClickListener(this);
 	}
 
 	@Override
@@ -53,7 +54,6 @@ public class MainMoreActivity extends Activity implements OnClickListener {
 			ApplictionManager.getInstance().getUser().exit();
 			Controller.LoginActivity(this);
 			break;
-
 		case R.id.more_advice:
 			Controller.Advice(this, null);
 			break;
@@ -64,6 +64,14 @@ public class MainMoreActivity extends Activity implements OnClickListener {
 		case R.id.more_security_center:
 			Controller.SecurityCenter(this);
 			break;
+		case R.id.more_update:
+			updateCheck();
+			break;
 		}
+	}
+
+	private void updateCheck() {
+		UpdateManager updateManager = new UpdateManager(MainMoreActivity.this);
+		updateManager.checkUpdate();
 	}
 }

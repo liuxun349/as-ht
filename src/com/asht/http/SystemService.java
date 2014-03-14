@@ -121,6 +121,17 @@ public class SystemService {
 	}
 
 	/**
+	 * 获得最新版本
+	 * 
+	 * @return
+	 * @throws AsHtException
+	 */
+	public AshtResponse getProgramVersionInfo() throws AsHtException {
+		method = "getProgramVersionInfo";
+		return get(method, null);
+	}
+
+	/**
 	 * 获取公司信息
 	 * 
 	 * @return
@@ -144,6 +155,8 @@ public class SystemService {
 
 	private AshtResponse get(String method, JSONObject json)
 			throws AsHtException {
-		return httpClient.get(method, json.toJSONString());
+
+		return httpClient
+				.get(method, json == null ? null : json.toJSONString());
 	}
 }
