@@ -479,17 +479,24 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 			}
 		}
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public void onClick(int index, View citem, Object info, List<?> list) {
 			Intent intent = new Intent(getApplicationContext(),
 					ViewPagerActivity.class);
 			Bundle b = new Bundle();
-			b.putSerializable("dataList", (Serializable) list);
+			// b.putSerializable("dataList", (Serializable) list);
+			((MyApplication) getApplication()).setResumes((List<Resume>) list);
 			b.putInt("index", index);
 			intent.putExtras(b);
 			startActivity(intent);
 			overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
 		}
 
+	};
+
+	public void finish() {
+		((MyApplication) getApplication()).clearResumes();
+		((MyApplication) getApplication()).clearResumes();
 	};
 }

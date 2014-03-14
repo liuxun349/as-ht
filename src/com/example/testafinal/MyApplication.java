@@ -1,5 +1,8 @@
 package com.example.testafinal;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.http.HttpVersion;
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.ClientConnectionManager;
@@ -21,6 +24,7 @@ import android.util.Log;
 import cn.jpush.android.api.JPushInterface;
 
 import com.asht.model.Record;
+import com.asht.model.Resume;
 
 public class MyApplication extends Application {
 
@@ -94,5 +98,20 @@ public class MyApplication extends Application {
 
 	public void setmRecord(Record mRecord) {
 		this.mRecord = mRecord;
+	}
+
+	List<Resume> res = new ArrayList<Resume>();
+
+	public void setResumes(List<Resume> list) {
+		res.clear();
+		res.addAll(list);
+	}
+
+	public List<Resume> getResumes() {
+		return res;
+	}
+
+	public void clearResumes() {
+		res.clear();
 	}
 }
