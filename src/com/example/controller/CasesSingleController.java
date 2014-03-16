@@ -525,7 +525,7 @@ public class CasesSingleController implements OnItemClickListener,
 				e.printStackTrace();
 			}
 			return resume;
-		}
+		}  
 
 		public Resume getResume() {
 			return resume;

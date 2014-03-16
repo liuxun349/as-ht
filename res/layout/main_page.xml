@@ -23,13 +23,13 @@
             android:textColor="@color/white" />
 
         <Button
-            android:id="@+id/test_add_cases"
+            android:id="@+id/test_add_tuijian"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginLeft="10dp"
             android:background="#778885"
             android:onClick="onclick"
-            android:text="添加病例组"
+            android:text="添加推荐"
             android:textColor="@color/white" />
     </LinearLayout>
 
@@ -46,16 +46,6 @@
             android:background="#5EA294"
             android:onClick="onclick"
             android:text="所有推荐"
-            android:textColor="@color/white" />
-
-        <Button
-            android:id="@+id/test_add_tuijian"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginLeft="10dp"
-            android:background="#778885"
-            android:onClick="onclick"
-            android:text="添加推荐"
             android:textColor="@color/white" />
     </LinearLayout>
 

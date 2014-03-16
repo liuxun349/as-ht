@@ -521,5 +521,6 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 	public void finish() {
 		((MyApplication) getApplication()).clearResumes();
 		((MyApplication) getApplication()).clearResumes();
+		super.finish();
 	};
 }

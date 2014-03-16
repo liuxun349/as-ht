@@ -5,7 +5,6 @@ import java.util.List;
 
 import net.tsz.afinal.FinalBitmap;
 import android.content.Context;
-import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -13,7 +12,6 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.asht.R;
@@ -110,8 +108,10 @@ public class MyCasesAdapter extends BaseAdapter {
 					.findViewById(R.id.iv_myCases_pic3);
 			myCasesItemView.iv4 = (ImageView) item_view
 					.findViewById(R.id.iv_myCases_pic4);
+			myCasesItemView.view_add = item_view.findViewById(R.id.view_add);
 			myCasesItemView.iv_delete = item_view
 					.findViewById(R.id.iv_myCases_delete);
+
 			myCasesItemView.cbIsShenHe = (CheckBox) item_view
 					.findViewById(R.id.cb_myCases_isTongGuo);
 			myCasesItemView.tv_title = (TextView) item_view
@@ -143,16 +143,29 @@ public class MyCasesAdapter extends BaseAdapter {
 		myCasesItemView = (MyCasesItemView) convertView.getTag();
 
 		Record myCasesInfo = infos.get(position);
+		if (myCasesInfo == null) {
+			if (myCasesItemView.view_add.getVisibility() != View.VISIBLE) {
+				myCasesItemView.view_add.setVisibility(View.VISIBLE);
+			}
+			myCasesItemView.iv_delete.setVisibility(View.GONE);
+			myCasesItemView.tv_title.setText("添加病例组");
+			return convertView;
+		} else {
+			if (myCasesItemView.view_add.getVisibility() == View.VISIBLE) {
+				myCasesItemView.view_add.setVisibility(View.GONE);
+			}
+		}
 
-		myCasesItemView.tv_title.setText(myCasesInfo
-				.getMedicalRecordGroupName());
-		myCasesItemView.cbIsShenHe.setChecked(myCasesInfo.getState()
-				.equals("1"));
 		if (myCasesInfo.isClick == 0) {
 			myCasesItemView.iv_delete.setVisibility(View.VISIBLE);
 		} else {
 			myCasesItemView.iv_delete.setVisibility(View.GONE);
 		}
+
+		myCasesItemView.tv_title.setText(myCasesInfo
+				.getMedicalRecordGroupName());
+		myCasesItemView.cbIsShenHe.setChecked(myCasesInfo.getState()
+				.equals("1"));
 		// if (myCasesInfo.getIsUpdate() == 1) {
 		// // 需要更新
 		// CaseView cv = new CaseView();
@@ -218,6 +231,7 @@ public class MyCasesAdapter extends BaseAdapter {
 
 	public class MyCasesItemView {
 		public TextView tv_title;
+		public View view_add;
 		public ImageView iv1, iv2, iv3, iv4;
 		public CheckBox cbIsShenHe;
 		public View iv_delete;

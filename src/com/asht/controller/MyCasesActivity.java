@@ -293,11 +293,18 @@ public class MyCasesActivity extends Activity implements OnClickListener {
 
 		@Override
 		public void onClick(int index, View citem, Object info, List<?> list) {
-			Intent intent = new Intent(MyCasesActivity.this,
-					MyCasesSingleActivity.class);
-			saveTmp(MyCasesActivity.this, (Record) info);
-			startActivity(intent);
-			overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
+			if (info == null) {
+				Intent intent = new Intent(MyCasesActivity.this,
+						AddCasesActivity.class);
+				startActivity(intent);
+			} else {
+				Intent intent = new Intent(MyCasesActivity.this,
+						MyCasesSingleActivity.class);
+				saveTmp(MyCasesActivity.this, (Record) info);
+				startActivity(intent);
+				overridePendingTransition(R.anim.activity_in,
+						R.anim.activity_out);
+			}
 		}
 
 	};
