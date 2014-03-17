@@ -1,7 +1,6 @@
 package com.asht.controller;
 
-import java.io.Serializable;
-import java.net.URL;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +11,8 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.provider.MediaStore.Images.Media;
 import android.view.Gravity;
 import android.view.View;
@@ -32,6 +33,7 @@ import com.asht.model.UpdateState;
 import com.asht.ui.PullToRefreshView;
 import com.asht.ui.PullToRefreshView.OnFooterRefreshListener;
 import com.asht.ui.PullToRefreshView.OnHeaderRefreshListener;
+import com.asht.utl.FileCache;
 import com.asht.utl.SharedPreferencesUtils;
 import com.asht.view.ToastUtils;
 import com.example.controller.CasesSingleController;
@@ -47,8 +49,9 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 	private CasesDeleteIsOK casesDeleteIsOK;
 	private CasesSingleController mCasesSingleController;
 	private CasesAddCaseSingle mAddCaseSingle;
-
 	private PullToRefreshView ptrv_cases;
+
+	static String imageuri = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -107,17 +110,25 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 				}
 				mCasesSingleController.add(lists);
 			} else {
-				Uri uri = data.getData();
-				System.out.println(uri);
-				@SuppressWarnings("deprecation")
-				Cursor c = managedQuery(uri, null, null, null, null);
-				c.moveToFirst();
-				String path = c.getString(c.getColumnIndex(Media.DATA));
-				ToastUtils.getInit(getApplicationContext()).show(
-						"功能开发中。。。" + path);
+				String uri = imageuri;
+				// System.out.println(uri);
+				if (uri == null) {
+					ToastUtils.getInit(getApplicationContext()).show("照片失败1");
+					return;
+				}
+				// Cursor c = managedQuery(uri, null, null, null, null);
+				// c.moveToFirst();
+				// String path = c.getString(c.getColumnIndex(Media.DATA));
+
+				File f = new File(uri.toString());
+
+				if (!f.exists()) {
+					ToastUtils.getInit(getApplicationContext()).show("照片不存在");
+					return;
+				}
 				List<Resume> lists = new ArrayList<Resume>();
 				Resume r = new Resume();
-				r.setLocalRecordImageUrl(path);
+				r.setLocalRecordImageUrl(f.getAbsolutePath());
 				lists.add(r);
 				ToastUtils.getInit(getApplicationContext()).show(
 						"aa" + lists.size());
@@ -391,6 +402,18 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 			Intent intent = null;
 			if (v.getId() == mAddCaseSingle.view_cameraimport.getId()) {
 				intent = new Intent("android.media.action.IMAGE_CAPTURE");
+				String path = FileCache.getPath();
+				imageuri = null;
+				if (path == null) {
+					ToastUtils.getInit(getApplicationContext()).show(
+							"启动照相机失败，没有SD卡");
+					return;
+				}
+				String imagePath = new File(path, System.currentTimeMillis()
+						+ ".jpg").getAbsolutePath();
+				Uri uri = Uri.fromFile(new File(imagePath));
+				imageuri = imagePath;
+				intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
 				startActivityForResult(intent, 0);
 				overridePendingTransition(R.anim.activity_in,
 						R.anim.activity_out);
@@ -479,17 +502,24 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 			}
 		}
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public void onClick(int index, View citem, Object info, List<?> list) {
 			Intent intent = new Intent(getApplicationContext(),
 					ViewPagerActivity.class);
 			Bundle b = new Bundle();
-			b.putSerializable("dataList", (Serializable) list);
+			// b.putSerializable("dataList", (Serializable) list);
+			((MyApplication) getApplication()).setResumes((List<Resume>) list);
 			b.putInt("index", index);
 			intent.putExtras(b);
 			startActivity(intent);
 			overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
 		}
 
+	};
+
+	public void finish() {
+		((MyApplication) getApplication()).clearResumes();
+		((MyApplication) getApplication()).clearResumes();
 	};
 }

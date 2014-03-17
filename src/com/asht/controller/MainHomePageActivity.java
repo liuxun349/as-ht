@@ -33,6 +33,7 @@ public class MainHomePageActivity extends Activity {
 				height);
 		mGridView.setAdapter(adapter);
 		Controller.setNomePagTop(this, false, "互助抗癌");
+		Controller.getInstance().registerMessageReceiver(this);
 	}
 
 	public void onclick(View v) {
@@ -57,5 +58,12 @@ public class MainHomePageActivity extends Activity {
 			break;
 		}
 		startActivity(intent);
+	}
+
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		Controller.getInstance().unregisterMessageReceiver(this);
+		super.onDestroy();
 	}
 }

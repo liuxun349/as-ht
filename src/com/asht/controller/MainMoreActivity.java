@@ -51,7 +51,7 @@ public class MainMoreActivity extends Activity implements OnClickListener {
 		switch (arg0.getId()) {
 		case R.id.accountExit:
 			Log.d("MainMore", "退出账号");
-			ApplictionManager.getInstance().getUser().exit();
+			ApplictionManager.getInstance().getUser().exit(this);
 			Controller.LoginActivity(this);
 			break;
 		case R.id.more_advice:

@@ -1,5 +1,6 @@
 package com.asht.utl;
 
+import com.alibaba.fastjson.JSON;
 import com.asht.controller.Controller;
 import com.asht.model.Message;
 
@@ -21,7 +22,6 @@ public class MyReceiver extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		Bundle bundle = intent.getExtras();
-		System.out.println(" dafdofa d... ");
 		Log.d(TAG, "[MyReceiver] onReceive - " + intent.getAction()
 				+ ", extras: " + printBundle(bundle));
 
@@ -51,6 +51,8 @@ public class MyReceiver extends BroadcastReceiver {
 
 			JPushInterface.reportNotificationOpened(context,
 					bundle.getString(JPushInterface.EXTRA_MSG_ID));
+			System.out.println(" extra "
+					+ bundle.getString(JPushInterface.EXTRA_EXTRA));
 
 			// 打开自定义的Activity
 			// Intent i = new Intent(context, TestActivity.class);
@@ -58,9 +60,13 @@ public class MyReceiver extends BroadcastReceiver {
 			// i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			// context.startActivity(i);
 			Message msg = new Message();
-			msg.messageTitle = bundle
-					.getString(JPushInterface.EXTRA_NOTIFICATION_TITLE);
-			msg.message = bundle.getString(JPushInterface.EXTRA_ALERT);
+			msg.messageTitle = "通知";
+			msg.message = JSON.parseObject(
+					bundle.getString(JPushInterface.EXTRA_EXTRA)).getString(
+					"Massage");
+			msg.inputTime = JSON.parseObject(
+					bundle.getString(JPushInterface.EXTRA_EXTRA)).getString(
+					"InputTime");
 			Controller.openMessage(context, msg);
 
 		} else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent

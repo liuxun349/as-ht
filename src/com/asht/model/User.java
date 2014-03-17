@@ -2,6 +2,9 @@ package com.asht.model;
 
 import java.util.List;
 
+import android.content.Context;
+import cn.jpush.android.api.JPushInterface;
+
 import com.asht.AshtSettings;
 import com.asht.utl.ApplictionManager;
 
@@ -32,9 +35,10 @@ public class User {
 	 */
 	private UserInfo userInfo;
 
-	public boolean exit() {
+	public boolean exit(Context mContext) {
 		AshtSettings.getInstance().setIsAutoLogin(false);
 		ApplictionManager.getInstance().getUser().setIsLogin(false);
+		JPushInterface.setAliasAndTags(mContext, "", null, null);
 		try {
 			AshtSettings.getInstance().setUserId("");
 			AshtSettings.getInstance().setUserPwd("");

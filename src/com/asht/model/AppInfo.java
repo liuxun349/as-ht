@@ -8,19 +8,19 @@ public class AppInfo extends AshtResponse {
 	/**
 	 * 版本号
 	 */
-	public int version;
+	public int iversion;
 	/**
 	 * 版本名称
 	 */
-	public String versionName;
+	public String txtversionno;
 	/**
 	 * 版本描述
 	 */
-	public String versionDetail;
+	public String txtversionnnote;
 	/**
 	 * 版本下载地址
 	 */
-	public String versionAdress;
+	public String txtdownloadaddress;
 
 	public AppInfo() {
 		// TODO Auto-generated constructor stub

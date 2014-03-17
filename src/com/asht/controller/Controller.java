@@ -17,10 +17,13 @@ import com.asht.fragment.SendAdviceFragment;
 import com.asht.model.Advice;
 import com.asht.model.Message;
 import com.asht.utl.ApplictionManager;
+import com.asht.utl.ExampleUtil;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -33,6 +36,24 @@ public class Controller {
 	public static final String PAGE_MYACCOUNT = "myaccount";
 	public static final String PAGE_MORE = "more";
 	public static Bundle bundle;
+	private MessageReceiver mMessageReceiver;
+	private static Controller mInstance;
+
+	public static void initalize() {
+		mInstance = new Controller();
+	}
+
+	public static Controller getInstance() {
+		if (mInstance == null) {
+			initalize();
+		}
+		return mInstance;
+	}
+
+	public Controller() {
+		// TODO Auto-generated constructor stub
+		mMessageReceiver = new MessageReceiver();
+	}
 
 	public static void setNomePagTop(Activity mActivity, boolean haveBackBtn,
 			String titleName) {
@@ -75,6 +96,46 @@ public class Controller {
 				.findViewById(R.id.app_title_name);
 		titleNameTxv.setText(titleName);
 	}
+
+	// ------------------------------ jpush 广播 －－－－－－－
+
+	// for receive customer msg from jpush server
+	public static final String MESSAGE_RECEIVED_ACTION = "cn.jpush.android.intent.MESSAGE_RECEIVED";
+	public static final String KEY_TITLE = "title";
+	public static final String KEY_MESSAGE = "message";
+	public static final String KEY_EXTRAS = "extras";
+
+	public void registerMessageReceiver(Context mContext) {
+		IntentFilter filter = new IntentFilter();
+		filter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
+		filter.addAction(MESSAGE_RECEIVED_ACTION);
+
+		mContext.registerReceiver(mMessageReceiver, filter);
+	}
+
+	public void unregisterMessageReceiver(Context mContext) {
+		mContext.unregisterReceiver(mMessageReceiver);
+	}
+
+	public class MessageReceiver extends BroadcastReceiver {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			if (MESSAGE_RECEIVED_ACTION.equals(intent.getAction())) {
+				String messge = intent.getStringExtra(KEY_MESSAGE);
+				String extras = intent.getStringExtra(KEY_EXTRAS);
+				StringBuilder showMsg = new StringBuilder();
+				showMsg.append(KEY_MESSAGE + " : " + messge + "\n");
+				if (!ExampleUtil.isEmpty(extras)) {
+					showMsg.append(KEY_EXTRAS + " : " + extras + "\n");
+				}
+				// setCostomMsg(showMsg.toString());
+				System.out.println(" out ... " + showMsg);
+			}
+		}
+	}
+
+	// -------------------------------------------------
 
 	/**
 	 * 主页
@@ -216,6 +277,7 @@ public class Controller {
 	 */
 	public static void openMessage(Context context, Message msg) {
 		Intent intent = new Intent(context, ContainerFragmentActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		MessageDetailFragment mFragment = new MessageDetailFragment();
 		mFragment.bundleSource(msg);
 		ApplictionManager.getInstance().currentFragment = mFragment;

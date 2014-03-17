@@ -10,6 +10,7 @@ import com.asht.http.RecordService;
 import com.asht.http.SystemService;
 import com.asht.http.UserService;
 import com.asht.model.Advice;
+import com.asht.model.AppInfo;
 import com.asht.model.Message;
 import com.asht.model.Recommend;
 import com.asht.model.Record;
@@ -100,9 +101,8 @@ public class AsHt {
 	 * 
 	 * @throws AsHtException
 	 */
-	public float getProgramVersionInfo() throws AsHtException {
-		return Float
-				.parseFloat((String) systemService.getProgramVersionInfo().result);
+	public AppInfo getProgramVersionInfo() throws AsHtException {
+		return AppInfo.paresAppInfo(systemService.getProgramVersionInfo());
 	}
 
 	// ----------------------------------UserService--------------------------------------------

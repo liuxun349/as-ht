@@ -34,6 +34,7 @@ import com.asht.R;
 import com.asht.model.Resume;
 import com.asht.utl.Settings;
 import com.asht.view.HackyViewPager;
+import com.example.testafinal.MyApplication;
 import com.yj.compress.YJBitmap;
 
 public class ViewPagerActivity extends Activity {
@@ -58,9 +59,8 @@ public class ViewPagerActivity extends Activity {
 				Intent data = getIntent();
 
 				Bundle bundle = data.getExtras();
-				@SuppressWarnings("unchecked")
-				final List<Resume> tDataList = (List<Resume>) bundle
-						.getSerializable("dataList");
+				final List<Resume> tDataList = ((MyApplication) getApplication())
+						.getResumes();
 				if (tDataList == null) {
 
 				} else {

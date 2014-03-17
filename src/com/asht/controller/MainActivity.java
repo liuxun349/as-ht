@@ -14,6 +14,8 @@ import android.view.View.OnClickListener;
 import android.widget.RadioButton;
 import android.widget.TabHost;
 
+import cn.jpush.android.api.JPushInterface;
+
 import com.asht.R;
 import com.asht.utl.ApplictionManager;
 import com.asht.utl.ExampleUtil;
@@ -30,7 +32,9 @@ public class MainActivity extends TabActivity {
 		initTab(savedInstanceState);
 		init();
 		ApplictionManager.getInstance().addActivity(this);
-		registerMessageReceiver(); // used for receive msg
+		Controller.getInstance().registerMessageReceiver(MainActivity.this); // used
+																				// for
+		// receive msg
 
 	}
 
@@ -130,47 +134,19 @@ public class MainActivity extends TabActivity {
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		unregisterReceiver(mMessageReceiver);
+		Controller.getInstance().unregisterMessageReceiver(this);
 	}
 
-	// for receive customer msg from jpush server
-	private MessageReceiver mMessageReceiver;
-	public static final String MESSAGE_RECEIVED_ACTION = "cn.jpush.android.intent.MESSAGE_RECEIVED";
-	public static final String KEY_TITLE = "title";
-	public static final String KEY_MESSAGE = "message";
-	public static final String KEY_EXTRAS = "extras";
-
-	public void registerMessageReceiver() {
-		mMessageReceiver = new MessageReceiver();
-		IntentFilter filter = new IntentFilter();
-		filter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
-		filter.addAction(MESSAGE_RECEIVED_ACTION);
-		registerReceiver(mMessageReceiver, filter);
+	@Override
+	protected void onResume() {
+		JPushInterface.onResume(this);
+		super.onResume();
 	}
 
-	public class MessageReceiver extends BroadcastReceiver {
-
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			if (MESSAGE_RECEIVED_ACTION.equals(intent.getAction())) {
-				String messge = intent.getStringExtra(KEY_MESSAGE);
-				String extras = intent.getStringExtra(KEY_EXTRAS);
-				StringBuilder showMsg = new StringBuilder();
-				showMsg.append(KEY_MESSAGE + " : " + messge + "\n");
-				if (!ExampleUtil.isEmpty(extras)) {
-					showMsg.append(KEY_EXTRAS + " : " + extras + "\n");
-				}
-				// setCostomMsg(showMsg.toString());
-				System.out.println(" out ... " + showMsg);
-			}
-		}
+	@Override
+	protected void onPause() {
+		JPushInterface.onPause(this);
+		super.onPause();
 	}
-
-	// private void setCostomMsg(String msg) {
-	// if (null != msgText) {
-	// msgText.setText(msg);
-	// msgText.setVisibility(android.view.View.VISIBLE);
-	// }
-	// }
 
 }

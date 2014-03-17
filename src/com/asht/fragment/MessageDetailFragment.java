@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 public class MessageDetailFragment extends AshtFragment implements
 		OnClickListener {
-	private TextView titleNameTxv, messageNameTxv, messageContentTxv;
+	private TextView messageNameTxv, messageContentTxv;
 	private Message msg;
 
 	@Override
