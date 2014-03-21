@@ -1,10 +1,8 @@
 package com.asht.controller;
 
-import java.text.ParseException;
-
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -73,6 +71,12 @@ public class NewRecommendActivity extends Activity implements
 		// 将adapter添加到spinner中
 		spinner_documentType.setAdapter(adapter_documentType);
 		spinner_yourIdentity.setAdapter(adapter_yourIdentity);
+		Intent intent = getIntent();
+		Bundle b = intent.getExtras();
+		if (b != null) {
+			int hz = b.getInt("hz", 0);
+			spinner_yourIdentity.setSelection(hz);
+		}
 		spinner_email.setAdapter(adapter_email);
 
 		// 为spinner添加事件监听
@@ -113,15 +117,10 @@ public class NewRecommendActivity extends Activity implements
 
 	private void summit() {
 
-		ToastUtils.getInit(getApplicationContext()).show(
-				spinner_documentType.getSelectedItem().toString() + " "
-						+ spinner_yourIdentity.getSelectedItem().toString()
-						+ " " + spinner_email.getSelectedItem().toString());
 		String phone = et_phone.getText().toString().trim();
 		String email = et_email.getText().toString().trim();
 		String shengfenzheng = et_shengfenzheng.getText().toString().trim();
 		String name = et_name.getText().toString().trim();
-
 		if (!Phone.isMobileNO(phone)) {
 			ToastUtils.getInit(getApplicationContext()).show("请填写您正确的手机号码");
 			mDialog.dismiss();
@@ -138,29 +137,42 @@ public class NewRecommendActivity extends Activity implements
 			mDialog.dismiss();
 			return;
 		}
-		String sfz;
-		try {
-			sfz = new Validate().IDCardValidate(shengfenzheng);
-		} catch (ParseException e1) {
-			sfz = "证件号码不正确";
-			e1.printStackTrace();
-		}
-		if (sfz.length() > 0) {
-			ToastUtils.getInit(getApplicationContext()).show(sfz);
-			mDialog.dismiss();
-			return;
+		if (spinner_documentType.getSelectedItemPosition() == 0) {
+			String sfz;
+			try {
+				sfz = new Validate().IDCardValidate(shengfenzheng);
+			} catch (Exception e1) {
+				sfz = "证件号码不正确";
+				e1.printStackTrace();
+			}
+			if (sfz.length() > 0) {
+				ToastUtils.getInit(getApplicationContext()).show(sfz);
+				mDialog.dismiss();
+				return;
+			}
 		}
 		new AsyncDataLoader(new Callback() {
 
 			@Override
 			public void onStartAsync() {
-
+				String phone = et_phone.getText().toString().trim();
+				String email = et_email.getText().toString().trim();
+				String shengfenzheng = et_shengfenzheng.getText().toString()
+						.trim();
+				String name = et_name.getText().toString().trim();
 				AsHt asht = AsHt.getInstance();
 				UserInfo user = ApplictionManager.getInstance().getUserInfo();
 				try {
-					boolean fag = asht.recommendPatient(user, new Recommend(
-							"13400000000", "zhangsan", "1",
-							"500000000000000000", "123456@qq.com"));
+					int index = spinner_yourIdentity.getSelectedItemPosition();
+
+					boolean fag = asht.recommendPatient(
+							user,
+							new Recommend(phone, name, spinner_documentType
+									.getSelectedItemPosition() + "",
+									shengfenzheng, email
+											+ spinner_email.getSelectedItem()
+													.toString(),
+									index == 1 ? "1001" : "1002"));
 					System.out.println("chenggongle_______" + fag);
 				} catch (Exception e) {
 					e.printStackTrace();

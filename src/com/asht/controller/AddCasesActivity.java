@@ -94,7 +94,7 @@ public class AddCasesActivity extends Activity implements OnClickListener {
 							public void onClick(DialogInterface dialog,
 									int which) {
 								if (record == null) {
-									summit();
+//									summit();
 								} else {
 									finish();
 								}

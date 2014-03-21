@@ -27,6 +27,8 @@ public class PullToRefreshView extends LinearLayout {
 	// pull state
 	private static final int PULL_UP_STATE = 0;
 	private static final int PULL_DOWN_STATE = 1;
+	private boolean isFoot = true;
+	private boolean isHoot = true;
 	/**
 	 * last y
 	 */
@@ -310,12 +312,17 @@ public class PullToRefreshView extends LinearLayout {
 			if (mPullState == PULL_DOWN_STATE) {
 				// PullToRefreshView执行下拉
 				Log.i(TAG, " pull down!parent view move!");
-				headerPrepareToRefresh(deltaY);
+				if (isHoot) {
+					headerPrepareToRefresh(deltaY);
+				}
 				// setHeaderPadding(-mHeaderViewHeight);
 			} else if (mPullState == PULL_UP_STATE) {
 				// PullToRefreshView执行上拉
 				Log.i(TAG, "pull up!parent view move!");
-				footerPrepareToRefresh(deltaY);
+				if (isFoot) {
+
+					footerPrepareToRefresh(deltaY);
+				}
 			}
 			mLastMotionY = y;
 			break;
@@ -634,6 +641,22 @@ public class PullToRefreshView extends LinearLayout {
 	public void setOnHeaderRefreshListener(
 			OnHeaderRefreshListener headerRefreshListener) {
 		mOnHeaderRefreshListener = headerRefreshListener;
+	}
+
+	public boolean isFoot() {
+		return isFoot;
+	}
+
+	public void setFoot(boolean isFoot) {
+		this.isFoot = isFoot;
+	}
+
+	public boolean isHoot() {
+		return isHoot;
+	}
+
+	public void setHoot(boolean isHoot) {
+		this.isHoot = isHoot;
 	}
 
 	public void setOnFooterRefreshListener(

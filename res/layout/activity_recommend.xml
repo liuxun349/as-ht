@@ -25,6 +25,13 @@
             android:text="@string/title_back"
             android:textColor="@color/title_text_color"
             android:textSize="@dimen/title_text_size" />
+
+        <ProgressBar
+            android:id="@+id/prigress"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="right|center"
+            android:visibility="gone" />
     </FrameLayout>
 
     <RelativeLayout

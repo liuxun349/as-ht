@@ -75,45 +75,57 @@ public class RecommendAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		MyCasesItemView myCasesItemView;
+		RecommendView myRecommendView;
 		if (convertView == null) {
-
-			myCasesItemView = new MyCasesItemView();
+			myRecommendView = new RecommendView();
 			View item_view = View.inflate(mContext, R.layout.recommend_item,
 					null);
-			myCasesItemView.iv_delete = item_view
-					.findViewById(R.id.iv_recommend_delete);
-			myCasesItemView.cbIsShenHe = (CheckBox) item_view
+			myRecommendView.cbIsShenHe = (CheckBox) item_view
 					.findViewById(R.id.cb_iv_recommend_isTongGuo);
-			myCasesItemView.tv_title = (TextView) item_view
+			myRecommendView.tv_title = (TextView) item_view
 					.findViewById(R.id.txt_name);
+			myRecommendView.view_add = item_view.findViewById(R.id.view_add);
 			convertView = item_view;
 			// 获取分辨率
 			AbsListView.LayoutParams ll = new AbsListView.LayoutParams(width,
 					height, 1);
 			convertView.setLayoutParams(ll);
-			convertView.setTag(myCasesItemView);
+			convertView.setTag(myRecommendView);
 			convertView.setBackgroundColor(Color.parseColor("#33333333"));
 		}
-		myCasesItemView = (MyCasesItemView) convertView.getTag();
+		myRecommendView = (RecommendView) convertView.getTag();
 
 		Recommend info = infos.get(position);
-//		String name = (info.getCertificateId() == 0 ? "患者" : "医生")
-//				+ info.getRecommendedName();
-//		myCasesItemView.tv_title.setText(name);
-//		myCasesItemView.cbIsShenHe.setChecked(info.getAuditState() == 0);
-		if (info.getIsClick() == 0) {
-			myCasesItemView.iv_delete.setVisibility(View.VISIBLE);
+		if (info == null) {
+			myRecommendView.view_add.setVisibility(View.VISIBLE);
+			myRecommendView.tv_title.setText("");
+			myRecommendView.cbIsShenHe.setVisibility(View.GONE);
+			return convertView;
 		} else {
-			myCasesItemView.iv_delete.setVisibility(View.GONE);
+			if (myRecommendView.view_add.getVisibility() == View.VISIBLE)
+				myRecommendView.view_add.setVisibility(View.GONE);
+			if (myRecommendView.cbIsShenHe.getVisibility() == View.GONE)
+				myRecommendView.cbIsShenHe.setVisibility(View.VISIBLE);
 		}
+
+		String name = (info.getRecommendRoleId() == "1001" ? "患者" : "医生")
+				+ info.getRecommendtrueName();
+		myRecommendView.tv_title.setText(name);
+		myRecommendView.cbIsShenHe.setChecked(info.getRecommendState().equals(
+				"1"));
+		// myRecommend.cbIsShenHe.setChecked(info.getAuditState() == 0);
+		// if (info.getIsClick() == 0) {
+		// myRecommend.iv_delete.setVisibility(View.VISIBLE);
+		// } else {
+		// myRecommend.iv_delete.setVisibility(View.GONE);
+		// }
 		return convertView;
 	}
 
-	public class MyCasesItemView {
+	public class RecommendView {
 		public TextView tv_title;
 		public CheckBox cbIsShenHe;
-		public View iv_delete;
+		public View iv_delete, view_add;
 	}
 
 }
