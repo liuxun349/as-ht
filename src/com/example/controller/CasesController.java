@@ -27,6 +27,7 @@ import com.asht.model.Resume;
 import com.asht.model.UpdateState;
 import com.asht.model.UserInfo;
 import com.asht.utl.ApplictionManager;
+import com.asht.view.ToastUtils;
 import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.db.sqlite.Selector;
 import com.lidroid.xutils.db.sqlite.WhereBuilder;
@@ -91,6 +92,10 @@ public class CasesController implements OnItemClickListener,
 		if (!isSelectMode) {
 			mUINotification
 					.onClick(index, view, Record_tmp, adapter.getInfos());
+			return;
+		}
+		if (Record_tmp == null) {
+			ToastUtils.getInit(mContext).show("不能选择添加病例组");
 			return;
 		}
 		if (selectViews == null) {
@@ -159,7 +164,7 @@ public class CasesController implements OnItemClickListener,
 							}
 						}
 						this.records = records;
-
+						this.records.add(0, null);
 					} catch (Exception e) {
 						state = new UpdateState(UpdateState.UK_DB_OK);
 						DbUtils db = AFinalController.getDB(mContext);
@@ -170,6 +175,7 @@ public class CasesController implements OnItemClickListener,
 							e1.printStackTrace();
 						}
 						this.records = r;
+						this.records.add(0, null);
 						e.printStackTrace();
 					}
 				} else {
@@ -177,11 +183,14 @@ public class CasesController implements OnItemClickListener,
 					DbUtils db = AFinalController.getDB(mContext);
 					List<Record> r = null;
 					try {
-						r = db.findAll(Record.class);
+						// r = db.findAll(Record.class,);
+						r = db.findAll(Selector.from(Record.class).orderBy(
+								"updateTime", false));
 					} catch (DbException e) {
 						e.printStackTrace();
 					}
 					this.records = r;
+					this.records.add(0, null);
 				}
 
 			}
@@ -275,12 +284,16 @@ public class CasesController implements OnItemClickListener,
 	}
 
 	public void selectAll() {
-
+		int i_null = 0;
 		selectViews.clear();
 		List<Record> info = adapter.getInfos();
 		int size = info.size();
 		for (int i = 0; i < size; i++) {
 			Record_tmp = info.get(i);
+			if (Record_tmp == null) {
+				i_null++;
+				continue;
+			}
 			Record_tmp.isClick = 0;
 			selectViews.add(Record_tmp);
 		}
@@ -288,7 +301,7 @@ public class CasesController implements OnItemClickListener,
 		adapter.notifyDataSetChanged();
 
 		if (mUINotification != null) {
-			mUINotification.notificationSelected(size);
+			mUINotification.notificationSelected(size - i_null);
 		}
 	}
 
@@ -299,6 +312,9 @@ public class CasesController implements OnItemClickListener,
 		int size = info.size();
 		for (int i = 0; i < size; i++) {
 			Record_tmp = info.get(i);
+			if (Record_tmp == null) {
+				continue;
+			}
 			Record_tmp.isClick = 1;
 		}
 		adapter.notifyDataSetChanged();
@@ -312,6 +328,9 @@ public class CasesController implements OnItemClickListener,
 		int sum = 0;
 		for (int i = 0; i < size; i++) {
 			Record_tmp = selectViews.get(i);
+			if (Record_tmp == null) {
+				continue;
+			}
 			sum += Record_tmp.getMedicalRecordItemTotal();
 		}
 		return sum;

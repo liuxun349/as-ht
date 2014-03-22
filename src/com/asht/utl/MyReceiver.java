@@ -60,11 +60,11 @@ public class MyReceiver extends BroadcastReceiver {
 			// i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			// context.startActivity(i);
 			Message msg = new Message();
-			msg.messageTitle = "通知";
-			msg.message = JSON.parseObject(
+			msg.txttitle = "通知";
+			msg.txtmassage = JSON.parseObject(
 					bundle.getString(JPushInterface.EXTRA_EXTRA)).getString(
 					"Massage");
-			msg.inputTime = JSON.parseObject(
+			msg.dtinputtime = JSON.parseObject(
 					bundle.getString(JPushInterface.EXTRA_EXTRA)).getString(
 					"InputTime");
 			Controller.openMessage(context, msg);

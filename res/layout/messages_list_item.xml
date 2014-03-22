@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/meeage" />
+            android:background="@drawable/message_readed" />
 
         <TextView
             android:id="@+id/message_title"
@@ -23,7 +23,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="DDDDDD" />
+            android:text="DDDDDD"
+            android:textColor="#000" />
 
         <TextView
             android:id="@+id/message_time"
@@ -31,7 +32,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="YYXXX" />
+            android:text="YYXXX"
+            android:textColor="#000" />
     </LinearLayout>
 
 </LinearLayout>

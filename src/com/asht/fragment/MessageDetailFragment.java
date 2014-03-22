@@ -38,8 +38,8 @@ public class MessageDetailFragment extends AshtFragment implements
 		messageContentTxv = (TextView) getActivity().findViewById(R.id.content);
 		messageNameTxv = (TextView) getActivity().findViewById(R.id.title);
 
-		messageContentTxv.setText(msg.message);
-		messageNameTxv.setText(msg.messageTitle);
+		messageContentTxv.setText(msg.txtmassage);
+		messageNameTxv.setText(msg.txttitle);
 
 		getActivity().findViewById(R.id.tv_title_back).setOnClickListener(this);
 	}

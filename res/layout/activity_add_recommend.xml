@@ -27,134 +27,224 @@
             android:textSize="@dimen/title_text_size" />
     </FrameLayout>
 
-    <LinearLayout
+    <ScrollView
         style="@style/body"
-        android:orientation="vertical" >
+        android:background="@color/probject_bg"
+        android:padding="10dp"
+        android:scrollbars="vertical" >
 
-        <TableLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp" >
 
-            <TableRow
+            <TableLayout
                 android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" >
+                android:layout_height="wrap_content" >
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="手机号码：" />
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/list_above"
+                    android:paddingBottom="2dp"
+                    android:paddingTop="2dp" >
 
-                <EditText
-                    android:id="@+id/et_recommend_phone"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-            </TableRow>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center"
+                        android:gravity="right|center"
+                        android:text="手机号码：" />
 
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" >
+                    <EditText
+                        android:id="@+id/et_recommend_phone"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:gravity="center_vertical"
+                        android:lines="1" />
+                </TableRow>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="真实姓名：" />
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/list_mid"
+                    android:paddingBottom="2dp"
+                    android:paddingTop="2dp" >
 
-                <EditText
-                    android:id="@+id/et_recommend_name"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-            </TableRow>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center"
+                        android:gravity="right|center"
+                        android:text="真实姓名：" />
 
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" >
+                    <EditText
+                        android:id="@+id/et_recommend_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:gravity="center_vertical"
+                        android:lines="1" />
+                </TableRow>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="证件类型：" />
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/list_mid"
+                    android:paddingBottom="2dp"
+                    android:paddingTop="2dp" >
 
-                <Spinner
-                    android:id="@+id/spinner_documentType"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-            </TableRow>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center"
+                        android:gravity="right|center"
+                        android:text="证件类型：" />
 
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" >
+                    <Spinner
+                        android:id="@+id/spinner_documentType"
+                        style="@style/register_spinner"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:gravity="center_horizontal" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="证件号码：" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/triangle_down" />
+                </TableRow>
 
-                <EditText
-                    android:id="@+id/et_recommend_certificateId"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-            </TableRow>
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/list_below"
+                    android:paddingBottom="2dp"
+                    android:paddingTop="2dp" >
 
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center"
+                        android:gravity="right|center"
+                        android:text="证件号码：" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="您的身份：" />
+                    <EditText
+                        android:id="@+id/et_recommend_certificateId"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:gravity="center_vertical"
+                        android:lines="1" />
+                </TableRow>
 
-                <Spinner
-                    android:id="@+id/spinner_yourIdentity"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-            </TableRow>
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/list_above"
+                    android:paddingBottom="2dp"
+                    android:paddingTop="2dp" >
 
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center"
+                        android:gravity="right|center"
+                        android:text="您的身份：" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Email：" />
+                    <Spinner
+                        android:id="@+id/spinner_yourIdentity"
+                        style="@style/register_spinner"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:gravity="center_horizontal" />
 
-                <EditText
-                    android:id="@+id/et_recommend_email_start"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/triangle_down" />
+                </TableRow>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/at" />
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/list_mid"
+                    android:paddingBottom="2dp"
+                    android:paddingTop="2dp" >
 
-                <Spinner
-                    android:id="@+id/spinner_email"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </TableRow>
-        </TableLayout>
-    </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center"
+                        android:gravity="right|center"
+                        android:text="Email：" />
 
-    <Button
-        android:id="@+id/btn_newRecommend_summit"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="确 定" />
+                    <EditText
+                        android:id="@+id/et_recommend_email_start"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:background="@null"
+                        android:gravity="center_vertical"
+                        android:lines="1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center"
+                        android:gravity="right|center"
+                        android:text="@string/at" />
+
+                    <Spinner
+                        android:id="@+id/spinner_email"
+                        style="@style/register_spinner"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:gravity="center_horizontal" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/triangle_down" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/list_below"
+                    android:paddingBottom="2dp"
+                    android:paddingTop="2dp" >
+
+                    <Button
+                        android:id="@+id/btn_newRecommend_summit"
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="bottom"
+                        android:layout_weight="2"
+                        android:background="#fff"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:text="确 定" />
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>

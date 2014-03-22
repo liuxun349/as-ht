@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="10dp"
-        android:background="@drawable/btn_defalut_selector"
+        android:background="@null"
         android:text="@string/title_back"
         android:textColor="@color/title_text_color"
         android:visibility="gone" />

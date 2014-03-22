@@ -10,24 +10,25 @@ public class Message {
 	/**
 	 * 消息编号
 	 */
-	public String messageID;
+	public String imessageid;
 	/**
 	 * 消息标题
 	 */
-	public String messageTitle;
+	public String txttitle;
 	/**
 	 * 消息内容
 	 */
-	public String message;
+	public String txtmassage;
 	/**
 	 * 发送时间
 	 */
-	public String inputTime;
-	
-	public static List<Message> getMessages(AshtResponse rs) throws AsHtException{
-		if(!rs.success){
+	public String dtinputtime;
+
+	public static List<Message> getMessages(AshtResponse rs)
+			throws AsHtException {
+		if (!rs.success) {
 			throw new AsHtException(rs.message);
-		}else if( rs.result == null){
+		} else if (rs.result == null) {
 			return null;
 		}
 		return JSON.parseArray(rs.result.toString(), Message.class);
