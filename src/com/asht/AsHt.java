@@ -1,7 +1,10 @@
 package com.asht;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.asht.http.AccountService;
@@ -347,12 +350,16 @@ public class AsHt {
 	 * @return
 	 * @throws AsHtException
 	 */
+	@SuppressLint("SimpleDateFormat")
 	public Record addRecordGroup(UserInfo user, String newGroupName)
 			throws AsHtException {
 		Record record = new Record();
 		record.setMedicalRecordGroupName(newGroupName);
 		record.setMedicalRecordGroupID(recordService.addRecordGroup(user,
 				newGroupName).result + "");
+		Date date = new Date(System.currentTimeMillis());
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.0");
+		record.setUpdateTime(sdf.format(date));
 		return record;
 	}
 

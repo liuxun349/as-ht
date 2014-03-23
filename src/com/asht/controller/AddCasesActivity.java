@@ -18,19 +18,24 @@ import com.asht.model.Record;
 import com.asht.model.UserInfo;
 import com.asht.utl.ApplictionManager;
 import com.asht.view.ToastUtils;
+import com.asht.view.WaitingDialog;
 import com.example.controller.AFinalController;
 
 public class AddCasesActivity extends Activity implements OnClickListener {
 	EditText et = null;
+	boolean isUpdate = false;
+	private WaitingDialog mDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_my_cases);
+		mDialog = new WaitingDialog(this);
 		findViewById(R.id.tv_title_back).setOnClickListener(this);
 		findViewById(R.id.btn_sendCases).setOnClickListener(this);
 		et = (EditText) findViewById(R.id.et_addMyCases);
+		isUpdate = false;
 	}
 
 	@Override
@@ -40,6 +45,7 @@ public class AddCasesActivity extends Activity implements OnClickListener {
 			finish();
 			break;
 		case R.id.btn_sendCases:
+			mDialog.show();
 			summit();
 			break;
 
@@ -55,8 +61,6 @@ public class AddCasesActivity extends Activity implements OnClickListener {
 					R.string.add_case_summit_null);
 			return;
 		}
-
-		findViewById(R.id.ll_waiting).setVisibility(View.VISIBLE);
 
 		new AsyncDataLoader(new Callback() {
 			Record record;
@@ -83,26 +87,24 @@ public class AddCasesActivity extends Activity implements OnClickListener {
 
 			@Override
 			public void onFinishAsync() {
-
-				findViewById(R.id.ll_waiting).setVisibility(View.GONE);
-				AlertDialog.Builder alertDialog = new AlertDialog.Builder(
-						AddCasesActivity.this);
-				alertDialog.setTitle(record != null ? "添加病例组成功" : "添加病例组失败");
-				alertDialog.setMessage(record != null ? "返回病例组" : "网络错误时候重试");
-				alertDialog.setPositiveButton(getString(R.string.text_sure),
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int which) {
-								if (record == null) {
-//									summit();
-								} else {
-									finish();
-								}
-							}
-						});
-				alertDialog.show();
+				mDialog.dismiss();
+				String str = record != null ? "添加病例组成功" : "添加病例组失败";
+				ToastUtils.getInit(getApplicationContext()).show(str);
+				if (record == null) {
+				} else {
+					isUpdate = true;
+					finish();
+				}
 			}
 		}).execute();
 
+	}
+
+	@Override
+	public void finish() {
+		if (isUpdate) {
+			setResult(RESULT_OK);
+		}
+		super.finish();
 	}
 }

@@ -1,9 +1,12 @@
 package com.asht.controller;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -36,8 +39,10 @@ import com.asht.ui.PullToRefreshView.OnHeaderRefreshListener;
 import com.asht.utl.FileCache;
 import com.asht.utl.SharedPreferencesUtils;
 import com.asht.view.ToastUtils;
+import com.example.controller.AFinalController;
 import com.example.controller.CasesSingleController;
 import com.example.testafinal.MyApplication;
+import com.lidroid.xutils.exception.DbException;
 
 public class MyCasesSingleActivity extends Activity implements OnClickListener {
 
@@ -520,9 +525,24 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 
 	};
 
+	@SuppressLint("SimpleDateFormat")
 	public void finish() {
+		Date date = new Date(System.currentTimeMillis());
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.0");
+		Record r = ((MyApplication) getApplication()).getmRecord();
+		try {
+			AFinalController.getDB(getApplicationContext()).delete(r);
+			r.setUpdateTime(sdf.format(date));
+			AFinalController.getDB(getApplicationContext()).save(r);
+
+		} catch (DbException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		((MyApplication) getApplication()).clearResumes();
-		((MyApplication) getApplication()).clearResumes();
+		if (mCasesSingleController.isUpdate) {
+			setResult(RESULT_OK);
+		}
 		super.finish();
 	};
 }

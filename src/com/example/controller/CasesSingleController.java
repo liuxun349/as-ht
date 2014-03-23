@@ -47,6 +47,7 @@ public class CasesSingleController implements OnItemClickListener,
 	private UIHanleLintener mHanleLintener;
 	private UINotification mUINotification;
 	private Record mRecord;
+	public boolean isUpdate = false;
 
 	// Diag diag;
 
@@ -244,6 +245,7 @@ public class CasesSingleController implements OnItemClickListener,
 							}
 							mResume = resumes;
 						}
+						isUpdate = true;
 					} catch (Exception e) {
 						mResume = mRecord.getResumeList();
 					}
@@ -469,6 +471,7 @@ public class CasesSingleController implements OnItemClickListener,
 					}
 					// update(true, false);
 					adapter.notifyDataSetChanged();
+					isUpdate = true;
 				}
 				selectClear();
 				mHanleLintener.deletefinish(fag);
@@ -525,7 +528,7 @@ public class CasesSingleController implements OnItemClickListener,
 				e.printStackTrace();
 			}
 			return resume;
-		}  
+		}
 
 		public Resume getResume() {
 			return resume;
@@ -549,6 +552,7 @@ public class CasesSingleController implements OnItemClickListener,
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
 			adapter.notifyDataSetChanged();
+			isUpdate = true;
 		}
 	}
 }
