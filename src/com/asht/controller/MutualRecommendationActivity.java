@@ -109,6 +109,15 @@ public class MutualRecommendationActivity extends Activity implements
 		gv_illness.setAdapter(adapter_ilness);
 		gv_doctor.setOnItemClickListener(gv_doctor_onitem);
 		gv_illness.setOnItemClickListener(gv_itemClick);
+		findViewById(R.id.tv_title_back).setOnClickListener(
+				new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						MutualRecommendationActivity.this.finish();
+					}
+				});
 		isUpdate = true;
 		update();
 	}
@@ -188,6 +197,13 @@ public class MutualRecommendationActivity extends Activity implements
 				break;
 			}
 
+		}
+	};
+
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode == RESULT_OK) {
+			isUpdate = true;
+			update();
 		}
 	};
 
@@ -318,7 +334,7 @@ public class MutualRecommendationActivity extends Activity implements
 		intent = intent.setClass(getApplicationContext(),
 				NewRecommendActivity.class);
 		intent.putExtra("hz", hz);
-		startActivity(intent);
+		startActivityForResult(intent, 100);
 	}
 
 	void openRecommend(Recommend recommend) {

@@ -58,8 +58,25 @@ public class MyCasesActivity extends Activity implements OnClickListener {
 	protected void onRestart() {
 		super.onRestart();
 
-		setPro(true);
-		mCasesController.update(false, true);
+		// setPro(true);
+		// mCasesController.update(false, true);
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+
+		if (requestCode == 1000) {
+			if (resultCode == Activity.RESULT_OK) {
+				setPro(true);
+				mCasesController.update(false, true);
+			}
+			return;
+		}
+		if (resultCode == Activity.RESULT_OK) {
+			setPro(true);
+			mCasesController.update(true, true);
+		}
 	}
 
 	private void setPro(final boolean fag) {
@@ -296,12 +313,12 @@ public class MyCasesActivity extends Activity implements OnClickListener {
 			if (info == null) {
 				Intent intent = new Intent(MyCasesActivity.this,
 						AddCasesActivity.class);
-				startActivity(intent);
+				startActivityForResult(intent, 1000);
 			} else {
 				Intent intent = new Intent(MyCasesActivity.this,
 						MyCasesSingleActivity.class);
 				saveTmp(MyCasesActivity.this, (Record) info);
-				startActivity(intent);
+				startActivityForResult(intent, 2000);
 				overridePendingTransition(R.anim.activity_in,
 						R.anim.activity_out);
 			}

@@ -35,12 +35,16 @@ public class NewRecommendActivity extends Activity implements
 			adapter_email;
 	private EditText et_name, et_phone, et_shengfenzheng, et_email;
 	private WaitingDialog mDialog;
+	boolean isUpdate;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+
 		setContentView(R.layout.activity_add_recommend);
+		isUpdate = false;
+		findViewById(R.id.tv_title_back).setOnClickListener(this);
 		mDialog = new WaitingDialog(this);
 		// 根据控件的ID得到代表该控件的对象
 		spinner_documentType = (Spinner) findViewById(R.id.spinner_documentType);
@@ -108,7 +112,9 @@ public class NewRecommendActivity extends Activity implements
 			mDialog.show();
 			summit();
 			break;
-
+		case R.id.tv_title_back:
+			finish();
+			break;
 		default:
 			break;
 		}
@@ -152,6 +158,7 @@ public class NewRecommendActivity extends Activity implements
 			}
 		}
 		new AsyncDataLoader(new Callback() {
+			boolean fag = false;
 
 			@Override
 			public void onStartAsync() {
@@ -165,7 +172,7 @@ public class NewRecommendActivity extends Activity implements
 				try {
 					int index = spinner_yourIdentity.getSelectedItemPosition();
 
-					boolean fag = asht.recommendPatient(
+					fag = asht.recommendPatient(
 							user,
 							new Recommend(phone, name, spinner_documentType
 									.getSelectedItemPosition() + "",
@@ -173,16 +180,9 @@ public class NewRecommendActivity extends Activity implements
 											+ spinner_email.getSelectedItem()
 													.toString(),
 									index == 1 ? "1001" : "1002"));
-					System.out.println("chenggongle_______" + fag);
 				} catch (Exception e) {
 					e.printStackTrace();
 					Log.w("Record", e.toString());
-				}
-				try {
-					Thread.sleep(2000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
 				}
 			}
 
@@ -193,11 +193,26 @@ public class NewRecommendActivity extends Activity implements
 
 			@Override
 			public void onFinishAsync() {
-				ToastUtils.getInit(getApplicationContext()).show("添加完成");
+				ToastUtils.getInit(getApplicationContext()).show(
+						fag ? "推荐成功" : "推荐失败！");
 
 				mDialog.dismiss();
+				if (fag) {
+					isUpdate = true;
+					NewRecommendActivity.this.finish();
+				}
+
 			}
 		}).execute();
 
+	}
+
+	@Override
+	public void finish() {
+		// TODO Auto-generated method stub
+		if (isUpdate) {
+			setResult(RESULT_OK);
+		}
+		super.finish();
 	}
 }

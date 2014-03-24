@@ -164,17 +164,24 @@ public class CasesController implements OnItemClickListener,
 							}
 						}
 						this.records = records;
+						if (this.records == null) {
+							records = new ArrayList<Record>();
+						}
 						this.records.add(0, null);
 					} catch (Exception e) {
 						state = new UpdateState(UpdateState.UK_DB_OK);
 						DbUtils db = AFinalController.getDB(mContext);
 						List<Record> r = null;
 						try {
-							r = db.findAll(Record.class);
+							r = db.findAll(Selector.from(Record.class).orderBy(
+									"updateTime", true));
 						} catch (DbException e1) {
 							e1.printStackTrace();
 						}
 						this.records = r;
+						if (this.records == null) {
+							this.records = new ArrayList<Record>();
+						}
 						this.records.add(0, null);
 						e.printStackTrace();
 					}
@@ -185,11 +192,14 @@ public class CasesController implements OnItemClickListener,
 					try {
 						// r = db.findAll(Record.class,);
 						r = db.findAll(Selector.from(Record.class).orderBy(
-								"updateTime", false));
+								"updateTime", true));
 					} catch (DbException e) {
 						e.printStackTrace();
 					}
 					this.records = r;
+					if (records == null) {
+						records = new ArrayList<Record>();
+					}
 					this.records.add(0, null);
 				}
 
@@ -331,7 +341,7 @@ public class CasesController implements OnItemClickListener,
 			if (Record_tmp == null) {
 				continue;
 			}
-			sum += Record_tmp.getMedicalRecordItemTotal();
+			sum += Record_tmp.getResumeList().size();
 		}
 		return sum;
 	}
