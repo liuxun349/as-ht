@@ -35,7 +35,8 @@ public class MainActivity extends TabActivity {
 		Controller.getInstance().registerMessageReceiver(MainActivity.this); // used
 																				// for
 		// receive msg
-
+		UpdateManager updateManager = new UpdateManager(MainActivity.this);
+		updateManager.checkUpdate();
 	}
 
 	public void init() {

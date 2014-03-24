@@ -1,13 +1,13 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="#5EA294" >
 
     <ImageView
         android:id="@+id/iv_myCasesSingle_pic"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#ddd" />
+        android:layout_height="match_parent" />
 
     <CheckBox
         android:id="@+id/cb_iv_recommend_isTongGuo"
@@ -20,17 +20,19 @@
         android:clickable="false"
         android:focusable="false" />
 
-    <ImageView
-        android:id="@+id/iv_recommend_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|center_horizontal"
-        android:src="@drawable/check" />
-
     <TextView
         android:id="@+id/txt_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center|bottom" />
+
+    <TextView
+        android:id="@+id/view_add"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="+"
+        android:textColor="#070"
+        android:textSize="40dp" />
 
 </FrameLayout>

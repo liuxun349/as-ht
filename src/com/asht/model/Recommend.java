@@ -9,13 +9,17 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.asht.AsHtException;
 import com.asht.http.AshtResponse;
+import com.lidroid.xutils.db.annotation.Id;
+import com.lidroid.xutils.db.annotation.Table;
 
+@Table(name = "Recommend")
+@net.tsz.afinal.annotation.sqlite.Table(name = "Recommend")
 public class Recommend extends AshtResponse {
 
+	@Id
+	@net.tsz.afinal.annotation.sqlite.Id
 	private int _id;// 数据库主健id
-	private int recommendId;// 该条信息ID
-	private int certificateId;// 身份（0 患者，1医生）
-	private int isClick;// 用于Adapter的选中状态（0选中，1没有选中）（数据库保存没实际意义）
+	// private int isClick;// 用于Adapter的选中状态（0选中，1没有选中）（数据库保存没实际意义）
 
 	/**
 	 * 推荐人手机号
@@ -40,39 +44,55 @@ public class Recommend extends AshtResponse {
 	/**
 	 * 推荐时间
 	 */
-	private String RecommendDateTime;
+	private String recommendDateTime;
 	/**
 	 * 审核状态 审核状态(0,审核过了，1没有过)
 	 */
-	private String RecommendState;
+	private String recommendState;
 	/**
 	 * 审核时间
 	 */
 	private String examineDateTime;
+
+	/**
+	 * 推荐人类型
+	 */
+	private String recommendRoleId;
 
 	public Recommend() {
 	}
 
 	public Recommend(String recommendPhoneNo, String recommendtrueName,
 			String recommendCertificateTypeId, String recommendCertificateId,
-			String recommendeMail) {
-		this.recommendCertificateId = recommendCertificateId;
-		this.recommendCertificateTypeId = recommendCertificateTypeId;
-		this.recommendeMail = recommendeMail;
+			String recommendeMail, String recommendRoleId) {
 		this.recommendPhoneNo = recommendPhoneNo;
 		this.recommendtrueName = recommendtrueName;
+		this.recommendCertificateTypeId = recommendCertificateTypeId;
+		this.recommendCertificateId = recommendCertificateId;
+		this.recommendeMail = recommendeMail;
+		this.recommendRoleId = recommendRoleId;
 	}
 
-	public Recommend(AshtResponse rs) {
-		super(rs);
-		Recommend recommend = JSON.parseObject(((JSON) result).toJSONString(),
-				Recommend.class);
-		this.recommendCertificateId = recommend.recommendCertificateId;
-		this.recommendCertificateTypeId = recommend.recommendCertificateTypeId;
-		this.recommendeMail = recommend.recommendeMail;
-		this.recommendPhoneNo = recommend.recommendPhoneNo;
-		this.recommendtrueName = recommend.recommendtrueName;
-	}
+	// public Recommend(String recommendPhoneNo, String recommendtrueName,
+	// String recommendCertificateTypeId, String recommendCertificateId,
+	// String recommendeMail) {
+	// this.recommendCertificateId = recommendCertificateId;
+	// this.recommendCertificateTypeId = recommendCertificateTypeId;
+	// this.recommendeMail = recommendeMail;
+	// this.recommendPhoneNo = recommendPhoneNo;
+	// this.recommendtrueName = recommendtrueName;
+	// }
+
+	// public Recommend(AshtResponse rs) {
+	// super(rs);
+	// Recommend recommend = JSON.parseObject(((JSON) result).toJSONString(),
+	// Recommend.class);
+	// this.recommendCertificateId = recommend.recommendCertificateId;
+	// this.recommendCertificateTypeId = recommend.recommendCertificateTypeId;
+	// this.recommendeMail = recommend.recommendeMail;
+	// this.recommendPhoneNo = recommend.recommendPhoneNo;
+	// this.recommendtrueName = recommend.recommendtrueName;
+	// }
 
 	public static List<Recommend> getRecommends(AshtResponse rs)
 			throws AsHtException {
@@ -159,28 +179,28 @@ public class Recommend extends AshtResponse {
 	 * 推荐时间
 	 */
 	public String getRecommendDateTime() {
-		return RecommendDateTime;
+		return recommendDateTime;
 	}
 
 	/**
 	 * 推荐时间
 	 */
 	public void setRecommendDateTime(String recommendDateTime) {
-		RecommendDateTime = recommendDateTime;
+		this.recommendDateTime = recommendDateTime;
 	}
 
 	/**
 	 * 审核状态
 	 */
 	public String getRecommendState() {
-		return RecommendState;
+		return recommendState;
 	}
 
 	/**
 	 * 审核状态
 	 */
 	public void setRecommendState(String recommendState) {
-		RecommendState = recommendState;
+		this.recommendState = recommendState;
 	}
 
 	/**
@@ -205,38 +225,28 @@ public class Recommend extends AshtResponse {
 		this._id = _id;
 	}
 
-	public int getRecommendId() {
-		return recommendId;
+	/**
+	 * 推荐人类型
+	 */
+	public String getRecommendRoleId() {
+		return recommendRoleId;
 	}
 
-	public void setRecommendId(int recommendId) {
-		this.recommendId = recommendId;
-	}
-
-	public int getCertificateId() {
-		return certificateId;
-	}
-
-	public void setCertificateId(int certificateId) {
-		this.certificateId = certificateId;
-	}
-
-	public int getIsClick() {
-		return isClick;
-	}
-
-	public void setIsClick(int isClick) {
-		this.isClick = isClick;
+	/**
+	 * 推荐人类型
+	 */
+	public void setRecommendRoleId(String recommendRoleId) {
+		this.recommendRoleId = recommendRoleId;
 	}
 
 	// @Override
 	public JSONObject toJson() {
-		// TODO Auto-generated method stub
 		JSONObject json = new JSONObject();
 		json.put("recommendPhoneNo", recommendPhoneNo);
 		json.put("recommendtrueName", recommendtrueName);
 		json.put("recommendCertificateTypeId", recommendCertificateTypeId);
 		json.put("recommendCertificateId", recommendCertificateId);
+		json.put("recommendRoleId", recommendRoleId);
 		json.put("recommendeMail", recommendeMail);
 		return json;
 	}

@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class MainMoreActivity extends Activity implements OnClickListener {
 	private LinearLayout exitCurrentAccount;
@@ -18,6 +19,7 @@ public class MainMoreActivity extends Activity implements OnClickListener {
 	private View update;
 	private View setting;
 	private View securityCenter;
+	private TextView haveUpdate;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,9 @@ public class MainMoreActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.more);
 		getView();
 		setListener();
+		if (AshtSettings.getInstance().getNeadUpdate()) {
+			haveUpdate.setVisibility(View.VISIBLE);
+		}
 	}
 
 	private void getView() {
@@ -35,6 +40,7 @@ public class MainMoreActivity extends Activity implements OnClickListener {
 		update = findViewById(R.id.more_update);
 		setting = findViewById(R.id.more_setting);
 		securityCenter = findViewById(R.id.more_security_center);
+		haveUpdate = (TextView) findViewById(R.id.haveNewVersion);
 	}
 
 	private void setListener() {
@@ -65,6 +71,7 @@ public class MainMoreActivity extends Activity implements OnClickListener {
 			Controller.SecurityCenter(this);
 			break;
 		case R.id.more_update:
+
 			updateCheck();
 			break;
 		}

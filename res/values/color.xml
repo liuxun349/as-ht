@@ -14,6 +14,8 @@
     <color name="bule_overlay">#660D92DD</color>
     <color name="app_bg">#7AAF38</color>
     
+    <color name="message_item_bg_nor">#C99F6C</color>
+    
     <color name="test">#AED988</color>
 
 </resources>

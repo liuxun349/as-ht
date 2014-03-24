@@ -142,6 +142,8 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 	private void initView() {
 		gv_myCasesSingle = (GridView) findViewById(R.id.gv_myCasesSingle);
 		ptrv_cases = (PullToRefreshView) findViewById(R.id.ptrv_cases);
+		ptrv_cases.setFoot(false);
+
 		initDeleteTitle();
 		initDeleteIsOK();
 		initAddCaseSingle();

@@ -18,6 +18,7 @@ public class MainHomePageActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_page);
+
 		DisplayMetrics dm = new DisplayMetrics();
 
 		this.getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -40,16 +41,6 @@ public class MainHomePageActivity extends Activity {
 		Intent intent = null;
 		intent = new Intent();
 		switch (v.getId()) {
-		case R.id.test_cases:
-			intent.setClass(getApplicationContext(), MyCasesActivity.class);
-			break;
-		case R.id.test_add_tuijian:
-			intent.setClass(getApplicationContext(), NewRecommendActivity.class);
-			break;
-		case R.id.test_tuijian:
-			intent.setClass(getApplicationContext(),
-					MutualRecommendationActivity.class);
-			break;
 
 		default:
 			break;

@@ -92,6 +92,7 @@ public class AppStart extends Activity {
 				mAsht = AsHt.getInstance();
 				try {
 					userInfo = mAsht.login(userPhoneNo, userPwd);
+					mAsht.sendVerificationCode("18628301735", null, 2);
 				} catch (AsHtException e) {
 					// TODO Auto-generated catch block
 					loginActivity();

@@ -3,6 +3,7 @@ package com.asht.model;
 import java.util.List;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.asht.AsHtException;
 import com.asht.http.AshtResponse;
 
@@ -32,5 +33,10 @@ public class Message {
 			return null;
 		}
 		return JSON.parseArray(rs.result.toString(), Message.class);
+	}
+
+	public String getTime() {
+		JSONObject json = JSON.parseObject(dtinputtime);
+		return json.getString("month") + json.getString("day");
 	}
 }

@@ -4,36 +4,43 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.RadioButton;
-import android.widget.Toast;
 
+import com.asht.AsHt;
+import com.asht.AsyncDataLoader;
+import com.asht.AsyncDataLoader.Callback;
 import com.asht.R;
 import com.asht.adapter.AdvancedPagerAdapter;
-import com.asht.interfaces.UIHanleLintener;
-import com.asht.interfaces.UINotification;
-import com.asht.model.UpdateState;
+import com.asht.adapter.RecommendAdapter;
+import com.asht.model.Recommend;
+import com.asht.model.UserInfo;
 import com.asht.ui.PullToRefreshView;
 import com.asht.ui.PullToRefreshView.OnFooterRefreshListener;
 import com.asht.ui.PullToRefreshView.OnHeaderRefreshListener;
-import com.example.controller.RecommendController;
+import com.asht.utl.ApplictionManager;
+import com.example.controller.AFinalController;
+import com.lidroid.xutils.DbUtils;
+import com.lidroid.xutils.exception.DbException;
 
 public class MutualRecommendationActivity extends Activity implements
 		OnPageChangeListener {
 
 	// 患 和 医
 	private RadioButton rb_illness, rb_doctor;
-
-	// 患textview
-	private PullToRefreshView tv_illness;
-
-	// 医textview
-	private PullToRefreshView tv_doctor;
+	// 患textview 医textview
+	private PullToRefreshView tv_illness, tv_doctor;
+	View view_prigress;
+	GridView gv_illness, gv_doctor;
 
 	// pageview的adapter
 	private AdvancedPagerAdapter advancedPagerAdapter;
@@ -44,21 +51,28 @@ public class MutualRecommendationActivity extends Activity implements
 	// 要显示的textview的集合
 	private ArrayList<View> views;
 
-	RecommendController recommendController1, recommendController2;
+	boolean isUpdate;
+
+	RecommendAdapter adapter_ilness, adapter_doctor;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_recommend);
-
 		// 对象初始化
 		views = new ArrayList<View>();
 		tv_illness = (PullToRefreshView) View.inflate(getApplicationContext(),
 				R.layout.recommend, null);
 		tv_doctor = (PullToRefreshView) View.inflate(getApplicationContext(),
 				R.layout.recommend, null);
+		tv_illness.setFoot(false);
+		tv_doctor.setFoot(false);
 
+		gv_illness = (GridView) tv_illness.findViewById(R.id.gridview);
+		gv_doctor = (GridView) tv_doctor.findViewById(R.id.gridview);
+		view_prigress = findViewById(R.id.prigress);
+		view_prigress.setVisibility(View.GONE);
 		// 添加到集合中
 		views.add(tv_illness);
 		views.add(tv_doctor);
@@ -78,202 +92,25 @@ public class MutualRecommendationActivity extends Activity implements
 		tv_doctor.setOnFooterRefreshListener(doctorOnFooterRefreshListener);
 
 		vp_content.setOnPageChangeListener(this);
+		int spacing = (int) this.getResources().getDimension(
+				R.dimen.grid_spacing);
 
-		if (recommendController1 == null) {
-			recommendController1 = new RecommendController(
-					MutualRecommendationActivity.this,
-					(GridView) tv_illness.findViewById(R.id.gridview), 1);
-			recommendController1.setUIHandleLinstener(new UIHanleLintener() {
+		// 获取分辨率
+		DisplayMetrics dm = new DisplayMetrics();
+		getWindowManager().getDefaultDisplay().getMetrics(dm);
 
-				@Override
-				public void update(boolean isServer, UpdateState state,
-						boolean isTouch) {
-					// TODO Auto-generated method stub
+		int width = (dm.widthPixels - spacing * 3) / 4; // 当前分辨率 宽度
 
-					if (!isTouch) {
-						Toast.makeText(getApplicationContext(), "加载更新完成",
-								Toast.LENGTH_LONG).show();
-						return;
-					}
-					tv_illness.postDelayed(new Runnable() {
+		int height = width;
 
-						@Override
-						public void run() {
-							tv_illness.onHeaderRefreshComplete();
-
-							Toast.makeText(getApplicationContext(), "上拉更新完成",
-									Toast.LENGTH_LONG).show();
-						}
-					}, 2000);
-				}
-
-				@Override
-				public void deletefinish(boolean fag) {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void addfinish(boolean fag) {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void gengduo(boolean fag, UpdateState state,
-						boolean isTouch) {
-
-					if (!isTouch) {
-						Toast.makeText(getApplicationContext(), "加载更多更新完成",
-								Toast.LENGTH_LONG).show();
-						return;
-					}
-					tv_illness.postDelayed(new Runnable() {
-
-						@Override
-						public void run() {
-							tv_illness.onFooterRefreshComplete();
-
-							Toast.makeText(getApplicationContext(), "下拉更新完成",
-									Toast.LENGTH_LONG).show();
-
-						}
-					}, 2000);
-				}
-			});
-			recommendController1.setUINotification(new UINotification() {
-
-				@Override
-				public void notificationStart(int size) {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void notificationSelected(int size) {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void notificationLast() {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void delete() {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void onClick(int index, View citem, Object object,
-						List<?> list) {
-					// TODO Auto-generated method stub
-
-				}
-			});
-		}
-
-		// TODO Auto-generated method stub
-		if (recommendController2 == null) {
-			recommendController2 = new RecommendController(
-					MutualRecommendationActivity.this,
-					(GridView) tv_doctor.findViewById(R.id.gridview), 0);
-			recommendController2.setUIHandleLinstener(new UIHanleLintener() {
-
-				@Override
-				public void update(boolean isServer, UpdateState state,
-						boolean isTouch) {
-					// TODO Auto-generated method stub
-
-					if (!isTouch) {
-						Toast.makeText(getApplicationContext(), "加载更新完成",
-								Toast.LENGTH_LONG).show();
-						return;
-					}
-					tv_doctor.postDelayed(new Runnable() {
-
-						@Override
-						public void run() {
-							tv_doctor.onHeaderRefreshComplete();
-							Toast.makeText(getApplicationContext(), "上拉更新完成",
-									Toast.LENGTH_LONG).show();
-						}
-					}, 2000);
-				}
-
-				@Override
-				public void deletefinish(boolean fag) {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void addfinish(boolean fag) {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void gengduo(boolean fag, UpdateState state,
-						boolean isTouch) {
-
-					if (!isTouch) {
-						Toast.makeText(getApplicationContext(), "加载更多更新完成",
-								Toast.LENGTH_LONG).show();
-						return;
-					}
-					tv_doctor.postDelayed(new Runnable() {
-
-						@Override
-						public void run() {
-							tv_doctor.onFooterRefreshComplete();
-
-							Toast.makeText(getApplicationContext(), "下拉更新完成",
-									Toast.LENGTH_LONG).show();
-
-						}
-					}, 2000);
-				}
-			});
-			recommendController2.setUINotification(new UINotification() {
-
-				@Override
-				public void notificationStart(int size) {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void notificationSelected(int size) {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void notificationLast() {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void delete() {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void onClick(int index, View citem, Object object,
-						List<?> list) {
-					// TODO Auto-generated method stub
-
-				}
-			});
-		}
-		recommendController1.update(true, true);
-		recommendController2.update(true, true);
+		adapter_ilness = new RecommendAdapter(this, null, width, height);
+		adapter_doctor = new RecommendAdapter(this, null, width, height);
+		gv_doctor.setAdapter(adapter_doctor);
+		gv_illness.setAdapter(adapter_ilness);
+		gv_doctor.setOnItemClickListener(gv_doctor_onitem);
+		gv_illness.setOnItemClickListener(gv_itemClick);
+		isUpdate = true;
+		update();
 	}
 
 	@Override
@@ -307,14 +144,15 @@ public class MutualRecommendationActivity extends Activity implements
 
 		@Override
 		public void onHeaderRefresh(PullToRefreshView view) {
-			recommendController1.update(true, true);
+			isUpdate = true;
+			update();
 		}
 	};
 	OnFooterRefreshListener illnessOnFooterRefreshListener = new OnFooterRefreshListener() {
 
 		@Override
 		public void onFooterRefresh(PullToRefreshView view) {
-			recommendController1.gengduo(true, true);
+			// recommendController1.gengduo(true, true);
 		}
 	};
 
@@ -322,14 +160,15 @@ public class MutualRecommendationActivity extends Activity implements
 
 		@Override
 		public void onHeaderRefresh(PullToRefreshView view) {
-			recommendController2.update(true, true);
+			isUpdate = true;
+			update();
 		}
 	};
 	OnFooterRefreshListener doctorOnFooterRefreshListener = new OnFooterRefreshListener() {
 
 		@Override
 		public void onFooterRefresh(PullToRefreshView view) {
-			recommendController2.gengduo(true, true);
+			// recommendController2.gengduo(true, true);
 		}
 	};
 
@@ -340,11 +179,11 @@ public class MutualRecommendationActivity extends Activity implements
 			switch (v.getId()) {
 			case R.id.rb_illness:
 				vp_content.setCurrentItem(0, true);
-				recommendController1.update(false, false);
+				// recommendController1.update(false, false);
 				break;
 			case R.id.rb_doctor:
 				vp_content.setCurrentItem(1, true);
-				recommendController2.update(false, false);
+				// recommendController2.update(false, false);
 			default:
 				break;
 			}
@@ -352,4 +191,154 @@ public class MutualRecommendationActivity extends Activity implements
 		}
 	};
 
+	void update() {
+		if (view_prigress.getVisibility() == View.VISIBLE) {
+			return;
+		} else {
+			view_prigress.post(new Runnable() {
+
+				@Override
+				public void run() {
+					view_prigress.setVisibility(View.VISIBLE);
+				}
+			});
+		}
+		new AsyncDataLoader(new Callback() {
+			private List<Recommend> recommends_illnes = new ArrayList<Recommend>(),
+					recommends_doctor = new ArrayList<Recommend>();
+
+			@Override
+			public void onStartAsync() {
+
+				List<Recommend> mRecommend;
+				AsHt asht = AsHt.getInstance();
+				UserInfo user = ApplictionManager.getInstance().getUserInfo();
+				try {
+					if (isUpdate) {
+						// 服务器数据
+						List<Recommend> resumes = asht
+								.getRecommendationsByPresenter(user);
+						DbUtils db = AFinalController
+								.getDB(MutualRecommendationActivity.this);
+						db.deleteAll(Recommend.class);
+						mRecommend = new ArrayList<Recommend>(resumes);
+						db.saveAll(mRecommend);
+						isUpdate = false;
+						for (Recommend recommend : mRecommend) {
+							if (recommend != null) {
+								if (recommend.getRecommendRoleId().equals(
+										"1001")) {
+									recommends_illnes.add(recommend);
+								} else {
+									recommends_doctor.add(recommend);
+								}
+							}
+						}
+						recommends_illnes.add(0, null);
+						recommends_doctor.add(0, null);
+					}
+				} catch (Exception e) {
+					DbUtils db = AFinalController
+							.getDB(MutualRecommendationActivity.this);
+					try {
+						mRecommend = db.findAll(Recommend.class);
+						for (Recommend recommend : mRecommend) {
+							if (recommend != null) {
+								if (recommend.getRecommendCertificateTypeId() == null) {
+									recommends_illnes.add(recommend);
+								} else {
+									recommends_doctor.add(recommend);
+								}
+							}
+						}
+					} catch (DbException e1) {
+						e1.printStackTrace();
+					}
+					e.printStackTrace();
+				}
+
+			}
+
+			@Override
+			public void onPrepareAsync() {
+			}
+
+			@Override
+			public void onFinishAsync() {
+				adapter_doctor.setInfos(recommends_doctor);
+				adapter_ilness.setInfos(recommends_illnes);
+				adapter_doctor.notifyDataSetChanged();
+				adapter_ilness.notifyDataSetChanged();
+				view_prigress.post(new Runnable() {
+
+					@Override
+					public void run() {
+						view_prigress.setVisibility(View.GONE);
+						tv_illness.onHeaderRefreshComplete();
+						tv_doctor.onHeaderRefreshComplete();
+					}
+				});
+			}
+		}).execute();
+	}
+
+	OnItemClickListener gv_itemClick = new OnItemClickListener() {
+
+		@Override
+		public void onItemClick(AdapterView<?> arg0, View view, int index,
+				long arg3) {
+			Recommend recommend;
+			recommend = adapter_ilness.getInfos().get(index);
+			if (recommend == null) {
+				addRecommend(0);
+			} else {
+				openRecommend(recommend);
+			}
+
+		}
+	};
+	OnItemClickListener gv_doctor_onitem = new OnItemClickListener() {
+
+		@Override
+		public void onItemClick(AdapterView<?> arg0, View view, int index,
+				long arg3) {
+			Recommend recommend;
+			recommend = adapter_doctor.getInfos().get(index);
+			if (recommend == null) {
+				addRecommend(1);
+			} else {
+				openRecommend(recommend);
+			}
+
+		}
+	};
+
+	void addRecommend(int hz) {
+		Intent intent = new Intent();
+		intent = intent.setClass(getApplicationContext(),
+				NewRecommendActivity.class);
+		intent.putExtra("hz", hz);
+		startActivity(intent);
+	}
+
+	void openRecommend(Recommend recommend) {
+		Intent intent = new Intent();
+		intent = intent.setClass(getApplicationContext(),
+				RecommendInfoActivity.class);
+
+		Bundle b = new Bundle();
+		b.putString("recommendPhoneNo", recommend.getRecommendPhoneNo());
+		b.putString("recommendtrueName", recommend.getRecommendtrueName());
+		b.putString("recommendCertificateTypeId",
+				recommend.getRecommendCertificateTypeId());
+		b.putString("recommendCertificateId",
+				recommend.getRecommendCertificateId());
+		b.putString("recommendeMail", recommend.getRecommendeMail());
+		b.putString("recommendDateTime", recommend.getRecommendDateTime());
+		b.putString("recommendState", recommend.getRecommendState());
+		b.putString("examineDateTime", recommend.getExamineDateTime());
+		b.putString("recommendRoleId", recommend.getRecommendRoleId());
+		intent.putExtras(b);
+		startActivity(intent);
+	}
 }

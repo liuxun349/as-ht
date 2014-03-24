@@ -42,9 +42,11 @@ public class SystemService {
 			String reciverPhoneNo, int type) throws AsHtException {
 		method = "generateAndSendMobileVerificationCode";
 		json = new JSONObject();
+		if (reciverPhoneNo != null) {
+			phoneNo = reciverPhoneNo;
+		}
+		json.put("tpye", type);
 		json.put("userPhoneNo", phoneNo);
-		json.put("receivePhoneNo", reciverPhoneNo);
-		json.put("type", type);
 		return get(method, json);
 	}
 

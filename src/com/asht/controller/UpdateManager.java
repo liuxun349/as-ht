@@ -29,6 +29,7 @@ import android.widget.ProgressBar;
 
 import com.asht.AsHt;
 import com.asht.AsHtException;
+import com.asht.AshtSettings;
 import com.asht.R;
 import com.asht.model.AppInfo;
 import com.asht.utl.Settings;
@@ -115,9 +116,9 @@ public class UpdateManager {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				dialog.dismiss();
-				// 弹出下载框 
+				// 弹出下载框
 				showDownloadDialog();
-			} 
+			}
 		});
 		builder.setNegativeButton("以后再说", new OnClickListener() {
 			@Override
@@ -261,6 +262,9 @@ public class UpdateManager {
 						if (versionCode < info.iversion) {
 							// 如果当前版本号小于服务端版本号,则弹出提示更新对话框
 							showUpdateDialog();
+							AshtSettings.getInstance().setNeadUpdate(true);
+						} else {
+							AshtSettings.getInstance().setNeadUpdate(false);
 						}
 					} catch (NameNotFoundException e) {
 						e.printStackTrace();

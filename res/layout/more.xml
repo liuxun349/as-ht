@@ -17,7 +17,7 @@
             android:layout_gravity="center"
             android:text="@string/main_more"
             android:textColor="@color/title_text_color"
-            android:textSize="18.0sp" />
+            android:textSize="@dimen/title_text_size" />
     </LinearLayout>
 
     <ScrollView
@@ -140,9 +140,27 @@
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/moreitems_version" />
 
-                <TextView
-                    style="@style/more_font"
-                    android:text="@string/version" />
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1" >
+
+                    <TextView
+                        style="@style/more_font"
+                        android:layout_gravity="left|center_vertical"
+                        android:text="@string/version" />
+
+                    <TextView
+                        android:id="@+id/haveNewVersion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center_vertical"
+                        android:paddingRight="10dp"
+                        android:text="有新版本"
+                        android:textColor="#E7903F"
+                        android:visibility="gone" />
+                </FrameLayout>
 
                 <ImageView
                     style="@style/more_triangle"

@@ -30,6 +30,7 @@ public class MainMessageActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.message_page);
 		listMessage = (ListView) findViewById(R.id.message_list);
+		listMessage.setDividerHeight(0);
 		waitingDialog = new WaitingDialog(this);
 	}
 
