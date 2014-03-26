@@ -1,23 +1,14 @@
 package com.asht.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.widget.Button;
-
 import cn.jpush.android.api.JPushInterface;
 
 import com.asht.AsHt;
 import com.asht.AsHtException;
 import com.asht.AshtSettings;
 import com.asht.AsyncDataLoader;
-import com.asht.AsyncDataLoader.Callback;
 import com.asht.R;
-import com.asht.model.Resume;
 import com.asht.model.UserInfo;
 import com.asht.utl.ApplictionManager;
 import com.asht.view.WaitingDialog;

@@ -1,6 +1,5 @@
 package com.asht.http;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
@@ -10,8 +9,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapPrimitive;
@@ -20,8 +17,6 @@ import org.ksoap2.transport.HttpTransportSE;
 import org.kxml2.kdom.Element;
 import org.kxml2.kdom.Node;
 import org.xmlpull.v1.XmlPullParserException;
-
-import android.os.Environment;
 
 import com.asht.AsHtException;
 import com.asht.utl.Settings;

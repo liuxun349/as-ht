@@ -1,13 +1,5 @@
 package com.asht.fragment;
 
-import com.asht.AsHt;
-import com.asht.AsHtException;
-import com.asht.R;
-import com.asht.controller.Controller;
-import com.asht.utl.ApplictionManager;
-import com.asht.view.ToastUtils;
-import com.asht.view.WaitingDialog;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,6 +9,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.asht.AsHt;
+import com.asht.AsHtException;
+import com.asht.R;
+import com.asht.controller.Controller;
+import com.asht.utl.ApplictionManager;
+import com.asht.view.ToastUtils;
+import com.asht.view.WaitingDialog;
 
 public class SendAdviceFragment extends AshtFragment implements OnClickListener {
 	private TextView txtContent;

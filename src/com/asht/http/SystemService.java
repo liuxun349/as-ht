@@ -2,8 +2,6 @@ package com.asht.http;
 
 import com.alibaba.fastjson.JSONObject;
 import com.asht.AsHtException;
-import com.asht.http.AshtResponse;
-import com.asht.http.HttpClient;
 import com.asht.model.UserInfo;
 import com.asht.utl.Settings;
 

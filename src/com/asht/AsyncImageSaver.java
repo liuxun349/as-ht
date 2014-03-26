@@ -3,9 +3,9 @@ package com.asht;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import com.asht.utl.LocalMemory;
-
 import android.graphics.drawable.BitmapDrawable;
+
+import com.asht.utl.LocalMemory;
 
 /**
  * 异步图像保存

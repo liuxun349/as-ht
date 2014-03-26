@@ -1,25 +1,17 @@
 
 package com.asht.http;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
-import org.ksoap2.serialization.SoapPrimitive;
-import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.ksoap2.transport.HttpTransportSE;
-import org.kxml2.kdom.Element;
-import org.kxml2.kdom.Node;
-import org.xmlpull.v1.XmlPullParserException;
+
+import android.os.AsyncTask;
 
 import com.asht.model.Resume;
 import com.asht.utl.ConnCallback;
 import com.asht.utl.Settings;
-
-import android.os.AsyncTask;
 
 public class ConnServer extends AsyncTask<String, Void, String> {
 	static String NAMESPACE = null;;

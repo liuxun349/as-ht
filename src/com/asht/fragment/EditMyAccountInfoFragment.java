@@ -1,5 +1,18 @@
 package com.asht.fragment;
 
+import android.app.Activity;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+
 import com.asht.AsHt;
 import com.asht.AsHtException;
 import com.asht.R;
@@ -7,21 +20,6 @@ import com.asht.model.UserInfo;
 import com.asht.utl.ApplictionManager;
 import com.asht.view.ToastUtils;
 import com.asht.view.WaitingDialog;
-
-import android.R.integer;
-import android.app.Activity;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.View.OnClickListener;
-import android.widget.Adapter;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
 
 public class EditMyAccountInfoFragment extends AshtFragment implements
 		OnClickListener {

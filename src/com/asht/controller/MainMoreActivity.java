@@ -1,15 +1,14 @@
 package com.asht.controller;
 
-import com.asht.AshtSettings;
-import com.asht.R;
-import com.asht.utl.ApplictionManager;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
+
+import com.asht.R;
+import com.asht.utl.ApplictionManager;
 
 public class MainMoreActivity extends Activity implements OnClickListener {
 	private LinearLayout exitCurrentAccount;

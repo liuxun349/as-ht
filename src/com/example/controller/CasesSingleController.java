@@ -503,7 +503,7 @@ public class CasesSingleController implements OnItemClickListener,
 				e.printStackTrace();
 			}
 		}
-		adapter.notifyDataSetChanged();
+		update(false, false);
 	}
 
 	class UploadCase extends AsyncTask<Void, Long, Void> {

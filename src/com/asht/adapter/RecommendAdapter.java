@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
@@ -91,11 +91,12 @@ public class RecommendAdapter extends BaseAdapter {
 					height, 1);
 			convertView.setLayoutParams(ll);
 			convertView.setTag(myRecommendView);
-			convertView.setBackgroundColor(Color.parseColor("#33333333"));
 		}
 		myRecommendView = (RecommendView) convertView.getTag();
 
 		Recommend info = infos.get(position);
+		myRecommendView.view_add.setTag(info);
+		convertView.setOnClickListener(onclick);
 		if (info == null) {
 			myRecommendView.view_add.setVisibility(View.VISIBLE);
 			myRecommendView.tv_title.setText("");
@@ -104,15 +105,17 @@ public class RecommendAdapter extends BaseAdapter {
 		} else {
 			if (myRecommendView.view_add.getVisibility() == View.VISIBLE)
 				myRecommendView.view_add.setVisibility(View.GONE);
-			if (myRecommendView.cbIsShenHe.getVisibility() == View.GONE)
+			if (myRecommendView.cbIsShenHe.getVisibility() == View.GONE) {
 				myRecommendView.cbIsShenHe.setVisibility(View.VISIBLE);
+			}
 		}
 
-		String name = (info.getRecommendRoleId() == "1001" ? "患者" : "医生")
-				+ info.getRecommendtrueName();
-		myRecommendView.tv_title.setText(name);
+		// String name = (info.getRecommendRoleId() == "1001" ? "患者" : "医生")
+		// + info.getRecommendtrueName();
+		myRecommendView.tv_title.setText(info.getRecommendtrueName());
 		myRecommendView.cbIsShenHe.setChecked(info.getRecommendState().equals(
 				"1"));
+
 		// myRecommend.cbIsShenHe.setChecked(info.getAuditState() == 0);
 		// if (info.getIsClick() == 0) {
 		// myRecommend.iv_delete.setVisibility(View.VISIBLE);
@@ -126,6 +129,30 @@ public class RecommendAdapter extends BaseAdapter {
 		public TextView tv_title;
 		public CheckBox cbIsShenHe;
 		public View iv_delete, view_add;
+	}
+
+	OnClickListener onclick = new OnClickListener() {
+		@Override
+		public void onClick(View v) {
+
+			if (onItem == null)
+				return;
+			Object obj = v.findViewById(R.id.view_add).getTag();
+			Recommend info = null;
+			if (obj instanceof Recommend) {
+				info = (Recommend) obj;
+			}
+			onItem.onItemClick(info);
+		}
+	};
+	OnItem onItem;
+
+	public void setOnItem(OnItem onItem) {
+		this.onItem = onItem;
+	}
+
+	public interface OnItem {
+		void onItemClick(Recommend info);
 	}
 
 }

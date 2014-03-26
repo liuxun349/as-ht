@@ -7,8 +7,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -17,7 +17,6 @@ import android.widget.TextView;
 import com.asht.R;
 import com.asht.controller.Controller;
 import com.asht.model.Advice;
-import com.asht.model.Message;
 
 public class AdviceAdapter extends BaseAdapter {
 	static class ViewHolder {

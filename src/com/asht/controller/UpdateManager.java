@@ -8,8 +8,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import android.app.Activity;
-import android.app.ActivityManager;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;

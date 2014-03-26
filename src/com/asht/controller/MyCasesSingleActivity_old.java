@@ -5,7 +5,6 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -26,7 +25,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import com.example.testafinal.*;
+
 import com.asht.R;
 
 public class MyCasesSingleActivity_old extends Activity implements OnClickListener {

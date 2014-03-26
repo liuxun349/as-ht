@@ -1,9 +1,9 @@
 package com.asht.controller;
 
-import com.asht.R;
-
 import android.app.Activity;
 import android.os.Bundle;
+
+import com.asht.R;
 
 public class Welcome extends Activity {
 	@Override

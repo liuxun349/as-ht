@@ -1,14 +1,14 @@
 package com.asht.utl;
 
-import com.asht.controller.Controller;
-import com.asht.model.Message;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import cn.jpush.android.api.JPushInterface;
+
+import com.asht.controller.Controller;
+import com.asht.model.Message;
 
 /**
  * 自定义接收器

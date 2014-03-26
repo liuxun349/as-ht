@@ -1,9 +1,8 @@
 package com.example.controller;
 
-import com.lidroid.xutils.DbUtils;
-
-import net.tsz.afinal.FinalDb;
 import android.content.Context;
+
+import com.lidroid.xutils.DbUtils;
 
 public class AFinalController {
 

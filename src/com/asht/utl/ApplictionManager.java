@@ -5,8 +5,6 @@ import java.util.List;
 
 import android.app.Activity;
 import android.app.Application;
-import android.util.Log;
-import cn.jpush.android.api.JPushInterface;
 
 import com.asht.fragment.AshtFragment;
 import com.asht.model.User;

@@ -1,11 +1,10 @@
 package com.asht;
 
-import com.asht.utl.Des3;
-
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.Preference;
 import android.preference.PreferenceManager;
+
+import com.asht.utl.Des3;
 
 public class AshtSettings {
 	private SharedPreferences mPreferences;

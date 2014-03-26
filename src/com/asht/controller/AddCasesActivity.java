@@ -1,16 +1,12 @@
 package com.asht.controller;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 
 import com.asht.AsHt;
-import com.asht.AsHtException;
 import com.asht.AsyncDataLoader;
 import com.asht.AsyncDataLoader.Callback;
 import com.asht.R;
@@ -37,7 +33,6 @@ public class AddCasesActivity extends Activity implements OnClickListener {
 		et = (EditText) findViewById(R.id.et_addMyCases);
 		isUpdate = false;
 	}
-
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {

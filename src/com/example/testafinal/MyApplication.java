@@ -20,7 +20,6 @@ import org.apache.http.protocol.HTTP;
 
 import android.app.Application;
 import android.util.Log;
-
 import cn.jpush.android.api.JPushInterface;
 
 import com.asht.model.Record;

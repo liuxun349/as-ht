@@ -1,16 +1,16 @@
 package com.asht.fragment;
 
-import com.asht.R;
-import com.asht.controller.Controller;
-import com.asht.model.Advice;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.asht.R;
+import com.asht.controller.Controller;
+import com.asht.model.Advice;
 
 public class AdviceDetailFragment extends AshtFragment implements
 		OnClickListener {

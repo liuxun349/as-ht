@@ -1,12 +1,12 @@
 package com.asht.controller;
 
-import com.asht.R;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
+
+import com.asht.R;
 
 public class RecommendInfoActivity extends Activity implements OnClickListener {
 

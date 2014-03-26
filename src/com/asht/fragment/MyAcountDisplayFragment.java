@@ -1,29 +1,24 @@
 package com.asht.fragment;
 
+import android.app.Activity;
+import android.content.Context;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+
 import com.asht.AsHt;
 import com.asht.AsHtException;
 import com.asht.R;
-import com.asht.fragment.AshtFragment;
 import com.asht.model.UserInfo;
 import com.asht.utl.ApplictionManager;
 import com.asht.view.ToastUtils;
 import com.asht.view.WaitingDialog;
-
-import android.app.Activity;
-import android.content.Context;
-import android.graphics.Canvas;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.util.AttributeSet;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
 public class MyAcountDisplayFragment extends AshtFragment implements
 		OnClickListener {

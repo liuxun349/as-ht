@@ -9,14 +9,11 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
-import android.provider.MediaStore.Images.Media;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -139,7 +136,7 @@ public class MyCasesSingleActivity extends Activity implements OnClickListener {
 						"aa" + lists.size());
 				mCasesSingleController.add(lists);
 			}
-
+			mCasesSingleController.isUpdate = true;
 		}
 
 	}

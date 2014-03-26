@@ -1,7 +1,5 @@
 package com.asht.view;
 
-import com.asht.R;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -10,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+
+import com.asht.R;
 
 public class WaitingDialog {
 	AnimationDrawable rocketAnimation;

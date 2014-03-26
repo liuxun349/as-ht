@@ -3,17 +3,9 @@ package com.asht.http;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.kobjects.base64.Base64;
-import org.ksoap2.SoapEnvelope;
-import org.ksoap2.serialization.SoapObject;
-import org.ksoap2.serialization.SoapSerializationEnvelope;
 
-import android.os.AsyncTask;
-
-import com.asht.model.Resume;
 import com.asht.utl.Settings;
 
 public class TransFileDAO {

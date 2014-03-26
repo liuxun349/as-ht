@@ -3,10 +3,6 @@ package com.asht.utl;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import android.app.Dialog;
-import android.content.Context;
-import android.util.Patterns;
-
 public class AshtUtil {
 
 	/**

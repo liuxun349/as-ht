@@ -1,31 +1,22 @@
 package com.asht.fragment;
 
 import android.app.Activity;
-import android.app.Application;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
-import android.view.inputmethod.InputMethodManager;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Scroller;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TableRow;
 
 import com.asht.R;
 import com.asht.controller.Controller;
-import com.asht.fragment.AshtFragment;
 import com.asht.model.UserInfo;
 import com.asht.utl.ApplictionManager;
-import com.asht.utl.AshtUtil;
 
 public class RegisterSecendFragment extends AshtFragment {
 	private Button btn_next;

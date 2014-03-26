@@ -1,6 +1,5 @@
 package com.asht.http;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.asht.AsHtException;
 import com.asht.model.Recommend;

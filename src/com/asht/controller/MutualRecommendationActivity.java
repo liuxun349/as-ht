@@ -22,6 +22,7 @@ import com.asht.AsyncDataLoader.Callback;
 import com.asht.R;
 import com.asht.adapter.AdvancedPagerAdapter;
 import com.asht.adapter.RecommendAdapter;
+import com.asht.adapter.RecommendAdapter.OnItem;
 import com.asht.model.Recommend;
 import com.asht.model.UserInfo;
 import com.asht.ui.PullToRefreshView;
@@ -103,8 +104,10 @@ public class MutualRecommendationActivity extends Activity implements
 
 		int height = width;
 
-		adapter_ilness = new RecommendAdapter(this, null, width, height);
-		adapter_doctor = new RecommendAdapter(this, null, width, height);
+		adapter_ilness = new RecommendAdapter(this.getApplicationContext(),
+				null, width, height);
+		adapter_doctor = new RecommendAdapter(this.getApplicationContext(),
+				null, width, height);
 		gv_doctor.setAdapter(adapter_doctor);
 		gv_illness.setAdapter(adapter_ilness);
 		gv_doctor.setOnItemClickListener(gv_doctor_onitem);
@@ -120,6 +123,28 @@ public class MutualRecommendationActivity extends Activity implements
 				});
 		isUpdate = true;
 		update();
+		adapter_ilness.setOnItem(new OnItem() {
+
+			@Override
+			public void onItemClick(Recommend info) {
+				if (info == null) {
+					addRecommend(0);
+				} else {
+					openRecommend(info);
+				}
+			}
+		});
+		adapter_doctor.setOnItem(new OnItem() {
+
+			@Override
+			public void onItemClick(Recommend info) {
+				if (info == null) {
+					addRecommend(1);
+				} else {
+					openRecommend(info);
+				}
+			}
+		});
 	}
 
 	@Override

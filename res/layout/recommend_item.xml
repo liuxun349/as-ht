@@ -2,12 +2,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#5EA294" >
+    android:background="@drawable/a1fum_register_doctor_logo_selector"
+    android:clickable="true"
+    android:focusable="true" >
 
     <ImageView
         android:id="@+id/iv_myCasesSingle_pic"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent" />
 
     <CheckBox
         android:id="@+id/cb_iv_recommend_isTongGuo"
@@ -24,7 +27,9 @@
         android:id="@+id/txt_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center|bottom" />
+        android:layout_gravity="center|bottom"
+        android:textColor="#000"
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/view_add"

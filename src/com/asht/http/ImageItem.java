@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import android.provider.SyncStateContract.Constants;
-import android.util.Log;
 
 
 /**

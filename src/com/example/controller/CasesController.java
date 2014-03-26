@@ -31,7 +31,6 @@ import com.asht.view.ToastUtils;
 import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.db.sqlite.Selector;
 import com.lidroid.xutils.db.sqlite.WhereBuilder;
-import com.lidroid.xutils.db.table.DbModel;
 import com.lidroid.xutils.exception.DbException;
 
 @SuppressLint({ "UseSparseArrays", "HandlerLeak" })

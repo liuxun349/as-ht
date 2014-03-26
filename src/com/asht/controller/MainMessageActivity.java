@@ -3,14 +3,13 @@ package com.asht.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.asht.R;
-import com.asht.adapter.MessageAdapter;
-import com.asht.model.Message;
-import com.asht.view.WaitingDialog;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ListView;
+
+import com.asht.R;
+import com.asht.adapter.MessageAdapter;
+import com.asht.model.Message;
 
 public class MainMessageActivity extends Activity {
 	private ListView listMessage;
