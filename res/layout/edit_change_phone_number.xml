@@ -3,7 +3,7 @@
     android:id="@+id/empty_cart_view"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/white" >
+    android:background="@color/body_bg" >
 
     <include layout="@layout/app_toptitle" />
 
@@ -41,11 +41,10 @@
                 android:background="@drawable/list_mid" >
 
                 <TextView
-                    
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="验证码:"
                     android:gravity="right"
+                    android:text="验证码:"
                     android:textColor="@color/black" />
 
                 <EditText
@@ -72,8 +71,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="消费密码:"
                     android:gravity="right"
+                    android:text="消费密码:"
                     android:textColor="@color/black" />
 
                 <EditText

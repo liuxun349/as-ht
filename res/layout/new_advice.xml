@@ -2,30 +2,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/probject_bg"
+    android:background="@color/body_bg"
     android:orientation="vertical" >
 
-   <include layout="@layout/app_toptitle"/>
+    <include layout="@layout/app_toptitle" />
 
     <LinearLayout
         style="@style/body"
         android:orientation="vertical"
-        android:padding="10dp" >
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="20dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="给“互助抗癌”提建议："
+            android:textColor="@color/black" />
 
         <EditText
             android:id="@+id/advice_content"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
             android:gravity="top"
             android:minLines="10" />
-
-        <Button
-            android:id="@+id/advice_send"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="确认" />
     </LinearLayout>
 
 </FrameLayout>

@@ -118,6 +118,7 @@ package com.asht.utl;
 import java.sql.Date;
 
 import com.alibaba.fastjson.JSON;
+import com.asht.AshtSettings;
 import com.asht.controller.Controller;
 import com.asht.model.Message;
 
@@ -176,15 +177,25 @@ public class MyReceiver extends BroadcastReceiver {
 			// i.putExtras(bundle);
 			// i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			// context.startActivity(i);
-			Message msg = new Message();
-			// msg.txttitle = "通知";
-			// msg.txtmassage = JSON.parseObject(
-			// bundle.getString(JPushInterface.EXTRA_EXTRA)).getString(
-			// "Massage");
-			// msg.dtinputtime = JSON.parseObject(
-			// bundle.getString(JPushInterface.EXTRA_EXTRA)).getString(
-			// "InputTime");
-			Controller.openMessage(context, msg);
+			String MessageType = JSON.parseObject(
+					bundle.getString(JPushInterface.EXTRA_EXTRA)).getString(
+					"MsgType");
+			if (!MessageType.equals("10001")) {
+				Message msg = new Message();
+				msg.txttitle = "通知";
+				msg.txtmassage = bundle.getString(JPushInterface.EXTRA_ALERT);
+				msg.dtinputtime = JSON.parseObject(
+						bundle.getString(JPushInterface.EXTRA_EXTRA))
+						.getString("InputTime");
+				Controller.openMessage(context, msg);
+			} else {
+				AshtSettings.getInstance().setIsAutoLogin(true);
+				if (ApplictionManager.getInstance().getUser().isLogin()) {
+					Controller.MainMorePageActivity(context);
+				} else {
+					Controller.LoginActivity(context);
+				}
+			}
 
 		} else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent
 				.getAction())) {

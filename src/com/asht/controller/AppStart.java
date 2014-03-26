@@ -157,27 +157,8 @@ public class AppStart extends Activity {
 		AsHt.initalize();
 		mAshtSettings = AshtSettings.getInstance();
 		WaitingDialog dialog = new WaitingDialog(this);
-		// new Handler().postDelayed(new Runnable() {
-		//
-		// @Override
-		// public void run() {
-		// // TODO Auto-generated method stub
-		// initCheck();
-		// }
-		// }, 0);
-
-		// TODO Auto-generated method stub
 		initCheck();
 
-		// {
-		// System.out.println("...");
-		// UserInfo userInfo = new UserInfo("13000001011", "123456", "1232",
-		// "LLH", 1, "1", "dislw@qq.com", "liu", 1, 21, "advdswd");
-		// ApplictionManager.getInstance().userInfo = userInfo;
-		// ApplictionManager.getInstance().getUser().setLogin(true);
-		// ApplictionManager.getInstance().getUser().setUserInfo(userInfo);
-		// Controller.MainHomePageActivity(AppStart.this);
-		// }
 	}
 
 	private void initCheck() {
@@ -205,6 +186,7 @@ public class AppStart extends Activity {
 	private void loginActivity() {
 		// TODO Auto-generated method stub
 		Controller.LoginActivity(AppStart.this);
+		this.finish();
 	}
 
 	private void autoLogin() {
@@ -218,7 +200,7 @@ public class AppStart extends Activity {
 				mAsht = AsHt.getInstance();
 				try {
 					userInfo = mAsht.login(userPhoneNo, userPwd);
-					mAsht.sendVerificationCode("18628301735", null, 2);
+					// mAsht.sendVerificationCode("13541315803", null, 0);
 				} catch (AsHtException e) {
 					// TODO Auto-generated catch block
 					loginActivity();

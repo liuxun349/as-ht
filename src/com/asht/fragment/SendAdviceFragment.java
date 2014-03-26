@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.asht.AsHt;
@@ -26,9 +27,11 @@ public class SendAdviceFragment extends AshtFragment implements OnClickListener 
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
-		Controller.setNomePagTop(getActivity(), true, "新的意见反馈");
+		Controller.setNomePagTop(getActivity(), true, true, "新的意见反馈");
 		getActivity().findViewById(R.id.tv_title_back).setOnClickListener(this);
-		getActivity().findViewById(R.id.advice_send).setOnClickListener(this);
+		Button btn = (Button) getActivity().findViewById(R.id.btnEdit);
+		btn.setText("发送");
+		btn.setOnClickListener(this);
 		txtContent = (TextView) getActivity().findViewById(R.id.advice_content);
 		waitingDialog = new WaitingDialog(getActivity());
 	}
@@ -54,7 +57,7 @@ public class SendAdviceFragment extends AshtFragment implements OnClickListener 
 			callback.back();
 			break;
 
-		case R.id.advice_send:
+		case R.id.btnEdit:
 			if (checkTxt()) {
 				final String content = txtContent.getText().toString().trim();
 				waitingDialog.show();

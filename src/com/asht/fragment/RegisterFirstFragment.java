@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.asht.AsHt;
 import com.asht.AsHtException;
 import com.asht.R;
@@ -19,6 +21,8 @@ import com.asht.controller.Controller;
 import com.asht.model.UserInfo;
 import com.asht.utl.ApplictionManager;
 import com.asht.utl.Settings;
+import com.asht.view.CodeTextView;
+import com.asht.view.CodeTextView.CanClickListener;
 import com.asht.view.WaitingDialog;
 
 public class RegisterFirstFragment extends AshtFragment implements
@@ -28,16 +32,18 @@ public class RegisterFirstFragment extends AshtFragment implements
 	private static final int FAIL = 2;
 
 	private EditText phoneNum;
-	private Button getcheckNum;
+	private CodeTextView getcheckNum;
 	private EditText checkNum;
 	private Button next;
 	private UserInfo userInfo;
 	private WaitingDialog waitingDialog;
+	private String captchaId;
+	private Button back;
 	private Handler mHandler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
 			waitingDialog.dismiss();
 			if (msg.arg1 == SUCCESS) {
-
+				getcheckNum.startCharge(getcheckNum);
 			} else {
 
 			}
@@ -61,6 +67,7 @@ public class RegisterFirstFragment extends AshtFragment implements
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		Controller.setNomePagTop(getActivity(), true, true, "注册");
+
 		init(getActivity());
 		setListener();
 
@@ -68,16 +75,6 @@ public class RegisterFirstFragment extends AshtFragment implements
 
 	private void setListener() {
 		// TODO Auto-generated method stub
-		// 获得手机号，并发送验证码
-		getcheckNum.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				System.out.println("获得验证码");
-			}
-		});
-
 		// 验证手机号与手机验证码
 		next.setOnClickListener(new OnClickListener() {
 
@@ -89,22 +86,46 @@ public class RegisterFirstFragment extends AshtFragment implements
 				if (!(phoneId.equals("") && cheknumber.equals(""))) {
 					userInfo = new UserInfo();
 					userInfo.setUserPhoneNo(phoneId);
+					userInfo.setCaptchaId(captchaId);
+					userInfo.setCheckName(cheknumber);
+
 					ApplictionManager.getInstance().userInfo = userInfo;
 					nextFragment();
 				}
 			}
 
 		});
+		getcheckNum.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				System.out.println("获得验证码");
+				waitingDialog.show();
+				sendRequest();
+
+			}
+		});
+		back.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				callback.back();
+			}
+		});
 	}
 
 	private void init(Activity mActivity) {
 		userInfo = new UserInfo();
 		phoneNum = (EditText) mActivity.findViewById(R.id.register_phone);
-		getcheckNum = (Button) mActivity.findViewById(R.id.get_check_number);
+		getcheckNum = (CodeTextView) mActivity
+				.findViewById(R.id.get_check_number);
 		checkNum = (EditText) mActivity
 				.findViewById(R.id.register_check_number);
 		next = (Button) mActivity.findViewById(R.id.btnEdit);
 		next.setText("下一步");
+		back = (Button) mActivity.findViewById(R.id.tv_title_back);
 		waitingDialog = new WaitingDialog(mActivity);
 	}
 
@@ -112,8 +133,7 @@ public class RegisterFirstFragment extends AshtFragment implements
 	public void onClick(View arg0) {
 		// TODO Auto-generated method stub
 		if (arg0 == getcheckNum) {
-			waitingDialog.show();
-			sendRequest();
+
 		}
 	}
 
@@ -125,9 +145,17 @@ public class RegisterFirstFragment extends AshtFragment implements
 				// TODO Auto-generated method stub
 				String phoneNo = phoneNum.getText().toString().trim();
 				boolean isSuccess = false;
+				System.out.println(" phone " + phoneNo);
 				try {
-					isSuccess = AsHt.getInstance().sendVerificationCode(
-							phoneNo, null, Settings.REASON_TYPE_REGIST);
+					isSuccess = true;
+					String rs = (String) AsHt.getInstance()
+							.sendVerificationCode(phoneNo, null,
+									Settings.REASON_TYPE_REGIST);
+					if (rs != null) {
+						captchaId = JSON.parseObject(rs).getString("CaptchaId");
+					} else {
+						captchaId = null;
+					}
 				} catch (AsHtException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

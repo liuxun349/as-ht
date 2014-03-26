@@ -16,11 +16,9 @@
 
         <Button
             android:id="@+id/login_to_register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/btn_default"
             android:layout_gravity="center|right"
             android:layout_marginRight="10dp"
-            android:background="@drawable/btn_defalut_selector"
             android:text="@string/text_register"
             android:textColor="@color/white" />
     </FrameLayout>
@@ -28,7 +26,7 @@
     <ScrollView
         android:id="@+id/regist_scroller"
         style="@style/body"
-        android:background="#ffefebe7" >
+        android:background="@color/body_bg" >
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -38,11 +36,12 @@
 
             <TableLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:background="@color/white" >
 
                 <TableRow
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="30dp"
                     android:background="@drawable/zmoney_item_top" >
 
                     <TextView
@@ -56,6 +55,7 @@
                         android:layout_weight="1"
                         android:background="@null"
                         android:hint="@string/text_login_user_name_toast"
+                        android:textColorHint="#009007"
                         android:numeric="integer"
                         android:singleLine="true" />
                 </TableRow>
@@ -133,10 +133,9 @@
 
             <Button
                 android:id="@+id/btn_login"
+                style="@style/btn_default"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:background="@drawable/btn_defalut_selector"
                 android:text="@string/text_login"
                 android:textColor="@color/white" />
         </LinearLayout>

@@ -34,7 +34,7 @@ public class CodeTextView extends TextView {
 			if (countTime >= allTime) {
 				CodeTextView.this.setEnabled(true);
 				CodeTextView.this.setText(canClickText);
-				canClickListener.canClick(true);
+//				canClickListener.canClick(true);
 			} else {
 				mhandler.postDelayed(mUpdateTimeRunable, 1000);
 				setText("剩余" + (allTime - countTime) / 1000 + "秒");
@@ -61,12 +61,8 @@ public class CodeTextView extends TextView {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				v.setEnabled(false);// 设置不可用
-				countTime = 0;// 初始化为0
-				mhandler.removeCallbacks(mUpdateTimeRunable);
-				mhandler.postDelayed(mUpdateTimeRunable, 1000);
-				canClickListener.canClick(false);
 
+//				startCharge(v);
 			}
 		});
 	}
@@ -90,6 +86,20 @@ public class CodeTextView extends TextView {
 		this.canClickText = canClickText;
 		this.setText(canClickText);
 
+	}
+
+	/**
+	 * 开始计时,限制操作
+	 */
+	public void startCharge(View v) {
+		v.setEnabled(false);// 设置不可用
+		countTime = 0;// 初始化为0
+		mhandler.removeCallbacks(mUpdateTimeRunable);
+		mhandler.postDelayed(mUpdateTimeRunable, 1000);
+		if (canClickListener!=null) {
+			
+			canClickListener.canClick(false);
+		}
 	}
 
 	public void setCanClickListener(CanClickListener canClickListener) {

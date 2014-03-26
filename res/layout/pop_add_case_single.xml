@@ -13,18 +13,20 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:drawableTop="@drawable/setting_update"
+            android:drawableTop="@drawable/case_update_xiangce"
             android:gravity="center_vertical|center_horizontal"
-            android:text="本地导入" />
+            android:text="本地导入"
+            android:textColor="#fff" />
 
         <TextView
             android:id="@+id/tv_cameraimport"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:drawableTop="@drawable/setting_update"
+            android:drawableTop="@drawable/case_update_camer"
             android:gravity="center_vertical|center_horizontal"
-            android:text="相机拍照" />
+            android:text="相机拍照"
+            android:textColor="#fff" />
     </LinearLayout>
 
 </FrameLayout>

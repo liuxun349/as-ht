@@ -70,9 +70,9 @@ public class AsHt {
 	 * @return
 	 * @throws AsHtException
 	 */
-	public boolean sendVerificationCode(String phoneNo, String reciverPhoneNo,
+	public Object sendVerificationCode(String phoneNo, String reciverPhoneNo,
 			int type) throws AsHtException {
-		return response(systemService.sendVerificationCode(phoneNo,
+		return responseObject(systemService.sendVerificationCode(phoneNo,
 				reciverPhoneNo, type));
 	}
 

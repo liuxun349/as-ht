@@ -108,6 +108,7 @@ public class MainMoreActivity extends Activity implements OnClickListener {
 		setListener();
 		if (AshtSettings.getInstance().getNeadUpdate()) {
 			haveUpdate.setVisibility(View.VISIBLE);
+			updateCheck();  
 		}
 	}
 

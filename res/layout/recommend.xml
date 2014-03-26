@@ -8,6 +8,7 @@
         android:id="@+id/gridview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/body_bg"
         android:horizontalSpacing="@dimen/grid_spacing"
         android:listSelector="@drawable/a1fum_register_doctor_logo_selector"
         android:numColumns="4" />

@@ -2,12 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/body_bg"
     android:scrollbars="vertical" >
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@color/probject_bg"
         android:orientation="vertical"
         android:padding="10dp" >
 
@@ -17,8 +17,7 @@
 
             <TableRow
                 android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="30dp"
                 android:background="@drawable/list_above"
                 android:paddingBottom="2dp"
                 android:paddingTop="2dp"
@@ -42,13 +41,14 @@
                     android:textColor="#000"
                     android:textSize="16.0sp" />
             </TableRow>
-<TableRow
+
+            <TableRow
                 android:layout_width="fill_parent"
-                android:layout_height="0dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/list_above"
                 android:paddingBottom="2dp"
-                android:layout_marginTop="5dp"
                 android:paddingTop="2dp" >
 
                 <TextView
@@ -61,16 +61,17 @@
 
                 <TextView
                     android:id="@+id/phone"
-                    android:layout_width="0dp"
+                    android:layout_width="30dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="right"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:textColor="#000" />
             </TableRow>
+
             <TableRow
                 android:layout_width="fill_parent"
-                android:layout_height="0dp"
+                android:layout_height="30dp"
                 android:layout_weight="1"
                 android:background="@drawable/list_below"
                 android:paddingBottom="2dp"
@@ -85,7 +86,7 @@
 
                 <TextView
                     android:id="@+id/nickName"
-                    android:layout_width="0dp"
+                    android:layout_width="30dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
@@ -93,9 +94,9 @@
             </TableRow>
 
             <TableRow
-                android:layout_marginTop="5dp"
                 android:layout_width="fill_parent"
-                android:layout_height="0dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="15dp"
                 android:layout_weight="1"
                 android:background="@drawable/list_above"
                 android:paddingBottom="2dp"
@@ -111,7 +112,7 @@
 
                 <TextView
                     android:id="@+id/sex"
-                    android:layout_width="0dp"
+                    android:layout_width="30dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="right"
                     android:layout_weight="1"
@@ -121,7 +122,7 @@
 
             <TableRow
                 android:layout_width="fill_parent"
-                android:layout_height="0dp"
+                android:layout_height="30dp"
                 android:layout_weight="1"
                 android:background="@drawable/list_mid"
                 android:paddingBottom="2dp"
@@ -137,7 +138,7 @@
 
                 <TextView
                     android:id="@+id/user_role"
-                    android:layout_width="0dp"
+                    android:layout_width="30dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="right"
                     android:layout_weight="1"
@@ -147,7 +148,7 @@
 
             <TableRow
                 android:layout_width="fill_parent"
-                android:layout_height="0dp"
+                android:layout_height="30dp"
                 android:layout_weight="1"
                 android:background="@drawable/list_mid"
                 android:paddingBottom="2dp"
@@ -163,7 +164,7 @@
 
                 <TextView
                     android:id="@+id/age"
-                    android:layout_width="0dp"
+                    android:layout_width="30dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
@@ -172,7 +173,7 @@
 
             <TableRow
                 android:layout_width="fill_parent"
-                android:layout_height="0dp"
+                android:layout_height="30dp"
                 android:layout_weight="1"
                 android:background="@drawable/list_below"
                 android:paddingBottom="2dp"
@@ -188,21 +189,19 @@
 
                 <TextView
                     android:id="@+id/email"
-                    android:layout_width="0dp"
+                    android:layout_width="30dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="right"
                     android:layout_weight="1"
                     android:gravity="center_vertical" />
             </TableRow>
 
-            
-
             <TableRow
                 android:layout_width="fill_parent"
-                android:layout_height="0dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="15dp"
                 android:layout_weight="1"
                 android:background="@drawable/list_above"
-                android:layout_marginTop="5dp"
                 android:paddingBottom="2dp"
                 android:paddingTop="2dp" >
 
@@ -216,7 +215,7 @@
 
                 <TextView
                     android:id="@+id/trueName"
-                    android:layout_width="0dp"
+                    android:layout_width="30dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="right"
                     android:layout_weight="1"
@@ -226,7 +225,7 @@
 
             <TableRow
                 android:layout_width="fill_parent"
-                android:layout_height="0dp"
+                android:layout_height="30dp"
                 android:layout_weight="1"
                 android:background="@drawable/list_mid"
                 android:paddingBottom="2dp"
@@ -242,7 +241,7 @@
 
                 <TextView
                     android:id="@+id/CertificateType"
-                    android:layout_width="0dp"
+                    android:layout_width="30dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="right"
                     android:layout_weight="1"
@@ -252,7 +251,7 @@
 
             <TableRow
                 android:layout_width="fill_parent"
-                android:layout_height="0dp"
+                android:layout_height="30dp"
                 android:layout_weight="1"
                 android:background="@drawable/list_below"
                 android:paddingBottom="2dp"
@@ -268,7 +267,7 @@
 
                 <TextView
                     android:id="@+id/CertificateNo"
-                    android:layout_width="0dp"
+                    android:layout_width="30dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="right"
                     android:layout_weight="1"
@@ -278,8 +277,8 @@
 
             <TableRow
                 android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:layout_marginTop="5dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="15dp"
                 android:layout_weight="1"
                 android:background="@drawable/list_above"
                 android:paddingBottom="2dp"
@@ -295,7 +294,7 @@
 
                 <TextView
                     android:id="@+id/ContributionValue"
-                    android:layout_width="0dp"
+                    android:layout_width="30dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="right"
                     android:layout_weight="1"
@@ -308,7 +307,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="right"
-                    android:background="@drawable/btn_defalut_selector"
+                    android:background="@drawable/btn_small_bg"
                     android:gravity="center_vertical"
                     android:text="查询"
                     android:textColor="@color/title_text_color" />
@@ -325,7 +324,7 @@
 
             <TableRow
                 android:layout_width="fill_parent"
-                android:layout_height="0dp"
+                android:layout_height="30dp"
                 android:layout_weight="1"
                 android:background="@drawable/list_below"
                 android:paddingBottom="2dp"
@@ -341,7 +340,7 @@
 
                 <TextView
                     android:id="@+id/ZMoney"
-                    android:layout_width="0dp"
+                    android:layout_width="30dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="right"
                     android:layout_weight="1"
@@ -354,7 +353,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="right"
-                    android:background="@drawable/btn_defalut_selector"
+                    android:background="@drawable/btn_small_bg"
                     android:gravity="center_vertical"
                     android:text="查询"
                     android:textColor="@color/title_text_color" />

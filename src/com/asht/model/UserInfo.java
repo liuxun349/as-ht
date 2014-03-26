@@ -19,10 +19,13 @@ public class UserInfo extends AshtResponse {
 	private String userCertificateNo;
 	private String userEmail;
 	private String userNickName;
+	private String checkName;
 	private int userSex;
 	private int userAge;
 	private String address;
 	private JSONArray securityQA;
+
+	private String CaptchaId;
 
 	public UserInfo() {
 
@@ -91,7 +94,7 @@ public class UserInfo extends AshtResponse {
 		jObject.put("userLoginPwd", userLoginPwd);
 		jObject.put("userPayPwd", userPayPwd);
 		jObject.put("userTrueName", userTrueName);
-//		jObject.put("userRole", userRole);
+		// jObject.put("userRole", userRole);
 		jObject.put("userNickName", userNickName);
 		jObject.put("userEmail", userEmail);
 		jObject.put("userCertificateType", userCertificateType);
@@ -159,6 +162,14 @@ public class UserInfo extends AshtResponse {
 		return userCertificateNo;
 	}
 
+	public void setCheckName(String checkName) {
+		this.checkName = checkName;
+	}
+
+	public String getCheckName() {
+		return checkName;
+	}
+
 	public void setUserCertificateNo(String userCertificateNo) {
 		this.userCertificateNo = userCertificateNo;
 	}
@@ -189,6 +200,14 @@ public class UserInfo extends AshtResponse {
 
 	public int getUserAge() {
 		return userAge;
+	}
+
+	public void setCaptchaId(String captchaId) {
+		CaptchaId = captchaId;
+	}
+
+	public String getCaptchaId() {
+		return CaptchaId;
 	}
 
 	public void setUserAge(int userAge) {

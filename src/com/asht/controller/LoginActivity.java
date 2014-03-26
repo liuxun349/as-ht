@@ -86,6 +86,11 @@ public class LoginActivity extends Activity {
 		getView();
 		setLinsener();
 		mDialog = new WaitingDialog(this);
+		System.out.println(" in ..");
+		if (AshtSettings.getInstance().getNeadUpdate()) {
+			System.out.println("login yes");
+			updateCheck();
+		}
 	}
 
 	private void getView() {
@@ -161,7 +166,7 @@ public class LoginActivity extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Controller.RegisterActivity(LoginActivity.this);
-				LoginActivity.this.finish();
+				// LoginActivity.this.finish();
 			}
 		});
 	}
@@ -247,4 +252,8 @@ public class LoginActivity extends Activity {
 
 	};
 
+	private void updateCheck() {
+		UpdateManager updateManager = new UpdateManager(LoginActivity.this);
+		updateManager.checkUpdate();
+	}
 }

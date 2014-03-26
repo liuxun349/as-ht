@@ -455,6 +455,7 @@ public class Controller {
 	 */
 	public static void MainMorePageActivity(Context context) {
 		Intent intent = new Intent(context, MainActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		intent.putExtra("page", PAGE_MORE);
 		context.startActivity(intent);
 	}
@@ -466,6 +467,7 @@ public class Controller {
 	 */
 	public static void LoginActivity(Context context) {
 		Intent intent = new Intent(context, LoginActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		context.startActivity(intent);
 	}
 
