@@ -61,5 +61,13 @@
     <string name="add_case_summit_null">病例组不能为空</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="dummy_button">Dummy Button</string>
+    <!-- 首页 文字 -->
+    <string name = "main_txt_mycase">我的病例</string>
+    <string name = "main_txt_recommend">互助推荐</string>
+    <string name = "main_txt_news">抗癌咨询</string>
+    <string name = "main_txt_community">抗癌社区</string>
+    <string name = "main_txt_keephealth">抗癌养生</string>
+    <string name = "main_txt_assistant">抗癌助手</string>
+    
 
 </resources>

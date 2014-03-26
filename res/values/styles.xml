@@ -10,7 +10,7 @@
     <style name="top">
         <item name="android:layout_gravity">top</item>
         <item name="android:layout_width">fill_parent</item>
-        <item name="android:background">@drawable/title_bg</item>
+        <item name="android:background">@color/title_bg</item>
         <item name="android:layout_height">@dimen/title_height</item>
     </style>
 
@@ -53,15 +53,17 @@
         <item name="android:lines">1</item>
         <item name="android:singleLine">true</item>
     </style>
-	<style name="register_spinner">
-	    <item name="android:layout_width">0dp</item>
+
+    <style name="register_spinner">
+        <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">@dimen/edit_heigh</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">10.0sp</item>
-	</style>
+    </style>
+
     <style name="mainTabs_radio">
         <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
         <item name="android:textColor">#FFFFFFFF</item>
         <item name="android:textSize">10.0sp</item>
         <item name="android:gravity">center_horizontal</item>

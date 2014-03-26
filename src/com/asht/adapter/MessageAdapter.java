@@ -1,5 +1,7 @@
 package com.asht.adapter;
 
+import java.sql.DatabaseMetaData;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,9 +74,9 @@ public class MessageAdapter extends BaseAdapter {
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
-		viewHolder.messageTime.setText(messageSource.get(position).inputTime);
-		viewHolder.messageTitle
-				.setText(messageSource.get(position).messageTitle);
+
+		viewHolder.messageTime.setText(messageSource.get(position).getTime());
+		viewHolder.messageTitle.setText(messageSource.get(position).txtmassage);
 		convertView.setOnClickListener(new OnClickListener() {
 
 			@Override

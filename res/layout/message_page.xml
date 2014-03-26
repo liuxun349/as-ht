@@ -15,14 +15,17 @@
             android:layout_gravity="center"
             android:text="@string/main_message"
             android:textColor="@color/title_text_color"
-            android:textSize="18.0sp" />
+            android:textSize="@dimen/title_text_size" />
     </LinearLayout>
 
     <ListView
         android:id="@+id/message_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white" >
+        android:background="@color/white"
+        android:cacheColorHint="#00000000"
+        android:fadingEdge="none"
+        android:padding="10dp" >
     </ListView>
 
 </LinearLayout>

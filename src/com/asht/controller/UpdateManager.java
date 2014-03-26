@@ -27,7 +27,10 @@ import android.widget.ProgressBar;
 
 import com.asht.AsHt;
 import com.asht.AsHtException;
+import com.asht.AshtSettings;
 import com.asht.R;
+import com.asht.model.AppInfo;
+import com.asht.utl.Settings;
 import com.asht.view.WaitingDialog;
 
 /**
@@ -41,7 +44,7 @@ public class UpdateManager {
 	// 上下文对象
 	private Context mContext;
 	// // 更新版本信息对象
-	// private VersionInfo info = null;
+	private AppInfo info = null;
 	// 下载进度条
 	private ProgressBar progressBar;
 	// 是否终止下载
@@ -70,7 +73,6 @@ public class UpdateManager {
 			public void run() {
 				// TODO Auto-generated method stub
 				// 从服务端获取版本信息
-				float info = 0;
 				try {
 					info = getVersionInfoFromServer();
 				} catch (AsHtException e1) {
@@ -92,7 +94,7 @@ public class UpdateManager {
 	 * @return
 	 * @throws AsHtException
 	 */
-	private float getVersionInfoFromServer() throws AsHtException {
+	private AppInfo getVersionInfoFromServer() throws AsHtException {
 		return AsHt.getInstance().getProgramVersionInfo();
 	}
 
@@ -107,7 +109,7 @@ public class UpdateManager {
 				.getSystemService(Context.WINDOW_SERVICE);
 		Builder builder = new Builder(mContext);
 		builder.setTitle("版本更新");
-		builder.setMessage("更新功能：");
+		builder.setMessage("更新功能：" + info.txtversionnnote);
 		builder.setPositiveButton("下载", new OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
@@ -181,8 +183,8 @@ public class UpdateManager {
 			} else {
 				try {
 					// 服务器上新版apk地址
-					URL url = new URL(
-							"http://211.149.188.210:8080/FILESPACE/APK/ASHT_1.00.0959416.apk");
+					URL url = new URL(Settings.WEB_URL
+							+ info.txtdownloadaddress);
 					HttpURLConnection conn = (HttpURLConnection) url
 							.openConnection();
 					conn.connect();
@@ -197,7 +199,9 @@ public class UpdateManager {
 					}
 					// 下载服务器中新版本软件（写文件）
 					String apkFile = Environment.getExternalStorageDirectory()
-							.getAbsolutePath() + "/updateApkFile/" + "test.apk";
+							.getAbsolutePath()
+							+ "/updateApkFile/"
+							+ info.txtversionno;
 					File ApkFile = new File(apkFile);
 					FileOutputStream fos = new FileOutputStream(ApkFile);
 					int count = 0;
@@ -243,19 +247,22 @@ public class UpdateManager {
 				break;
 			case 2:
 				// 判断是否需要更新
-				float info = (Float) msg.obj;
-				if (info != 0) {
+				if (info != null) {
 					try {
 						// 获取当前软件包信息
 						PackageInfo pi = mContext.getPackageManager()
 								.getPackageInfo(mContext.getPackageName(),
 										PackageManager.GET_CONFIGURATIONS);
-						System.out.println(" info " + pi.versionCode);
+						System.out.println(" info " + pi.versionCode + " v "
+								+ info.iversion);
 						// 当前软件版本号
 						float versionCode = pi.versionCode;
-						if (versionCode < info) {
+						if (versionCode < info.iversion) {
 							// 如果当前版本号小于服务端版本号,则弹出提示更新对话框
 							showUpdateDialog();
+							AshtSettings.getInstance().setNeadUpdate(true);
+						} else {
+							AshtSettings.getInstance().setNeadUpdate(false);
 						}
 					} catch (NameNotFoundException e) {
 						e.printStackTrace();
@@ -274,7 +281,7 @@ public class UpdateManager {
 	private void installApk() {
 		// 获取当前sdcard存储路径
 		File apkfile = new File(Environment.getExternalStorageDirectory()
-				.getAbsolutePath() + "/updateApkFile/" + "test.apk");
+				.getAbsolutePath() + "/updateApkFile/" + info.txtversionno);
 		if (!apkfile.exists()) {
 			return;
 		}

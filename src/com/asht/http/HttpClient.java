@@ -44,7 +44,7 @@ public class HttpClient {
 			Element name = new Element().createElement(NAMESPACE, "name");
 			name.addChild(Node.TEXT, "admin");
 			header.addChild(Node.ELEMENT, name);
-  
+
 			Element pass = new Element().createElement(NAMESPACE, "password");
 			pass.addChild(Node.TEXT, "admin123456");
 			header.addChild(Node.ELEMENT, pass);
@@ -63,9 +63,9 @@ public class HttpClient {
 			envelope.headerOut = new Element[] { header };
 			envelope.bodyOut = rpc;
 
-			
-			HttpTransportSE ht = new HttpTransportSE(SERVICEURL + method,5*1000);
-			
+			HttpTransportSE ht = new HttpTransportSE(SERVICEURL + method,
+					5 * 1000);
+
 			ht.call(null, envelope);
 			// 此处如果用soapobject会报错
 			SoapPrimitive detail = (SoapPrimitive) envelope.getResponse();
@@ -79,6 +79,12 @@ public class HttpClient {
 			// TODO Auto-generated catch block
 			throw new AsHtException(Settings.NET_CONN_ERROR,
 					Settings.RETURN_CODE_FAILED);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(" 未知。。 ");
+			throw new AsHtException(Settings.NET_CONN_ERROR,
+					Settings.RETURN_CODE_FAILED);
+
 		}
 	}
 

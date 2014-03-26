@@ -14,7 +14,7 @@ import com.asht.model.Message;
 
 public class MessageDetailFragment extends AshtFragment implements
 		OnClickListener {
-	private TextView titleNameTxv, messageNameTxv, messageContentTxv;
+	private TextView messageNameTxv, messageContentTxv;
 	private Message msg;
 
 	@Override
@@ -38,8 +38,8 @@ public class MessageDetailFragment extends AshtFragment implements
 		messageContentTxv = (TextView) getActivity().findViewById(R.id.content);
 		messageNameTxv = (TextView) getActivity().findViewById(R.id.title);
 
-		messageContentTxv.setText(msg.message);
-		messageNameTxv.setText(msg.messageTitle);
+		messageContentTxv.setText(msg.txtmassage);
+		messageNameTxv.setText(msg.txttitle);
 
 		getActivity().findViewById(R.id.tv_title_back).setOnClickListener(this);
 	}
